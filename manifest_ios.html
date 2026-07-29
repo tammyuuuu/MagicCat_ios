@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌙 显化之境 · 意念成真</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 100vw; height: 100vh;
+      overflow: hidden;
+      background: #0a0218;
+      font-family: 'Courier New', Courier, monospace;
+      color: #d4b0ff;
+      user-select: none;
+    }
+
+    /* ===== 星空背景 ===== */
+    #starfield {
+      position: fixed; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse at 50% 30%, #1a0a2e, #0a0218);
+      overflow: hidden;
+    }
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: #fff;
+      animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
+    }
+    @keyframes twinkle {
+      0%   { opacity: 0.2; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* ===== 桌面 ===== */
+    #desktop {
+      position: fixed; inset: 0; z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ===== 显化圆阵 ===== */
+    #altar {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -55%);
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      z-index: 5;
+      pointer-events: auto;
+    }
+
+    /* 外圈光环 */
+    .altar-ring {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      border: 2px solid rgba(180,100,255,0.15);
+      box-shadow:
+        0 0 30px rgba(180,100,255,0.05),
+        inset 0 0 30px rgba(180,100,255,0.03);
+    }
+    .altar-ring:nth-child(1) { inset: -10px; border-color: rgba(200,160,255,0.08); }
+    .altar-ring:nth-child(2) { inset: 10px; border-color: rgba(180,100,255,0.12); }
+    .altar-ring:nth-child(3) { inset: 30px; border-color: rgba(200,160,255,0.06); }
+    .altar-ring:nth-child(4) { inset: 50px; border-color: rgba(180,100,255,0.08); }
+
+    /* 旋转符文环 */
+    .rune-ring {
+      position: absolute; inset: -6px;
+      border-radius: 50%;
+      border: 1px dashed rgba(200,160,80,0.15);
+      animation: ringSpin 30s linear infinite;
+    }
+    .rune-ring:nth-child(6) { inset: 20px; animation-duration: 25s; animation-direction: reverse; }
+    .rune-ring:nth-child(7) { inset: 46px; animation-duration: 35s; }
+
+    @keyframes ringSpin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 符文标记 */
+    .rune {
+      position: absolute;
+      font-size: 14px; color: rgba(200,160,80,0.2);
+      pointer-events: none;
+    }
+
+    /* 中心光晕 */
+    .altar-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(180,100,255,0.08), transparent 70%);
+      pointer-events: none;
+      animation: glowPulse 4s ease-in-out infinite alternate;
+    }
+    @keyframes glowPulse {
+      0%   { opacity: 0.5; transform: translate(-50%,-50%) scale(1); }
+      100% { opacity: 1; transform: translate(-50%,-50%) scale(1.15); }
+    }
+
+    /* ===== 显化物品（放在圆阵内） ===== */
+    .altar-item {
+      position: absolute;
+      z-index: 10;
+      cursor: grab;
+      transition: filter 0.3s;
+      pointer-events: auto;
+    }
+    .altar-item:active { cursor: grabbing; }
+
+    .altar-item .gem {
+      width: 36px; height: 36px;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+    .altar-item .gem-white    { background: linear-gradient(135deg, #f0f0ff, #c8c8e8); }
+    .altar-item .gem-amethyst { background: linear-gradient(135deg, #b56aff, #7a2ab8); }
+    .altar-item .gem-rose     { background: linear-gradient(135deg, #ff8aae, #d45a80); }
+    .altar-item .gem-citrine  { background: linear-gradient(135deg, #ffd54f, #f0a030); }
+    .altar-item .gem-emerald  { background: linear-gradient(135deg, #50d090, #208050); }
+    .altar-item .gem-sapphire { background: linear-gradient(135deg, #5a9aff, #2058c0); }
+
+    .altar-item .candle-mini {
+      width: 12px; height: 22px;
+      background: linear-gradient(180deg, #f0dcc0, #dcc0a0);
+      border: 1px solid #b89870;
+      border-radius: 1px;
+      position: relative;
+    }
+    .altar-item .candle-mini .wick {
+      position: absolute; top: -3px; left: 50%; transform: translateX(-50%);
+      width: 1px; height: 3px; background: #444;
+    }
+    .altar-item .candle-mini .flame {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      width: 5px; height: 9px;
+      background: radial-gradient(ellipse at 50% 40%, #fff7a0, #ffa030 40%, transparent 70%);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .altar-item .candle-mini .flame.lit { opacity: 1; animation: miniDance 0.8s ease-in-out infinite alternate; }
+    @keyframes miniDance {
+      0%   { transform: translateX(-50%) scale(1) rotate(-2deg); }
+      100% { transform: translateX(-48%) scale(1.05,0.9) rotate(1deg); }
+    }
+
+    .altar-item .ingr-icon { font-size: 22px; }
+    .altar-item .page-icon { font-size: 20px; }
+
+    .altar-item-label {
+      position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%);
+      font-size: 8px; color: rgba(200,160,255,0.5);
+      white-space: nowrap; letter-spacing: 1px;
+    }
+
+    /* ===== 显化物品被「激活」后的光晕 ===== */
+    .altar-item.activated .gem {
+      filter: brightness(1.8) drop-shadow(0 0 10px currentColor);
+    }
+    .altar-item.activated::after {
+      content: '';
+      position: absolute; inset: -8px;
+      border: 1px solid rgba(200,160,255,0.3);
+      border-radius: 50%;
+      animation: ringSpin 2s linear infinite;
+      pointer-events: none;
+    }
+
+    /* ===== 意图面板 ===== */
+    #intentionPanel {
+      position: fixed;
+      left: 30px; top: 50%; transform: translateY(-50%);
+      z-index: 20;
+      width: 220px;
+      background: rgba(10,4,22,0.85);
+      border: 2px solid #5a307a;
+      padding: 18px 16px;
+      backdrop-filter: blur(8px);
+    }
+    #intentionPanel .panel-title {
+      font-size: 12px; letter-spacing: 3px; color: #c9a0ff;
+      text-align: center; padding-bottom: 10px;
+      border-bottom: 2px solid #3a1e5e; margin-bottom: 12px;
+    }
+    #intentionInput {
+      width: 100%; min-height: 120px;
+      background: rgba(20,8,40,0.4);
+      border: 2px solid #3a1e5e;
+      color: #e0ccff;
+      font-family: inherit; font-size: 12px; line-height: 1.8;
+      padding: 10px; resize: vertical;
+      outline: none;
+      transition: border-color 0.3s;
+      letter-spacing: 1px;
+    }
+    #intentionInput:focus { border-color: #8a4dff; }
+    #intentionInput::placeholder { color: #5a3a7a; }
+
+    /* ===== 占卜抽屉（右侧） ===== */
+    #divinationDrawer {
+      position: fixed;
+      right: 0; top: 50%; transform: translateY(-50%);
+      z-index: 20;
+      transition: all 0.4s cubic-bezier(0.25,1,0.5,1);
+    }
+    #divinationDrawer.closed { width: 36px; }
+    #divinationDrawer.open { width: 200px; }
+
+    #divinationDrawer .drawer-tab {
+      position: absolute; left: -36px; top: 50%; transform: translateY(-50%);
+      width: 36px; height: 80px;
+      background: rgba(20,8,40,0.85);
+      border: 2px solid #5a307a; border-right: none;
+      border-radius: 6px 0 0 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; cursor: pointer; z-index: 5;
+      writing-mode: vertical-rl; letter-spacing: 2px;
+      transition: all 0.3s;
+    }
+    #divinationDrawer .drawer-tab:hover { border-color: #b080ff; }
+
+    #divinationDrawer .drawer-panel {
+      width: 100%; height: 440px;
+      background: rgba(10,4,22,0.92);
+      border: 2px solid #5a307a; border-right: none;
+      backdrop-filter: blur(8px);
+      padding: 14px 10px;
+      overflow-y: auto;
+    }
+
+    .divination-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
+    }
+    .divination-item {
+      background: rgba(10,4,22,0.6);
+      border: 2px solid #3a1e5e;
+      aspect-ratio: 1;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      cursor: pointer; gap: 3px;
+      transition: all 0.25s;
+    }
+    .divination-item:hover {
+      border-color: #8a4dff; background: rgba(20,8,40,0.8);
+      transform: scale(1.05);
+    }
+    .divination-item .di-icon { font-size: 22px; }
+    .divination-item .di-label { font-size: 8px; color: #b898e0; letter-spacing: 1px; }
+
+    /* ===== 激活按钮 ===== */
+    #activateBtn {
+      position: fixed;
+      bottom: 50px; left: 50%; transform: translateX(-50%);
+      z-index: 30;
+      padding: 12px 40px;
+      background: rgba(180,100,255,0.15);
+      border: 2px solid #8a4dff;
+      color: #d4b0ff;
+      font-family: inherit; font-size: 14px; letter-spacing: 6px;
+      cursor: pointer;
+      transition: all 0.4s;
+    }
+    #activateBtn:hover {
+      background: rgba(180,100,255,0.25);
+      border-color: #b080ff;
+      box-shadow: 0 0 30px rgba(180,100,255,0.2);
+    }
+    #activateBtn.active {
+      background: rgba(200,160,80,0.2);
+      border-color: #f0d080;
+      color: #f0d080;
+      box-shadow: 0 0 50px rgba(240,208,128,0.3);
+    }
+
+    /* ===== 初始爆发 ===== */
+    .energy-burst {
+      position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 0; height: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,160,255,0.25), transparent);
+      pointer-events: none;
+      z-index: 40;
+    }
+    .energy-burst.burst {
+      animation: burstExpand 2s ease-out forwards;
+    }
+    @keyframes burstExpand {
+      0%   { width: 0; height: 0; opacity: 1; }
+      100% { width: 200vw; height: 200vw; opacity: 0; }
+    }
+
+    /* ===== 连续能量波 ===== */
+    .energy-wave {
+      position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+    .energy-wave.active { opacity: 1; }
+
+    .energy-wave .ring {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      border: 2px solid rgba(200,160,255,0.15);
+      animation: waveExpand 3s ease-out infinite;
+    }
+    .energy-wave .ring:nth-child(2) { animation-delay: 1s; }
+    .energy-wave .ring:nth-child(3) { animation-delay: 2s; border-width: 1px; border-color: rgba(240,208,128,0.1); }
+
+    @keyframes waveExpand {
+      0%   { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(2.5); opacity: 0; }
+    }
+
+    /* ===== 引导文字 ===== */
+    #guidance {
+      position: fixed;
+      bottom: 110px; left: 50%; transform: translateX(-50%);
+      z-index: 25;
+      font-size: 11px; color: #5a3a7a;
+      letter-spacing: 3px;
+      text-align: center;
+      opacity: 0.6;
+      pointer-events: none;
+      transition: opacity 0.5s;
+    }
+    #guidance.active { opacity: 1; color: #c9a0ff; }
+
+    /* ===== 顶部月相 ===== */
+    #moonPhase {
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+      z-index: 15;
+      display: flex; align-items: center; gap: 10px;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    #moonPhase .moon {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 50%, #f0e8c0, #c8b888 40%, #0a0218 41%);
+      box-shadow: 0 0 20px rgba(240,232,192,0.1);
+    }
+    #moonPhase .moon-text {
+      font-size: 10px; color: #8a7a5a; letter-spacing: 2px;
+    }
+
+    /* ===== 状态提示 ===== */
+    .status-toast {
+      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+      z-index: 9999;
+      background: rgba(10,4,22,0.9);
+      border: 2px solid #c8a050;
+      padding: 10px 20px;
+      font-size: 12px; color: #f0d080;
+      letter-spacing: 2px;
+      opacity: 0;
+      transition: opacity 0.5s, transform 0.5s;
+      pointer-events: none;
+    }
+    .status-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-10px);
+    }
+
+
+    /* ===== 显化计数器 ===== */
+    #manifestCount {
+      position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
+      z-index: 15;
+      font-size: 10px; color: #5a3a7a; letter-spacing: 2px;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div id="starfield"></div>
+
+<!-- 月相 -->
+<div id="moonPhase">
+  <div class="moon"></div>
+  <span class="moon-text">盈月 · 显化之夜</span>
+</div>
+
+<!-- 显化计数器 -->
+<div id="manifestCount">✦ 圆阵中的意念：0 ✦</div>
+
+<!-- 桌面 -->
+<div id="desktop"></div>
+
+<!-- 显化圆阵 -->
+<div id="altar">
+  <div class="altar-ring"></div>
+  <div class="altar-ring"></div>
+  <div class="altar-ring"></div>
+  <div class="altar-ring"></div>
+  <div class="rune-ring"></div>
+  <div class="rune-ring"></div>
+  <div class="rune-ring"></div>
+  <div class="altar-glow"></div>
+</div>
+
+<!-- 意图面板 -->
+<div id="intentionPanel">
+  <div class="panel-title">✦ 意 念 之 书 ✦</div>
+  <textarea id="intentionInput" placeholder="在此写下你的显化意图...
+
+例如：
+• 吸引丰盛与机遇
+• 提升灵性能量
+• 实现内心平静
+• 召唤理想伴侣"></textarea>
+</div>
+
+<!-- 右侧占卜抽屉 -->
+<div id="divinationDrawer" class="closed">
+  <div class="drawer-tab" id="divTab">🔮 圆阵</div>
+  <div class="drawer-panel">
+    <div class="panel-title">✦ 圆阵 物 品 ✦</div>
+    <div class="divination-grid" id="divinationGrid"></div>
+  </div>
+</div>
+
+<!-- 激活按钮 -->
+<button id="activateBtn">✦ 激 活 显 化 ✦</button>
+
+<!-- 引导文字 -->
+<div id="guidance">将水晶、蜡烛与意念放入圆阵 · 点击激活</div>
+
+<!-- 状态提示 -->
+<div class="status-toast" id="statusToast"></div>
+
+<!-- 初始爆发 -->
+<div class="energy-burst" id="energyBurst"></div>
+
+<!-- 连续能量波 -->
+<div class="energy-wave" id="energyWave">
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="ring"></div>
+</div>
+
+<!-- 顶部导航 -->
+<div style="position:fixed;top:12px;right:12px;z-index:999;display:flex;gap:10px;">
+  <a href="reading_ios.html" style="background:rgba(20,8,40,0.8);border:2px solid #5a307a;color:#a070d8;padding:6px 14px;font-size:12px;cursor:pointer;font-family:inherit;letter-spacing:2px;text-decoration:none;transition:all 0.3s;" onmouseover="this.style.borderColor='#b080ff';this.style.color='#e0ccff'" onmouseout="this.style.borderColor='#5a307a';this.style.color='#a070d8'">🔮 黑猫占卜桌</a>
+  <a href="magic_ios.html" style="background:rgba(20,8,40,0.8);border:2px solid #5a307a;color:#a070d8;padding:6px 14px;font-size:12px;cursor:pointer;font-family:inherit;letter-spacing:2px;text-decoration:none;transition:all 0.3s;" onmouseover="this.style.borderColor='#b080ff';this.style.color='#e0ccff'" onmouseout="this.style.borderColor='#5a307a';this.style.color='#a070d8'">📖 魔法工坊</a>
+</div>
+
+<script>
+// ============================================================
+//  1. 星空粒子
+// ============================================================
+const starfield = document.getElementById('starfield');
+for (let i = 0; i < 120; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  const size = 1 + Math.random() * 2.5;
+  star.style.cssText = `
+    left: ${Math.random() * 100}%;
+    top: ${Math.random() * 100}%;
+    width: ${size}px;
+    height: ${size}px;
+    --dur: ${2 + Math.random() * 4}s;
+    animation-delay: ${Math.random() * 5}s;
+    opacity: ${0.15 + Math.random() * 0.4};
+  `;
+  starfield.appendChild(star);
+}
+
+// ============================================================
+//  2. 显化物品数据
+// ============================================================
+const DIVINATION_ITEMS = [
+  { id: 'white',    icon: '💎', name: '白水晶', type: 'crystal', cls: 'gem-white' },
+  { id: 'amethyst', icon: '💎', name: '紫水晶', type: 'crystal', cls: 'gem-amethyst' },
+  { id: 'rose',     icon: '💎', name: '粉水晶', type: 'crystal', cls: 'gem-rose' },
+  { id: 'citrine',  icon: '💎', name: '黄水晶', type: 'crystal', cls: 'gem-citrine' },
+  { id: 'candle',   icon: '🕯️', name: '蜡烛',   type: 'candle' },
+  { id: 'intention',icon: '📜', name: '意念纸', type: 'scroll' },
+];
+
+// ============================================================
+//  3. 状态
+// ============================================================
+let altarItems = []; // { id, type, cls, el }
+let isActivated = false;
+
+// ============================================================
+//  4. 意图输入自动保存
+// ============================================================
+const intentionInput = document.getElementById('intentionInput');
+const savedIntention = localStorage.getItem('manifest_intention');
+if (savedIntention) intentionInput.value = savedIntention;
+intentionInput.addEventListener('input', () => {
+  localStorage.setItem('manifest_intention', intentionInput.value);
+});
+
+// ============================================================
+//  5. 右侧抽屉
+// ============================================================
+const divDrawer = document.getElementById('divinationDrawer');
+const divTab = document.getElementById('divTab');
+
+divTab.addEventListener('click', () => {
+  divDrawer.classList.toggle('closed');
+  divDrawer.classList.toggle('open');
+});
+
+function renderDivinationItems() {
+  const grid = document.getElementById('divinationGrid');
+  grid.innerHTML = DIVINATION_ITEMS.map(item => `
+    <div class="divination-item" data-item-id="${item.id}">
+      <span class="di-icon">${item.icon}</span>
+      <span class="di-label">${item.name}</span>
+    </div>
+  `).join('');
+
+  grid.querySelectorAll('.divination-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const id = el.dataset.itemId;
+      const data = DIVINATION_ITEMS.find(d => d.id === id);
+      if (!data) return;
+      addToAltar(data);
+      divDrawer.classList.remove('open');
+      divDrawer.classList.add('closed');
+    });
+  });
+}
+renderDivinationItems();
+
+// ============================================================
+//  6. 添加到圆阵
+// ============================================================
+const altar = document.getElementById('altar');
+
+function addToAltar(data) {
+  // 限制数量
+  if (altarItems.length >= 7) {
+    showToast('✦ 圆阵已满（最多 7 件物品）');
+    return;
+  }
+
+  const el = document.createElement('div');
+  el.className = 'altar-item';
+
+  // 随机位置在圆阵内（偏移半径约 120px 内）
+  const angle = Math.random() * Math.PI * 2;
+  const dist = 40 + Math.random() * 100;
+  const cx = 210 + Math.cos(angle) * dist;
+  const cy = 210 + Math.sin(angle) * dist;
+
+  el.style.left = (cx - 18) + 'px';
+  el.style.top = (cy - 18) + 'px';
+
+  if (data.type === 'crystal') {
+    el.innerHTML = `<div class="gem ${data.cls}"></div><span class="altar-item-label">${data.name}</span>`;
+  } else if (data.type === 'candle') {
+    el.innerHTML = `<div class="candle-mini"><div class="wick"></div><div class="flame lit"></div></div><span class="altar-item-label">蜡烛</span>`;
+  } else if (data.type === 'scroll') {
+    // 用当前意图生成意念纸
+    const intention = intentionInput.value.trim() || '未定义之愿';
+    const shortIntention = intention.length > 15 ? intention.substring(0, 15) + '…' : intention;
+    el.innerHTML = `<span class="page-icon">📜</span><span class="altar-item-label">${shortIntention}</span>`;
+    el.title = intention;
+  }
+
+  altar.appendChild(el);
+  setupAltarItemDrag(el);
+
+  altarItems.push({ id: data.id, type: data.type, cls: data.cls, el });
+  updateCount();
+  showToast(`✦ ${data.name} 已加入圆阵`);
+
+  // 如果已激活，新加入物品自动激活
+  if (isActivated) {
+    el.classList.add('activated');
+  }
+}
+
+// ============================================================
+//  7. 圆阵内物品拖拽
+// ============================================================
+function setupAltarItemDrag(el) {
+  let isDragging = false, offX = 0, offY = 0;
+  el.addEventListener('mousedown', (e) => {
+    if (e.button !== 0) return;
+    isDragging = true;
+    const r = el.getBoundingClientRect();
+    const altarRect = altar.getBoundingClientRect();
+    offX = e.clientX - r.left;
+    offY = e.clientY - r.top;
+    el.style.zIndex = 50;
+    el.style.cursor = 'grabbing';
+    el.style.transition = 'none';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const altarRect = altar.getBoundingClientRect();
+    let nx = e.clientX - altarRect.left - offX;
+    let ny = e.clientY - altarRect.top - offY;
+    // 约束在圆阵内
+    const rw = altar.offsetWidth, rh = altar.offsetHeight;
+    nx = Math.max(0, Math.min(nx, rw - 36));
+    ny = Math.max(0, Math.min(ny, rh - 36));
+    el.style.left = nx + 'px';
+    el.style.top = ny + 'px';
+  });
+  document.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+      el.style.zIndex = '';
+      el.style.cursor = '';
+      el.style.transition = '';
+    }
+  });
+
+  // 右键移除
+  el.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    removeFromAltar(el);
+  });
+}
+
+// ============================================================
+//  8. 从圆阵移除
+// ============================================================
+function removeFromAltar(el) {
+  const idx = altarItems.findIndex(a => a.el === el);
+  if (idx >= 0) {
+    const name = DIVINATION_ITEMS.find(d => d.id === altarItems[idx].id)?.name || '物品';
+    altarItems.splice(idx, 1);
+    el.remove();
+    updateCount();
+    showToast(`✦ ${name} 已移出圆阵`);
+  }
+}
+
+// ============================================================
+//  9. 更新计数器
+// ============================================================
+function updateCount() {
+  document.getElementById('manifestCount').textContent = `✦ 圆阵中的意念：${altarItems.length} ✦`;
+}
+
+// ============================================================
+//  10. 激活显化
+// ============================================================
+const activateBtn = document.getElementById('activateBtn');
+const guidance = document.getElementById('guidance');
+const energyWave = document.getElementById('energyWave');
+const energyBurst = document.getElementById('energyBurst');
+
+activateBtn.addEventListener('click', () => {
+  if (altarItems.length === 0) {
+    showToast('✦ 圆阵空空如也，请先放入物品');
+    return;
+  }
+
+  isActivated = !isActivated;
+
+  if (isActivated) {
+    // 激活
+    activateBtn.textContent = '✦ 显 化 进 行 中 ✦';
+    activateBtn.classList.add('active');
+    guidance.textContent = '✦ 意念已激活 · 能量流转于圆阵之中 ✦';
+    guidance.classList.add('active');
+
+    // 所有物品获得激活光晕
+    altarItems.forEach(a => a.el.classList.add('activated'));
+
+    // 初始能量爆发
+    energyBurst.classList.remove('burst');
+    void energyBurst.offsetWidth;
+    energyBurst.classList.add('burst');
+
+    // 开启连续能量波
+    energyWave.classList.add('active');
+
+    // 获取意图
+    const intention = intentionInput.value.trim() || '内心的愿景';
+    showToast(`🌙 显化启动 · 「${intention}」正在能量中孕育`);
+
+    // 星星闪烁增强
+    document.querySelectorAll('.star').forEach(s => {
+      s.style.animationDuration = (1 + Math.random() * 2) + 's';
+      s.style.opacity = '0.6';
+    });
+
+  } else {
+    // 解除
+    activateBtn.textContent = '✦ 激 活 显 化 ✦';
+    activateBtn.classList.remove('active');
+    guidance.textContent = '将水晶、蜡烛与意念放入圆阵 · 点击激活';
+    guidance.classList.remove('active');
+
+    altarItems.forEach(a => a.el.classList.remove('activated'));
+
+    // 关闭连续能量波
+    energyWave.classList.remove('active');
+
+    showToast('🌙 显化暂歇 · 能量归于宁静');
+
+    document.querySelectorAll('.star').forEach(s => {
+      s.style.animationDuration = s.style.getPropertyValue('--dur') || '3s';
+      s.style.opacity = '';
+    });
+  }
+});
+
+// ============================================================
+//  11. Toast 提示
+// ============================================================
+const toast = document.getElementById('statusToast');
+let toastTimer = null;
+
+function showToast(text) {
+  toast.textContent = text;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ============================================================
+//  12. 导航
+// ============================================================
+// 顶部导航已移至 HTML，此处不再需要
+
+// ============================================================
+//  13. 桌面点击取消选中
+// ============================================================
+const desktop = document.getElementById('desktop');
+desktop.addEventListener('click', (e) => {
+  if (e.target === desktop) {
+    divDrawer.classList.remove('open');
+    divDrawer.classList.add('closed');
+  }
+});
+
+console.log('🌙 显化之境已开启');
+</script>
+</body>
+</html>

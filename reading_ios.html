@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔮 黑猫占卜桌</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 100vw; height: 100vh;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 50% 30%, #1a0a2e, #0d001a);
+      font-family: 'Courier New', Courier, monospace;
+      color: #d4b0ff;
+      user-select: none;
+    }
+
+    /* ===== 桌面层（含底纹） ===== */
+    #desktop {
+      position: fixed; inset: 0;
+      z-index: 1;
+      background:
+        repeating-conic-gradient(rgba(120, 60, 180, 0.06) 0% 25%, transparent 0% 50%)
+        0 0 / 60px 60px,
+        radial-gradient(ellipse at 50% 40%, #1e0a34, #0a0218);
+    }
+    #desktop::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='104' viewBox='0 0 120 104'%3E%3Cpath d='M60 0 L75 34 L112 34 L83 58 L95 92 L60 72 L25 92 L37 58 L8 34 L45 34 Z' fill='none' stroke='rgba(150,80,220,0.08)' stroke-width='1.5'/%3E%3Cpath d='M60 8 L70 30 L95 30 L75 46 L82 70 L60 56 L38 70 L45 46 L25 30 L50 30 Z' fill='none' stroke='rgba(180,100,255,0.05)' stroke-width='1'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 140px 120px;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    #desktop::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 60px;
+      background: linear-gradient(to top, rgba(30, 10, 52, 0.6), transparent);
+      pointer-events: none;
+    }
+
+    /* ===== 侧边标签 ===== */
+    .side-tab {
+      position: fixed; z-index: 100;
+      top: 50%; transform: translateY(-50%);
+      width: 32px; height: 90px;
+      background: rgba(20, 8, 40, 0.85);
+      border: 2px solid #5a307a;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      transition: all 0.3s;
+      writing-mode: vertical-rl;
+      letter-spacing: 4px;
+    }
+    .side-tab:hover {
+      border-color: #b080ff; background: rgba(30, 12, 60, 0.95);
+    }
+    .side-tab-left-bag  { left: 0; border-left: none; border-radius: 0 6px 6px 0; top: calc(50% - 55px); }
+    .side-tab-left-deck { left: 0; border-left: none; border-radius: 0 6px 6px 0; top: calc(50% + 55px); }
+
+    /* ===== 抽屉面板 ===== */
+    .drawer {
+      position: fixed; z-index: 90;
+      top: 0; bottom: 0;
+      width: 280px;
+      background: rgba(10, 4, 22, 0.92);
+      border: 2px solid #5a307a;
+      backdrop-filter: blur(8px);
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      padding: 20px 16px;
+      overflow-y: auto;
+    }
+    .drawer-left  { left: 0; border-left: none; transform: translateX(-100%); }
+    .drawer.open { transform: translateX(0); }
+
+    .drawer-title {
+      font-size: 16px; letter-spacing: 4px; color: #c9a0ff;
+      text-align: center; padding-bottom: 14px;
+      border-bottom: 2px solid #3a1e5e; margin-bottom: 14px;
+    }
+
+    .drawer-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    }
+    .drawer-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+    .drawer-item {
+      background: rgba(10, 4, 22, 0.6);
+      border: 2px solid #3a1e5e;
+      aspect-ratio: 1;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      cursor: grab;
+      transition: all 0.25s;
+      gap: 4px;
+    }
+    .drawer-item:hover {
+      border-color: #8a4dff;
+      background: rgba(20, 8, 40, 0.8);
+      transform: scale(1.05);
+    }
+    .drawer-item:active { cursor: grabbing; }
+
+    /* 菱形水晶 */
+    .gem {
+      width: 36px; height: 36px;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      transition: all 0.3s;
+    }
+    .gem-label { font-size: 9px; color: #b898e0; letter-spacing: 1px; }
+
+    .gem-white   { background: linear-gradient(135deg, #f0f0ff, #c8c8e8); }
+    .gem-amethyst{ background: linear-gradient(135deg, #b56aff, #7a2ab8); }
+    .gem-rose    { background: linear-gradient(135deg, #ff8aae, #d45a80); }
+    .gem-citrine { background: linear-gradient(135deg, #ffd54f, #f0a030); }
+    .gem-emerald { background: linear-gradient(135deg, #50d090, #208050); }
+    .gem-sapphire{ background: linear-gradient(135deg, #5a9aff, #2058c0); }
+    .gem-carnelian{background: linear-gradient(135deg, #ff8a40, #d06020); }
+    .gem-obsidian{ background: linear-gradient(135deg, #606080, #282840); }
+
+    /* ===== 蜡烛摆件 ===== */
+    .candle-wrap {
+      display: flex; flex-direction: column; align-items: center;
+      padding-bottom: 6px;
+    }
+    .candle-body {
+      position: relative;
+      width: 20px; height: 32px;
+      background: linear-gradient(180deg, #f5e6d0, #e8d0b0);
+      border: 1.5px solid #c8a878;
+      border-radius: 2px 2px 0 0;
+      box-shadow: inset -3px 0 6px rgba(0,0,0,0.15);
+    }
+    .candle-wick {
+      position: absolute; top: -5px; left: 50%; transform: translateX(-50%);
+      width: 1.5px; height: 5px;
+      background: #444;
+      border-radius: 1px;
+    }
+    .candle-flame {
+      position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+      width: 8px; height: 14px;
+      background: radial-gradient(ellipse at 50% 40%, #fff7a0, #ffa030 40%, transparent 70%);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      opacity: 0;
+      transition: opacity 0.3s;
+      filter: blur(0.5px);
+    }
+    .candle-lit .candle-flame {
+      opacity: 1;
+      animation: flameDance 0.8s ease-in-out infinite alternate;
+    }
+    @keyframes flameDance {
+      0%   { transform: translateX(-50%) scale(1) rotate(-2deg); }
+      50%  { transform: translateX(-48%) scale(1.08, 0.92) rotate(1deg); }
+      100% { transform: translateX(-52%) scale(0.95, 1.05) rotate(-1deg); }
+    }
+    /* 蜡烛发光光晕 */
+    .candle-lit::after {
+      content: '';
+      position: absolute; inset: -12px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,180,60,0.25), transparent 70%);
+      pointer-events: none;
+      border-radius: 50%;
+      animation: candleGlow 1.2s ease-in-out infinite alternate;
+    }
+    @keyframes candleGlow {
+      0%   { opacity: 0.7; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.08); }
+    }
+    /* 抽屉中的蜡烛图标 */
+    .candle-icon {
+      width: 18px; height: 28px;
+      background: linear-gradient(180deg, #f0dcc0, #dcc0a0);
+      border: 1.5px solid #b89870;
+      border-radius: 2px;
+      position: relative;
+      display: inline-block;
+    }
+    .candle-icon .candle-wick {
+      top: -4px; width: 1px; height: 4px;
+    }
+    .candle-icon .candle-flame {
+      top: -14px; width: 6px; height: 10px;
+    }
+
+    /* ===== 桌面上的水晶（自由放置） ===== */
+    .placed-gem {
+      position: absolute;
+      cursor: grab;
+      z-index: 200;
+      transition: filter 0.3s, box-shadow 0.3s;
+    }
+    .placed-gem:active { cursor: grabbing; }
+
+    .placed-gem .gem {
+      width: 44px; height: 44px;
+      pointer-events: none;
+    }
+
+    /* 选中状态：高亮 + 轨道光环 */
+    .placed-gem.selected .gem {
+      filter: brightness(1.5) drop-shadow(0 0 10px currentColor);
+    }
+    .placed-gem .glow-ring {
+      position: absolute; inset: -8px;
+      border: 2px solid transparent;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .placed-gem.selected .glow-ring {
+      opacity: 1;
+      animation: ringSpin 1.8s linear infinite;
+      border-top-color: rgba(200,160,255,0.7);
+      border-right-color: rgba(255,215,0,0.3);
+      box-shadow: 0 0 16px rgba(200,160,255,0.2), inset 0 0 12px rgba(200,160,255,0.08);
+    }
+    @keyframes ringSpin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* ===== 扇形区（顶部固定） ===== */
+    #fanArea {
+      position: fixed;
+      bottom: 170px; left: 0; right: 0;
+      height: 220px;
+      z-index: 20;
+      display: none;
+      pointer-events: none;
+    }
+    #fanArea.active { display: block; }
+
+    #fanScroll {
+      position: relative; width: 100%; height: 100%;
+    }
+
+    /* ===== 底部固定操作栏 ===== */
+    #fanControls {
+      position: fixed;
+      bottom: 20px; left: 0; right: 0;
+      height: 30px;
+      z-index: 35;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    #fanControls.active { display: flex; }
+
+    .fan-arrow {
+      z-index: 100;
+      width: 32px; height: 32px;
+      background: rgba(20,8,40,0.8);
+      border: 2px solid #5a307a;
+      color: #a070d8;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s;
+      font-family: inherit;
+      pointer-events: auto;
+    }
+    .fan-arrow:hover { background: #2a1050; border-color: #b080ff; color: #e0ccff; }
+
+    .fan-counter {
+      font-size: 12px; color: #a080d0; letter-spacing: 2px;
+      pointer-events: auto;
+    }
+
+    .fan-card {
+      position: absolute;
+      cursor: pointer;
+      transition: transform 0.6s cubic-bezier(0.25,1,0.5,1), opacity 0.6s ease;
+      transform-origin: 50% 120%;
+      user-select: none;
+      z-index: 10;
+      left: 0; top: 0;
+      width: min(8vw, 100px); height: auto;
+      pointer-events: auto;
+    }
+    .fan-card:hover { z-index: 999 !important; filter: brightness(1.25); }
+    .fan-card:hover .card-inner {
+      border-color: #e0b0ff;
+      box-shadow:
+        0 0 16px rgba(200,130,255,0.5),
+        0 0 40px rgba(200,130,255,0.2),
+        inset 0 0 12px rgba(200,130,255,0.12);
+    }
+    .fan-card.preselected {
+      margin-top: -5%;
+      z-index: 60 !important;
+    }
+    .fan-card.preselected .card-inner {
+      border-color: #d4a0ff;
+      box-shadow: 0 6px 24px rgba(180,100,255,0.4);
+      animation: preselectPulse 1s ease-in-out infinite;
+    }
+    @keyframes preselectPulse {
+      0%, 100% { box-shadow: 0 6px 24px rgba(180,100,255,0.4); }
+      50%      { box-shadow: 0 6px 40px rgba(200,130,255,0.65); }
+    }
+    .fan-card .card-inner {
+      border: 2px solid #5a307a;
+      background: radial-gradient(circle at 50% 50%, #1a0a30, #0c0218);
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+      box-shadow: inset 0 0 14px rgba(80,40,140,0.2);
+    }
+    .fan-card .card-inner:not(:has(img))::before {
+      content: '✦'; font-size: 28px; color: rgba(180,100,255,0.12); pointer-events: none;
+    }
+    .fan-card .card-inner:not(:has(img))::after {
+      content: ''; position: absolute; inset: 3px;
+      border: 1px solid rgba(107,63,160,0.1); pointer-events: none;
+    }
+    .fan-card .card-inner img {
+      width: 100%; height: auto; display: block; pointer-events: none;
+    }
+    .fan-card .card-number {
+      font-size: 13px; color: rgba(255,255,255,0.7);
+      position: absolute; top: 4px; left: 50%; transform: translateX(-50%);
+      z-index: 2;
+      font-weight: bold;
+      text-shadow: 0 0 6px rgba(0,0,0,0.9), 0 0 12px rgba(0,0,0,0.5);
+      pointer-events: none;
+    }
+
+    /* --- 桌面已放置牌（3D翻牌） --- */
+    .placed-card {
+      position: absolute;
+      cursor: grab;
+      z-index: 100;
+      border: 3px solid #6b3fa0;
+      transition: box-shadow 0.3s, border-color 0.3s;
+      user-select: none;
+      perspective: 1000px;
+      width: min(8vw, 105px); height: auto;
+      box-shadow: 0 0 14px rgba(138,77,255,0.15);
+    }
+    .placed-card:hover {
+      border-color: #b080ff;
+      box-shadow: 0 0 16px rgba(138,77,255,0.4), 0 0 40px rgba(138,77,255,0.15);
+      z-index: 200;
+    }
+    .placed-card:active { cursor: grabbing; }
+    .placed-card .card-back img,
+    .placed-card .card-front img {
+      width: 100%; height: auto; display: block;
+    }
+    .placed-card .card-back:not(:has(img)),
+    .placed-card .card-front:not(:has(img)) {
+      width: 100%; aspect-ratio: 2/3;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .placed-card .card-flipper {
+      position: relative;
+      transition: transform 0.6s ease;
+      transform-style: preserve-3d;
+      width: 100%; height: 100%;
+    }
+    .placed-card.revealed .card-flipper { transform: rotateY(180deg); }
+
+    .placed-card .card-back,
+    .placed-card .card-front { backface-visibility: hidden; }
+    .placed-card .card-back { position: relative; }
+    .placed-card .card-back:not(:has(img)) {
+      background: radial-gradient(circle at 50% 50%, #1a0a30, #0c0218);
+    }
+    .placed-card .card-back:not(:has(img))::before {
+      content: '✦'; font-size: 36px; color: rgba(180,100,255,0.15);
+    }
+
+    .placed-card .card-front {
+      position: absolute; top: 0; left: 0;
+      width: 100%; transform: rotateY(180deg);
+    }
+    .placed-card .card-front.is-reversed img { transform: rotate(180deg); }
+
+    .placed-card:not(.revealed) .card-back { display: block; position: relative; height: 100%; }
+    .placed-card:not(.revealed) .card-front { display: none; position: absolute; }
+    .placed-card.revealed .card-back { display: none; position: absolute; }
+    .placed-card.revealed .card-front { display: block; position: relative; height: 100%; }
+
+    .placed-card .card-remove-hint {
+      display: none; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+      font-size: 11px; color: #ff6a8a; background: rgba(0,0,0,0.7); padding: 2px 8px; white-space: nowrap;
+    }
+    .placed-card:hover .card-remove-hint { display: block; }
+
+    /* ===== 拖拽浮动层 ===== */
+    #dragLayer {
+      position: fixed; inset: 0; z-index: 9999;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 侧边标签 -->
+<div class="side-tab side-tab-left-bag" id="tabBag">👜 布袋</div>
+<div class="side-tab side-tab-left-deck" id="tabDeck">🃏 牌盒</div>
+
+<!-- 左侧抽屉：水晶库 -->
+<div class="drawer drawer-left" id="drawerBag">
+  <div class="drawer-title">✦ 水 晶 库 ✦</div>
+  <div class="drawer-grid" id="bagGrid"></div>
+</div>
+
+<!-- 右侧抽屉：牌组库 -->
+<div class="drawer drawer-left" id="drawerDeck">
+  <div class="drawer-title">✦ 牌 组 库 ✦</div>
+  <div class="drawer-grid cols-2" id="deckGrid"></div>
+</div>
+
+<!-- 桌面（自由放置层） -->
+<div id="desktop"></div>
+
+<!-- 扇形区 -->
+<div id="fanArea">
+  <div id="fanScroll"></div>
+</div>
+
+<!-- 底部固定操作栏 -->
+<div id="fanControls">
+  <button class="fan-arrow fan-arrow-left" id="fanArrowLeft">◀</button>
+  <span class="fan-counter" id="fanCounter">0 / 0</span>
+  <button class="fan-arrow fan-arrow-right" id="fanArrowRight">▶</button>
+</div>
+
+<!-- 拖拽层 -->
+<div id="dragLayer"></div>
+
+<script src="../decks.js"></script>
+<script>
+// ============================================================
+//  1. 抽屉开关
+// ============================================================
+const drawerBag  = document.getElementById('drawerBag');
+const drawerDeck = document.getElementById('drawerDeck');
+const tabBag     = document.getElementById('tabBag');
+const tabDeck    = document.getElementById('tabDeck');
+
+tabBag.addEventListener('click', () => {
+  drawerDeck.classList.remove('open');
+  drawerBag.classList.toggle('open');
+});
+tabDeck.addEventListener('click', () => {
+  drawerBag.classList.remove('open');
+  drawerDeck.classList.toggle('open');
+});
+// 点击桌面空白关闭抽屉
+document.getElementById('desktop').addEventListener('click', (e) => {
+  if (e.target === desktop || e.target === dragLayer) {
+    drawerBag.classList.remove('open');
+    drawerDeck.classList.remove('open');
+  }
+});
+
+// ============================================================
+//  2. 水晶数据 & 渲染抽屉网格
+// ============================================================
+const CRYSTALS = [
+  { id: 'white',    name: '白水晶', cls: 'gem-white' },
+  { id: 'amethyst', name: '紫水晶', cls: 'gem-amethyst' },
+  { id: 'rose',     name: '粉水晶', cls: 'gem-rose' },
+  { id: 'citrine',  name: '黄水晶', cls: 'gem-citrine' },
+  { id: 'emerald',  name: '绿水晶', cls: 'gem-emerald' },
+  { id: 'sapphire', name: '蓝水晶', cls: 'gem-sapphire' },
+  { id: 'carnelian',name: '橙水晶', cls: 'gem-carnelian' },
+  { id: 'obsidian', name: '黑曜石', cls: 'gem-obsidian' },
+  { id: 'candle',   name: '蜡烛',   cls: 'candle' },
+];
+
+const desktop  = document.getElementById('desktop');
+const dragLayer = document.getElementById('dragLayer');
+let selectedGem = null; // 当前选中的水晶 DOM
+
+// 渲染布袋抽屉
+function renderBag() {
+  const grid = document.getElementById('bagGrid');
+  grid.innerHTML = CRYSTALS.map(c => `
+    <div class="drawer-item" data-crystal-id="${c.id}">
+      ${c.id === 'candle'
+        ? `<div class="candle-icon"><div class="candle-wick"></div><div class="candle-flame"></div></div>`
+        : `<div class="gem ${c.cls}"></div>`
+      }
+      <span class="gem-label">${c.name}</span>
+    </div>
+  `).join('');
+
+  // 从抽屉拖拽到桌面
+  grid.querySelectorAll('.drawer-item').forEach(item => {
+    item.addEventListener('mousedown', (e) => {
+      e.stopPropagation();
+      const id = item.dataset.crystalId;
+      const crystal = CRYSTALS.find(c => c.id === id);
+      if (!crystal) return;
+
+      // 从抽屉拖出：创建元素并跟随鼠标
+      const el = document.createElement('div');
+      let isCandle = id === 'candle';
+      if (isCandle) {
+        el.className = 'placed-gem candle-wrap';
+        el.dataset.crystalId = 'candle';
+        el.innerHTML = `<div class="candle-body"><div class="candle-wick"></div><div class="candle-flame"></div></div>`;
+        el.style.left = (e.clientX - 15) + 'px';
+        el.style.top  = (e.clientY - 30) + 'px';
+      } else {
+        el.className = 'placed-gem';
+        el.dataset.crystalId = id;
+        el.innerHTML = `
+          <div class="gem ${crystal.cls}"></div>
+          <div class="glow-ring"></div>
+        `;
+        el.style.left = (e.clientX - 22) + 'px';
+        el.style.top  = (e.clientY - 22) + 'px';
+      }
+      el.style.zIndex = '500';
+      el.style.position = 'fixed';
+      desktop.appendChild(el);
+      drawerBag.classList.remove('open');
+
+      // 跟随鼠标
+      const offX = e.clientX - parseFloat(el.style.left);
+      const offY = e.clientY - parseFloat(el.style.top);
+      function onMove(ev) {
+        el.style.left = (ev.clientX - offX) + 'px';
+        el.style.top  = (ev.clientY - offY) + 'px';
+      }
+      function onUp() {
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+        el.style.zIndex = '';
+        el.style.position = '';
+        if (isCandle) setupCandleEvents(el);
+        else setupGemEvents(el);
+      }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+  });
+}
+renderBag();
+
+// ============================================================
+//  3. 桌面水晶交互（选中高亮 + 轨道光环 + 拖拽）
+// ============================================================
+function setupGemEvents(gem) {
+  // 单击选中/取消
+  gem.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (selectedGem === gem) {
+      gem.classList.remove('selected');
+      selectedGem = null;
+    } else {
+      if (selectedGem) selectedGem.classList.remove('selected');
+      gem.classList.add('selected');
+      selectedGem = gem;
+    }
+  });
+
+  // 拖拽
+  let isDragging = false, offX = 0, offY = 0;
+  gem.addEventListener('mousedown', (e) => {
+    if (e.button !== 0) return;
+    isDragging = true;
+    const r = gem.getBoundingClientRect();
+    offX = e.clientX - r.left;
+    offY = e.clientY - r.top;
+    gem.style.zIndex = 500;
+    gem.style.cursor = 'grabbing';
+    // 拖拽时临时取消选中高亮
+    if (gem.classList.contains('selected')) {
+      gem.classList.remove('selected');
+    }
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    gem.style.left = (e.clientX - offX) + 'px';
+    gem.style.top  = (e.clientY - offY) + 'px';
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+      gem.style.cursor = 'grab';
+      // 放下后恢复选中（如果之前是选中的）
+    }
+  });
+}
+
+// 点击桌面空白取消选中
+desktop.addEventListener('click', (e) => {
+  if (e.target === desktop || e.target === dragLayer) {
+    if (selectedGem) {
+      selectedGem.classList.remove('selected');
+      selectedGem = null;
+    }
+  }
+});
+
+// ============================================================
+//  蜡烛交互（单击点火/灭火 + 拖拽）
+// ============================================================
+function setupCandleEvents(candle) {
+  let lit = false;
+  let dragDist = 0;
+  // 单击切换火苗（仅当非拖拽时）
+  candle.addEventListener('click', (e) => {
+    if (dragDist > 5) return;
+    e.stopPropagation();
+    lit = !lit;
+    candle.classList.toggle('candle-lit', lit);
+  });
+
+  // 拖拽
+  let isDragging = false, offX = 0, offY = 0;
+  candle.addEventListener('mousedown', (e) => {
+    if (e.button !== 0) return;
+    e.stopPropagation();
+    dragDist = 0;
+    isDragging = true;
+    const r = candle.getBoundingClientRect();
+    offX = e.clientX - r.left;
+    offY = e.clientY - r.top;
+    candle.style.zIndex = 500;
+    candle.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    dragDist += Math.abs(e.movementX) + Math.abs(e.movementY);
+    candle.style.left = (e.clientX - offX) + 'px';
+    candle.style.top  = (e.clientY - offY) + 'px';
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+      candle.style.cursor = 'grab';
+    }
+  });
+}
+
+// ============================================================
+//  4. 牌组系统（使用 decks.js 的 DECKS，加载真实牌图）
+// ============================================================
+let deckList = [];
+let currentDeck = [];
+let drawnIds = new Set();
+let placedCards = [];
+let présSelectedIdx = -1;
+
+function loadDecksFromConfig() {
+  if (typeof DECKS === 'undefined' || !Array.isArray(DECKS)) return;
+  DECKS.forEach((cfg, idx) => {
+    const basePath = cfg.path.replace(/\/+$/, '');
+    const count = cfg.cardCount || 78;
+    const fmt = cfg.format || 'png';
+    const deckId = `config-deck-${idx}`;
+    const backFmt = cfg.back || 'png';
+    const backPath = basePath + '/back.' + backFmt;
+    const cards = [];
+    for (let i = 0; i < count; i++) {
+      cards.push({
+        id: `${deckId}-${i}`, number: String(i + 1),
+        name: cfg.name + ' #' + i, type: 'custom',
+        _imgUrl: basePath + '/' + i + '.' + fmt,
+      });
+    }
+    deckList.push({
+      id: deckId, name: cfg.name, count, icon: '🃏',
+      _backImg: backPath, _cards: cards,
+      noReverse: cfg.noReverse || false,
+    });
+  });
+}
+loadDecksFromConfig();
+
+function renderDecks() {
+  const grid = document.getElementById('deckGrid');
+  if (!deckList.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px 0;color:#5a3a7a;font-size:12px;">请配置 decks.js</div>';
+    return;
+  }
+  grid.innerHTML = deckList.map(d => {
+    const thumb = d._backImg;
+    return `
+    <div class="drawer-item" data-deck-id="${d.id}">
+      ${thumb
+        ? `<img src="${thumb}" alt="" style="max-width:50px;max-height:70px;width:auto;height:auto;border:2px solid #4a2a6a;display:block;" draggable="false" onerror="this.outerHTML='<span style=font-size:24px;>🃏</span>'">`
+        : '<span style="font-size:24px;">🃏</span>'
+      }
+      <span class="gem-label">${d.name}</span>
+      <span style="font-size:8px;color:#5a3a7a;">${d.count}张</span>
+    </div>`;
+  }).join('');
+
+  grid.querySelectorAll('.drawer-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const did = item.dataset.deckId;
+      const deck = deckList.find(d => d.id === did);
+      if (deck) selectDeckAndOpen(deck);
+      drawerDeck.classList.remove('open');
+    });
+  });
+}
+renderDecks();
+
+function selectDeckAndOpen(deck) {
+  closeFan();
+  if (deck._cards) {
+    currentDeck = [...deck._cards];
+  } else {
+    currentDeck = Array.from({length: deck.count}, (_, i) => ({
+      id: `${deck.id}-${i}`, number: String(i + 1),
+      name: `#${i+1}`, type: 'custom',
+    }));
+  }
+  if (deck._backImg) {
+    currentDeck._images = { back: deck._backImg, fronts: deck._frontImgs || [], noReverse: deck.noReverse || false };
+  }
+  openFan();
+}
+
+// ============================================================
+//  5. 塔罗扇形 + 抽牌翻牌拖拽
+// ============================================================
+const fanArea      = document.getElementById('fanArea');
+const fanScroll    = document.getElementById('fanScroll');
+const fanControls  = document.getElementById('fanControls');
+const fanCounter   = document.getElementById('fanCounter');
+const arrowLeft    = document.getElementById('fanArrowLeft');
+const arrowRight   = document.getElementById('fanArrowRight');
+
+let rotationOffset   = 0;
+let fanCardEls       = [];
+const CARD_STEP      = 4.3;
+const WINDOW_HALF    = 6;
+
+// --- Fisher-Yates 洗牌 + 随机正逆位 ---
+function shuffleDeck(deck) {
+  const arr = [...deck];
+  const images = deck._images;
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  const noRev = currentDeck._images?.noReverse;
+  const result = arr.map(card => ({ ...card, isReversed: noRev ? false : Math.random() < 0.5 }));
+  result._images = images;
+  return result;
+}
+
+function openFan() {
+  closeFan();
+  fanArea.classList.add('active');
+  fanControls.classList.add('active');
+  currentDeck = shuffleDeck(currentDeck);
+  rotationOffset = 0;
+  présSelectedIdx = -1;
+  _enterFromLeft = true;
+  renderFanWindow();
+}
+
+function closeFan() {
+  fanArea.classList.remove('active');
+  fanControls.classList.remove('active');
+  fanCardEls.forEach(el => el.remove());
+  fanCardEls = [];
+  présSelectedIdx = -1;
+  drawnIds.clear();
+}
+
+// --- 扇形几何 ---
+function getFanLayout(idx) {
+  const total = currentDeck.length;
+  const centerIdx = total / 2 + rotationOffset;
+  const rel = idx - centerIdx;
+  const angleDeg = rel * CARD_STEP;
+  const radius = 1600;
+  const fanW = fanScroll.offsetWidth || 800;
+  const fanH = fanScroll.offsetHeight || 220;
+  const cx = fanW / 2;
+  const cy = fanH + 1400;
+  const rad = angleDeg * Math.PI / 180;
+  return {
+    x: cx + radius * Math.sin(rad),
+    y: cy - radius * Math.cos(rad),
+    rotation: angleDeg,
+    z: Math.floor(rel) + 50,
+    opacity: Math.abs(rel) <= WINDOW_HALF ? 1 : 0,
+  };
+}
+
+// --- 创建一张扇形牌 DOM（seqNum 为从左到右的序号，不暴露真实牌号） ---
+function createFanCardEl(globalIdx, seqNum) {
+  const card = currentDeck[globalIdx];
+  if (!card || drawnIds.has(card.id)) return null;
+  const backImg = currentDeck._images?.back;
+  const el = document.createElement('div');
+  el.className = 'fan-card';
+  el.dataset.globalIdx = globalIdx;
+  el.dataset.reversed = card.isReversed ? 'true' : 'false';
+  el.innerHTML = backImg
+    ? `<div class="card-inner" style="padding:0;overflow:hidden;border-color:#5a307a;background:transparent;">
+        <img src="${backImg}" alt="" draggable="false" style="display:block;width:100%;height:auto;"
+             onerror="this.style.display='none';this.parentElement.style.cssText+=';width:80px;height:120px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#1a0a30,#0c0218);'">
+        <span class="card-number">${seqNum || ''}</span>
+       </div>`
+    : `<div class="card-inner" style="border-color:#5a307a;">
+        <span class="card-number">${seqNum || ''}</span>
+       </div>`;
+  el.addEventListener('click', (e) => { e.stopPropagation(); handleFanCardClick(globalIdx); });
+  el.addEventListener('mousedown', (e) => {
+    if (e.button !== 0) return;
+    if (présSelectedIdx !== globalIdx) return;
+    e.preventDefault();
+    startFanCardDrag(e, globalIdx);
+  });
+  return el;
+}
+
+// --- 渲染可见窗口 ---
+let _enterFromLeft = false;
+
+function renderFanWindow() {
+  const total = currentDeck.length;
+  const centerIdx = total / 2 + rotationOffset;
+  const lo = Math.max(0, Math.floor(centerIdx - WINDOW_HALF));
+  const hi = Math.min(total - 1, Math.ceil(centerIdx + WINDOW_HALF));
+  const needIndices = new Set();
+  for (let i = lo; i <= hi; i++) {
+    if (!drawnIds.has(currentDeck[i]?.id)) needIndices.add(i);
+  }
+
+  const remaining = total - drawnIds.size;
+  fanCounter.textContent = `${Math.round(centerIdx) + 1} / ${remaining}`;
+  arrowLeft.style.visibility  = lo > 0 ? 'visible' : 'hidden';
+  arrowRight.style.visibility = hi < total - 1 ? 'visible' : 'hidden';
+
+  if (présSelectedIdx >= 0 && !needIndices.has(présSelectedIdx)) présSelectedIdx = -1;
+
+  // 移出窗口
+  fanCardEls = fanCardEls.filter(el => {
+    const idx = parseInt(el.dataset.globalIdx);
+    if (!needIndices.has(idx)) {
+      const layout = getFanLayout(idx);
+      el.style.opacity = '0';
+      el.style.transform = `translate(calc(${layout.x}px - 50%), ${layout.y}px) rotate(${layout.rotation}deg) scale(0.6)`;
+      setTimeout(() => el.remove(), 600);
+      return false;
+    }
+    return true;
+  });
+
+  // 新进入（编号 = 牌在牌堆中的实际位置）
+  needIndices.forEach(idx => {
+    if (fanCardEls.some(el => parseInt(el.dataset.globalIdx) === idx)) return;
+    const el = createFanCardEl(idx, idx + 1);
+    if (!el) return;
+    const layout = getFanLayout(idx);
+    const side = _enterFromLeft ? -1 : 1;
+    const startX = side * (fanScroll.offsetWidth * 1.2);
+    const startY = (fanScroll.offsetHeight || 220) + 90;
+    el.style.transition = 'none';
+    el.style.opacity = '0';
+    el.style.transform = `translate(${startX}px, ${startY}px) rotate(${side * 30}deg) scale(0.6)`;
+    el.style.zIndex = 0;
+    el.style.pointerEvents = 'none';
+    fanScroll.appendChild(el);
+    fanCardEls.push(el);
+    requestAnimationFrame(() => {
+      el.style.transition = '';
+      applyCardPosition(el, idx);
+    });
+  });
+
+  // 已有牌更新位置 + 更新编号（基于牌堆位置）
+  fanCardEls.forEach(el => {
+    const idx = parseInt(el.dataset.globalIdx);
+    el.style.transition = '';
+    applyCardPosition(el, idx);
+    const sn = el.querySelector('.card-number');
+    if (sn) sn.textContent = idx + 1;
+  });
+}
+
+function applyCardPosition(el, idx) {
+  const card = currentDeck[idx];
+  if (card && drawnIds.has(card.id)) {
+    el.remove();
+    fanCardEls = fanCardEls.filter(e => e !== el);
+    return;
+  }
+  const layout = getFanLayout(idx);
+  const isVisible = layout.opacity === 1;
+  el.style.transform = `translate(calc(${layout.x}px - 50%), ${layout.y}px) rotate(${layout.rotation}deg)`;
+  el.style.opacity = isVisible ? '1' : '0';
+  el.style.zIndex = isVisible ? layout.z : 0;
+  el.style.pointerEvents = isVisible ? '' : 'none';
+}
+
+// --- 单击预选 ---
+function handleFanCardClick(globalIdx) {
+  if (présSelectedIdx === globalIdx) {
+    présSelectedIdx = -1;
+  } else {
+    if (présSelectedIdx >= 0) {
+      const oldEl = fanCardEls.find(el => parseInt(el.dataset.globalIdx) === présSelectedIdx);
+      if (oldEl) oldEl.classList.remove('preselected');
+    }
+    présSelectedIdx = globalIdx;
+  }
+  fanCardEls.forEach(el => {
+    const idx = parseInt(el.dataset.globalIdx);
+    el.classList.toggle('preselected', idx === présSelectedIdx);
+  });
+}
+
+// --- 预选后拖拽放置（物理移动原牌） ---
+function startFanCardDrag(e, globalIdx) {
+  const card = currentDeck[globalIdx];
+  if (!card) return;
+  const srcEl = fanCardEls.find(el => parseInt(el.dataset.globalIdx) === globalIdx);
+  if (!srcEl) return;
+  const srcRect = srcEl.getBoundingClientRect();
+  const cw = srcRect.width;
+  const ch = srcRect.height;
+  const startLeft = srcRect.left;
+  const startTop  = srcRect.top;
+
+  fanScroll.style.pointerEvents = 'none';
+  srcEl.remove();
+  fanCardEls = fanCardEls.filter(el => el !== srcEl);
+  srcEl.classList.remove('preselected');
+  srcEl.style.transformOrigin = '50% 50%';
+  srcEl.style.position = 'fixed';
+  srcEl.style.left = startLeft + 'px';
+  srcEl.style.top  = startTop + 'px';
+  srcEl.style.zIndex = '9999';
+  srcEl.style.pointerEvents = 'none';
+  srcEl.style.transition = 'none';
+  srcEl.style.transform = 'rotate(-5deg)';
+  const inner = srcEl.querySelector('.card-inner');
+  if (inner) { inner.style.boxShadow = '0 8px 32px rgba(180,100,255,0.4)'; inner.style.borderColor = '#b080ff'; }
+  document.body.appendChild(srcEl);
+
+  const offsetX = e.clientX - startLeft;
+  const offsetY = e.clientY - startTop;
+
+  function onMove(ev) {
+    srcEl.style.left = (ev.clientX - offsetX) + 'px';
+    srcEl.style.top  = (ev.clientY - offsetY) + 'px';
+  }
+  function onUp(ev) {
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+    fanScroll.style.pointerEvents = '';
+    srcEl.remove();
+    let relX = ev.clientX - cw / 2;
+    let relY = ev.clientY - ch / 2;
+    relX = Math.max(0, Math.min(relX, window.innerWidth - cw));
+    relY = Math.max(60, Math.min(relY, window.innerHeight - ch));
+    placeCardAt(card, globalIdx, relX, relY);
+  }
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
+  srcEl.style.left = (e.clientX - offsetX) + 'px';
+  srcEl.style.top  = (e.clientY - offsetY) + 'px';
+}
+
+// --- 放置牌到桌面 ---
+function placeCardAt(card, globalIdx, posX, posY) {
+  const fanEl = fanCardEls.find(el => parseInt(el.dataset.globalIdx) === globalIdx);
+  const isRev = fanEl?.dataset.reversed === 'true' || card.isReversed || false;
+  if (fanEl) { fanEl.remove(); fanCardEls = fanCardEls.filter(el => el !== fanEl); }
+  drawnIds.add(card.id);
+
+  const remaining = currentDeck.length - drawnIds.size;
+  const centerIdx = currentDeck.length / 2 + rotationOffset;
+  fanCounter.textContent = `${Math.round(centerIdx) + 1} / ${remaining}`;
+
+  placeCardWithFlip(card, globalIdx, posX, posY, isRev);
+  if (présSelectedIdx === globalIdx) présSelectedIdx = -1;
+}
+
+// --- 创建桌面放置牌（3D 翻牌） ---
+function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
+  const refW = Math.round(window.innerWidth * 0.1);
+  const refH = Math.round(refW * 1.5);
+  const baseX = posX !== undefined ? posX : (window.innerWidth - refW) / 2 + (Math.random() - 0.5) * refW * 0.6;
+  const baseY = posY !== undefined ? posY : (window.innerHeight - refH) / 2 + (Math.random() - 0.5) * refH * 0.6;
+
+  const backImg  = currentDeck._images?.back;
+  const frontImg = card._imgUrl;
+
+  const placed = document.createElement('div');
+  placed.className = 'placed-card';
+  placed.style.left = Math.max(0, Math.min(baseX, window.innerWidth - refW - 6)) + 'px';
+  placed.style.top  = Math.max(0, Math.min(baseY, window.innerHeight - refH - 6)) + 'px';
+
+  placed.innerHTML = `
+    <div class="card-flipper">
+      <div class="card-back">
+        ${backImg
+          ? `<img src="${backImg}" alt="" draggable="false" onerror="this.outerHTML='<div style=display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:2/3;background:radial-gradient(circle,#1a0a30,#0c0218);><span style=font-size:36px;color:rgba(180,100,255,0.15);>✦</span></div>'">`
+          : ''}
+      </div>
+      <div class="card-front${isReversed ? ' is-reversed' : ''}">
+        ${frontImg
+          ? `<img src="${frontImg}" alt="${card.name}" draggable="false" onerror="this.outerHTML='<div style=display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;aspect-ratio:2/3;background:linear-gradient(160deg,#1a0a30,#0c0218);padding:8px;><span>${card.number}</span><span style=font-size:1.5em;>🌟</span><span>${card.name}</span></div>'">`
+          : `<div style="width:100%;aspect-ratio:2/3;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,#1a0a30,#0c0218);padding:8px;">
+              <span style="font-size:inherit;color:#7a4a9a;">${card.number}</span>
+              <span style="font-size:1.5em;margin:4px 0;">🌟</span>
+              <span style="font-size:0.7em;color:#b898e0;text-align:center;">${card.name}</span>
+             </div>`
+        }
+      </div>
+    </div>
+    <span class="card-remove-hint">右键移除</span>
+  `;
+
+  let dragDist = 0, offX = 0, offY = 0, _mousedown = false;
+
+  placed.addEventListener('click', (e) => {
+    if (dragDist > 5) return;
+    placed.classList.toggle('revealed');
+  });
+
+  placed.addEventListener('mousedown', (e) => {
+    if (e.button !== 0) return;
+    _mousedown = true;
+    dragDist = 0;
+    const r = placed.getBoundingClientRect();
+    offX = e.clientX - r.left; offY = e.clientY - r.top;
+    placed.style.zIndex = 300;
+    placed.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+
+  const onMove = (e) => {
+    if (!_mousedown) return;
+    dragDist += Math.abs(e.movementX) + Math.abs(e.movementY);
+    let nx = e.clientX - offX;
+    let ny = e.clientY - offY;
+    nx = Math.max(0, Math.min(nx, window.innerWidth - placed.offsetWidth));
+    ny = Math.max(0, Math.min(ny, window.innerHeight - placed.offsetHeight));
+    placed.style.left = nx + 'px';
+    placed.style.top  = ny + 'px';
+  };
+  const onUp = () => { if (_mousedown) { _mousedown = false; placed.style.cursor = 'grab'; } };
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
+
+  placed.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    if (drawnIds.has(card.id)) {
+      drawnIds.delete(card.id);
+      const newFanEl = createFanCardEl(globalIdx, globalIdx + 1);
+      if (newFanEl) {
+        newFanEl.style.transition = 'none';
+        newFanEl.style.left = 'calc(50% + 300px)';
+        newFanEl.style.transform = 'rotate(25deg)';
+        newFanEl.style.opacity = '0';
+        newFanEl.style.zIndex = 0;
+        fanScroll.appendChild(newFanEl);
+        fanCardEls.push(newFanEl);
+        requestAnimationFrame(() => {
+          newFanEl.style.transition = '';
+          applyCardPosition(newFanEl, globalIdx);
+        });
+      }
+      const remaining = currentDeck.length - drawnIds.size;
+      const centerIdx = currentDeck.length / 2 + rotationOffset;
+      fanCounter.textContent = `${Math.round(centerIdx) + 1} / ${remaining}`;
+    }
+    placed.remove();
+    placedCards = placedCards.filter(p => p !== placed);
+  });
+
+  desktop.appendChild(placed);
+  placedCards.push(placed);
+}
+
+// --- 箭头翻页 ---
+arrowLeft.addEventListener('click', () => {
+  const total = currentDeck.length;
+  const centerIdx = total / 2 + rotationOffset;
+  if (Math.floor(centerIdx - WINDOW_HALF) > 0) { rotationOffset -= 1; _enterFromLeft = true; renderFanWindow(); }
+});
+arrowRight.addEventListener('click', () => {
+  const total = currentDeck.length;
+  const centerIdx = total / 2 + rotationOffset;
+  if (Math.ceil(centerIdx + WINDOW_HALF) < total - 1) { rotationOffset += 1; _enterFromLeft = false; renderFanWindow(); }
+});
+
+// 默认显示第一个牌组
+if (deckList.length > 0) {
+  selectDeckAndOpen(deckList[0]);
+}
+</script>
+
+<!-- 导航 -->
+<div style="position:fixed;top:12px;right:12px;z-index:999;display:flex;gap:10px;">
+  <a href="magic_ios.html" style="background:rgba(20,8,40,0.8);border:2px solid #5a307a;color:#a070d8;padding:6px 14px;font-size:12px;cursor:pointer;font-family:inherit;letter-spacing:2px;text-decoration:none;transition:all 0.3s;" onmouseover="this.style.borderColor='#b080ff';this.style.color='#e0ccff'" onmouseout="this.style.borderColor='#5a307a';this.style.color='#a070d8'">📖 魔法工坊</a>
+  <a href="manifest_ios.html" style="background:rgba(20,8,40,0.8);border:2px solid #5a307a;color:#a070d8;padding:6px 14px;font-size:12px;cursor:pointer;font-family:inherit;letter-spacing:2px;text-decoration:none;transition:all 0.3s;" onmouseover="this.style.borderColor='#b080ff';this.style.color='#e0ccff'" onmouseout="this.style.borderColor='#5a307a';this.style.color='#a070d8'">🌙 显化之境</a>
+</div>
+
+</body>
+</html>
