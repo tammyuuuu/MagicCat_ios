@@ -431,7 +431,7 @@
     .placed-card {
       position: absolute;
       cursor: grab;
-      z-index: 100;
+      z-index: 40;              /* 置于扇形区(z20)与底部按钮(z35)之上，抽屉(z90)之下 */
       border: 3px solid #6b3fa0;
       transition: box-shadow 0.3s, border-color 0.3s;
       user-select: none;
@@ -1608,6 +1608,7 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
     placed.addEventListener('pointerup', () => {
       if (lpTimer) { clearTimeout(lpTimer); lpTimer = null; }
       tDragging = false;
+      placed.style.zIndex = '';      // 拖完恢复 CSS 层级，避免盖住抽屉/按钮
       placed.style.cursor = 'grab';
       if (tDist <= 8) {
         if (placed.classList.contains('revealed')) {
@@ -1621,6 +1622,7 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
     placed.addEventListener('pointercancel', () => {
       if (lpTimer) { clearTimeout(lpTimer); lpTimer = null; }
       tDragging = false;
+      placed.style.zIndex = '';
     });
   } else {
     // ===== 桌面端：鼠标拖拽 + 右键移除 =====
@@ -1652,7 +1654,7 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
       placed.style.left = nx + 'px';
       placed.style.top  = ny + 'px';
     };
-    const onUp = () => { if (_mousedown) { _mousedown = false; placed.style.cursor = 'grab'; } };
+    const onUp = () => { if (_mousedown) { _mousedown = false; placed.style.zIndex = ''; placed.style.cursor = 'grab'; } };
     document.addEventListener('mousemove', onMove);
     document.addEventListener('mouseup', onUp);
 
@@ -1662,7 +1664,8 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
     });
   }
 
-  desktop.appendChild(placed);
+  // 挂到 body 顶层：避免被 #desktop(z-index:1) 层叠上下文困住，盖在扇形区之下
+  document.body.appendChild(placed);
   placedCards.push(placed);
 }
 
