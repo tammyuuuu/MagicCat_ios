@@ -46,21 +46,22 @@
     .side-tab {
       position: fixed; z-index: 100;
       top: 50%; transform: translateY(-50%);
-      width: 32px; height: 90px;
+      width: 26px;
       background: rgba(20, 8, 40, 0.85);
       border: 2px solid #5a307a;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      font-size: 16px;
+      font-size: 15px;
+      padding: 12px 2px;      /* 高度自适应内容 */
       transition: all 0.3s;
       writing-mode: vertical-rl;
-      letter-spacing: 4px;
+      letter-spacing: 3px;
     }
     .side-tab:hover {
       border-color: #b080ff; background: rgba(30, 12, 60, 0.95);
     }
-    .side-tab-left-bag  { left: 0; border-left: none; border-radius: 0 6px 6px 0; top: calc(50% - 55px); }
-    .side-tab-left-deck { left: 0; border-left: none; border-radius: 0 6px 6px 0; top: calc(50% + 55px); }
+    .side-tab-left-bag  { left: 0; border-left: none; border-radius: 0 6px 6px 0; top: calc(50% - 116px); }
+    .side-tab-left-deck { left: 0; border-left: none; border-radius: 0 6px 6px 0; top: calc(50% - 36px); }
 
     /* ===== 抽屉面板 ===== */
     .drawer {
@@ -239,6 +240,7 @@
 
     #fanScroll {
       position: relative; width: 100%; height: 100%;
+      touch-action: none;
     }
 
     /* ===== 底部固定操作栏 ===== */
@@ -272,6 +274,73 @@
     .fan-counter {
       font-size: 12px; color: #a080d0; letter-spacing: 2px;
       pointer-events: auto;
+    }
+    .fan-clear {
+      display: none;   /* 已被 #clearBtn 秘仪圆环取代 */
+    }
+
+    /* ===== 清空桌面按钮（秘仪圆环，仿 web 版） ===== */
+    #clearBtn {
+      position: relative;
+      z-index: 100;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(30,12,60,0.9);
+      border: 2px solid #8a4dff;
+      color: #d4b0ff;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 8px;
+      transition: all 0.35s cubic-bezier(0.25,1,0.5,1);
+      box-shadow: 0 0 14px rgba(180,100,255,0.15);
+      pointer-events: auto;
+      font-family: inherit;
+    }
+    /* 外圈旋转符文环 */
+    #clearBtn::before {
+      content: '';
+      position: absolute; inset: -6px;
+      border-radius: 50%;
+      border: 1px dashed rgba(180,100,255,0.28);
+      animation: clearRingSpin 14s linear infinite;
+      pointer-events: none;
+    }
+    #clearBtn::after {
+      content: '';
+      position: absolute; inset: 1px;
+      border-radius: 50%;
+      border: 1px solid rgba(180,100,255,0.08);
+      pointer-events: none;
+    }
+    /* 中央小符文 */
+    #clearBtn .clear-rune {
+      position: absolute;
+      font-size: 6px; color: rgba(200,160,255,0.25);
+      pointer-events: none;
+    }
+    #clearBtn .clear-rune.r1 { top: 3px; left: 50%; transform: translateX(-50%); }
+    #clearBtn .clear-rune.r2 { bottom: 3px; left: 50%; transform: translateX(-50%); }
+    #clearBtn .clear-rune.r3 { left: 5px; top: 50%; transform: translateY(-50%); }
+    #clearBtn .clear-rune.r4 { right: 5px; top: 50%; transform: translateY(-50%); }
+
+    #clearBtn:hover {
+      border-color: #b080ff;
+      box-shadow: 0 0 24px rgba(180,100,255,0.35);
+      transform: scale(1.08);
+    }
+    #clearBtn:active { transform: scale(0.95); }
+    #clearBtn:hover .clear-rune { color: rgba(200,160,255,0.5); }
+
+    /* 清空时的爆发动画 */
+    #clearBtn.purging { animation: clearPulse 0.6s ease; }
+    @keyframes clearPulse {
+      0%   { transform: scale(1); box-shadow: 0 0 0 rgba(180,100,255,0); }
+      50%  { transform: scale(1.25); box-shadow: 0 0 40px rgba(180,100,255,0.5); }
+      100% { transform: scale(1); box-shadow: 0 0 0 rgba(180,100,255,0); }
+    }
+    @keyframes clearRingSpin {
+      to { transform: rotate(360deg); }
     }
 
     .fan-card {
@@ -333,6 +402,28 @@
       font-weight: bold;
       text-shadow: 0 0 6px rgba(0,0,0,0.9), 0 0 12px rgba(0,0,0,0.5);
       pointer-events: none;
+    }
+
+    /* ===== 手机适配：扇形区更大、牌面更大（放在基础规则之后才能覆盖） ===== */
+    @media (max-width: 768px) {
+      #fanArea {
+        bottom: 65px;
+        height: min(38vh, 340px);
+      }
+      #fanScroll {
+        pointer-events: auto;   /* 让扇形区空白处也能滑动翻页 */
+      }
+      .fan-card {
+        width: min(18vw, 84px);
+      }
+      #fanControls {
+        bottom: 10px;
+        height: 44px;
+        gap: 16px;
+      }
+      .fan-arrow {
+        display: none;          /* 取消左右箭头，改用滑动 */
+      }
     }
 
     /* --- 桌面已放置牌（3D翻牌） --- */
@@ -398,18 +489,363 @@
     }
     .placed-card:hover .card-remove-hint { display: block; }
 
+    /* ===== 手机适配：桌面牌（须放在 .placed-card 基础规则之后） ===== */
+    @media (max-width: 768px) {
+      .placed-card {
+        width: min(18vw, 84px);   /* 与扇形牌同尺寸，避免拖出后变小 */
+      }
+      .placed-card .card-remove-hint {
+        display: block;           /* 手机无右键，常显长按提示 */
+      }
+    }
+
     /* ===== 拖拽浮动层 ===== */
     #dragLayer {
       position: fixed; inset: 0; z-index: 9999;
       pointer-events: none;
+    }
+
+    /* ===== 牌面放大查看（手机版，仿 web） ===== */
+    #cardZoom {
+      position: fixed; inset: 0;
+      z-index: 9999;
+      background: rgba(5,2,12,0.85);
+      backdrop-filter: blur(6px);
+      display: none;
+      overflow-y: auto;
+      cursor: zoom-out;
+    }
+    #cardZoom.active { display: flex; align-items: center; justify-content: center; }
+    #cardZoom .zoom-wrap {
+      position: relative;
+      margin: auto;
+      padding: 70px 20px 40px;
+      animation: zoomIn 0.3s cubic-bezier(0.25,1,0.5,1);
+      text-align: center;
+    }
+    /* 放大牌面：宽为屏幕 3/4（或自适应），不超出屏幕 */
+    #cardZoom .zoom-card {
+      width: min(75vw, 520px);
+      max-width: min(75vw, 520px);
+      box-shadow: 0 0 60px rgba(180,100,255,0.4);
+      border: 3px solid #6b3fa0;
+      border-radius: 4px;
+      margin: 0 auto;
+    }
+    #cardZoom .zoom-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    /* 解读图：超高时在框内滚动 */
+    #cardZoom .zoom-card.interp {
+      max-height: 72vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: #8a4dff transparent;
+    }
+    #cardZoom .zoom-card.interp img { width: 100%; height: auto; display: block; }
+    #cardZoom .zoom-card.interp::-webkit-scrollbar { width: 6px; }
+    #cardZoom .zoom-card.interp::-webkit-scrollbar-thumb { background: #8a4dff; border-radius: 3px; }
+    /* 关闭按钮（右上） */
+    #cardZoom .zoom-close {
+      position: fixed; top: 20px; right: 20px;
+      width: 42px; height: 42px;
+      background: rgba(20,8,40,0.9);
+      border: 2px solid #8a4dff;
+      color: #d4b0ff; font-size: 16px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-family: inherit;
+      transition: all 0.3s;
+      z-index: 10000;
+    }
+    #cardZoom .zoom-close:hover { border-color: #b080ff; color: #fff; }
+    /* 翻面按钮（左上，文字样式与解读按钮统一） */
+    #cardZoom .zoom-flip {
+      position: fixed; top: 20px; left: 20px;
+      height: 42px; padding: 0 18px;
+      background: rgba(30,12,60,0.9);
+      border: 2px solid #8a4dff;
+      color: #d4b0ff;
+      font-size: 13px;
+      letter-spacing: 2px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-family: inherit;
+      border-radius: 21px;
+      transition: all 0.3s;
+      z-index: 10000;
+    }
+    #cardZoom .zoom-flip:hover { border-color: #b080ff; color: #fff; }
+    /* 解读按钮（牌下方） */
+    #cardZoom .zoom-interpret {
+      margin: 18px auto 0;
+      height: 42px; padding: 0 24px;
+      background: rgba(60,30,10,0.9);
+      border: 2px solid #c8a050;
+      color: #f0d080; font-size: 14px;
+      letter-spacing: 2px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-family: inherit;
+      border-radius: 21px;
+      transition: all 0.3s;
+    }
+    #cardZoom .zoom-interpret:hover { border-color: #f0d080; color: #fff; box-shadow: 0 0 16px rgba(240,208,128,0.3); }
+    #cardZoom .zoom-interpret.back { background: rgba(30,12,60,0.9); border-color: #8a4dff; color: #d4b0ff; }
+    #cardZoom .zoom-interpret.back:hover { border-color: #b080ff; color: #fff; }
+    @keyframes zoomIn {
+      from { transform: scale(0.7); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    /* ===== 记录侧边标签（放在布袋上方，避开扇形区） ===== */
+    .side-tab-left-rec { left: 0; border-left: none; border-radius: 0 6px 6px 0; top: calc(50% - 196px); }
+
+    /* ===== 记录按钮（与清除按钮同风格，蓝色系） ===== */
+    #recordBtn {
+      position: relative;
+      z-index: 100;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(20,12,50,0.9);
+      border: 2px solid #4da0ff;
+      color: #a8d8ff;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 8px;
+      transition: all 0.35s cubic-bezier(0.25,1,0.5,1);
+      box-shadow: 0 0 14px rgba(100,180,255,0.15);
+      pointer-events: auto;
+      font-family: inherit;
+    }
+    #recordBtn::before {
+      content: '';
+      position: absolute; inset: -6px;
+      border-radius: 50%;
+      border: 1px dashed rgba(100,180,255,0.28);
+      animation: clearRingSpin 14s linear infinite;
+      pointer-events: none;
+    }
+    #recordBtn::after {
+      content: '';
+      position: absolute; inset: 1px;
+      border-radius: 50%;
+      border: 1px solid rgba(100,180,255,0.08);
+      pointer-events: none;
+    }
+    #recordBtn .clear-rune {
+      position: absolute;
+      font-size: 6px; color: rgba(140,200,255,0.3);
+      pointer-events: none;
+    }
+    #recordBtn .clear-rune.r1 { top: 3px; left: 50%; transform: translateX(-50%); }
+    #recordBtn .clear-rune.r2 { bottom: 3px; left: 50%; transform: translateX(-50%); }
+    #recordBtn .clear-rune.r3 { left: 5px; top: 50%; transform: translateY(-50%); }
+    #recordBtn .clear-rune.r4 { right: 5px; top: 50%; transform: translateY(-50%); }
+    #recordBtn:hover {
+      border-color: #6ab8ff;
+      box-shadow: 0 0 24px rgba(100,180,255,0.35);
+      transform: scale(1.08);
+    }
+    #recordBtn:active { transform: scale(0.95); }
+    #recordBtn:hover .clear-rune { color: rgba(140,200,255,0.5); }
+
+    /* ===== 选区截图工具 ===== */
+    #captureOverlay {
+      position: fixed; inset: 0;
+      z-index: 20000;
+      background: rgba(5,2,12,0.45);
+      display: none;
+      cursor: crosshair;
+    }
+    #captureOverlay.active { display: block; }
+    #captureTip {
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+      background: rgba(20,8,40,0.92);
+      border: 2px solid #5a307a;
+      color: #d4b0ff;
+      padding: 10px 22px;
+      font-size: 14px;
+      letter-spacing: 2px;
+      z-index: 20010;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    #captureRect {
+      position: fixed;
+      border: 2px dashed #b080ff;
+      background: rgba(180,100,255,0.12);
+      display: none;
+      z-index: 20005;
+      pointer-events: none;
+    }
+    .capture-btn {
+      position: fixed;
+      z-index: 20010;
+      height: 46px; padding: 0 28px;
+      border-radius: 23px;
+      display: none;
+      align-items: center; justify-content: center;
+      cursor: pointer; font-family: inherit;
+      font-size: 14px; letter-spacing: 2px;
+      transition: all 0.3s;
+    }
+    .capture-btn.show { display: flex; }
+    #captureConfirm {
+      bottom: 130px; left: 50%; transform: translateX(-50%);
+      background: rgba(60,160,90,0.92);
+      border: 2px solid #50d090;
+      color: #e0ffe8;
+    }
+    #captureCancel {
+      bottom: 70px; left: 50%; transform: translateX(-50%);
+      width: 46px; height: 46px;
+      padding: 0;
+      border-radius: 50%;
+      background: rgba(60,30,10,0.92);
+      border: 2px solid #c8a050;
+      color: #f0d080;
+      font-size: 16px;
+    }
+
+    /* ===== 记录页 ===== */
+    #recordPage {
+      position: fixed; inset: 0;
+      z-index: 15000;
+      background: radial-gradient(ellipse at 50% 30%, #1a0a2e, #0d001a);
+      display: none;
+      overflow-y: auto;
+      padding: 20px 18px 40px;
+    }
+    #recordPage.active { display: block; }
+    #recordPage .rp-title {
+      text-align: center;
+      color: #c9a0ff;
+      font-size: 18px;
+      letter-spacing: 6px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid #3a1e5e;
+      margin-bottom: 16px;
+    }
+    #recordPage .rp-photo {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    #recordPage .rp-photo img {
+      max-width: 100%;
+      border: 3px solid #6b3fa0;
+      border-radius: 6px;
+      box-shadow: 0 0 30px rgba(180,100,255,0.25);
+    }
+    #recordPage .rp-field { margin-bottom: 16px; }
+    #recordPage .rp-field label {
+      display: block;
+      color: #a080d0;
+      font-size: 13px;
+      letter-spacing: 3px;
+      margin-bottom: 6px;
+    }
+    #recordPage .rp-field input,
+    #recordPage .rp-field textarea {
+      width: 100%;
+      background: rgba(20,8,40,0.7);
+      border: 2px solid #5a307a;
+      color: #e0ccff;
+      font-family: inherit;
+      font-size: 14px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      outline: none;
+      box-sizing: border-box;
+    }
+    #recordPage .rp-field textarea {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.8;
+    }
+    #recordPage .rp-field input:focus,
+    #recordPage .rp-field textarea:focus { border-color: #b080ff; }
+    #recordPage .rp-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    #recordPage .rp-btn {
+      height: 46px; padding: 0 26px;
+      border-radius: 23px;
+      border: 2px solid #8a4dff;
+      background: rgba(30,12,60,0.9);
+      color: #d4b0ff;
+      font-family: inherit;
+      font-size: 14px;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    #recordPage .rp-btn:hover { border-color: #b080ff; color: #fff; }
+    #recordPage .rp-btn.primary { border-color: #50d090; background: rgba(60,160,90,0.85); color: #e0ffe8; }
+    #recordPage .rp-btn.danger  { border-color: #ff6a8a; background: rgba(160,60,80,0.85); color: #ffe0e8; }
+    /* 关闭按钮：圆形 ✕ */
+    #recordPage #rpCancel {
+      width: 46px; height: 46px;
+      padding: 0;
+      border-radius: 50%;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    /* ===== 记录抽屉 ===== */
+    .record-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .record-item {
+      background: rgba(10,4,22,0.6);
+      border: 2px solid #3a1e5e;
+      border-radius: 8px;
+      padding: 8px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .record-item:hover { border-color: #8a4dff; background: rgba(20,8,40,0.8); }
+    .record-item img {
+      width: 44px; height: 58px;
+      object-fit: cover;
+      border: 1px solid #4a2a6a;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .record-item .ri-info { flex: 1; min-width: 0; }
+    .record-item .ri-q {
+      font-size: 12px; color: #d4b0ff;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .record-item .ri-date { font-size: 10px; color: #5a3a7a; margin-top: 4px; }
+    .record-empty {
+      font-size: 12px; color: #5a3a7a; text-align: center;
+      padding: 30px 0; letter-spacing: 2px; line-height: 2;
     }
   </style>
 </head>
 <body>
 
 <!-- 侧边标签 -->
-<div class="side-tab side-tab-left-bag" id="tabBag">👜 布袋</div>
-<div class="side-tab side-tab-left-deck" id="tabDeck">🃏 牌盒</div>
+<div class="side-tab side-tab-left-bag" id="tabBag">布袋</div>
+<div class="side-tab side-tab-left-deck" id="tabDeck">牌盒</div>
+<div class="side-tab side-tab-left-rec" id="tabRec">记录</div>
 
 <!-- 左侧抽屉：水晶库 -->
 <div class="drawer drawer-left" id="drawerBag">
@@ -423,6 +859,12 @@
   <div class="drawer-grid cols-2" id="deckGrid"></div>
 </div>
 
+<!-- 左侧抽屉：记录库 -->
+<div class="drawer drawer-left" id="drawerRec">
+  <div class="drawer-title">✦ 记 录 库 ✦</div>
+  <div class="record-grid" id="recGrid"></div>
+</div>
+
 <!-- 桌面（自由放置层） -->
 <div id="desktop"></div>
 
@@ -434,13 +876,64 @@
 <!-- 底部固定操作栏 -->
 <div id="fanControls">
   <button class="fan-arrow fan-arrow-left" id="fanArrowLeft">◀</button>
-  <span class="fan-counter" id="fanCounter">0 / 0</span>
+  <button id="clearBtn" title="清空桌面">
+    <span class="clear-rune r1">✦</span>
+    <span class="clear-rune r2">✦</span>
+    <span class="clear-rune r3">✦</span>
+    <span class="clear-rune r4">✦</span>
+    <span>🧹</span>
+  </button>
+  <button id="recordBtn" title="记录本次解读">
+    <span class="clear-rune r1">✦</span>
+    <span class="clear-rune r2">✦</span>
+    <span class="clear-rune r3">✦</span>
+    <span class="clear-rune r4">✦</span>
+    <span>📔</span>
+  </button>
   <button class="fan-arrow fan-arrow-right" id="fanArrowRight">▶</button>
 </div>
 
 <!-- 拖拽层 -->
 <div id="dragLayer"></div>
 
+<!-- 选区截图工具 -->
+<div id="captureOverlay">
+  <div id="captureTip">拖拽选择要保存的区域</div>
+  <div id="captureRect"></div>
+  <button class="capture-btn" id="captureConfirm">保存</button>
+  <button class="capture-btn" id="captureCancel">✕</button>
+</div>
+
+<!-- 记录页 -->
+<div id="recordPage">
+  <div class="rp-title" id="rpTitle">✦ 记 录 ✦</div>
+  <div class="rp-photo" id="rpPhoto"></div>
+  <div class="rp-field">
+    <label>问题：</label>
+    <input id="rpQuestion" type="text" placeholder="输入你问的问题...">
+  </div>
+  <div class="rp-field">
+    <label>解读：</label>
+    <textarea id="rpInterp" placeholder="记录解读内容..."></textarea>
+  </div>
+  <div class="rp-actions">
+    <button class="rp-btn primary" id="rpSave">保存</button>
+    <button class="rp-btn danger" id="rpDelete" style="display:none;">删除</button>
+    <button class="rp-btn" id="rpCancel">✕</button>
+  </div>
+</div>
+
+<!-- 牌面放大查看 -->
+<div id="cardZoom">
+  <div class="zoom-wrap">
+    <button class="zoom-close" id="zoomClose">✕</button>
+    <button class="zoom-flip" id="zoomFlip" title="翻面">翻面</button>
+    <div class="zoom-card" id="zoomCard"></div>
+    <button class="zoom-interpret" id="zoomInterpret">解读</button>
+  </div>
+</div>
+
+<script src="html2canvas.min.js"></script>
 <script src="decks.js"></script>
 <script>
 // ============================================================
@@ -453,10 +946,12 @@ const tabDeck    = document.getElementById('tabDeck');
 
 tabBag.addEventListener('click', () => {
   drawerDeck.classList.remove('open');
+  document.getElementById('drawerRec')?.classList.remove('open');
   drawerBag.classList.toggle('open');
 });
 tabDeck.addEventListener('click', () => {
   drawerBag.classList.remove('open');
+  document.getElementById('drawerRec')?.classList.remove('open');
   drawerDeck.classList.toggle('open');
 });
 // 点击桌面空白关闭抽屉
@@ -464,6 +959,7 @@ document.getElementById('desktop').addEventListener('click', (e) => {
   if (e.target === desktop || e.target === dragLayer) {
     drawerBag.classList.remove('open');
     drawerDeck.classList.remove('open');
+    document.getElementById('drawerRec')?.classList.remove('open');
   }
 });
 
@@ -674,13 +1170,12 @@ function loadDecksFromConfig() {
     const deckId = `config-deck-${idx}`;
     const backFmt = cfg.back || 'png';
     const backPath = basePath + '/back.' + backFmt;
-    const startAt = cfg.startAt || 0;
     const cards = [];
     for (let i = 0; i < count; i++) {
       cards.push({
-        id: `${deckId}-${i}`, number: String(i + startAt),
-        name: cfg.name + ' #' + (i + startAt), type: 'custom',
-        _imgUrl: basePath + '/' + (i + startAt) + '.' + fmt,
+        id: `${deckId}-${i}`, number: String(i + 1),
+        name: cfg.name + ' #' + i, type: 'custom',
+        _imgUrl: basePath + '/' + i + '.' + fmt,
       });
     }
     deckList.push({
@@ -744,14 +1239,16 @@ function selectDeckAndOpen(deck) {
 const fanArea      = document.getElementById('fanArea');
 const fanScroll    = document.getElementById('fanScroll');
 const fanControls  = document.getElementById('fanControls');
-const fanCounter   = document.getElementById('fanCounter');
+const clearBtn     = document.getElementById('clearBtn');
 const arrowLeft    = document.getElementById('fanArrowLeft');
 const arrowRight   = document.getElementById('fanArrowRight');
 
 let rotationOffset   = 0;
 let fanCardEls       = [];
-const CARD_STEP      = 4.3;
-const WINDOW_HALF    = 6;
+let _suppressClick   = false;   // 触控手势后抑制重复 click
+const IS_MOBILE      = window.innerWidth <= 768;
+const CARD_STEP      = IS_MOBILE ? 5.5 : 4.3; // 手机端角度更小，扇形更紧凑、牌更多
+const WINDOW_HALF    = IS_MOBILE ? 5 : 6;     // 手机端显示更多牌
 
 // --- Fisher-Yates 洗牌 + 随机正逆位 ---
 function shuffleDeck(deck) {
@@ -793,11 +1290,12 @@ function getFanLayout(idx) {
   const centerIdx = total / 2 + rotationOffset;
   const rel = idx - centerIdx;
   const angleDeg = rel * CARD_STEP;
-  const radius = 1600;
-  const fanW = fanScroll.offsetWidth || 800;
+  const fanW = fanScroll.offsetWidth || window.innerWidth || 800;
   const fanH = fanScroll.offsetHeight || 220;
+  // 手机端：半径随屏宽缩放，让扇形在手机上更紧凑、牌更多
+  const radius = IS_MOBILE ? Math.min(380, Math.max(280, fanW * 0.9)) : 1600;
   const cx = fanW / 2;
-  const cy = fanH + 1400;
+  const cy = fanH + radius - (IS_MOBILE ? fanH * 0.75 : 200);
   const rad = angleDeg * Math.PI / 180;
   return {
     x: cx + radius * Math.sin(rad),
@@ -826,8 +1324,13 @@ function createFanCardEl(globalIdx, seqNum) {
     : `<div class="card-inner" style="border-color:#5a307a;">
         <span class="card-number">${seqNum || ''}</span>
        </div>`;
-  el.addEventListener('click', (e) => { e.stopPropagation(); handleFanCardClick(globalIdx); });
+  el.addEventListener('click', (e) => {
+    if (_suppressClick) return;   // 触控手势后跳过（避免重复触发）
+    e.stopPropagation();
+    handleFanCardClick(globalIdx);
+  });
   el.addEventListener('mousedown', (e) => {
+    if (IS_MOBILE) return;        // 手机端由触控处理选中与拖出
     if (e.button !== 0) return;
     if (présSelectedIdx !== globalIdx) return;
     e.preventDefault();
@@ -850,7 +1353,6 @@ function renderFanWindow() {
   }
 
   const remaining = total - drawnIds.size;
-  fanCounter.textContent = `${Math.round(centerIdx) + 1} / ${remaining}`;
   arrowLeft.style.visibility  = lo > 0 ? 'visible' : 'hidden';
   arrowRight.style.visibility = hi < total - 1 ? 'visible' : 'hidden';
 
@@ -992,17 +1494,14 @@ function placeCardAt(card, globalIdx, posX, posY) {
   if (fanEl) { fanEl.remove(); fanCardEls = fanCardEls.filter(el => el !== fanEl); }
   drawnIds.add(card.id);
 
-  const remaining = currentDeck.length - drawnIds.size;
-  const centerIdx = currentDeck.length / 2 + rotationOffset;
-  fanCounter.textContent = `${Math.round(centerIdx) + 1} / ${remaining}`;
-
   placeCardWithFlip(card, globalIdx, posX, posY, isRev);
   if (présSelectedIdx === globalIdx) présSelectedIdx = -1;
 }
 
 // --- 创建桌面放置牌（3D 翻牌） ---
 function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
-  const refW = Math.round(window.innerWidth * 0.1);
+  // 与牌的实际渲染宽度保持一致（手机端 16vw / 桌面端 8vw）
+  const refW = IS_MOBILE ? Math.round(Math.min(window.innerWidth * 0.18, 84)) : Math.round(window.innerWidth * 0.1);
   const refH = Math.round(refW * 1.5);
   const baseX = posX !== undefined ? posX : (window.innerWidth - refW) / 2 + (Math.random() - 0.5) * refW * 0.6;
   const baseY = posY !== undefined ? posY : (window.innerHeight - refH) / 2 + (Math.random() - 0.5) * refH * 0.6;
@@ -1012,6 +1511,8 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
 
   const placed = document.createElement('div');
   placed.className = 'placed-card';
+  placed.dataset.cardId = card.id;
+  placed.dataset.globalIdx = globalIdx;
   placed.style.left = Math.max(0, Math.min(baseX, window.innerWidth - refW - 6)) + 'px';
   placed.style.top  = Math.max(0, Math.min(baseY, window.innerHeight - refH - 6)) + 'px';
 
@@ -1033,43 +1534,11 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
         }
       </div>
     </div>
-    <span class="card-remove-hint">右键移除</span>
+    <span class="card-remove-hint">${IS_MOBILE ? '长按移除' : '右键移除'}</span>
   `;
 
-  let dragDist = 0, offX = 0, offY = 0, _mousedown = false;
-
-  placed.addEventListener('click', (e) => {
-    if (dragDist > 5) return;
-    placed.classList.toggle('revealed');
-  });
-
-  placed.addEventListener('mousedown', (e) => {
-    if (e.button !== 0) return;
-    _mousedown = true;
-    dragDist = 0;
-    const r = placed.getBoundingClientRect();
-    offX = e.clientX - r.left; offY = e.clientY - r.top;
-    placed.style.zIndex = 300;
-    placed.style.cursor = 'grabbing';
-    e.preventDefault();
-  });
-
-  const onMove = (e) => {
-    if (!_mousedown) return;
-    dragDist += Math.abs(e.movementX) + Math.abs(e.movementY);
-    let nx = e.clientX - offX;
-    let ny = e.clientY - offY;
-    nx = Math.max(0, Math.min(nx, window.innerWidth - placed.offsetWidth));
-    ny = Math.max(0, Math.min(ny, window.innerHeight - placed.offsetHeight));
-    placed.style.left = nx + 'px';
-    placed.style.top  = ny + 'px';
-  };
-  const onUp = () => { if (_mousedown) { _mousedown = false; placed.style.cursor = 'grab'; } };
-  document.addEventListener('mousemove', onMove);
-  document.addEventListener('mouseup', onUp);
-
-  placed.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
+  // 从桌面移除一张牌（右键/长按），并放回扇形
+  const removePlacedCard = (el) => {
     if (drawnIds.has(card.id)) {
       drawnIds.delete(card.id);
       const newFanEl = createFanCardEl(globalIdx, globalIdx + 1);
@@ -1086,13 +1555,99 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
           applyCardPosition(newFanEl, globalIdx);
         });
       }
-      const remaining = currentDeck.length - drawnIds.size;
-      const centerIdx = currentDeck.length / 2 + rotationOffset;
-      fanCounter.textContent = `${Math.round(centerIdx) + 1} / ${remaining}`;
     }
-    placed.remove();
-    placedCards = placedCards.filter(p => p !== placed);
-  });
+    el.remove();
+    placedCards = placedCards.filter(p => p !== el);
+  };
+
+  if (IS_MOBILE) {
+    // ===== 手机端：轻点翻牌 / 拖动移动 / 长按移除（Pointer Events 兼容鼠标+触摸） =====
+    let tOffX = 0, tOffY = 0, lastX = 0, lastY = 0, tDragging = false, tDist = 0, lpTimer = null;
+
+    placed.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return;
+      const r = placed.getBoundingClientRect();
+      tOffX = e.clientX - r.left; tOffY = e.clientY - r.top;
+      lastX = e.clientX; lastY = e.clientY;
+      tDragging = true; tDist = 0;
+      placed.style.zIndex = 300;
+      placed.style.cursor = 'grabbing';
+      try { placed.setPointerCapture(e.pointerId); } catch (_) {}
+      lpTimer = setTimeout(() => {          // 长按 600ms 移除
+        removePlacedCard(placed);
+        tDragging = false;
+      }, 600);
+    });
+
+    placed.addEventListener('pointermove', (e) => {
+      if (!tDragging) return;
+      tDist += Math.abs(e.clientX - lastX) + Math.abs(e.clientY - lastY);
+      lastX = e.clientX; lastY = e.clientY;
+      let nx = e.clientX - tOffX, ny = e.clientY - tOffY;
+      nx = Math.max(0, Math.min(nx, window.innerWidth - placed.offsetWidth));
+      ny = Math.max(0, Math.min(ny, window.innerHeight - placed.offsetHeight));
+      placed.style.left = nx + 'px';
+      placed.style.top  = ny + 'px';
+      if (tDist > 8 && lpTimer) { clearTimeout(lpTimer); lpTimer = null; }
+      e.preventDefault();
+    }, { passive: false });
+
+    placed.addEventListener('pointerup', () => {
+      if (lpTimer) { clearTimeout(lpTimer); lpTimer = null; }
+      tDragging = false;
+      placed.style.cursor = 'grab';
+      if (tDist <= 8) {
+        if (placed.classList.contains('revealed')) {
+          openCardZoom(placed, card.name);        // 已翻面 → 轻点放大
+        } else {
+          placed.classList.toggle('revealed');    // 未翻面 → 轻点翻面
+        }
+      }
+    });
+
+    placed.addEventListener('pointercancel', () => {
+      if (lpTimer) { clearTimeout(lpTimer); lpTimer = null; }
+      tDragging = false;
+    });
+  } else {
+    // ===== 桌面端：鼠标拖拽 + 右键移除 =====
+    let dragDist = 0, offX = 0, offY = 0, _mousedown = false;
+
+    placed.addEventListener('click', (e) => {
+      if (dragDist > 5) return;
+      placed.classList.toggle('revealed');
+    });
+
+    placed.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return;
+      _mousedown = true;
+      dragDist = 0;
+      const r = placed.getBoundingClientRect();
+      offX = e.clientX - r.left; offY = e.clientY - r.top;
+      placed.style.zIndex = 300;
+      placed.style.cursor = 'grabbing';
+      e.preventDefault();
+    });
+
+    const onMove = (e) => {
+      if (!_mousedown) return;
+      dragDist += Math.abs(e.movementX) + Math.abs(e.movementY);
+      let nx = e.clientX - offX;
+      let ny = e.clientY - offY;
+      nx = Math.max(0, Math.min(nx, window.innerWidth - placed.offsetWidth));
+      ny = Math.max(0, Math.min(ny, window.innerHeight - placed.offsetHeight));
+      placed.style.left = nx + 'px';
+      placed.style.top  = ny + 'px';
+    };
+    const onUp = () => { if (_mousedown) { _mousedown = false; placed.style.cursor = 'grab'; } };
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+
+    placed.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      removePlacedCard(placed);
+    });
+  }
 
   desktop.appendChild(placed);
   placedCards.push(placed);
@@ -1109,6 +1664,525 @@ arrowRight.addEventListener('click', () => {
   const centerIdx = total / 2 + rotationOffset;
   if (Math.ceil(centerIdx + WINDOW_HALF) < total - 1) { rotationOffset += 1; _enterFromLeft = false; renderFanWindow(); }
 });
+
+// ============================================================
+//  清空桌面（仿 web：牌飞回扇形，水晶/蜡烛移除）
+// ============================================================
+function returnCardToFan(placed) {
+  const cardId = placed.dataset.cardId;
+  const globalIdx = parseInt(placed.dataset.globalIdx);
+  if (!cardId || !drawnIds.has(cardId)) return;
+  drawnIds.delete(cardId);
+  const newFanEl = createFanCardEl(globalIdx, globalIdx + 1);
+  if (newFanEl) {
+    // 初始在视野外（右侧飞入），由 applyCardPosition 接管最终定位
+    newFanEl.style.transition = 'none';
+    newFanEl.style.left = '0';
+    newFanEl.style.top  = '0';
+    newFanEl.style.opacity = '0';
+    newFanEl.style.transform = `translate(${fanScroll.offsetWidth * 1.2}px, 40px) rotate(25deg) scale(0.6)`;
+    newFanEl.style.zIndex = 0;
+    newFanEl.style.pointerEvents = 'none';
+    fanScroll.appendChild(newFanEl);
+    fanCardEls.push(newFanEl);
+    requestAnimationFrame(() => {
+      newFanEl.style.transition = '';
+      applyCardPosition(newFanEl, globalIdx);
+    });
+  }
+}
+
+function clearDesktop() {
+  // 桌面上的牌 → 放回扇形区
+  placedCards.forEach(placed => {
+    returnCardToFan(placed);
+    placed.remove();
+  });
+  placedCards = [];
+
+  // 水晶 & 蜡烛 → 移除
+  document.querySelectorAll('#desktop .placed-gem').forEach(el => el.remove());
+
+  // 取消选中的水晶
+  if (selectedGem) {
+    selectedGem.classList.remove('selected');
+    selectedGem = null;
+  }
+
+  // 清空扇形选中状态
+  présSelectedIdx = -1;
+  fanCardEls.forEach(el => el.classList.remove('preselected'));
+}
+
+clearBtn.addEventListener('click', () => {
+  clearBtn.classList.remove('purging');
+  void clearBtn.offsetWidth;
+  clearBtn.classList.add('purging');
+  clearDesktop();
+});
+
+// ============================================================
+//  牌面放大查看（手机：单点桌面牌放大；可翻面/解读）
+// ============================================================
+const cardZoom  = document.getElementById('cardZoom');
+const zoomCard  = document.getElementById('zoomCard');
+const zoomClose = document.getElementById('zoomClose');
+const zoomFlip  = document.getElementById('zoomFlip');
+const zoomInterpret = document.getElementById('zoomInterpret');
+
+let _zoomPlaced = null;      // 当前放大的桌面牌
+let _zoomFrontSrc = null;    // 牌正面图
+let _zoomBackSrc  = null;    // 牌背面图
+let _zoomCardName = '';
+let _zoomInterpSrc = null;   // 解读图路径
+let _zoomShowingInterp = false;
+
+function openCardZoom(placed, name) {
+  const isRevealed = placed.classList.contains('revealed');
+  const frontSrc = placed.querySelector('.card-front img')?.src || null;
+  const backSrc  = placed.querySelector('.card-back img')?.src || null;
+  let src = isRevealed ? frontSrc : backSrc;
+  if (!src) src = isRevealed ? backSrc : frontSrc;
+
+  _zoomPlaced = placed;
+  _zoomFrontSrc = frontSrc;
+  _zoomBackSrc  = backSrc;
+  _zoomCardName = name;
+  _zoomShowingInterp = false;
+
+  // 推导解读图路径：1.png → 1_.png
+  const cardId = placed.dataset.cardId;
+  const card = currentDeck.find(c => c.id === cardId);
+  _zoomInterpSrc = card?._imgUrl
+    ? String(card._imgUrl).replace(/(\d+)\.(\w+)$/, '$1_.$2')
+    : null;
+
+  zoomInterpret.classList.remove('back');
+  zoomInterpret.textContent = '解读';
+  // 先隐藏解读按钮，确认解读图真实存在后再显示（避免 404 破图）
+  zoomInterpret.style.display = 'none';
+  if (_zoomInterpSrc) {
+    const probe = new Image();
+    probe.onload = () => { zoomInterpret.style.display = 'flex'; };
+    probe.src = _zoomInterpSrc;
+  }
+
+  if (src) {
+    zoomCard.innerHTML = `<img src="${src}" alt="${name}" draggable="false">`;
+  } else {
+    zoomCard.innerHTML = `<div style="width:60vw;aspect-ratio:2/3;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#1a0a30,#0c0218);font-size:18px;color:#c9a0ff;border:3px solid #6b3fa0;">${name}</div>`;
+  }
+  cardZoom.classList.add('active');
+}
+
+// 翻面：切换桌面牌正反面并同步放大视图
+zoomFlip.addEventListener('click', () => {
+  if (!_zoomPlaced) return;
+  _zoomPlaced.classList.toggle('revealed');
+  _zoomShowingInterp = false;
+  zoomCard.classList.remove('interp');
+  zoomInterpret.classList.remove('back');
+  zoomInterpret.textContent = '解读';
+  const isRevealed = _zoomPlaced.classList.contains('revealed');
+  const src = isRevealed ? _zoomFrontSrc : _zoomBackSrc;
+  if (src) zoomCard.innerHTML = `<img src="${src}" alt="${_zoomCardName}" draggable="false">`;
+});
+
+// 解读按钮：切换 牌面 ↔ 解读图
+zoomInterpret.addEventListener('click', () => {
+  if (!_zoomInterpSrc) return;
+  _zoomShowingInterp = !_zoomShowingInterp;
+  if (_zoomShowingInterp) {
+    zoomCard.innerHTML = `<img src="${_zoomInterpSrc}" alt="${_zoomCardName} 解读" draggable="false">`;
+    zoomCard.classList.add('interp');
+    zoomInterpret.classList.add('back');
+    zoomInterpret.textContent = '返回牌面';
+  } else {
+    const src = _zoomBackSrc && !_zoomFrontSrc ? _zoomBackSrc : _zoomFrontSrc || _zoomBackSrc;
+    zoomCard.innerHTML = `<img src="${src}" alt="${_zoomCardName}" draggable="false">`;
+    zoomCard.classList.remove('interp');
+    zoomInterpret.classList.remove('back');
+    zoomInterpret.textContent = '解读';
+  }
+});
+
+function closeCardZoom() {
+  cardZoom.classList.remove('active');
+  zoomCard.classList.remove('interp');
+  zoomInterpret.classList.remove('back');
+  zoomInterpret.textContent = '解读';
+  _zoomShowingInterp = false;
+  _zoomPlaced = null;
+  _zoomFrontSrc = _zoomBackSrc = _zoomInterpSrc = null;
+}
+
+// 点击背景或关闭按钮退出
+cardZoom.addEventListener('click', (e) => {
+  if (e.target === cardZoom || e.target === zoomClose) closeCardZoom();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeCardZoom();
+});
+
+// ============================================================
+//  手机触控：左右滑动翻页 / 点选 / 上滑拖出
+// ============================================================
+if (IS_MOBILE) {
+  const SWIPE_STEP = 3;          // 一次滑动翻几张
+  let _fanTouch = null;          // 当前触控状态
+
+  // 翻页（dir: -1 左滑看上一批，+1 右滑看下一批）
+  function fanStep(dir) {
+    const total = currentDeck.length;
+    const centerIdx = total / 2 + rotationOffset;
+    if (dir < 0 && Math.floor(centerIdx - WINDOW_HALF) > 0) { rotationOffset -= SWIPE_STEP; _enterFromLeft = true; renderFanWindow(); }
+    else if (dir > 0 && Math.ceil(centerIdx + WINDOW_HALF) < total - 1) { rotationOffset += SWIPE_STEP; _enterFromLeft = false; renderFanWindow(); }
+  }
+
+  // 把牌从扇形取出、跟随手指（上滑拖出）
+  function startTouchDragOut(globalIdx, tx, ty) {
+    const card = currentDeck[globalIdx];
+    if (!card) return null;
+    const srcEl = fanCardEls.find(el => parseInt(el.dataset.globalIdx) === globalIdx);
+    if (!srcEl) return null;
+    const srcRect = srcEl.getBoundingClientRect();
+    const cw = srcRect.width, ch = srcRect.height;
+    const startLeft = srcRect.left, startTop = srcRect.top;
+    const offsetX = tx - startLeft, offsetY = ty - startTop;
+
+    fanScroll.style.pointerEvents = 'none';
+    fanCardEls = fanCardEls.filter(el => el !== srcEl);
+    srcEl.classList.remove('preselected');
+    srcEl.style.transformOrigin = '50% 50%';
+    srcEl.style.position = 'fixed';       // 不脱离 fanScroll，避免触摸被取消
+    srcEl.style.left = startLeft + 'px';
+    srcEl.style.top  = startTop + 'px';
+    srcEl.style.zIndex = '9999';
+    srcEl.style.pointerEvents = 'none';
+    srcEl.style.transition = 'none';
+    srcEl.style.transform = 'rotate(-5deg)';
+    const inner = srcEl.querySelector('.card-inner');
+    if (inner) { inner.style.boxShadow = '0 8px 32px rgba(180,100,255,0.4)'; inner.style.borderColor = '#b080ff'; }
+    return { srcEl, cw, ch, card, gi: globalIdx, offsetX, offsetY };
+  }
+
+  fanScroll.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0) return;               // 只响应左键 / 触摸
+    const cardEl = e.target.closest('.fan-card');
+    _fanTouch = {
+      sx: e.clientX, sy: e.clientY,
+      moved: false, mode: null,
+      gi: cardEl ? parseInt(cardEl.dataset.globalIdx) : -1,
+      drag: null,
+    };
+    try { fanScroll.setPointerCapture(e.pointerId); } catch (_) {}
+  });
+
+  fanScroll.addEventListener('pointermove', (e) => {
+    if (!_fanTouch) return;
+    const dx = e.clientX - _fanTouch.sx;
+    const dy = e.clientY - _fanTouch.sy;
+
+    if (Math.hypot(dx, dy) > 10) _fanTouch.moved = true;
+
+    // 模式判定：选中牌上滑拖出 > 横向滑动翻页
+    if (!_fanTouch.mode) {
+      if (_fanTouch.gi >= 0 && présSelectedIdx === _fanTouch.gi && dy < -18) {
+        _fanTouch.mode = 'drag';
+      } else if (Math.abs(dx) > 18 && Math.abs(dx) > Math.abs(dy)) {
+        _fanTouch.mode = 'swipe';
+      }
+    }
+
+    if (_fanTouch.mode === 'drag') {
+      e.preventDefault();
+      if (!_fanTouch.drag) {
+        _fanTouch.drag = startTouchDragOut(_fanTouch.gi, _fanTouch.sx, _fanTouch.sy);
+        if (!_fanTouch.drag) { _fanTouch.mode = 'swipe'; return; }
+      }
+      _fanTouch.drag.srcEl.style.left = (e.clientX - _fanTouch.drag.offsetX) + 'px';
+      _fanTouch.drag.srcEl.style.top  = (e.clientY - _fanTouch.drag.offsetY) + 'px';
+    } else if (_fanTouch.mode === 'swipe') {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  fanScroll.addEventListener('pointerup', (e) => {
+    if (!_fanTouch) return;
+    const dx = e.clientX - _fanTouch.sx;
+    const dy = e.clientY - _fanTouch.sy;
+    const st = _fanTouch;
+    _fanTouch = null;
+    _suppressClick = true;
+    if (e.cancelable) e.preventDefault();   // 抑制合成 click，避免重复触发
+    setTimeout(() => { _suppressClick = false; }, 0);
+
+    if (st.mode === 'drag' && st.drag) {
+      // 上滑拖出结束 → 放到桌面
+      const d = st.drag;
+      d.srcEl.remove();
+      fanScroll.style.pointerEvents = '';
+      let relX = e.clientX - d.cw / 2;
+      let relY = e.clientY - d.ch / 2;
+      relX = Math.max(0, Math.min(relX, window.innerWidth - d.cw));
+      relY = Math.max(60, Math.min(relY, window.innerHeight - d.ch));
+      placeCardAt(d.card, d.gi, relX, relY);
+    } else if (st.mode === 'swipe' && st.moved && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+      // 左右滑动翻页
+      fanStep(dx > 0 ? -1 : 1);
+    } else if (st.gi >= 0 && !st.moved) {
+      // 轻点选中 / 取消
+      handleFanCardClick(st.gi);
+    }
+  });
+
+  // 指针被系统打断（来电/手势等）时的兜底：已拖出的牌照常放下
+  fanScroll.addEventListener('pointercancel', (e) => {
+    if (!_fanTouch) { fanScroll.style.pointerEvents = ''; return; }
+    const st = _fanTouch;
+    _fanTouch = null;
+    if (st.drag) {
+      const d = st.drag;
+      d.srcEl.remove();
+      fanScroll.style.pointerEvents = '';
+      let relX = e.clientX - d.cw / 2;
+      let relY = e.clientY - d.ch / 2;
+      relX = Math.max(0, Math.min(relX, window.innerWidth - d.cw));
+      relY = Math.max(60, Math.min(relY, window.innerHeight - d.ch));
+      placeCardAt(d.card, d.gi, relX, relY);
+    } else {
+      fanScroll.style.pointerEvents = '';
+    }
+  });
+}
+
+// ============================================================
+//  记录功能：选区截图 + 记录页 + 持久化存储
+// ============================================================
+const drawerRec = document.getElementById('drawerRec');
+const tabRec    = document.getElementById('tabRec');
+
+tabRec.addEventListener('click', () => {
+  drawerBag.classList.remove('open');
+  drawerDeck.classList.remove('open');
+  drawerRec.classList.toggle('open');
+  renderRecords();
+});
+
+const recordBtn = document.getElementById('recordBtn');
+const captureOverlay = document.getElementById('captureOverlay');
+const captureRect    = document.getElementById('captureRect');
+const captureTip     = document.getElementById('captureTip');
+const captureConfirm = document.getElementById('captureConfirm');
+const captureCancel  = document.getElementById('captureCancel');
+
+const recordPage  = document.getElementById('recordPage');
+const rpTitle     = document.getElementById('rpTitle');
+const rpPhoto     = document.getElementById('rpPhoto');
+const rpQuestion  = document.getElementById('rpQuestion');
+const rpInterp    = document.getElementById('rpInterp');
+const rpSave      = document.getElementById('rpSave');
+const rpDelete    = document.getElementById('rpDelete');
+const rpCancel    = document.getElementById('rpCancel');
+
+const RECORDS_KEY = 'magiccat_records';
+let _selStart = null;
+let _captureDataUrl = null;   // 本次待保存的截图
+let _viewingRecordId = null;  // 正在查看的记录 id（null=新建）
+
+function loadRecords() {
+  try { return JSON.parse(localStorage.getItem(RECORDS_KEY)) || []; } catch (e) { return []; }
+}
+function persistRecords(records) {
+  try { localStorage.setItem(RECORDS_KEY, JSON.stringify(records)); } catch (e) { alert('保存失败：存储空间不足'); }
+}
+
+// —— 记录按钮 → 打开选区截图 ——
+recordBtn.addEventListener('click', () => {
+  _captureDataUrl = null;
+  captureRect.style.display = 'none';
+  captureTip.textContent = '拖拽选择要保存的区域';
+  captureConfirm.classList.remove('show');
+  captureCancel.classList.remove('show');
+  _selStart = null;
+  captureOverlay.classList.add('active');
+});
+
+captureOverlay.addEventListener('pointerdown', (e) => {
+  if (e.target !== captureOverlay) return;
+  _selStart = { x: e.clientX, y: e.clientY };
+  captureRect.style.display = 'block';
+  captureRect.style.left = e.clientX + 'px';
+  captureRect.style.top  = e.clientY + 'px';
+  captureRect.style.width  = '0px';
+  captureRect.style.height = '0px';
+});
+captureOverlay.addEventListener('pointermove', (e) => {
+  if (!_selStart) return;
+  const x = Math.min(_selStart.x, e.clientX);
+  const y = Math.min(_selStart.y, e.clientY);
+  const w = Math.abs(e.clientX - _selStart.x);
+  const h = Math.abs(e.clientY - _selStart.y);
+  captureRect.style.left = x + 'px';
+  captureRect.style.top  = y + 'px';
+  captureRect.style.width  = w + 'px';
+  captureRect.style.height = h + 'px';
+});
+captureOverlay.addEventListener('pointerup', (e) => {
+  if (!_selStart) return;
+  _selStart = null;
+  const r = captureRect.getBoundingClientRect();
+  if (r.width < 20 || r.height < 20) {
+    captureRect.style.display = 'none';
+    return;
+  }
+  captureTip.textContent = '已选择区域，点下方保存';
+  captureConfirm.classList.add('show');
+  captureCancel.classList.add('show');
+});
+
+captureCancel.addEventListener('click', () => {
+  captureOverlay.classList.remove('active');
+  captureRect.style.display = 'none';
+  captureConfirm.classList.remove('show');
+  captureCancel.classList.remove('show');
+});
+
+captureConfirm.addEventListener('click', async () => {
+  const r = captureRect.getBoundingClientRect();
+  captureOverlay.style.display = 'none';   // 截图时隐藏选区工具
+  try {
+    const canvas = await html2canvas(document.body, {
+      backgroundColor: '#0d001a',
+      scale: Math.min(window.devicePixelRatio || 2, 2),
+      useCORS: true,
+      logging: false,
+    });
+    const s = Math.min(window.devicePixelRatio || 2, 2);
+    const sw = Math.max(1, Math.round(r.width * s));
+    const sh = Math.max(1, Math.round(r.height * s));
+    const sx = Math.max(0, Math.round(r.left * s));
+    const sy = Math.max(0, Math.round(r.top * s));
+    const crop = document.createElement('canvas');
+    crop.width = sw; crop.height = sh;
+    crop.getContext('2d').drawImage(canvas, sx, sy, sw, sh, 0, 0, sw, sh);
+    // 压缩到最大宽 900，存 JPEG
+    const maxW = 900;
+    const sc = Math.min(1, maxW / crop.width);
+    const cw = Math.round(crop.width * sc);
+    const ch = Math.round(crop.height * sc);
+    const small = document.createElement('canvas');
+    small.width = cw; small.height = ch;
+    small.getContext('2d').drawImage(crop, 0, 0, cw, ch);
+    _captureDataUrl = small.toDataURL('image/jpeg', 0.85);
+  } catch (err) {
+    console.error('截图失败', err);
+    _captureDataUrl = null;
+  } finally {
+    captureOverlay.style.display = '';
+    captureOverlay.classList.remove('active');
+    captureRect.style.display = 'none';
+    captureConfirm.classList.remove('show');
+    captureCancel.classList.remove('show');
+  }
+  if (_captureDataUrl) {
+    openRecordPage(null);
+  } else {
+    captureTip.textContent = '截图失败，请重试';
+    captureOverlay.classList.add('active');
+  }
+});
+
+// —— 记录页 ——
+function openRecordPage(record) {
+  if (record) {
+    _viewingRecordId = record.id;
+    rpTitle.textContent = '✦ 记 录 详 情 ✦';
+    rpPhoto.innerHTML = `<img src="${record.img}" alt="记录">`;
+    rpQuestion.value = record.question || '';
+    rpInterp.value = record.interp || '';
+    rpSave.textContent = '更新';
+    rpDelete.style.display = 'flex';
+  } else {
+    _viewingRecordId = null;
+    rpTitle.textContent = '✦ 新 记 录 ✦';
+    rpPhoto.innerHTML = _captureDataUrl ? `<img src="${_captureDataUrl}" alt="截图">` : '';
+    rpQuestion.value = '';
+    rpInterp.value = '';
+    rpSave.textContent = '保存';
+    rpDelete.style.display = 'none';
+  }
+  recordPage.classList.add('active');
+}
+
+function closeRecordPage() {
+  recordPage.classList.remove('active');
+  _captureDataUrl = null;
+  _viewingRecordId = null;
+}
+
+rpSave.addEventListener('click', () => {
+  const question = rpQuestion.value.trim();
+  const interp = rpInterp.value.trim();
+  const records = loadRecords();
+  if (_viewingRecordId) {
+    const idx = records.findIndex(r => r.id === _viewingRecordId);
+    if (idx >= 0) {
+      records[idx].question = question;
+      records[idx].interp = interp;
+      records[idx].ts = Date.now();
+    }
+  } else {
+    if (!_captureDataUrl) { alert('请先截图再保存'); return; }
+    records.unshift({
+      id: 'rec_' + Date.now(),
+      img: _captureDataUrl,
+      question, interp, ts: Date.now(),
+    });
+  }
+  persistRecords(records);
+  renderRecords();
+  closeRecordPage();
+});
+
+rpDelete.addEventListener('click', () => {
+  if (!_viewingRecordId) return;
+  if (!confirm('确定删除这条记录？')) return;
+  const records = loadRecords().filter(r => r.id !== _viewingRecordId);
+  persistRecords(records);
+  renderRecords();
+  closeRecordPage();
+});
+
+rpCancel.addEventListener('click', closeRecordPage);
+
+// —— 记录抽屉渲染 ——
+function renderRecords() {
+  const grid = document.getElementById('recGrid');
+  const records = loadRecords();
+  if (!records.length) {
+    grid.innerHTML = '<div class="record-empty">暂无记录<br>点底部 📔 按钮记录解读</div>';
+    return;
+  }
+  grid.innerHTML = records.map(r => `
+    <div class="record-item" data-id="${r.id}">
+      <img src="${r.img}" alt="记录">
+      <div class="ri-info">
+        <div class="ri-q">${r.question || '（无问题）'}</div>
+        <div class="ri-date">${new Date(r.ts).toLocaleString()}</div>
+      </div>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.record-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const rec = loadRecords().find(x => x.id === item.dataset.id);
+      if (rec) {
+        drawerRec.classList.remove('open');
+        openRecordPage(rec);
+      }
+    });
+  });
+}
 
 // 默认显示第一个牌组
 if (deckList.length > 0) {
