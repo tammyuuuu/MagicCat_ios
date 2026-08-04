@@ -24,9 +24,9 @@
  */
 
 const DECKS = [
-  { name: '维特塔罗', path: '../图片/盒子/维特塔罗', cardCount: 78, format: 'png' },
-  { name: '花影塔罗', path: '../图片/盒子/花影塔罗', cardCount: 78, format: 'jpg' },
-  { name: '阿卡西之眼·塔罗', path: '../图片/盒子/阿卡西之眼_塔罗', cardCount: 78, format: 'png', back: 'jpg' },
-  { name: '阿卡西之眼·雷诺曼', path: '../图片/盒子/阿卡西之眼_雷诺曼', cardCount: 48, format: 'png', back: 'jpg', noReverse: true },
-  { name: '雷诺曼', path: '../图片/盒子/雷诺曼', cardCount: 36, format: 'webp', back: 'jpg', noReverse: true },
+  { name: '维特塔罗', path: '图片/盒子/维特塔罗', cardCount: 78, format: 'png' },
+  { name: '花影塔罗', path: '图片/盒子/花影塔罗', cardCount: 78, format: 'jpg' },
+  { name: '阿卡西之眼·塔罗', path: '图片/盒子/阿卡西之眼_塔罗', cardCount: 78, format: 'png', back: 'jpg' },
+  { name: '阿卡西之眼·雷诺曼', path: '图片/盒子/阿卡西之眼_雷诺曼', cardCount: 48, format: 'png', back: 'jpg', noReverse: true },
+  { name: '雷诺曼', path: '图片/盒子/雷诺曼', cardCount: 36, format: 'webp', back: 'jpg', noReverse: true },
 ];

@@ -278,7 +278,8 @@
       z-index: 40;
       transition: all 0.4s cubic-bezier(0.25,1,0.5,1);
     }
-    #ingredientDrawer.closed { width: 36px; }
+    #ingredientDrawer.closed { width: 0; }
+    #ingredientDrawer.closed .drawer-panel { display: none; }
     #ingredientDrawer.open { width: 200px; }
 
     .drawer-tab {
