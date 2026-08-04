@@ -2,13 +2,14 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>📖 魔法工坊 · 魔药手札</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       width: 100vw; height: 100vh;
       overflow: hidden;
+      touch-action: manipulation;   /* 禁用双击缩放，保留单指滚动 */
       background: radial-gradient(ellipse at 50% 30%, #1a0a2e, #0d001a);
       font-family: 'Courier New', Courier, monospace;
       color: #d4b0ff;
@@ -83,27 +84,41 @@
       z-index: 50;
       transition: all 0.6s cubic-bezier(0.25,1,0.5,1);
     }
-    /* 闭合状态 */
-    #book.closed { width: 40px; height: 260px; cursor: pointer; }
+    /* 闭合状态（圆形按钮） */
+    #book.closed { width: 60px; height: 60px; border-radius: 50%; cursor: pointer; }
     #book.closed .book-spine {
       width: 100%; height: 100%;
-      background: linear-gradient(90deg, #3a1a20, #5a2a30, #3a1a20);
+      background: linear-gradient(160deg, #4a2828, #2a1015);
       border: 2px solid #8a6040;
-      border-radius: 4px 8px 8px 4px;
+      border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       box-shadow: 2px 4px 16px rgba(0,0,0,0.5);
     }
-    #book.closed .book-spine::after {
-      content: '📖'; font-size: 20px;
-    }
-    #book.closed:hover { right: 24px; }
+    #book.closed .book-spine::after { content: '书'; font-size: 16px; color: #c8a050; }
+    #book.closed:hover { right: 26px; }
 
-    /* 展开状态 */
+    /* 展开状态（缩小适配手机，居中） */
     #book.open {
-      right: 20px; width: 520px; height: 440px;
+      left: 50%; right: auto;
+      width: min(92vw, 480px); height: min(78vh, 460px);
       cursor: default;
-      transform: translateY(-50%);
+      transform: translate(-50%, -50%);
     }
+    .book-close {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 32px; height: 32px;
+      z-index: 25;
+      border-radius: 50%;
+      background: rgba(60,30,10,0.9);
+      border: 2px solid #c8a050;
+      color: #f0d080;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s;
+    }
+    .book-close:hover { border-color: #f0d080; color: #fff; transform: scale(1.1); }
     .book-container {
       width: 100%; height: 100%;
       position: relative;
@@ -314,18 +329,18 @@
     .ingredient-item {
       background: rgba(10,4,22,0.6);
       border: 2px solid #3a1e5e;
-      aspect-ratio: 1;
-      display: flex; flex-direction: column;
+      aspect-ratio: 1.3;
+      display: flex;
       align-items: center; justify-content: center;
-      cursor: grab; gap: 3px;
+      cursor: grab;
       transition: all 0.25s;
     }
     .ingredient-item:hover {
       border-color: #8a4dff; background: rgba(20,8,40,0.8);
-      transform: scale(1.05);
+      transform: scale(1.03);
     }
-    .ingredient-item .ingredient-icon { font-size: 24px; }
-    .ingredient-item .ingredient-label { font-size: 8px; color: #b898e0; letter-spacing: 1px; }
+    .ingredient-item .ingredient-label { font-size: 12px; color: #c9a0ff; letter-spacing: 1px; }
+    .ingredient-item:hover .ingredient-label { color: #e0ccff; text-shadow: 0 0 6px rgba(180,100,255,0.5); }
 
     /* ===== 合成通知 ===== */
     .craft-notification {
@@ -350,8 +365,8 @@
 
 <!-- 顶部导航 -->
 <div style="position:fixed;top:12px;right:12px;z-index:999;display:flex;gap:10px;">
-  <a href="reading_ios.html" style="background:rgba(20,8,40,0.8);border:2px solid #5a307a;color:#a070d8;padding:6px 14px;font-size:12px;cursor:pointer;font-family:inherit;letter-spacing:2px;text-decoration:none;transition:all 0.3s;" onmouseover="this.style.borderColor='#b080ff';this.style.color='#e0ccff'" onmouseout="this.style.borderColor='#5a307a';this.style.color='#a070d8'">🔮 黑猫占卜桌</a>
-  <a href="manifest_ios.html" style="background:rgba(20,8,40,0.8);border:2px solid #5a307a;color:#a070d8;padding:6px 14px;font-size:12px;cursor:pointer;font-family:inherit;letter-spacing:2px;text-decoration:none;transition:all 0.3s;" onmouseover="this.style.borderColor='#b080ff';this.style.color='#e0ccff'" onmouseout="this.style.borderColor='#5a307a';this.style.color='#a070d8'">🌙 显化之境</a>
+  <a href="reading_ios.html" style="background:rgba(20,8,40,0.8);border:2px solid #5a307a;color:#a070d8;padding:6px 16px;font-size:12px;cursor:pointer;font-family:inherit;letter-spacing:2px;text-decoration:none;transition:all 0.3s;border-radius:999px;" onmouseover="this.style.borderColor='#b080ff';this.style.color='#e0ccff'" onmouseout="this.style.borderColor='#5a307a';this.style.color='#a070d8'">黑猫占卜桌</a>
+  <a href="manifest_ios.html" style="background:rgba(20,8,40,0.8);border:2px solid #5a307a;color:#a070d8;padding:6px 16px;font-size:12px;cursor:pointer;font-family:inherit;letter-spacing:2px;text-decoration:none;transition:all 0.3s;border-radius:999px;" onmouseover="this.style.borderColor='#b080ff';this.style.color='#e0ccff'" onmouseout="this.style.borderColor='#5a307a';this.style.color='#a070d8'">显化之境</a>
 </div>
 
 <!-- 桌面 -->
@@ -362,7 +377,7 @@
 
 <!-- 左侧材料抽屉 -->
 <div id="ingredientDrawer" class="closed">
-  <div class="drawer-tab" id="drawerTab">🧪 材料</div>
+  <div class="drawer-tab" id="drawerTab">材料</div>
   <div class="drawer-panel">
     <div class="drawer-title">✦ 炼 金 材 料 ✦</div>
     <div class="ingredient-grid" id="ingredientGrid"></div>
@@ -373,6 +388,7 @@
 <div id="book" class="closed">
   <div class="book-spine"></div>
   <div class="book-container" style="display:none;">
+    <button class="book-close" id="bookClose">✕</button>
     <div class="book-cover">
       <div class="book-corner tl"></div>
       <div class="book-corner tr"></div>
@@ -400,6 +416,19 @@
 </div>
 
 <script>
+// ============================================================
+//  0. 移动端基础：锁定缩放（禁止双击/双指改变页面大小）
+// ============================================================
+const IS_MOBILE = window.innerWidth <= 768;
+if (IS_MOBILE) {
+  document.addEventListener('gesturestart',  e => e.preventDefault());
+  document.addEventListener('gesturechange', e => e.preventDefault());
+  document.addEventListener('gestureend',    e => e.preventDefault());
+  document.addEventListener('dblclick',      e => e.preventDefault());
+  document.addEventListener('touchstart', (e) => { if (e.touches.length > 1) e.preventDefault(); }, { passive: false });
+  document.addEventListener('touchmove',  (e) => { if (e.touches.length > 1) e.preventDefault(); }, { passive: false });
+}
+
 // ============================================================
 //  1. 书本数据
 // ============================================================
@@ -523,7 +552,6 @@ function renderIngredients() {
   const grid = document.getElementById('ingredientGrid');
   grid.innerHTML = INGREDIENTS.map(ing => `
     <div class="ingredient-item" data-ingr-id="${ing.id}">
-      <span class="ingredient-icon">${ing.icon}</span>
       <span class="ingredient-label">${ing.name}</span>
     </div>
   `).join('');
@@ -619,6 +647,9 @@ function closeBook() {
   book.querySelector('.book-spine').style.display = '';
   book.querySelector('.book-container').style.display = 'none';
 }
+
+const bookClose = document.getElementById('bookClose');
+bookClose.addEventListener('click', closeBook);
 
 // ============================================================
 //  8. 标签 & 页面渲染
