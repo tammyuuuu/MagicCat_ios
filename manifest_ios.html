@@ -609,7 +609,6 @@
       #manifestCount { top: 60px; }
       .rune { font-size: 11px; }
       #recordDrawer.open { width: 180px; }
-      #manifestRecordBtn { bottom: 32px; right: 36px; }
     }
 
     /* ===== 记录按钮（右下角，蓝色系） ===== */
@@ -657,6 +656,11 @@
     #manifestRecordBtn:hover { border-color: #6ab8ff; box-shadow: 0 0 24px rgba(100,180,255,0.35); transform: translateX(50%) scale(1.08); }
     #manifestRecordBtn:active { transform: translateX(50%) scale(0.95); }
     #manifestRecordBtn:hover .clear-rune { color: rgba(140,200,255,0.5); }
+
+    /* 手机端：记录按钮与清除/显化同排（须在基础规则之后覆盖） */
+    @media (max-width: 768px) {
+      #manifestRecordBtn { bottom: 32px; right: 36px; }
+    }
 
     /* ===== 记录抽屉 ===== */
     #recordDrawer {
@@ -858,6 +862,38 @@
       font-size: 12px; color: #5a3a7a; text-align: center;
       padding: 30px 0; letter-spacing: 2px; line-height: 2;
     }
+
+    /* ===== 圣物柜：炼金魔药列表 ===== */
+    .potion-sec-title {
+      font-size: 11px; letter-spacing: 3px; color: #a080d0;
+      text-align: center; margin: 16px 0 8px;
+      padding-top: 12px; border-top: 1px dashed #3a1e5e;
+    }
+    .potion-list { display: flex; flex-direction: column; gap: 8px; }
+    .potion-item {
+      background: rgba(10,4,22,0.6);
+      border: 2px solid #3a1e5e;
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 13px; color: #c9a0ff; letter-spacing: 2px;
+      transition: all 0.25s;
+    }
+    .potion-item:hover { border-color: #8a4dff; background: rgba(20,8,40,0.8); color: #e0ccff; }
+    .potion-empty { font-size: 11px; color: #5a3a7a; text-align: center; padding: 12px 0; line-height: 1.8; letter-spacing: 1px; }
+
+    /* ===== 圆阵中的魔药瓶（CSS 绘制） ===== */
+    .altar-item .altar-potion {
+      position: relative;
+      width: 26px; height: 44px;
+      filter: drop-shadow(0 0 6px rgba(150,100,255,0.4));
+    }
+    .altar-potion .ap-cork { position:absolute; top:0; left:50%; transform:translateX(-50%); width:12px; height:6px; background:linear-gradient(180deg,#d0a070,#8a5a30); border-radius:2px; }
+    .altar-potion .ap-neck { position:absolute; top:6px; left:50%; transform:translateX(-50%); width:10px; height:9px; background:linear-gradient(90deg, rgba(180,120,255,0.4), rgba(220,180,255,0.15), rgba(180,120,255,0.4)); border-left:1px solid rgba(200,150,255,0.5); border-right:1px solid rgba(200,150,255,0.5); }
+    .altar-potion .ap-body { position:absolute; top:15px; left:50%; transform:translateX(-50%); width:24px; height:27px; background:linear-gradient(160deg, rgba(180,120,255,0.4), rgba(120,60,200,0.15)); border:1px solid rgba(200,150,255,0.5); border-radius:3px 3px 9px 9px; overflow:hidden; box-shadow:inset 0 0 6px rgba(180,120,255,0.2); }
+    .altar-potion .ap-body::after { content:''; position:absolute; top:3px; left:3px; width:4px; height:10px; background:linear-gradient(180deg, rgba(255,255,255,0.4), transparent); border-radius:2px; transform:rotate(8deg); pointer-events:none; }
+    .altar-potion .ap-liquid { position:absolute; left:0; right:0; bottom:0; height:55%; background:linear-gradient(180deg, rgba(150,80,255,0.6), rgba(80,30,150,0.8)); }
   </style>
 </head>
 <body>
@@ -914,6 +950,8 @@
   <div class="drawer-panel">
     <div class="panel-title">✦ 圣 物 柜 ✦</div>
     <div class="divination-grid" id="divinationGrid"></div>
+    <div class="potion-sec-title">✦ 炼 金 魔 药 ✦</div>
+    <div class="potion-list" id="potionGrid"></div>
   </div>
 </div>
 
@@ -1066,6 +1104,7 @@ const divTab = document.getElementById('divTab');
 divTab.addEventListener('click', () => {
   divDrawer.classList.toggle('closed');
   divDrawer.classList.toggle('open');
+  renderPotions();
 });
 
 // 意图面板呼出按钮（手机端）：点「许愿瓶」呼出/收起输入框
@@ -1082,6 +1121,69 @@ intentionTab.addEventListener('click', () => {
 // ============================================================
 const wishGenerateBtn = document.getElementById('wishGenerateBtn');
 let wishBottleEl = null;
+
+// 把愿望文字用浏览器原生 canvas 预渲染成图片（避免 html2canvas 截图时中文宽度测量错误、
+// 只显示最后一个字的问题——截图时直接复制像素，不再测量文字）
+function renderWishNoteDataURL(wish) {
+  const W = 120, H = 42;          // 打开的纸条内尺寸
+  const scale = 3;                // 高清倍数
+  const canvas = document.createElement('canvas');
+  canvas.width = W * scale;
+  canvas.height = H * scale;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
+  ctx.font = '9px "PingFang SC","Microsoft YaHei","Noto Sans CJK SC","Hiragino Sans GB",sans-serif';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#5a4020';
+  // 按字符宽度换行
+  const lines = [];
+  let cur = '';
+  for (const ch of wish) {
+    if (cur && ctx.measureText(cur + ch).width > W) { lines.push(cur); cur = ch; }
+    else cur += ch;
+  }
+  if (cur) lines.push(cur);
+  const lineH = 11;
+  let y = (H - lines.length * lineH) / 2 + lineH / 2;
+  for (const ln of lines) {
+    const tw = ctx.measureText(ln).width;
+    ctx.fillText(ln, (W - tw) / 2, y);
+    y += lineH;
+  }
+  return canvas.toDataURL('image/png');
+}
+
+// 把圆阵物品底下的文字标签预渲染成图片（同样规避 html2canvas 中文截图只显最后一个字的问题）
+function rasterizeAltarLabel(el) {
+  const label = el.querySelector('.altar-item-label');
+  if (!label || !label.textContent) return;
+  const text = label.textContent;
+  const scale = 3;
+  const fontPx = 8, ls = 1;   // 与 .altar-item-label CSS 一致
+  const font = `${fontPx}px "PingFang SC","Microsoft YaHei","Noto Sans CJK SC","Hiragino Sans GB",sans-serif`;
+  const m = document.createElement('canvas').getContext('2d');
+  m.font = font;
+  let w = 0;
+  for (const ch of text) w += m.measureText(ch).width + ls;
+  w = Math.max(1, w - ls);
+  const h = fontPx + 2;
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.ceil(w * scale);
+  canvas.height = Math.ceil(h * scale);
+  const ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
+  ctx.font = font;
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = 'rgba(200,160,255,0.5)';
+  let x = 0;
+  for (const ch of text) { ctx.fillText(ch, x, h / 2); x += ctx.measureText(ch).width + ls; }
+  label.textContent = '';
+  label.style.width = Math.round(w) + 'px';
+  label.style.height = h + 'px';
+  label.style.backgroundImage = `url(${canvas.toDataURL('image/png')})`;
+  label.style.backgroundSize = `${w}px ${h}px`;
+  label.style.backgroundRepeat = 'no-repeat';
+}
 
 wishGenerateBtn.addEventListener('click', () => {
   const wish = intentionInput.value.trim();
@@ -1105,18 +1207,24 @@ wishGenerateBtn.addEventListener('click', () => {
       <div class="rolled-note">
         <div class="note-roll"></div>
         <div class="wax-seal"></div>
-        <span class="note-wish">${wish}</span>
+        <span class="note-wish"></span>
       </div>
     </div>
     <span class="altar-item-label">${shortWish}</span>
   `;
   el.title = wish;
+  // 愿望文字预渲染为图片作为纸条背景，保证 html2canvas 截图正确
+  const noteWishEl = el.querySelector('.note-wish');
+  noteWishEl.style.backgroundImage = `url(${renderWishNoteDataURL(wish)})`;
+  noteWishEl.style.backgroundSize = '100% 100%';
+  noteWishEl.style.backgroundRepeat = 'no-repeat';
 
   // 放在圆阵中央
   const hw = altar.offsetWidth / 2, hh = altar.offsetHeight / 2;
   el.style.left = (hw - 30) + 'px';
   el.style.top  = (hh - 46) + 'px';
   altar.appendChild(el);
+  rasterizeAltarLabel(el);
   setupBottleInteractions(el);
 
   altarItems.push({ id: 'wish', type: 'bottle', cls: '', el });
@@ -1155,6 +1263,33 @@ function renderDivinationItems() {
 }
 renderDivinationItems();
 
+// 圣物柜：读取魔法工坊存入的炼金魔药
+const SANCTUM_KEY = 'magiccat_sanctum';
+function loadSanctum() {
+  try { return JSON.parse(localStorage.getItem(SANCTUM_KEY)) || []; } catch (e) { return []; }
+}
+function renderPotions() {
+  const grid = document.getElementById('potionGrid');
+  const list = loadSanctum();
+  if (!list.length) {
+    grid.innerHTML = '<div class="potion-empty">暂无魔药<br>前往魔法工坊炼制存入</div>';
+    return;
+  }
+  grid.innerHTML = list.map(p => `
+    <div class="potion-item" data-id="${p.id}" title="${(p.ingredients || []).join('、')}">${p.name}</div>
+  `).join('');
+  grid.querySelectorAll('.potion-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const pot = loadSanctum().find(x => x.id === item.dataset.id);
+      if (!pot) return;
+      addToAltar({ id: 'potion_' + pot.id, icon: '🧪', name: pot.name, type: 'potion', ingredients: pot.ingredients });
+      divDrawer.classList.remove('open');
+      divDrawer.classList.add('closed');
+    });
+  });
+}
+renderPotions();
+
 // ============================================================
 //  6. 添加到圆阵
 // ============================================================
@@ -1190,9 +1325,20 @@ function addToAltar(data) {
     const shortIntention = intention.length > 15 ? intention.substring(0, 15) + '…' : intention;
     el.innerHTML = `<span class="page-icon">📜</span><span class="altar-item-label">${shortIntention}</span>`;
     el.title = intention;
+  } else if (data.type === 'potion') {
+    // 魔法工坊炼制的魔药，放入圆阵（CSS 小魔药瓶）
+    el.innerHTML = `
+      <div class="altar-potion">
+        <div class="ap-cork"></div>
+        <div class="ap-neck"></div>
+        <div class="ap-body"><div class="ap-liquid"></div></div>
+      </div>
+      <span class="altar-item-label">${data.name}</span>`;
+    el.title = (data.ingredients || []).join('、');
   }
 
   altar.appendChild(el);
+  rasterizeAltarLabel(el);
   setupAltarItemDrag(el);
 
   altarItems.push({ id: data.id, type: data.type, cls: data.cls, el });
@@ -1389,6 +1535,14 @@ desktop.addEventListener('click', (e) => {
   if (e.target === desktop) {
     divDrawer.classList.remove('open');
     divDrawer.classList.add('closed');
+  }
+});
+
+// 点击空白处关闭星愿笺（许愿瓶面板）
+document.addEventListener('click', (e) => {
+  if (!intentionPanel.classList.contains('open')) return;
+  if (!e.target.closest('#intentionPanel') && !e.target.closest('#intentionTab')) {
+    intentionPanel.classList.remove('open');
   }
 });
 
