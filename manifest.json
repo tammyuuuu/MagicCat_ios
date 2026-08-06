@@ -1,0 +1,10 @@
+{
+  "name": "魔法猫 · 神秘占卜",
+  "short_name": "魔法猫",
+  "start_url": "./reading_ios.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#0d001a",
+  "theme_color": "#0d001a"
+}

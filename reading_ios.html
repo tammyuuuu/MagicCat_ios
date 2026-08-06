@@ -6,6 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
   <title>🔮 黑猫占卜桌</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -452,7 +453,7 @@
         width: min(18vw, 84px);
       }
       #fanControls {
-        bottom: 10px;
+        bottom: calc(10px + env(safe-area-inset-bottom));   /* 避开 iOS 底部 Home Bar */
         height: 44px;
         gap: 16px;
       }

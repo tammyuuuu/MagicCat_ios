@@ -6,6 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
   <title>🌙 显化之境 · 意念成真</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -637,8 +638,8 @@
       }
       #intentionPanel.open { transform: translate(0, -50%); }
       #divinationDrawer.open { width: 180px; }
-      #activateBtn { bottom: 32px; width: 104px; height: 44px; font-size: 12px; letter-spacing: 4px; border-radius: 22px; }
-      #altarClearBtn { bottom: 32px; left: 36px; }
+      #activateBtn { bottom: calc(32px + env(safe-area-inset-bottom)); width: 104px; height: 44px; font-size: 12px; letter-spacing: 4px; border-radius: 22px; }
+      #altarClearBtn { bottom: calc(32px + env(safe-area-inset-bottom)); left: 36px; }
       #guidance { bottom: 92px; font-size: 10px; letter-spacing: 2px; }
       #manifestCount { top: 60px; }
       .rune { font-size: 11px; }
@@ -693,7 +694,7 @@
 
     /* 手机端：记录按钮与清除/显化同排（须在基础规则之后覆盖） */
     @media (max-width: 768px) {
-      #manifestRecordBtn { bottom: 32px; right: 36px; }
+      #manifestRecordBtn { bottom: calc(32px + env(safe-area-inset-bottom)); right: 36px; }
     }
 
     /* ===== 记录抽屉 ===== */

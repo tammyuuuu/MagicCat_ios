@@ -6,6 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
   <title>📖 魔法工坊 · 魔药手札</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -453,7 +454,7 @@
     .bottle-added .ba-hint { font-size:11px; color:#5a3a7a; letter-spacing:1px; }
     /* ===== 存入圣物柜（底部金色标签） ===== */
     #storeToSanctum {
-      position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+      position: fixed; bottom: calc(22px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%);
       z-index: 80;
       height: 44px; padding: 0 24px; border-radius: 22px;
       background: linear-gradient(160deg, #e0b64c, #b8842a);
