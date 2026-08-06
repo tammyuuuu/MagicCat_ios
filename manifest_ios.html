@@ -7,6 +7,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a0218">
   <title>🌙 显化之境 · 意念成真</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,12 +33,15 @@
     html {
       height: 100vh;
       height: 100dvh;
-      background: #0a0218;   /* 深色背景铺满，消除刘海/底部白边 */
+      min-height: -webkit-fill-available;
+      background-color: #0a0218;   /* 明确背景色，填满 Safari 底部工具栏区域，不留黑/灰 */
     }
     body {
       width: 100vw; height: 100vh;
       height: 100dvh;
+      min-height: -webkit-fill-available;
       min-height: 100dvh;
+      background-color: #0a0218;
       /* iOS 安全区域：防止内容被刘海/底部横条遮挡 */
       padding-top: env(safe-area-inset-top);
       padding-right: env(safe-area-inset-right);
