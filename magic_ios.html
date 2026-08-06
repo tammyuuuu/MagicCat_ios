@@ -37,6 +37,7 @@
     .desktop-item {
       position: absolute; z-index: 10; cursor: grab;
       min-width: 60px; min-height: 40px;
+      touch-action: none;   /* 允许手指直接拖动，不触发页面滚动 */
     }
     .desktop-item:active { cursor: grabbing; }
 
@@ -396,41 +397,11 @@
     }
     #bottleBtn:hover { right: 24px; border-color: #8a7ab8; color: #ccd8ff; }
 
-    /* ===== 炼金之瓶（居中，只有瓶子） ===== */
-    #bottleOverlay {
-      position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 2000;
-      display: none;
-      pointer-events: none;   /* 背景可点，不挡材料抽屉 */
-    }
-    #bottleOverlay.active { display: block; }
-    .bottle-wrap {
-      pointer-events: auto;
+    /* ===== 炼金之瓶（放到桌面，可拖动） ===== */
+    .bottle-on-desktop {
       display: flex; flex-direction: column; align-items: center;
-      background: linear-gradient(160deg, #1a0a2e, #0d001a);
-      border: 2px solid #6b3fa0;
-      border-radius: 18px;
-      padding: 16px 22px 18px;
-      box-shadow: 0 0 40px rgba(180,100,255,0.25);
-      min-width: 190px;
-    }
-    .bottle-close {
-      align-self: flex-end;
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: rgba(60,30,10,0.9);
-      border: 2px solid #c8a050;
-      color: #f0d080;
-      cursor: pointer;
-      font-size: 12px;
-      margin-bottom: 4px;
-    }
-    .bottle-title {
-      text-align: center; color: #c9a0ff;
-      font-size: 15px; letter-spacing: 5px;
-      padding-bottom: 12px; border-bottom: 2px solid #3a1e5e; margin-bottom: 12px;
+      cursor: grab;
+      user-select: none;
     }
     .potion-bottle {
       position: relative;
@@ -446,8 +417,20 @@
     .bottle-added { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 12px; min-height:24px; justify-content:center; max-width:220px; }
     .bottle-added .ba-tag { background:rgba(180,100,255,0.15); border:1px solid rgba(180,100,255,0.3); border-radius:12px; padding:2px 10px; font-size:11px; color:#d4b0ff; }
     .bottle-added .ba-hint { font-size:11px; color:#5a3a7a; letter-spacing:1px; }
-    #storeToSanctum { width:100%; height:42px; border-radius:21px; background:rgba(60,160,90,0.85); border:2px solid #50d090; color:#e0ffe8; font-family:inherit; font-size:13px; letter-spacing:3px; cursor:pointer; min-width:170px; }
-    #storeToSanctum:hover { background:rgba(70,180,100,0.9); }
+    /* ===== 存入圣物柜（底部金色标签） ===== */
+    #storeToSanctum {
+      position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+      z-index: 80;
+      height: 44px; padding: 0 24px; border-radius: 22px;
+      background: linear-gradient(160deg, #e0b64c, #b8842a);
+      border: 2px solid #f4d070;
+      color: #2a1a05;
+      font-family: inherit; font-size: 13px; letter-spacing: 3px;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 0 20px rgba(240,200,96,0.4);
+    }
+    #storeToSanctum:hover { background: linear-gradient(160deg, #ecc358, #c89430); }
 
     /* ===== 命名弹窗 ===== */
     #potionNameOverlay {
@@ -473,11 +456,6 @@
     .name-box button { width:100%; height:42px; border-radius:21px; background:rgba(60,160,90,0.85); border:2px solid #50d090; color:#e0ffe8; font-family:inherit; font-size:14px; letter-spacing:3px; cursor:pointer; }
     .name-box button:hover { background:rgba(70,180,100,0.9); }
 
-    /* 移动端：瓶子与材料抽屉同时打开时，瓶子略右移避让 */
-    @media (max-width: 768px){
-      body.bottle-shifted #ingredientDrawer.open { width: 160px; }
-      body.bottle-shifted #bottleOverlay { left: 57%; }
-    }
   </style>
 </head>
 <body>
@@ -537,24 +515,8 @@
 <!-- 炼金之瓶按钮（书下方） -->
 <button id="bottleBtn" title="炼金之瓶">瓶</button>
 
-<!-- 炼金之瓶（居中，只有瓶子） -->
-<div id="bottleOverlay">
-  <div class="bottle-wrap">
-    <button class="bottle-close" id="bottleClose">✕</button>
-    <div class="potion-bottle">
-      <div class="p-cork"></div>
-      <div class="p-neck"></div>
-      <div class="p-body">
-        <div class="p-liquid"></div>
-        <div class="p-bubble" style="left:22%;top:35%;width:7px;height:7px;"></div>
-        <div class="p-bubble" style="left:62%;top:50%;width:5px;height:5px;"></div>
-        <div class="p-bubble" style="left:40%;top:22%;width:4px;height:4px;"></div>
-      </div>
-    </div>
-    <div class="bottle-added" id="bottleAdded"></div>
-    <button id="storeToSanctum">存入圣物柜</button>
-  </div>
-</div>
+<!-- 存入圣物柜（底部金色标签） -->
+<button id="storeToSanctum">✦ 存入圣物柜 ✦</button>
 
 <!-- 命名弹窗 -->
 <div id="potionNameOverlay">
@@ -693,7 +655,6 @@ const drawerTab = document.getElementById('drawerTab');
 drawerTab.addEventListener('click', () => {
   drawer.classList.toggle('closed');
   drawer.classList.toggle('open');
-  updateBottleShift();
 });
 
 // ============================================================
@@ -764,24 +725,28 @@ renderIngredients();
 // ============================================================
 function setupDesktopItemDrag(el) {
   let isDragging = false, offX = 0, offY = 0;
-  el.addEventListener('mousedown', (e) => {
-    if (e.button !== 0) return;
+  el.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0) return;                 // 只响应左键 / 触摸
+    if (e.target.closest && e.target.closest('.close-btn')) return;  // 点关闭按钮不拖动
     isDragging = true;
     const r = el.getBoundingClientRect();
     offX = e.clientX - r.left;
     offY = e.clientY - r.top;
     el.style.zIndex = 500;
     el.style.cursor = 'grabbing';
+    try { el.setPointerCapture(e.pointerId); } catch (_) {}
     e.preventDefault();
   });
-  document.addEventListener('mousemove', (e) => {
+  el.addEventListener('pointermove', (e) => {
     if (!isDragging) return;
     el.style.left = (e.clientX - offX) + 'px';
     el.style.top = (e.clientY - offY) + 'px';
   });
-  document.addEventListener('mouseup', () => {
+  const endDrag = () => {
     if (isDragging) { isDragging = false; el.style.cursor = ''; }
-  });
+  };
+  el.addEventListener('pointerup', endDrag);
+  el.addEventListener('pointercancel', endDrag);
 }
 
 // ============================================================
@@ -950,9 +915,6 @@ desktop.addEventListener('dblclick', (e) => {
 //  13. 炼金之瓶：居中瓶子 + 材料抽屉加料 → 存入圣物柜
 // ============================================================
 const bottleBtn = document.getElementById('bottleBtn');
-const bottleOverlay = document.getElementById('bottleOverlay');
-const bottleClose = document.getElementById('bottleClose');
-const bottleAdded = document.getElementById('bottleAdded');
 const storeToSanctum = document.getElementById('storeToSanctum');
 const potionNameOverlay = document.getElementById('potionNameOverlay');
 const potionName = document.getElementById('potionName');
@@ -960,6 +922,7 @@ const potionNameOk = document.getElementById('potionNameOk');
 
 const SANCTUM_KEY = 'magiccat_sanctum';
 let bottleRecipe = {};   // { ingId: 份数 }
+let _bottleEl = null;    // 放在桌面上的瓶子元素
 
 function loadSanctum() {
   try { return JSON.parse(localStorage.getItem(SANCTUM_KEY)) || []; } catch (e) { return []; }
@@ -968,23 +931,33 @@ function saveSanctum(list) {
   try { localStorage.setItem(SANCTUM_KEY, JSON.stringify(list)); } catch (e) { showCraftNotify('⚠ 存储失败'); }
 }
 
-// 瓶按钮 → 居中显示瓶子（只显示瓶子，材料在抽屉里加）
+// 瓶按钮 → 把瓶子放到桌面（可拖动），材料在抽屉里加
 bottleBtn.addEventListener('click', () => {
   bottleRecipe = {};
+  if (_bottleEl && _bottleEl.isConnected) _bottleEl.remove();
+  const el = document.createElement('div');
+  el.className = 'desktop-item bottle-on-desktop';
+  el.innerHTML = `
+    <div class="potion-bottle">
+      <div class="p-cork"></div>
+      <div class="p-neck"></div>
+      <div class="p-body">
+        <div class="p-liquid"></div>
+        <div class="p-bubble" style="left:22%;top:35%;width:7px;height:7px;"></div>
+        <div class="p-bubble" style="left:62%;top:50%;width:5px;height:5px;"></div>
+        <div class="p-bubble" style="left:40%;top:22%;width:4px;height:4px;"></div>
+      </div>
+    </div>
+    <div class="bottle-added"></div>
+  `;
+  const dRect = desktop.getBoundingClientRect();
+  el.style.left = (dRect.width / 2 - 45) + 'px';
+  el.style.top  = Math.max(20, dRect.height / 2 - 150) + 'px';
+  desktop.appendChild(el);
+  setupDesktopItemDrag(el);
+  _bottleEl = el;
   renderBottleAdded();
-  bottleOverlay.classList.add('active');
-  updateBottleShift();
 });
-bottleClose.addEventListener('click', () => {
-  bottleOverlay.classList.remove('active');
-  updateBottleShift();
-});
-
-// 瓶子与抽屉同时打开时，移动端右移避让
-function updateBottleShift() {
-  const bothOpen = bottleOverlay.classList.contains('active') && drawer.classList.contains('open');
-  document.body.classList.toggle('bottle-shifted', bothOpen);
-}
 
 // 材料份数增减（材料抽屉里调用）
 function adjustIngredient(id, delta) {
@@ -1003,11 +976,16 @@ function adjustIngredient(id, delta) {
 // 更新瓶中已加材料 + 液体 + 同步抽屉份数
 function renderBottleAdded() {
   const entries = Object.entries(bottleRecipe);
-  bottleAdded.innerHTML = entries.length
-    ? entries.map(([id, c]) => `<span class="ba-tag">${INGREDIENTS.find(i => i.id === id)?.name} ×${c}</span>`).join('')
-    : '<span class="ba-hint">在左侧材料中点击 ＋ 加入</span>';
-  const liquid = document.querySelector('.potion-bottle .p-liquid');
-  if (liquid) liquid.style.height = (18 + Math.min(entries.length, 8) * 8) + '%';
+  if (_bottleEl && _bottleEl.isConnected) {
+    const addedEl = _bottleEl.querySelector('.bottle-added');
+    const liquid = _bottleEl.querySelector('.p-liquid');
+    if (addedEl) {
+      addedEl.innerHTML = entries.length
+        ? entries.map(([id, c]) => `<span class="ba-tag">${INGREDIENTS.find(i => i.id === id)?.name} ×${c}</span>`).join('')
+        : '<span class="ba-hint">在左侧材料中点击 ＋ 加入</span>';
+    }
+    if (liquid) liquid.style.height = (18 + Math.min(entries.length, 8) * 8) + '%';
+  }
   // 抽屉里的份数始终与瓶中一致
   document.querySelectorAll('.ingredient-item').forEach(row => {
     const countEl = row.querySelector('.bi-count');
@@ -1017,8 +995,9 @@ function renderBottleAdded() {
   });
 }
 
-// 存入圣物柜 → 弹窗命名
+// 存入圣物柜（底部金色标签）→ 弹窗命名
 storeToSanctum.addEventListener('click', () => {
+  if (!_bottleEl || !_bottleEl.isConnected) { showCraftNotify('⚠ 请先点击「瓶」把瓶子放到桌面'); return; }
   if (!Object.keys(bottleRecipe).length) { showCraftNotify('⚠ 请先在材料中加入材料'); return; }
   potionName.value = '';
   potionNameOverlay.classList.add('active');
@@ -1042,8 +1021,6 @@ potionNameOk.addEventListener('click', () => {
   });
   saveSanctum(list);
   potionNameOverlay.classList.remove('active');
-  bottleOverlay.classList.remove('active');
-  updateBottleShift();
   bottleRecipe = {};
   renderBottleAdded();
   showCraftNotify(`🧪 已将「${name}」存入圣物柜`);
