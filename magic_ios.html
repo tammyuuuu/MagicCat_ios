@@ -978,6 +978,7 @@ function adjustIngredient(id, delta) {
 // 更新瓶中已加材料 + 液体 + 同步抽屉份数
 function renderBottleAdded() {
   const entries = Object.entries(bottleRecipe);
+  const totalUnits = entries.reduce((s, [, c]) => s + c, 0);   // 材料总份数（同种多次添加也会涨水位）
   if (_bottleEl && _bottleEl.isConnected) {
     const addedEl = _bottleEl.querySelector('.bottle-added');
     const liquid = _bottleEl.querySelector('.p-liquid');
@@ -986,7 +987,8 @@ function renderBottleAdded() {
         ? entries.map(([id, c]) => `<span class="ba-tag">${INGREDIENTS.find(i => i.id === id)?.name} ×${c}</span>`).join('')
         : '<span class="ba-hint">在左侧材料中点击 ＋ 加入</span>';
     }
-    if (liquid) liquid.style.height = (18 + Math.min(entries.length, 8) * 8) + '%';
+    // 水位随材料总份数上升（每份 +4%，上限 90%）
+    if (liquid) liquid.style.height = Math.min(18 + totalUnits * 4, 90) + '%';
   }
   // 抽屉里的份数始终与瓶中一致
   document.querySelectorAll('.ingredient-item').forEach(row => {
