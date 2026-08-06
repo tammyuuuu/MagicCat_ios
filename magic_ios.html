@@ -680,42 +680,6 @@ function renderIngredients() {
       btn.addEventListener('pointerdown', (e) => e.stopPropagation());
       btn.addEventListener('mousedown', (e) => e.stopPropagation());
     });
-
-    // 拖出材料到桌面
-    item.addEventListener('mousedown', (e) => {
-      e.stopPropagation();
-      const id = item.dataset.ingrId;
-      const ing = INGREDIENTS.find(i => i.id === id);
-      if (!ing) return;
-
-      const el = document.createElement('div');
-      el.className = 'desktop-item';
-      el.style.left = (e.clientX - 22) + 'px';
-      el.style.top = (e.clientY - 22) + 'px';
-      el.style.zIndex = '500';
-      el.style.position = 'fixed';
-      el.innerHTML = `<div class="ingredient" data-ingr-id="${ing.id}" title="${ing.name}">${ing.icon}</div>`;
-      desktop.appendChild(el);
-      drawer.classList.remove('open');
-      drawer.classList.add('closed');
-
-      // 跟随鼠标
-      const offX = e.clientX - parseFloat(el.style.left);
-      const offY = e.clientY - parseFloat(el.style.top);
-      function onMove(ev) {
-        el.style.left = (ev.clientX - offX) + 'px';
-        el.style.top = (ev.clientY - offY) + 'px';
-      }
-      function onUp() {
-        document.removeEventListener('mousemove', onMove);
-        document.removeEventListener('mouseup', onUp);
-        el.style.zIndex = '';
-        el.style.position = '';
-        setupDesktopItemDrag(el);
-      }
-      document.addEventListener('mousemove', onMove);
-      document.addEventListener('mouseup', onUp);
-    });
   });
 }
 renderIngredients();
