@@ -408,7 +408,7 @@
     /* ===== 手机适配：扇形区更大、牌面更大（放在基础规则之后才能覆盖） ===== */
     @media (max-width: 768px) {
       #fanArea {
-        bottom: 30px;
+        bottom: 0px;
         height: min(38vh, 340px);
       }
       #fanScroll {
@@ -432,7 +432,6 @@
       position: absolute;
       cursor: grab;
       z-index: 40;              /* 置于扇形区(z20)与底部按钮(z35)之上，抽屉(z90)之下 */
-      border: 3px solid #6b3fa0;
       transition: box-shadow 0.3s, border-color 0.3s;
       user-select: none;
       perspective: 1000px;
@@ -440,7 +439,6 @@
       box-shadow: 0 0 14px rgba(138,77,255,0.15);
     }
     .placed-card:hover {
-      border-color: #b080ff;
       box-shadow: 0 0 16px rgba(138,77,255,0.4), 0 0 40px rgba(138,77,255,0.15);
       z-index: 200;
     }
@@ -1165,6 +1163,7 @@ function loadDecksFromConfig() {
     const basePath = cfg.path.replace(/\/+$/, '');
     const count = cfg.cardCount || 78;
     const fmt = cfg.format || 'png';
+    const startAt = cfg.startAt || 0;   // 图片文件起始编号（雷诺曼等为 1）
     const deckId = `config-deck-${idx}`;
     const backFmt = cfg.back || 'png';
     const backPath = basePath + '/back.' + backFmt;
@@ -1173,7 +1172,7 @@ function loadDecksFromConfig() {
       cards.push({
         id: `${deckId}-${i}`, number: String(i + 1),
         name: cfg.name + ' #' + i, type: 'custom',
-        _imgUrl: basePath + '/' + i + '.' + fmt,
+        _imgUrl: basePath + '/' + (startAt + i) + '.' + fmt,
       });
     }
     deckList.push({
@@ -1243,6 +1242,7 @@ const arrowRight   = document.getElementById('fanArrowRight');
 
 let rotationOffset   = 0;
 let fanCardEls       = [];
+let fanScale         = 1;      // 扇形牌缩放：上滑放大 / 下滑缩小（0.6 ~ 1.8）
 let _suppressClick   = false;   // 触控手势后抑制重复 click
 const IS_MOBILE      = window.innerWidth <= 768;
 const CARD_STEP      = IS_MOBILE ? 5.5 : 4.3; // 手机端角度更小，扇形更紧凑、牌更多
@@ -1282,6 +1282,8 @@ function openFan() {
   fanControls.classList.add('active');
   currentDeck = shuffleDeck(currentDeck);
   rotationOffset = 0;
+  fanScale = 1;
+  placedCards.forEach(p => { if (p.isConnected) p.style.transform = 'scale(1)'; });
   présSelectedIdx = -1;
   _enterFromLeft = true;
   renderFanWindow();
@@ -1425,7 +1427,7 @@ function applyCardPosition(el, idx) {
   }
   const layout = getFanLayout(idx);
   const isVisible = layout.opacity === 1;
-  el.style.transform = `translate(calc(${layout.x}px - 50%), ${layout.y}px) rotate(${layout.rotation}deg)`;
+  el.style.transform = `translate(calc(${layout.x}px - 50%), ${layout.y}px) rotate(${layout.rotation}deg) scale(${fanScale})`;
   el.style.opacity = isVisible ? '1' : '0';
   el.style.zIndex = isVisible ? layout.z : 0;
   el.style.pointerEvents = isVisible ? '' : 'none';
@@ -1663,6 +1665,10 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
       removePlacedCard(placed);
     });
   }
+
+  // 与扇形同比例缩放（上滑放大/下滑缩小保持一致）
+  placed.style.transformOrigin = '50% 50%';
+  placed.style.transform = 'scale(' + fanScale + ')';
 
   // 挂到 body 顶层：避免被 #desktop(z-index:1) 层叠上下文困住，盖在扇形区之下
   document.body.appendChild(placed);
@@ -1922,6 +1928,7 @@ if (IS_MOBILE) {
     if (Math.hypot(dx, dy) > 10) _fanTouch.moved = true;
 
     // 模式判定：按在牌上任意方向移动→直接拖出；按在空白横向滑动→翻页
+    // （空白处竖直滑动缩放由全局 handler 处理，覆盖整个页面空白区）
     if (!_fanTouch.mode) {
       if (_fanTouch.gi >= 0 && Math.hypot(dx, dy) > 18) {
         _fanTouch.mode = 'drag';
@@ -1990,6 +1997,53 @@ if (IS_MOBILE) {
       fanScroll.style.pointerEvents = '';
     }
   });
+
+  // ===== 全局空白处竖直滑动：上滑放大 / 下滑缩小（桌面 + 扇形空白都有效） =====
+  let _docZoom = null;
+  const ZOOM_MIN = 0.6, ZOOM_MAX = 1.8;
+  function isInteractiveTarget(t) {
+    return !!(t && t.closest && t.closest(
+      '.fan-card, .placed-card, .placed-gem, .drawer, .drawer-item, .drawer-tab, .side-tab, ' +
+      'button, a, input, textarea, .fan-arrow, .record-item, #recordPage, #captureOverlay, #cardZoom'
+    ));
+  }
+  // 应用缩放：扇形牌与桌面放置牌同步（扇形牌缩放时禁用过渡，避免滞后）
+  function applyFanScale() {
+    fanCardEls.forEach(el => {
+      el.style.transition = 'none';
+      applyCardPosition(el, parseInt(el.dataset.globalIdx));
+    });
+    placedCards.forEach(p => { if (p.isConnected) p.style.transform = 'scale(' + fanScale + ')'; });
+  }
+  function restoreFanTransitions() {
+    fanCardEls.forEach(el => { el.style.transition = ''; });
+  }
+
+  document.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0) return;
+    if (isInteractiveTarget(e.target)) { _docZoom = null; return; }
+    _docZoom = { sx: e.clientX, sy: e.clientY, start: fanScale, mode: null };
+  });
+  document.addEventListener('pointermove', (e) => {
+    if (!_docZoom) return;
+    const dx = e.clientX - _docZoom.sx;
+    const dy = e.clientY - _docZoom.sy;
+    if (!_docZoom.mode && Math.abs(dy) > 18 && Math.abs(dy) > Math.abs(dx)) {
+      _docZoom.mode = 'zoom';
+    }
+    if (_docZoom.mode === 'zoom') {
+      e.preventDefault();
+      const delta = _docZoom.sy - e.clientY;   // 上滑 → 放大
+      fanScale = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, _docZoom.start + delta * 0.002));
+      applyFanScale();
+    }
+  }, { passive: false });
+  function endDocZoom() {
+    if (_docZoom && _docZoom.mode === 'zoom') restoreFanTransitions();
+    _docZoom = null;
+  }
+  document.addEventListener('pointerup', endDocZoom);
+  document.addEventListener('pointercancel', endDocZoom);
 }
 
 // ============================================================
