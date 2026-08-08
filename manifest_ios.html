@@ -33,12 +33,13 @@
     html {
       /* 根元素不要用 position:fixed —— html 的背景色会“传播”到画布(canvas)，
          从而覆盖 Safari 底部工具栏区 / 主屏模式下 Home 指示条区域，消除底部黑条 */
-      background-color: #0a0218;
+      min-height: 100%;   /* 根元素必须有实际高度，背景传播才可靠 */
+      background-color: #0d001a;
     }
     body {
       position: fixed;
       inset: 0;   /* 铺满整个可视区域（含 iOS 安全区），背景随 body 覆盖到最底部 */
-      background-color: #0a0218;
+      background-color: #0d001a;
       /* iOS 安全区域：防止内容被刘海/底部横条遮挡 */
       padding-top: env(safe-area-inset-top);
       padding-right: env(safe-area-inset-right);
@@ -46,7 +47,7 @@
       padding-left: env(safe-area-inset-left);
       overflow: hidden;
       touch-action: manipulation;   /* 禁用双击缩放，保留单指滚动 */
-      background: #0a0218;
+      background: #0d001a;
       font-family: 'Courier New', Courier, monospace;
       color: #d4b0ff;
       user-select: none;
@@ -55,7 +56,7 @@
     /* ===== 星空背景 ===== */
     #starfield {
       position: fixed; inset: 0; z-index: 0;
-      background: radial-gradient(ellipse at 50% 30%, #1a0a2e, #0a0218);
+      background: radial-gradient(ellipse at 50% 30%, #1a0a2e, #0d001a);
       overflow: hidden;
     }
     .star {
@@ -310,7 +311,7 @@
       background: linear-gradient(160deg, #e0b64c, #b8842a);   /* 金色，同存入圣物柜 */
       border: 2px solid #f4d070;
       color: #2a1a05;
-      font-family: inherit; font-size: 13px; letter-spacing: 2px;
+      font-family: inherit; font-size: 13px; letter-spacing: 0px;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       border-radius: 22px;
@@ -638,7 +639,7 @@
       }
       #intentionPanel.open { transform: translate(0, -50%); }
       #divinationDrawer.open { width: 180px; }
-      #activateBtn { bottom: calc(10px + env(safe-area-inset-bottom)); width: 104px; height: 44px; font-size: 12px; letter-spacing: 2px; border-radius: 22px; }
+      #activateBtn { bottom: calc(10px + env(safe-area-inset-bottom)); width: 104px; height: 44px; font-size: 12px; letter-spacing: 0px; border-radius: 22px; }
       #altarClearBtn { bottom: calc(10px + env(safe-area-inset-bottom)); left: 36px; }
       #guidance { bottom: 92px; font-size: 10px; letter-spacing: 2px; }
       #manifestCount { top: 60px; }

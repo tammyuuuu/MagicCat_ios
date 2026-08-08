@@ -33,6 +33,7 @@
     html {
       /* 根元素不要用 position:fixed —— html 的背景色会“传播”到画布(canvas)，
          从而覆盖 Safari 底部工具栏区 / 主屏模式下 Home 指示条区域，消除底部黑条 */
+      min-height: 100%;   /* 根元素必须有实际高度，背景传播才可靠 */
       background-color: #0d001a;
     }
     body {
