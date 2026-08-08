@@ -462,7 +462,7 @@
       width: min(8vw, 105px); height: auto;
       box-shadow: 0 0 14px rgba(138,77,255,0.15);
       touch-action: none;   /* 禁浏览器滚动/回弹，移牌完全由 JS 接管 */
-      transform-origin: 50% 0;   /* 缩放围绕顶部中心：放大时牌顶部不动、不向上移动 */
+      transform-origin: 50% 50%;   /* 缩放围绕牌自身中心，位置由 JS 补偿保持“原地放大” */
     }
     .placed-card:hover {
       box-shadow: 0 0 16px rgba(138,77,255,0.4), 0 0 40px rgba(138,77,255,0.15);
@@ -1630,9 +1630,13 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
       if (!tDragging) return;
       tDist += Math.abs(e.clientX - lastX) + Math.abs(e.clientY - lastY);
       lastX = e.clientX; lastY = e.clientY;
-      let nx = e.clientX - tOffX, ny = e.clientY - tOffY;
-      nx = Math.max(0, Math.min(nx, window.innerWidth - placed.offsetWidth));
-      ny = Math.max(0, Math.min(ny, window.innerHeight - placed.offsetHeight));
+      // 补偿 transform:scale 围绕中心的偏移：把期望的视觉位置换算成布局坐标
+      const s = fanScale;
+      const w = placed.offsetWidth, h = placed.offsetHeight;
+      let nx = (e.clientX - tOffX) - (1 - s) * w / 2;
+      let ny = (e.clientY - tOffY) - (1 - s) * h / 2;
+      nx = Math.max(0, Math.min(nx, window.innerWidth - w));
+      ny = Math.max(0, Math.min(ny, window.innerHeight - h));
       placed.style.left = nx + 'px';
       placed.style.top  = ny + 'px';
       if (tDist > 8 && lpTimer) { clearTimeout(lpTimer); lpTimer = null; }
@@ -1681,10 +1685,13 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
     const onMove = (e) => {
       if (!_mousedown) return;
       dragDist += Math.abs(e.movementX) + Math.abs(e.movementY);
-      let nx = e.clientX - offX;
-      let ny = e.clientY - offY;
-      nx = Math.max(0, Math.min(nx, window.innerWidth - placed.offsetWidth));
-      ny = Math.max(0, Math.min(ny, window.innerHeight - placed.offsetHeight));
+      // 补偿 transform:scale 围绕中心的偏移：把期望的视觉位置换算成布局坐标
+      const s = fanScale;
+      const w = placed.offsetWidth, h = placed.offsetHeight;
+      let nx = (e.clientX - offX) - (1 - s) * w / 2;
+      let ny = (e.clientY - offY) - (1 - s) * h / 2;
+      nx = Math.max(0, Math.min(nx, window.innerWidth - w));
+      ny = Math.max(0, Math.min(ny, window.innerHeight - h));
       placed.style.left = nx + 'px';
       placed.style.top  = ny + 'px';
     };
@@ -1699,8 +1706,8 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
   }
 
   // 与扇形同比例缩放（上滑放大/下滑缩小保持一致）
-  // 锚点固定在顶部中心：放大时牌顶部不动、只向下扩展，不会上下乱动
-  placed.style.transformOrigin = '50% 0';
+  // 缩放围绕牌自身中心，位置由 applyFanScale 补偿保持“原地放大”
+  placed.style.transformOrigin = '50% 50%';
   placed.style.transform = 'scale(' + fanScale + ')';
 
   // 挂到 body 顶层：避免被 #desktop(z-index:1) 层叠上下文困住，盖在扇形区之下
@@ -2047,7 +2054,16 @@ if (IS_MOBILE) {
       el.style.transition = 'none';
       applyCardPosition(el, parseInt(el.dataset.globalIdx));
     });
-    placedCards.forEach(p => { if (p.isConnected) p.style.transform = 'scale(' + fanScale + ')'; });
+    // 桌面牌跟随缩放，但补偿 left/top 让视觉中心不变 → 原地放大、不上下/左右乱动
+    placedCards.forEach(p => {
+      if (!p.isConnected) return;
+      const r = p.getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      p.style.transform = 'scale(' + fanScale + ')';
+      const r2 = p.getBoundingClientRect();
+      p.style.left = (parseFloat(p.style.left) - ((r2.left + r2.width / 2) - cx)) + 'px';
+      p.style.top  = (parseFloat(p.style.top)  - ((r2.top  + r2.height / 2) - cy)) + 'px';
+    });
   }
   function restoreFanTransitions() {
     fanCardEls.forEach(el => { el.style.transition = ''; });
