@@ -34,20 +34,25 @@
 
     html {
       height: 100vh;
+      overflow: hidden;   /* 防止 iOS 橡皮筋滚动：避免整个页面跟随手指滑动 */
       background-color: #0d001a;
     }
     body {
       position: relative;
       height: 100vh;
       overflow: hidden;
-      touch-action: manipulation;
+      touch-action: none;   /* 禁原生滚动/缩放/长按，拖拽/缩放由 JS 接管 */
       background: #0d001a radial-gradient(ellipse at 50% 30%, #1a0a2e, #0d001a);
       background-size: cover;
       background-position: center;
       font-family: 'Courier New', Courier, monospace;
       color: #d4b0ff;
       user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
     }
+    /* body 禁原生手势后，允许这些滚动容器内部滚动 */
+    .page-content, .drawer-panel { touch-action: pan-y; }
 
     /* ===== 桌面底纹 ===== */
     #desktop {

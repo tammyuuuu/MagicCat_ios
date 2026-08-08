@@ -43,20 +43,25 @@
 
     html {
       height: 100vh;
+      overflow: hidden;   /* 防止 iOS 橡皮筋滚动：避免整个页面/所有牌跟随手指滑动 */
       background-color: #0d001a;
     }
     body {
       position: relative;
       height: 100vh;
       overflow: hidden;
-      touch-action: manipulation;
+      touch-action: none;   /* 禁原生滚动/缩放/长按，拖拽/缩放/截图全部由 JS 接管 */
       background: #0d001a radial-gradient(ellipse at 50% 30%, #1a0a2e, #0d001a);
       background-size: cover;
       background-position: center;
       font-family: 'Courier New', Courier, monospace;
       color: #d4b0ff;
       user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
     }
+    /* body 禁原生手势后，允许这些滚动容器内部滚动 */
+    .drawer, #cardZoom, #cardZoom .zoom-card.interp, #recordPage { touch-action: pan-y; }
 
     /* ===== 桌面层（含底纹） ===== */
     #desktop {
@@ -583,7 +588,7 @@
     #cardZoom .zoom-card.interp::-webkit-scrollbar-thumb { background: #8a4dff; border-radius: 3px; }
     /* 关闭按钮（右上） */
     #cardZoom .zoom-close {
-      position: fixed; top: 20px; right: 20px;
+      position: fixed; top: calc(20px + env(safe-area-inset-top)); right: 20px;
       width: 42px; height: 42px;
       background: rgba(20,8,40,0.9);
       border: 2px solid #8a4dff;
@@ -597,7 +602,7 @@
     #cardZoom .zoom-close:hover { border-color: #b080ff; color: #fff; }
     /* 翻面按钮（左上，文字样式与解读按钮统一） */
     #cardZoom .zoom-flip {
-      position: fixed; top: 20px; left: 20px;
+      position: fixed; top: calc(20px + env(safe-area-inset-top)); left: 20px;
       height: 42px; padding: 0 18px;
       background: rgba(30,12,60,0.9);
       border: 2px solid #8a4dff;
@@ -692,10 +697,11 @@
       background: rgba(5,2,12,0.45);
       display: none;
       cursor: crosshair;
+      touch-action: none;   /* 拖拽选区域时不被浏览器滚动/回弹干扰 */
     }
     #captureOverlay.active { display: block; }
     #captureTip {
-      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+      position: fixed; top: calc(20px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
       background: rgba(20,8,40,0.92);
       border: 2px solid #5a307a;
       color: #d4b0ff;
@@ -1498,9 +1504,9 @@ function startFanCardDrag(e, globalIdx) {
   const srcEl = fanCardEls.find(el => parseInt(el.dataset.globalIdx) === globalIdx);
   if (!srcEl) return;
   // 记录扇形中当前尺寸（已含 fanScale 缩放），拖拽中保持与扇形一致
-  const srcRect = srcEl.getBoundingClientRect();
-  const cw = srcRect.width;
-  const ch = srcRect.height;
+  const layW = srcEl.offsetWidth, layH = srcEl.offsetHeight;   // 布局尺寸（含图片真实比例）
+  const srcRect = srcEl.getBoundingClientRect();   // 视觉初始位置（含扇形排布）
+  const cw = layW * fanScale, ch = layH * fanScale;   // 拖拽视觉尺寸（未旋转，用于放手定位）
   const startLeft = srcRect.left;
   const startTop  = srcRect.top;
 
@@ -1536,7 +1542,7 @@ function startFanCardDrag(e, globalIdx) {
     let relY = ev.clientY - ch / 2;
     relX = Math.max(0, Math.min(relX, window.innerWidth - cw));
     relY = Math.max(60, Math.min(relY, window.innerHeight - ch));
-    placeCardAt(card, globalIdx, relX, relY);
+    placeCardAt(card, globalIdx, relX, relY, layW, layH);
   }
   document.addEventListener('mousemove', onMove);
   document.addEventListener('mouseup', onUp);
@@ -1545,23 +1551,26 @@ function startFanCardDrag(e, globalIdx) {
 }
 
 // --- 放置牌到桌面 ---
-function placeCardAt(card, globalIdx, posX, posY) {
+function placeCardAt(card, globalIdx, posX, posY, sizeW, sizeH) {
   const fanEl = fanCardEls.find(el => parseInt(el.dataset.globalIdx) === globalIdx);
   const isRev = fanEl?.dataset.reversed === 'true' || card.isReversed || false;
   if (fanEl) { fanEl.remove(); fanCardEls = fanCardEls.filter(el => el !== fanEl); }
   drawnIds.add(card.id);
 
-  placeCardWithFlip(card, globalIdx, posX, posY, isRev);
+  placeCardWithFlip(card, globalIdx, posX, posY, isRev, sizeW, sizeH);
   if (présSelectedIdx === globalIdx) présSelectedIdx = -1;
 }
 
 // --- 创建桌面放置牌（3D 翻牌） ---
-function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
-  // 与扇形牌实际渲染宽度保持一致（手机端 18vw / 桌面端 10vw）
-  const refW = IS_MOBILE ? Math.round(Math.min(window.innerWidth * 0.18, 84)) : Math.round(window.innerWidth * 0.1);
-  const refH = Math.round(refW * 1.5);
+function placeCardWithFlip(card, globalIdx, posX, posY, isReversed, sizeW, sizeH) {
+  // 布局尺寸：优先用拖拽源的实测尺寸（含图片真实比例），否则用标准尺寸
+  const refW = sizeW || (IS_MOBILE ? Math.round(Math.min(window.innerWidth * 0.18, 84)) : Math.round(window.innerWidth * 0.1));
+  const refH = sizeH || Math.round(refW * 1.5);
   const baseX = posX !== undefined ? posX : (window.innerWidth - refW) / 2 + (Math.random() - 0.5) * refW * 0.6;
   const baseY = posY !== undefined ? posY : (window.innerHeight - refH) / 2 + (Math.random() - 0.5) * refH * 0.6;
+  const s = fanScale;
+  const vw = refW * s, vh = refH * s;   // 视觉尺寸（含当前缩放）
+  // posX/posY 为视觉左上角（拖拽放手时已按视觉尺寸 clamp）；未传则按视觉尺寸居中
 
   const backImg  = currentDeck._images?.back;
   const frontImg = card._imgUrl;
@@ -1570,8 +1579,11 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
   placed.className = 'placed-card';
   placed.dataset.cardId = card.id;
   placed.dataset.globalIdx = globalIdx;
-  placed.style.left = Math.max(0, Math.min(baseX, window.innerWidth - refW - 6)) + 'px';
-  placed.style.top  = Math.max(0, Math.min(baseY, window.innerHeight - refH - 6)) + 'px';
+  // 视觉左上角 clamp 后换算成布局坐标（牌 transform-origin 为中心，scale=s）
+  const vLeft = Math.max(0, Math.min(baseX, Math.max(0, window.innerWidth - vw)));
+  const vTop  = Math.max(0, Math.min(baseY, Math.max(0, window.innerHeight - vh)));
+  placed.style.left = (vLeft - (1 - s) * refW / 2) + 'px';
+  placed.style.top  = (vTop  - (1 - s) * refH / 2) + 'px';
   placed.style.transform = 'scale(' + fanScale + ')';   // 放置后跟随扇形缩放，大小一致
 
   placed.innerHTML = `
@@ -1641,15 +1653,16 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
       if (!tDragging) return;
       tDist += Math.abs(e.clientX - lastX) + Math.abs(e.clientY - lastY);
       lastX = e.clientX; lastY = e.clientY;
-      // 补偿 transform:scale 围绕中心的偏移：把期望的视觉位置换算成布局坐标
+      // 视觉坐标 clamp（用视觉尺寸）后再换算成布局坐标（牌 transform-origin 为中心，scale=s）
       const s = fanScale;
       const w = placed.offsetWidth, h = placed.offsetHeight;
-      let nx = (e.clientX - tOffX) - (1 - s) * w / 2;
-      let ny = (e.clientY - tOffY) - (1 - s) * h / 2;
-      nx = Math.max(0, Math.min(nx, window.innerWidth - w));
-      ny = Math.max(0, Math.min(ny, window.innerHeight - h));
-      placed.style.left = nx + 'px';
-      placed.style.top  = ny + 'px';
+      const vw = w * s, vh = h * s;   // 视觉尺寸
+      let vLeft = e.clientX - tOffX;
+      let vTop  = e.clientY - tOffY;
+      vLeft = Math.max(0, Math.min(vLeft, window.innerWidth - vw));
+      vTop  = Math.max(0, Math.min(vTop, window.innerHeight - vh));
+      placed.style.left = (vLeft - (1 - s) * w / 2) + 'px';
+      placed.style.top  = (vTop  - (1 - s) * h / 2) + 'px';
       if (tDist > 8 && lpTimer) { clearTimeout(lpTimer); lpTimer = null; }
       e.preventDefault();
     }, { passive: false });
@@ -1696,15 +1709,16 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed) {
     const onMove = (e) => {
       if (!_mousedown) return;
       dragDist += Math.abs(e.movementX) + Math.abs(e.movementY);
-      // 补偿 transform:scale 围绕中心的偏移：把期望的视觉位置换算成布局坐标
+      // 视觉坐标 clamp（用视觉尺寸）后再换算成布局坐标
       const s = fanScale;
       const w = placed.offsetWidth, h = placed.offsetHeight;
-      let nx = (e.clientX - offX) - (1 - s) * w / 2;
-      let ny = (e.clientY - offY) - (1 - s) * h / 2;
-      nx = Math.max(0, Math.min(nx, window.innerWidth - w));
-      ny = Math.max(0, Math.min(ny, window.innerHeight - h));
-      placed.style.left = nx + 'px';
-      placed.style.top  = ny + 'px';
+      const vw = w * s, vh = h * s;
+      let vLeft = e.clientX - offX;
+      let vTop  = e.clientY - offY;
+      vLeft = Math.max(0, Math.min(vLeft, window.innerWidth - vw));
+      vTop  = Math.max(0, Math.min(vTop, window.innerHeight - vh));
+      placed.style.left = (vLeft - (1 - s) * w / 2) + 'px';
+      placed.style.top  = (vTop  - (1 - s) * h / 2) + 'px';
     };
     const onUp = () => { if (_mousedown) { _mousedown = false; placed.style.zIndex = ''; placed.style.cursor = 'grab'; } };
     document.addEventListener('mousemove', onMove);
@@ -1937,8 +1951,9 @@ if (IS_MOBILE) {
     if (!srcEl) return null;
     // 记录扇形中当前尺寸（已含 fanScale 缩放），拖拽中保持与扇形一致
     srcEl.style.transition = 'none';
-    const srcRect = srcEl.getBoundingClientRect();
-    const cw = srcRect.width, ch = srcRect.height;
+    const layW = srcEl.offsetWidth, layH = srcEl.offsetHeight;   // 布局尺寸（图片真实比例）
+    const srcRect = srcEl.getBoundingClientRect();   // 视觉初始位置（含扇形排布）
+    const cw = layW * fanScale, ch = layH * fanScale;   // 拖拽视觉尺寸（未旋转，用于放手定位）
     const startLeft = srcRect.left, startTop = srcRect.top;
     const offsetX = tx - startLeft, offsetY = ty - startTop;
 
@@ -1954,7 +1969,7 @@ if (IS_MOBILE) {
     srcEl.style.transform = 'rotate(-5deg) scale(' + fanScale + ')';   // 保留扇形缩放，大小与扇形一致
     const inner = srcEl.querySelector('.card-inner');
     if (inner) { inner.style.boxShadow = '0 8px 32px rgba(180,100,255,0.4)'; inner.style.borderColor = '#b080ff'; }
-    return { srcEl, cw, ch, card, gi: globalIdx, offsetX, offsetY };
+    return { srcEl, cw, ch, card, gi: globalIdx, offsetX, offsetY, layW, layH };
   }
 
   fanScroll.addEventListener('pointerdown', (e) => {
@@ -2021,7 +2036,7 @@ if (IS_MOBILE) {
       let relY = e.clientY - d.ch / 2;
       relX = Math.max(0, Math.min(relX, window.innerWidth - d.cw));
       relY = Math.max(60, Math.min(relY, window.innerHeight - d.ch));
-      placeCardAt(d.card, d.gi, relX, relY);
+      placeCardAt(d.card, d.gi, relX, relY, d.layW, d.layH);
     } else if (st.mode === 'swipe' && st.moved && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
       // 左右滑动翻页
       fanStep(dx > 0 ? -1 : 1);
@@ -2044,7 +2059,7 @@ if (IS_MOBILE) {
       let relY = e.clientY - d.ch / 2;
       relX = Math.max(0, Math.min(relX, window.innerWidth - d.cw));
       relY = Math.max(60, Math.min(relY, window.innerHeight - d.ch));
-      placeCardAt(d.card, d.gi, relX, relY);
+      placeCardAt(d.card, d.gi, relX, relY, d.layW, d.layH);
     } else {
       fanScroll.style.pointerEvents = '';
     }
