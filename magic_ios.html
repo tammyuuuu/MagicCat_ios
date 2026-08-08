@@ -31,14 +31,13 @@
     }
 
     html {
-      position: fixed;
-      inset: 0;
-      background-color: #0d001a;   /* 铺满全屏（含 iOS 安全区），不留黑/灰 */
+      /* 根元素不要用 position:fixed —— html 的背景色会“传播”到画布(canvas)，
+         从而覆盖 Safari 底部工具栏区 / 主屏模式下 Home 指示条区域，消除底部黑条 */
+      background-color: #0d001a;
     }
     body {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      bottom: calc(0px - env(safe-area-inset-bottom));   /* 背景延伸到 Home 条下方，覆盖底部黑色区域 */
+      inset: 0;   /* 铺满整个可视区域（含 iOS 安全区），背景随 body 覆盖到最底部 */
       background-color: #0d001a;
       /* iOS 安全区域：防止内容被刘海/底部横条遮挡 */
       padding-top: env(safe-area-inset-top);

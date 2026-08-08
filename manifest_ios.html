@@ -31,14 +31,13 @@
     }
 
     html {
-      position: fixed;
-      inset: 0;
-      background-color: #0a0218;   /* 铺满全屏（含 iOS 安全区），不留黑/灰 */
+      /* 根元素不要用 position:fixed —— html 的背景色会“传播”到画布(canvas)，
+         从而覆盖 Safari 底部工具栏区 / 主屏模式下 Home 指示条区域，消除底部黑条 */
+      background-color: #0a0218;
     }
     body {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      bottom: calc(0px - env(safe-area-inset-bottom));   /* 背景延伸到 Home 条下方，覆盖底部黑色区域 */
+      inset: 0;   /* 铺满整个可视区域（含 iOS 安全区），背景随 body 覆盖到最底部 */
       background-color: #0a0218;
       /* iOS 安全区域：防止内容被刘海/底部横条遮挡 */
       padding-top: env(safe-area-inset-top);
@@ -311,7 +310,7 @@
       background: linear-gradient(160deg, #e0b64c, #b8842a);   /* 金色，同存入圣物柜 */
       border: 2px solid #f4d070;
       color: #2a1a05;
-      font-family: inherit; font-size: 13px; letter-spacing: 5px;
+      font-family: inherit; font-size: 13px; letter-spacing: 2px;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       border-radius: 22px;
@@ -639,7 +638,7 @@
       }
       #intentionPanel.open { transform: translate(0, -50%); }
       #divinationDrawer.open { width: 180px; }
-      #activateBtn { bottom: calc(10px + env(safe-area-inset-bottom)); width: 104px; height: 44px; font-size: 12px; letter-spacing: 4px; border-radius: 22px; }
+      #activateBtn { bottom: calc(10px + env(safe-area-inset-bottom)); width: 104px; height: 44px; font-size: 12px; letter-spacing: 2px; border-radius: 22px; }
       #altarClearBtn { bottom: calc(10px + env(safe-area-inset-bottom)); left: 36px; }
       #guidance { bottom: 92px; font-size: 10px; letter-spacing: 2px; }
       #manifestCount { top: 60px; }
