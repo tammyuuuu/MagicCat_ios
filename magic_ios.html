@@ -31,14 +31,14 @@
     }
 
     html {
-      /* 根元素不要用 position:fixed —— html 的背景色会“传播”到画布(canvas)，
-         从而覆盖 Safari 底部工具栏区 / 主屏模式下 Home 指示条区域，消除底部黑条 */
-      min-height: 100%;   /* 根元素必须有实际高度，背景传播才可靠 */
-      background-color: #0d001a;
+      height: 100%;
+      height: 100dvh;   /* 覆盖含底部安全区的整个屏幕 */
+      background-color: #0d001a;   /* 根元素背景传播到画布 */
     }
     body {
-      position: fixed;
-      inset: 0;   /* 铺满整个可视区域（含 iOS 安全区），背景随 body 覆盖到最底部 */
+      position: relative;
+      height: 100%;
+      height: 100dvh;   /* 关键：动态视口高度，物理铺满到底部 Home 指示条 */
       background-color: #0d001a;
       /* iOS 安全区域：防止内容被刘海/底部横条遮挡 */
       padding-top: env(safe-area-inset-top);
