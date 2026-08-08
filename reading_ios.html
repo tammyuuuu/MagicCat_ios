@@ -32,19 +32,12 @@
 
     html {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      height: 100vh;
-      height: 100dvh;
-      min-height: -webkit-fill-available;
-      background-color: #0d001a;   /* 明确背景色，填满 Safari 底部工具栏区域，不留黑/灰 */
+      inset: 0;
+      background-color: #0d001a;   /* 铺满全屏（含 iOS 安全区），不留黑/灰 */
     }
     body {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      width: 100vw; height: 100vh;
-      height: 100dvh;
-      min-height: -webkit-fill-available;
-      min-height: 100dvh;
+      inset: 0;
       background-color: #0d001a;
       /* iOS 安全区域：防止内容被刘海/底部横条遮挡 */
       padding-top: env(safe-area-inset-top);
