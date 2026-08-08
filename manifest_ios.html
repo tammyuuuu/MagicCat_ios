@@ -308,50 +308,49 @@
       z-index: 30;
       width: 112px; height: 44px;
       padding: 0;
-      background: rgba(30,12,60,0.9);
-      border: 2px solid #8a4dff;
-      color: #d4b0ff;
+      background: linear-gradient(160deg, #e0b64c, #b8842a);   /* 金色，同存入圣物柜 */
+      border: 2px solid #f4d070;
+      color: #2a1a05;
       font-family: inherit; font-size: 13px; letter-spacing: 5px;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       border-radius: 22px;
       transition: all 0.4s;
-      box-shadow: 0 0 14px rgba(180,100,255,0.15);
+      box-shadow: 0 0 20px rgba(240,200,96,0.4);
     }
     #activateBtn::before {
       content: '';
       position: absolute; inset: -5px;
       border-radius: 26px;
-      border: 1px dashed rgba(180,100,255,0.28);
+      border: 1px dashed rgba(240,200,96,0.4);
       animation: altarRingSpin 14s linear infinite;
       pointer-events: none;
     }
     #activateBtn:hover {
-      border-color: #b080ff;
-      box-shadow: 0 0 26px rgba(180,100,255,0.3);
+      background: linear-gradient(160deg, #ecc358, #c89430);
+      border-color: #f7d87a;
+      box-shadow: 0 0 28px rgba(240,200,96,0.55);
     }
     #activateBtn.active {
-      background: rgba(200,160,80,0.2);
-      border-color: #f0d080;
-      color: #f0d080;
-      box-shadow: 0 0 44px rgba(240,208,128,0.3);
+      background: linear-gradient(160deg, #f2d268, #caa03a);
+      border-color: #ffe9a0;
+      color: #1f1505;
+      box-shadow: 0 0 46px rgba(240,208,128,0.55);
     }
-    #activateBtn.active::before { border-color: rgba(240,208,128,0.35); }
+    #activateBtn.active::before { border-color: rgba(255,224,140,0.55); }
     #activateBtn .btn-text { line-height: 1; }
     #activateBtn .btn-star {
       position: absolute;
       top: 50%; transform: translateY(-50%);
       font-size: 12px;
-      color: rgba(200,160,255,0.55);
-      text-shadow: 0 0 8px rgba(180,100,255,0.45);
+      color: rgba(42,26,5,0.75);
       pointer-events: none;
       line-height: 1;
     }
     #activateBtn .btn-star-l { left: 12px; }
     #activateBtn .btn-star-r { right: 12px; }
     #activateBtn.active .btn-star {
-      color: rgba(240,208,128,0.8);
-      text-shadow: 0 0 8px rgba(240,208,128,0.6);
+      color: rgba(31,21,5,0.8);
     }
 
     /* ===== 初始爆发 ===== */
