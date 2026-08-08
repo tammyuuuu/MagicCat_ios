@@ -27,6 +27,17 @@
     }
     img {
       -webkit-user-drag: none;   /* 禁 Safari 图片拖拽 */
+      -webkit-touch-callout: none;   /* 禁 iOS 长按图片弹“共享/存储”菜单 */
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* 塔罗牌及其图片：彻底禁用 iOS 长按菜单 / 系统图片拖拽残影 */
+    .fan-card, .placed-card,
+    .fan-card img, .placed-card img {
+      -webkit-touch-callout: none;
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
       user-select: none;
     }
 
@@ -910,7 +921,7 @@
     <span class="clear-rune r2">✦</span>
     <span class="clear-rune r3">✦</span>
     <span class="clear-rune r4">✦</span>
-    <span>📔</span>
+    <span style="font-size:22px;color:#c6e6ff;">✵</span>
   </button>
   <button class="fan-arrow fan-arrow-right" id="fanArrowRight">▶</button>
 </div>
@@ -2301,7 +2312,7 @@ function renderRecords() {
   const grid = document.getElementById('recGrid');
   const records = loadRecords();
   if (!records.length) {
-    grid.innerHTML = '<div class="record-empty">暂无记录<br>点底部 📔 按钮记录解读</div>';
+    grid.innerHTML = '<div class="record-empty">暂无记录<br>点底部 ✵ 按钮记录解读</div>';
     return;
   }
   grid.innerHTML = records.map(r => `
