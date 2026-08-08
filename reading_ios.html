@@ -37,7 +37,8 @@
     }
     body {
       position: fixed;
-      inset: 0;
+      top: 0; left: 0; right: 0;
+      bottom: calc(0px - env(safe-area-inset-bottom));   /* 背景延伸到 Home 条下方，覆盖底部黑色区域 */
       background-color: #0d001a;
       /* iOS 安全区域：防止内容被刘海/底部横条遮挡 */
       padding-top: env(safe-area-inset-top);
@@ -454,7 +455,7 @@
         width: min(18vw, 84px);
       }
       #fanControls {
-        bottom: calc(10px + env(safe-area-inset-bottom));   /* 避开 iOS 底部 Home Bar */
+        bottom: calc(8px + env(safe-area-inset-bottom));   /* 贴住 Home 指示条，避免下方大片空白 */
         height: 44px;
         gap: 16px;
       }

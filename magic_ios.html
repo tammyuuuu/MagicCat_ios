@@ -37,7 +37,8 @@
     }
     body {
       position: fixed;
-      inset: 0;
+      top: 0; left: 0; right: 0;
+      bottom: calc(0px - env(safe-area-inset-bottom));   /* 背景延伸到 Home 条下方，覆盖底部黑色区域 */
       background-color: #0d001a;
       /* iOS 安全区域：防止内容被刘海/底部横条遮挡 */
       padding-top: env(safe-area-inset-top);
@@ -455,7 +456,7 @@
     .bottle-added .ba-hint { font-size:11px; color:#5a3a7a; letter-spacing:1px; }
     /* ===== 存入圣物柜（底部金色标签） ===== */
     #storeToSanctum {
-      position: fixed; bottom: calc(22px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%);
+      position: fixed; bottom: calc(10px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%);
       z-index: 80;
       height: 44px; padding: 0 24px; border-radius: 22px;
       background: linear-gradient(160deg, #e0b64c, #b8842a);
