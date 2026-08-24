@@ -29,4 +29,5 @@ const DECKS = [
   { name: '阿卡西之眼·塔罗', path: '图片/盒子/阿卡西之眼_塔罗', cardCount: 78, format: 'png', back: 'jpg' },
   { name: '阿卡西之眼·雷诺曼', path: '图片/盒子/阿卡西之眼_雷诺曼', cardCount: 48, format: 'png', back: 'jpg', noReverse: true, startAt: 1 },
   { name: '雷诺曼', path: '图片/盒子/雷诺曼', cardCount: 36, format: 'webp', back: 'jpg', noReverse: true, startAt: 1 },
+  { name: '宇宙力量卡', path: '图片/宇宙力量卡/cards', cardCount: 140, format: 'webp', back: 'webp', noReverse: true, startAt: 0, layout: 'landscape', aspectRatio: 16 / 9, hasInterpretation: false },
 ];

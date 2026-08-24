@@ -1,0 +1,37 @@
+/* ============================================================
+   yao_ui.css — 统一爻线组件样式（与 yao_ui.js 配套）
+   主桌面 / 完整排盘 / 未来卦册 统一复用，禁止各页面自绘爻线。
+   阴阳爻基本形状唯一：
+     阳爻 = 一整条连续线
+     阴爻 = 左段 + 中央断口 + 右段（只两段，禁止多段/重复图案）
+   动爻只叠加 ○/× 标记，不改变阴阳爻基本形状。
+   ============================================================ */
+.yao-stack{display:flex;flex-direction:column;}
+
+/* 一行：label + 爻线 + 标记 */
+.yao-row{display:flex;align-items:center;justify-content:center;gap:10px;height:44px;}
+.yao-label{width:26px;text-align:right;color:var(--jade-dim,#6f8d83);font-size:10px;letter-spacing:1px;flex-shrink:0;}
+.yao-marker{width:34px;font-size:11px;letter-spacing:1px;color:var(--cinnabar,#cf6c54);flex-shrink:0;text-align:left;}
+
+/* 爻线本体 */
+.yao-bar{position:relative;display:block;flex-shrink:0;}
+.yao-bar.yao-lg{width:clamp(150px,26vw,250px);height:15px;}
+.yao-bar.yao-md{width:170px;height:12px;}
+.yao-bar.yao-sm{width:120px;height:9px;}
+
+/* 阳爻：一整条 */
+.yao-bar.yao-yang{background:linear-gradient(90deg,#9e773f,#e6ce8d,#9e773f);box-shadow:0 0 12px rgba(222,188,111,.35);}
+
+/* 阴爻：左段 + 断口 + 右段（仅两段，用 ::before/::after，禁止 repeat 图案） */
+.yao-bar.yao-yin{background:transparent;}
+.yao-bar.yao-yin::before,.yao-bar.yao-yin::after{
+  content:"";position:absolute;top:0;height:100%;
+  border-radius:4px;
+  background:linear-gradient(90deg,#78998b,#c2d2c9,#78998b);
+  box-shadow:0 0 10px rgba(118,166,147,.28);
+}
+.yao-bar.yao-yin::before{left:0;width:44%;}
+.yao-bar.yao-yin::after{right:0;width:44%;}
+
+/* 空爻（未成） */
+.yao-bar.yao-none{background:rgba(216,207,182,.07);border-radius:4px;}

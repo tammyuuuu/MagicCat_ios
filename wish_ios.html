@@ -1,0 +1,928 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="魔法猫">
+<meta name="theme-color" content="#050f0d">
+<title>祝祷之庭 · 承愿树</title>
+<link rel="stylesheet" href="world_switch.css">
+<style>
+/* ============================================================
+   祝祷之庭 · wish_ios.html
+   场景式“愿”空间：承愿树 / 祝祷台 / 愿迹
+   视觉沿用东玄：墨黑 / 深墨绿 / 黛青 / 暗金 / 古玉青 / 朱砂
+   本轮为占位美术（CSS+SVG），正式背景与愿树素材待布局确定后替换
+   ============================================================ */
+:root{
+  --ink:#d8cfb6; --ink-dim:#82998f;
+  --bg0:#050f0d; --bg1:#0a1f1a; --bg2:#12302a;
+  --jade:#7fd0b0; --jade-dim:#6f8d83;
+  --bronze:#a98a50; --gold:#d8c491; --gold-hi:#f0dca0;
+  --cinnabar:#cf6c54; --cinnabar-deep:#8f3a30;
+  --line:rgba(178,151,88,.28); --line-soft:rgba(178,151,88,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;overflow:hidden}
+html{height:100vh;background-color:var(--bg0);}
+body{
+  height:100vh;
+  font-family:"Noto Serif SC","Songti SC",serif;color:var(--ink);
+  background:var(--bg0);user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;
+}
+[hidden]{display:none !important}
+
+/* ===== 移动端全局：禁长按放大镜 / 菜单 / 图片拖拽（原生手感） ===== */
+input, textarea, [contenteditable="true"], [contenteditable=""] {
+  -webkit-touch-callout: default;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}
+img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---- 场景背景：墨黑·黛青 + 月晕 + 极淡云雷纹 ---- */
+.desk{position:fixed;inset:0;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 34%, rgba(56,96,82,.42), transparent 58%),
+    radial-gradient(ellipse at 78% 80%, rgba(120,74,52,.12), transparent 45%),
+    linear-gradient(rgba(5,18,16,.5), rgba(2,10,9,.92)),
+    repeating-linear-gradient(90deg, rgba(178,151,88,.02) 0 1px, transparent 1px 72px),
+    var(--bg0);
+}
+.desk::before{
+  content:"";position:absolute;inset:0;opacity:.14;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%2385a997' stroke-width='.7'%3E%3Cpath d='M20 90c28-44 112-44 140 0-28 44-112 44-140 0Z'/%3E%3Cpath d='M90 20c44 28 44 112 0 140-44-28-44-112 0-140Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ---- 东玄顶部导航（三页共用结构） ---- */
+.east-nav{
+  position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;z-index:2600;
+  display:flex;gap:10px;align-items:center;
+}
+.east-nav-link{
+  padding:6px 14px;font:12px/1 "Noto Serif SC","Songti SC",serif;letter-spacing:3px;
+  color:var(--ink-dim);text-decoration:none;cursor:pointer;
+  border:1px solid var(--line);border-radius:18px;
+  background:rgba(8,20,17,.82);backdrop-filter:blur(6px);
+  transition:.25s;white-space:nowrap;
+}
+.east-nav-link:hover{color:var(--gold-hi);border-color:var(--bronze);box-shadow:0 0 16px rgba(178,151,88,.2);}
+.east-nav-link.active{color:var(--gold-hi);border-color:var(--bronze);background:rgba(178,151,88,.12);}
+
+/* ---- 承愿树舞台 ---- */
+.tree-stage{
+  position:fixed;inset:0;z-index:2;cursor:default;
+}
+.tree-bg{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-55%);
+  width:min(86vh,1180px);aspect-ratio:700/640;
+  pointer-events:none;
+}
+/* 月晕 */
+.tree-bg::before{
+  content:"";position:absolute;left:50%;top:50%;width:210px;height:210px;
+  transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle, rgba(223,205,161,.16), rgba(127,208,176,.05) 55%, transparent 72%);
+  filter:blur(6px);
+}
+.tree-svg{position:absolute;inset:0;width:100%;height:100%;color:var(--bronze);opacity:.94;}
+.tree-svg .trunk-fill{fill:url(#trunkGold);stroke:#b28b4d;stroke-width:1.4;stroke-linejoin:round;}
+.tree-svg .branch{fill:none;stroke:url(#branchGold);stroke-linecap:round;stroke-linejoin:round;}
+.tree-svg .branch.fine{stroke-width:3.4;opacity:.88;}
+.tree-svg .twig{fill:none;stroke:#9e8150;stroke-width:2.2;stroke-linecap:round;opacity:.82;}
+.tree-svg .leaf{fill:url(#leafJade);stroke:rgba(183,216,194,.35);stroke-width:.7;}
+.tree-svg .leaf.dim{opacity:.52;}
+.tree-svg .glow{stroke:rgba(216,196,145,.48);stroke-width:1;fill:none;}
+.tree-svg>.trunk-fill,.tree-svg>.branch,.tree-svg>.twig,.tree-svg>.leaf{display:none}
+.tree-redraw .rd-branch{fill:none;stroke:url(#branchGold);stroke-linecap:round;stroke-linejoin:round}
+.tree-redraw .rd-trunk{fill:url(#trunkGold);stroke:#b28b4d;stroke-width:1.4;stroke-linejoin:round}
+.tree-redraw .rd-leaf{fill:url(#leafJade);stroke:rgba(183,216,194,.42);stroke-width:.8}
+
+/* ---- 承愿物（独立可交互元素，不画死在背景） ---- */
+.hangers{position:absolute;inset:0;pointer-events:none;}
+.wish-anchors{position:absolute;inset:0;z-index:6;pointer-events:none;display:none}.wish-anchors.show{display:block}.wish-anchor{position:absolute;width:14px;height:14px;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(231,195,116,.72);background:rgba(12,31,26,.88);box-shadow:0 0 0 4px rgba(211,170,90,.08),0 0 12px rgba(231,195,116,.28)}.wish-anchor::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#d9b66d}.wish-anchor.near{transform:translate(-50%,-50%) scale(1.3);border-color:#ffe1a0;box-shadow:0 0 0 6px rgba(242,198,108,.14),0 0 22px rgba(255,218,137,.75)}
+.wish{
+  position:absolute;transform:translate(-50%,4px);
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  background:none;border:none;padding:0;margin:0;cursor:pointer;
+  font-family:inherit;pointer-events:auto;
+  width:64px;color:var(--gold);
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.45));
+  transition:transform .3s, filter .3s;
+  touch-action:none;user-select:none;-webkit-user-select:none;
+}
+.wish.dragging{z-index:12;transition:none;cursor:grabbing;filter:drop-shadow(0 0 15px rgba(242,198,108,.55))}.wish.dragging .wish-obj{animation:none!important}
+.wish-obj{display:block;width:48px;height:70px;transform-origin:50% 4%;animation:carrierSway 5.6s ease-in-out infinite alternate}
+.wish-obj svg{width:100%;height:100%;display:block;}
+@keyframes carrierSway{from{transform:rotate(-1.1deg)}to{transform:rotate(1.1deg)}}
+.wish--lantern{width:76px;filter:drop-shadow(0 0 12px rgba(231,161,69,.28)) drop-shadow(0 6px 10px rgba(0,0,0,.35))}.wish--lantern .wish-obj{width:58px;height:78px;transform-origin:50% 50%}@keyframes lanternDrift{0%,100%{transform:translate(-1px,1px) rotate(-.6deg)}45%{transform:translate(2px,-3px) rotate(.7deg)}70%{transform:translate(.5px,-1.5px) rotate(.2deg)}}
+.wish--knot{transform:translate(-50%,-3px);}
+.wish-name{
+  font-size:10px;color:var(--ink);letter-spacing:1px;line-height:1.3;
+  max-width:76px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+  background:rgba(5,15,13,.66);border:1px solid var(--line-soft);
+  padding:1px 6px;border-radius:8px;
+}
+.wish-mark{position:absolute;top:-4px;right:-2px;font-size:13px;color:var(--gold-hi);display:none;text-shadow:0 0 8px rgba(240,220,160,.8);}
+/* 状态：行愿中 */
+.wish--active .wish-obj{animation:floatY 4.5s ease-in-out infinite;}
+.wish--lantern.wish--active .wish-obj{animation:lanternDrift 5.8s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+.wish--active:hover{transform:translate(-50%,-14%) scale(1.12);}
+.wish--active:hover .wish-name{color:var(--gold-hi);border-color:var(--bronze);box-shadow:0 0 12px rgba(178,151,88,.25);}
+/* 状态：愿已成 */
+.wish--done .wish-obj{opacity:.95;filter:drop-shadow(0 0 10px rgba(240,220,160,.55));}
+.wish--done .wish-mark{display:block;}
+.wish--done:hover{transform:translate(-50%,-14%) scale(1.12);}
+/* 状态：已放下 */
+.wish--released{filter:saturate(.45) opacity(.55) drop-shadow(0 2px 6px rgba(0,0,0,.4));}
+.wish--released .wish-name{color:var(--ink-dim);}
+.wish--released:hover{filter:saturate(.7) opacity(.9);transform:translate(-50%,-14%) scale(1.1);}
+
+/* ---- 祝祷台 ---- */
+.altar{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%);
+  z-index:120;display:flex;flex-direction:column;align-items:center;gap:8px;
+  background:none;border:none;cursor:pointer;font-family:inherit;padding:0;
+}
+.altar-body{
+  width:148px;height:50px;border-radius:25px;
+  border:1px solid var(--bronze);
+  background:
+    radial-gradient(circle at 50% 30%, rgba(224,179,106,.16), transparent 60%),
+    linear-gradient(160deg, rgba(66,42,25,.5), rgba(20,14,9,.6));
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  color:var(--gold-hi);letter-spacing:6px;font-size:13px;
+  box-shadow:0 0 26px rgba(185,145,77,.18), inset 0 0 18px rgba(185,145,77,.08);
+  transition:.3s;
+}
+.altar:hover .altar-body{
+  box-shadow:0 0 38px rgba(212,168,85,.38), inset 0 0 22px rgba(212,168,85,.14);
+  transform:translateY(-2px);
+}
+.altar-tip{font-size:10px;color:var(--ink-dim);letter-spacing:5px;}
+
+/* ---- 愿迹摆件 ---- */
+.traces-prop{
+  position:fixed;left:16px;bottom:16px;z-index:150;
+  display:flex;align-items:center;gap:9px;
+  padding:9px 14px;border-radius:20px;cursor:pointer;
+  border:1px solid var(--line);background:rgba(8,20,17,.85);
+  color:var(--gold);font:12px "Noto Serif SC","Songti SC",serif;letter-spacing:4px;
+  transition:.25s;backdrop-filter:blur(6px);
+}
+.traces-prop:hover{border-color:var(--bronze);color:var(--gold-hi);box-shadow:0 0 18px rgba(178,151,88,.22);}
+.traces-prop .tp-count{
+  min-width:20px;height:20px;padding:0 5px;border-radius:10px;
+  display:grid;place-items:center;font-size:11px;letter-spacing:0;
+  background:rgba(178,151,88,.2);color:var(--gold-hi);
+}
+.traces-prop .tp-scroll{width:16px;height:20px;color:var(--jade);opacity:.8;}
+.traces-prop .tp-scroll svg{width:100%;height:100%;}
+
+/* ---- 愿迹抽屉 ---- */
+.traces-mask{position:fixed;inset:0;z-index:900;background:rgba(3,8,7,.55);opacity:0;pointer-events:none;transition:.25s;}
+.traces-mask.open{opacity:1;pointer-events:auto;}
+.traces-drawer{
+  position:fixed;left:0;bottom:0;z-index:901;width:min(460px,94vw);
+  max-height:74vh;border-radius:0 22px 0 0;
+  background:linear-gradient(165deg, rgba(13,30,26,.97), rgba(5,15,13,.99));
+  border:1px solid var(--line-soft);border-bottom:none;border-left:none;
+  padding:18px 20px 22px;overflow-y:auto;
+  transform:translateY(102%);transition:transform .34s cubic-bezier(.2,.8,.25,1);
+  box-shadow:18px -8px 40px rgba(0,0,0,.5);
+}
+.traces-drawer.open{transform:translateY(0);}
+.traces-drawer::-webkit-scrollbar{width:5px}
+.traces-drawer::-webkit-scrollbar-thumb{background:rgba(178,151,88,.3);border-radius:3px}
+.tr-title{
+  color:var(--gold);letter-spacing:8px;font-size:14px;margin-bottom:4px;
+  display:flex;align-items:center;gap:12px;
+}
+.tr-title .tr-close{margin-left:auto;background:none;border:1px solid var(--line);border-radius:50%;color:var(--ink-dim);cursor:pointer;width:26px;height:26px;font:12px inherit;}
+.tr-title .tr-close:hover{color:var(--gold-hi);border-color:var(--bronze);}
+.tr-sub{font-size:10px;color:var(--ink-dim);letter-spacing:3px;margin-bottom:14px;}
+.tr-empty{padding:44px 10px;text-align:center;color:var(--ink-dim);font-size:12px;letter-spacing:3px;line-height:2;}
+.tr-wish{border:1px solid var(--line-soft);border-radius:14px;padding:12px 14px;margin-bottom:12px;background:rgba(178,151,88,.04);}
+.tr-wish.released{opacity:.62;}
+.tr-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.tr-name{font-size:13px;color:var(--gold-hi);letter-spacing:2px;}
+.tr-badge{font-size:10px;padding:2px 8px;border-radius:9px;letter-spacing:2px;border:1px solid var(--line);color:var(--ink-dim);}
+.tr-badge.active{color:var(--jade);border-color:rgba(127,208,176,.4);}
+.tr-badge.done{color:var(--gold-hi);border-color:var(--bronze);}
+.tr-badge.released{color:var(--ink-dim);}
+.tr-meta{font-size:10px;color:var(--ink-dim);letter-spacing:2px;margin-bottom:8px;}
+.tr-traces{border-top:1px dashed var(--line-soft);padding-top:8px;display:grid;gap:7px;}
+.tr-item{display:flex;gap:10px;font-size:11px;line-height:1.7;}
+.tr-date{color:var(--gold);letter-spacing:1px;white-space:nowrap;flex:none;}
+.tr-text{color:var(--ink);letter-spacing:1px;}
+.tr-none{font-size:10px;color:var(--ink-dim);letter-spacing:2px;border-top:1px dashed var(--line-soft);padding-top:8px;}
+
+/* ---- 弹层通用 ---- */
+.mask{position:fixed;inset:0;z-index:950;background:rgba(3,8,7,.6);opacity:0;pointer-events:none;transition:.25s;}
+.mask.open{opacity:1;pointer-events:auto;}
+
+/* ---- 立愿弹窗 ---- */
+.modal{
+  position:fixed;left:50%;top:50%;transform:translate(-50%,-46%) scale(.96);
+  z-index:960;width:min(520px,94vw);max-height:88vh;overflow-y:auto;
+  background:linear-gradient(165deg, rgba(15,34,29,.98), rgba(5,15,13,.99));
+  border:1px solid var(--line);border-radius:20px;
+  padding:22px 26px 26px;opacity:0;pointer-events:none;transition:.28s;
+  box-shadow:0 22px 60px rgba(0,0,0,.6), inset 0 0 40px rgba(178,151,88,.05);
+}
+.modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
+.modal::-webkit-scrollbar{width:5px}
+.modal::-webkit-scrollbar-thumb{background:rgba(178,151,88,.3);border-radius:3px}
+.m-head{
+  display:flex;align-items:center;justify-content:center;position:relative;
+  color:var(--gold);letter-spacing:10px;font-size:15px;margin-bottom:20px;
+}
+.m-close{position:absolute;right:0;top:50%;transform:translateY(-50%);background:none;border:1px solid var(--line);border-radius:50%;color:var(--ink-dim);cursor:pointer;width:28px;height:28px;font:12px inherit;}
+.m-close:hover{color:var(--gold-hi);border-color:var(--bronze);}
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:11px;color:var(--ink-dim);letter-spacing:4px;margin-bottom:7px;}
+.field label b{color:var(--cinnabar);font-weight:normal;}
+.field input,.field textarea{
+  width:100%;padding:9px 12px;background:rgba(4,12,10,.65);
+  border:1px solid var(--line-soft);border-radius:10px;color:var(--gold);
+  font:13px "Noto Serif SC","Songti SC",serif;letter-spacing:2px;outline:none;
+  color-scheme:dark;
+}
+.field textarea{resize:none;height:76px;}
+.field input:focus,.field textarea:focus{border-color:var(--bronze);}
+/* 承愿物选择 */
+.carrier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.carrier-card{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:14px 6px 10px;border:1px solid var(--line-soft);border-radius:14px;
+  cursor:pointer;background:rgba(178,151,88,.03);color:var(--ink-dim);
+  font:11px "Noto Serif SC","Songti SC",serif;letter-spacing:3px;transition:.22s;
+}
+.carrier-card .cc-obj{width:36px;height:50px;color:var(--gold);}
+.carrier-card .cc-obj svg{width:100%;height:100%;}
+.carrier-card:hover{border-color:var(--line);color:var(--ink);}
+.carrier-card.sel{border-color:var(--bronze);color:var(--gold-hi);background:rgba(178,151,88,.1);box-shadow:0 0 18px rgba(178,151,88,.2);}
+.m-submit{
+  width:100%;height:46px;border:1px solid var(--bronze);border-radius:23px;
+  background:linear-gradient(160deg, rgba(66,42,25,.5), rgba(24,16,10,.55));
+  color:var(--gold-hi);font:14px "Noto Serif SC","Songti SC",serif;letter-spacing:8px;cursor:pointer;
+  box-shadow:0 0 18px rgba(185,145,77,.16);transition:.3s;
+}
+.m-submit:hover{box-shadow:0 0 30px rgba(212,168,85,.4);transform:translateY(-1px);}
+
+/* ---- 愿物详情面板 ---- */
+.detail{
+  position:fixed;right:18px;top:50%;transform:translateY(-48%) translateX(120%);
+  z-index:800;width:min(360px,92vw);
+  background:linear-gradient(170deg, rgba(15,34,29,.97), rgba(6,16,14,.99));
+  border:1px solid var(--line);border-radius:20px;padding:20px 22px;
+  box-shadow:-18px 10px 44px rgba(0,0,0,.55);transition:transform .34s cubic-bezier(.2,.8,.25,1);
+}
+.detail.open{transform:translateY(-50%) translateX(0);}
+.d-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.d-name{font-size:16px;color:var(--gold-hi);letter-spacing:4px;flex:1;}
+.d-badge{font-size:10px;padding:3px 10px;border-radius:10px;letter-spacing:2px;border:1px solid var(--line);color:var(--ink-dim);white-space:nowrap;}
+.d-badge.active{color:var(--jade);border-color:rgba(127,208,176,.45);}
+.d-badge.done{color:var(--gold-hi);border-color:var(--bronze);}
+.d-badge.released{color:var(--ink-dim);}
+.d-close{background:none;border:1px solid var(--line);border-radius:50%;color:var(--ink-dim);cursor:pointer;width:26px;height:26px;font:12px inherit;flex:none;}
+.d-close:hover{color:var(--gold-hi);border-color:var(--bronze);}
+.d-content{font-size:12px;color:var(--ink);letter-spacing:1px;line-height:1.9;border:1px dashed var(--line-soft);border-radius:12px;padding:10px 12px;margin-bottom:12px;min-height:40px;}
+.d-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px;}
+.d-meta .dm{font-size:10px;color:var(--ink-dim);letter-spacing:2px;}
+.d-meta .dm b{display:block;font-size:14px;color:var(--gold);font-weight:normal;letter-spacing:2px;margin-top:2px;}
+.d-act{display:grid;gap:9px;margin-top:8px;}
+.d-act button{height:38px;border:1px solid var(--line);border-radius:19px;background:rgba(178,151,88,.06);color:var(--gold);font:12px "Noto Serif SC","Songti SC",serif;letter-spacing:4px;cursor:pointer;transition:.22s;}
+.d-act button:hover:not(:disabled){border-color:var(--bronze);color:var(--gold-hi);background:rgba(178,151,88,.12);}
+.d-act button:disabled{opacity:.38;cursor:not-allowed;}
+.d-act .primary{border-color:var(--bronze);color:var(--gold-hi);}
+.d-act .danger:hover:not(:disabled){border-color:var(--cinnabar);color:var(--cinnabar);}
+
+/* ---- 今日行愿 / 确认 弹窗 ---- */
+.trace-modal{width:min(460px,92vw);}
+.tm-hint{font-size:11px;color:var(--ink-dim);letter-spacing:2px;line-height:1.9;margin-bottom:6px;}
+.confirm-text{font-size:13px;color:var(--ink);letter-spacing:2px;line-height:2;text-align:center;padding:6px 0 16px;}
+.confirm-acts{display:flex;gap:10px;}
+.confirm-acts button{flex:1;height:42px;border-radius:21px;border:1px solid var(--line);background:rgba(178,151,88,.06);color:var(--gold);font:12px "Noto Serif SC","Songti SC",serif;letter-spacing:4px;cursor:pointer;transition:.22s;}
+.confirm-acts button:hover{border-color:var(--bronze);color:var(--gold-hi);}
+.confirm-acts .no{border-color:var(--line-soft);color:var(--ink-dim);}
+.confirm-acts .no:hover{border-color:var(--ink-dim);color:var(--ink);}
+
+/* ---- 浮动提示 ---- */
+.toast{
+  position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(8px);
+  z-index:1200;padding:10px 22px;border-radius:22px;
+  background:rgba(10,24,20,.94);border:1px solid var(--bronze);
+  color:var(--gold-hi);font:12px "Noto Serif SC","Songti SC",serif;letter-spacing:3px;
+  opacity:0;pointer-events:none;transition:.3s;box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media (max-width:760px){
+  .tree-bg{width:min(94vw,86vh);transform:translate(-50%,-62%);}
+  /* 愿望载体相对缩小后的树按比例调小 */
+  .wish{width:50px;}
+  .wish-obj{width:38px;height:55px;}
+  .wish--lantern{width:60px;}
+  .wish--lantern .wish-obj{width:46px;height:62px;}
+  .wish-name{max-width:64px;font-size:9px;}
+  .altar{transform:translateX(-50%);bottom:calc(155px + env(safe-area-inset-bottom));}
+  .traces-prop{bottom:calc(16px + env(safe-area-inset-bottom));}
+  .detail{right:8px;left:8px;width:auto;}
+}
+</style>
+</head>
+<body data-world="east">
+<script src="world_switch.js"></script>
+
+<main class="desk">
+  <!-- 承愿树舞台 -->
+  <div class="tree-stage" id="treeStage">
+    <div class="tree-bg" id="treeBg">
+      <!-- 承愿树：盘根、回枝与玉叶组成的东方愿树 -->
+      <svg class="tree-svg" viewBox="0 0 700 640" fill="none" aria-hidden="true">
+        <defs><linearGradient id="trunkGold" x1="270" y1="260" x2="430" y2="640"><stop stop-color="#6d5531"/><stop offset=".42" stop-color="#b18a4d"/><stop offset=".68" stop-color="#705331"/><stop offset="1" stop-color="#3a3423"/></linearGradient><linearGradient id="branchGold" x1="120" y1="200" x2="560" y2="450"><stop stop-color="#80663d"/><stop offset=".5" stop-color="#c19a58"/><stop offset="1" stop-color="#745936"/></linearGradient><radialGradient id="leafJade" cx="35%" cy="28%" r="80%"><stop stop-color="#bad8c4"/><stop offset=".35" stop-color="#699d83"/><stop offset="1" stop-color="#274f43"/></radialGradient></defs>
+        <path class="trunk-fill" d="M285 635c29-28 42-61 46-102 5-52-7-91 9-137 12-36 34-65 39-102 5-34-1-67-14-98 27 23 39 57 33 94-6 42-31 73-39 110-10 47 10 96 3 148-5 39-18 67-31 87Z"/>
+        <path class="trunk-fill" d="M320 636c-35-5-72 0-100 14 16-25 48-42 92-45M351 638c39-10 77-6 109 8-22-25-56-38-95-36"/>
+        <g class="branch" stroke-width="8"><path d="M349 510C305 474 250 452 179 448"/><path d="M350 470C396 445 451 424 529 430"/><path d="M350 414C303 383 257 352 206 300"/><path d="M373 376C424 343 475 302 526 241"/><path d="M369 337C340 292 323 247 326 191"/><path d="M382 319C417 275 442 228 447 174"/></g>
+        <g class="branch" stroke-width="5"><path d="M206 300C167 279 133 249 107 211"/><path d="M206 300C183 250 165 212 143 177"/><path d="M526 241C552 219 568 188 574 151"/><path d="M447 174C458 143 459 113 450 82"/><path d="M326 191C299 168 266 147 228 132"/><path d="M179 448C151 424 128 390 115 349"/><path d="M529 430C557 403 574 369 579 329"/></g>
+        <g class="branch fine"><path d="M145 260C120 248 99 226 86 199"/><path d="M174 272C153 241 143 211 143 181"/><path d="M250 344C218 326 190 301 169 270"/><path d="M242 455C215 436 194 411 182 382"/><path d="M444 330C474 311 500 286 519 256"/><path d="M490 264C515 245 535 221 548 194"/><path d="M478 439C510 430 539 411 560 385"/><path d="M403 263C424 236 438 206 442 174"/><path d="M350 276C327 247 311 216 306 184"/></g>
+        <g class="twig"><path d="M179 448c-28-9-52-8-74 2M529 430c29-8 55-6 77 5M107 255c-12-15-19-31-20-48M570 269c15-16 24-34 27-53M235 180c-16-14-27-30-32-49M333 110c-9-20-9-39 0-57M447 174c16-20 27-42 30-65"/></g>
+        <g class="leaf"><path d="M76 195c17-18 38-18 50-3-16 17-35 19-50 3Z"/><path d="M106 238c19-17 41-14 50 3-18 14-38 14-50-3Z"/><path d="M139 269c18-15 38-11 46 5-17 13-35 11-46-5Z"/><path d="M150 361c20-14 41-8 47 10-20 11-39 7-47-10Z"/><path d="M96 444c18-17 40-15 50 1-17 15-37 15-50-1Z"/><path d="M174 379c18-14 37-10 44 6-17 12-34 9-44-6Z"/><path d="M198 126c19-13 39-7 45 10-18 11-36 7-45-10Z"/><path d="M282 173c17-15 37-12 46 4-17 13-35 12-46-4Z"/><path d="M323 49c12-20 33-24 47-11-11 19-30 24-47 11Z"/><path d="M464 105c14-19 35-21 48-7-13 18-32 21-48 7Z"/><path d="M530 187c18-15 39-12 47 5-17 13-36 11-47-5Z"/><path d="M584 211c16-17 37-17 49-2-15 16-34 18-49 2Z"/><path d="M557 263c20-13 40-6 46 11-19 10-37 7-46-11Z"/><path d="M519 386c20-12 40-5 46 12-19 10-37 6-46-12Z"/><path d="M548 377c18-15 38-12 46 4-17 13-35 12-46-4Z"/><path d="M594 429c17-16 38-14 48 2-16 14-35 14-48-2Z"/></g>
+        <g class="leaf dim"><path d="M164 287c12-16 29-18 40-6-11 15-27 18-40 6Z"/><path d="M183 438c13-15 31-15 40-2-13 14-29 15-40 2Z"/><path d="M232 343c15-13 32-10 39 4-14 11-30 10-39-4Z"/><path d="M304 178c13-15 31-15 40-2-12 14-29 15-40 2Z"/><path d="M435 223c15-13 33-10 39 4-14 12-30 10-39-4Z"/><path d="M491 286c14-14 32-12 40 2-13 13-30 13-40-2Z"/><path d="M477 421c15-13 32-10 39 4-14 12-30 10-39-4Z"/></g>
+        <g class="tree-redraw">
+          <defs><path id="wishLeaf" d="M0 0C17-15 39-12 52 2 37 17 15 17 0 0Z"/></defs>
+          <g class="rd-branch" stroke-width="10">
+            <path d="M344 524C286 487 215 455 118 447"/><path d="M352 475C421 438 500 415 595 431"/>
+            <path d="M348 411C292 374 231 323 164 257"/><path d="M364 367C430 329 492 276 548 207"/>
+            <path d="M365 318C335 270 302 219 265 165"/><path d="M378 295C411 246 438 188 447 119"/>
+          </g>
+          <g class="rd-branch" stroke-width="5.5">
+            <path d="M224 458C187 429 158 391 139 350"/><path d="M207 295C178 272 151 240 134 202"/>
+            <path d="M475 426C514 398 547 362 565 323"/><path d="M487 281C519 257 543 228 558 192"/>
+            <path d="M313 239C286 221 258 201 230 177"/><path d="M424 215C448 191 466 163 477 131"/>
+          </g>
+          <path class="rd-trunk" d="M284 635c31-30 43-65 46-107 4-52-6-91 10-135 13-35 35-66 40-102 5-35-1-66-15-96 28 23 40 56 34 94-7 43-31 74-40 112-10 46 10 95 3 147-5 39-18 67-31 87Z"/>
+          <path class="rd-trunk" d="M320 635c-39-4-75 1-104 17 19-27 51-43 97-46M351 637c40-10 78-7 112 8-24-25-58-39-98-35"/>
+          <g class="rd-leaf">
+            <use href="#wishLeaf" transform="translate(110 445) rotate(188) scale(.82)"/><use href="#wishLeaf" transform="translate(185 452) rotate(202) scale(.66)"/><use href="#wishLeaf" transform="translate(137 348) rotate(198) scale(.72)"/>
+            <use href="#wishLeaf" transform="translate(587 429) rotate(-8) scale(.82)"/><use href="#wishLeaf" transform="translate(509 414) rotate(-18) scale(.64)"/><use href="#wishLeaf" transform="translate(560 321) rotate(-12) scale(.7)"/>
+            <use href="#wishLeaf" transform="translate(157 253) rotate(198) scale(.78)"/><use href="#wishLeaf" transform="translate(211 298) rotate(213) scale(.62)"/><use href="#wishLeaf" transform="translate(129 199) rotate(204) scale(.69)"/>
+            <use href="#wishLeaf" transform="translate(542 203) rotate(-14) scale(.78)"/><use href="#wishLeaf" transform="translate(484 278) rotate(-25) scale(.64)"/><use href="#wishLeaf" transform="translate(553 188) rotate(-18) scale(.62)"/>
+            <use href="#wishLeaf" transform="translate(259 162) rotate(205) scale(.75)"/><use href="#wishLeaf" transform="translate(226 174) rotate(190) scale(.61)"/><use href="#wishLeaf" transform="translate(443 116) rotate(-25) scale(.74)"/><use href="#wishLeaf" transform="translate(473 128) rotate(-12) scale(.6)"/>
+          </g>
+        </g>
+      </svg>
+      <!-- 承愿物挂载层 -->
+      <div class="hangers" id="hangers"></div>
+      <div class="wish-anchors" id="wishAnchors" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- 祝祷台 -->
+  <button class="altar" id="altarBtn" type="button" aria-label="祝祷台 · 立愿">
+    <span class="altar-body">
+      祝 祷 台
+    </span>
+    <span class="altar-tip">点击此处 · 立下一愿</span>
+  </button>
+
+  <!-- 愿迹摆件 -->
+  <button class="traces-prop" id="tracesProp" type="button" aria-label="愿迹">
+    <svg class="tp-scroll" viewBox="0 0 18 22" fill="none" aria-hidden="true">
+      <path d="M9 2v14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M6 5c-1 1-2 1-3 0M13 5c1 1 2 1 3 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M9 16c-3 1-5 1-7 0 1-3 2-6 2-9M9 16c3 1 5 1 7 0-1-3-2-6-2-9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <circle cx="9" cy="19" r="2" stroke="currentColor" stroke-width="1.3"/>
+    </svg>
+    愿 迹<span class="tp-count" id="tracesCount">0</span>
+  </button>
+</main>
+
+<!-- 愿迹抽屉 -->
+<div class="traces-mask" id="tracesMask"></div>
+<aside class="traces-drawer" id="tracesDrawer">
+  <div class="tr-title">愿 迹<button class="tr-close" id="tracesClose" type="button" aria-label="关闭">✕</button></div>
+  <div class="tr-sub">过去与现在的愿望 · 立愿天数 / 行愿次数 / 愿迹</div>
+  <div id="tracesList"></div>
+</aside>
+
+<!-- 立愿弹窗 -->
+<div class="mask" id="wishMask"></div>
+<div class="modal" id="wishModal">
+  <div class="m-head">立 愿<button class="m-close" id="wishClose" type="button" aria-label="关闭">✕</button></div>
+  <div class="field">
+    <label>愿望名称 <b>*</b></label>
+    <input type="text" id="wName" maxlength="24" placeholder="给此愿一个名字…">
+  </div>
+  <div class="field">
+    <label>愿望内容</label>
+    <textarea id="wContent" maxlength="120" placeholder="写下你愿之事…"></textarea>
+  </div>
+  <div class="field">
+    <label>目标日期 <small style="letter-spacing:1px">（可选）</small></label>
+    <input type="date" id="wTarget">
+  </div>
+  <div class="field">
+    <label>承 愿 物</label>
+    <div class="carrier-grid" id="carrierGrid">
+      <button class="carrier-card sel" data-carrier="tag" type="button"><span class="cc-obj"></span>愿 签</button>
+      <button class="carrier-card" data-carrier="lantern" type="button"><span class="cc-obj"></span>愿 灯</button>
+      <button class="carrier-card" data-carrier="knot" type="button"><span class="cc-obj"></span>愿 结</button>
+    </div>
+  </div>
+  <button class="m-submit" id="wishSubmit" type="button">立 愿</button>
+</div>
+
+<!-- 愿物详情 -->
+<div class="detail" id="detailPanel">
+  <div class="d-head">
+    <span class="d-name" id="dName">—</span>
+    <span class="d-badge" id="dStatus">行愿中</span>
+    <button class="d-close" id="dClose" type="button" aria-label="关闭">✕</button>
+  </div>
+  <div class="d-content" id="dContent"></div>
+  <div class="d-meta">
+    <span class="dm">立 愿<b id="dCreated">—</b></span>
+    <span class="dm">目 标<b id="dTarget">未设</b></span>
+    <span class="dm">立愿天数<b id="dDays">0 日</b></span>
+    <span class="dm">行愿次数<b id="dTraces">0 次</b></span>
+  </div>
+  <div class="d-act">
+    <button class="primary" id="dTraceBtn" type="button">今 日 行 愿</button>
+    <button id="dViewTraces" type="button">查 看 愿 迹</button>
+    <button class="primary" id="dDoneBtn" type="button">愿 已 成</button>
+    <button class="danger" id="dReleaseBtn" type="button">放 下 此 愿</button>
+  </div>
+</div>
+
+<!-- 今日行愿弹窗 -->
+<div class="mask" id="traceMask"></div>
+<div class="modal trace-modal" id="traceModal">
+  <div class="m-head">今 日 行 愿<button class="m-close" id="traceClose" type="button" aria-label="关闭">✕</button></div>
+  <div class="tm-hint" id="traceHint">今日为此愿做了什么？</div>
+  <div class="field">
+    <textarea id="traceText" maxlength="160" placeholder="写下今日为它迈出的一步…"></textarea>
+  </div>
+  <button class="m-submit" id="traceSubmit" type="button">记 入 愿 迹</button>
+</div>
+
+<!-- 放下确认弹窗 -->
+<div class="mask" id="releaseMask"></div>
+<div class="modal" id="releaseModal">
+  <div class="m-head">放 下 此 愿</div>
+  <div class="confirm-text" id="releaseText">放下后，此愿将归于愿迹，仍可回看。</div>
+  <div class="confirm-acts">
+    <button class="no" id="releaseNo" type="button">再 想 想</button>
+    <button id="releaseYes" type="button">放 下</button>
+  </div>
+</div>
+
+<!-- 浮动提示 -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   祝祷之庭 · 交互层
+   数据：愿望（名称/内容/目标日期/承愿物/状态/愿迹列表）
+   状态：行愿中 active / 愿已成 done / 已放下 released
+   愿力：立愿天数 + 行愿次数 + 愿迹（不做百分比进度）
+   扩展预留：供物系统 / 谢愿仪式 / 正式背景素材
+   ============================================================ */
+(function () {
+  'use strict';
+  var LS_KEY = 'zhudao_ting_wishes_v1';
+  var STATUS_TEXT = { active: '行愿中', done: '愿已成', released: '已放下' };
+  var CARRIER_TEXT = { tag: '愿签', lantern: '愿灯', knot: '愿结' };
+
+  /* 主枝实测挂点；愿灯使用树外独立漂浮区 */
+  var TREE_SPOTS = [
+    /* 坐标直接取自新版 SVG 枝条端点与分叉点（viewBox 700×640） */
+    /* 左下枝 */ {x:16.86,y:69.84},{x:32.00,y:71.56},{x:19.86,y:54.69},
+    /* 右下枝 */ {x:85.00,y:67.34},{x:67.86,y:66.56},{x:80.71,y:50.47},
+    /* 左中枝 */ {x:23.43,y:40.16},{x:29.57,y:46.09},{x:19.14,y:31.56},
+    /* 右中枝 */ {x:78.29,y:32.34},{x:69.57,y:43.91},{x:79.71,y:30.00},
+    /* 左上枝 */ {x:37.86,y:25.78},{x:44.71,y:37.34},{x:32.86,y:27.66},
+    /* 右上枝 */ {x:63.86,y:18.59},{x:60.57,y:33.59},{x:68.14,y:20.47}
+  ];
+  var LANTERN_SPOTS = [
+    {x:8,y:28},{x:91,y:34},{x:4,y:52},{x:96,y:57},
+    {x:15,y:15},{x:85,y:18},{x:10,y:72},{x:91,y:76}
+  ];
+
+  /* ---- 最终承愿物：削肩锦囊 / 孔明灯 / 盘长中国结 ---- */
+  var CARRIER_SVG = {
+    tag:
+      '<svg viewBox="0 0 48 70" fill="none" aria-hidden="true">' +
+      '<path d="M18 1c0 6 2 10 6 13M30 1c0 6-2 10-6 13" stroke="#d5a84f" stroke-width="2.1" stroke-linecap="round"/>' +
+      '<path d="M15 15c-4 1-5 6-2 8 3 2 7-1 11-5 4 4 8 7 11 5 3-2 2-7-2-8-3-1-6 1-9 3-3-2-6-4-9-3Z" fill="#7f211f" stroke="#f0bd63" stroke-width="1.4"/>' +
+      '<circle cx="24" cy="18" r="2.3" fill="#edc36d"/>' +
+      '<path d="M14 18 9 27 8 60c10 5 22 5 32 0l-1-33-5-9c-7 2-13 2-20 0Z" fill="#bf3f35" stroke="#f0bd63" stroke-width="1.6"/>' +
+      '<path d="M10 29c9 3 19 3 28 0M10 57c10 4 19 4 28 0" stroke="#e99952" stroke-width="1" opacity=".9"/>' +
+      '<path d="M12 24c8 3 16 3 24 0M13 34h22M13 40h22M13 46h22M13 52h22" stroke="#f4a868" stroke-width=".55" opacity=".45"/>' +
+      '<path d="M18 36c4-5 8-5 12 0-4 5-8 5-12 0Zm6-8v18M17 44c5-2 9-2 14 0" stroke="#ffe0a0" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M12 27v32M18 25v37M30 25v37M36 27v32" stroke="#7f211f" stroke-width=".6" opacity=".42"/>' +
+      '</svg>',
+    lantern:
+      '<svg viewBox="0 0 48 70" fill="none" aria-hidden="true">' +
+      '<ellipse cx="24" cy="34" rx="20" ry="27" fill="#e9a64b" opacity=".12"/>' +
+      '<path d="M11 10c8-5 18-5 26 0 5 12 6 28 2 43-10 6-20 6-30 0-4-15-3-31 2-43Z" fill="#c94f35" stroke="#f0c16d" stroke-width="1.7"/>' +
+      '<path d="M13 12c7-4 15-4 22 0M9 53c10 5 20 5 30 0M8 49h32" stroke="#ffe0a0" stroke-width="1.2"/>' +
+      '<path d="M16 12c-2 14-2 27 0 39M24 9v46M32 12c2 14 2 27 0 39" stroke="#f6bb69" stroke-width=".8" opacity=".65"/>' +
+      '<path d="M24 65c-4-4-3-8 0-11 3 3 4 7 0 11Z" fill="#ffd66e"/><path d="M24 63c-2-2-1-4 0-6 2 2 2 4 0 6Z" fill="#fff0ad"/>' +
+      '<path d="M17 56h14M15 58h18" stroke="#845126" stroke-width="1.7" stroke-linecap="round"/>' +
+      '</svg>',
+    knot:
+      '<svg viewBox="0 0 48 76" fill="none" aria-hidden="true">' +
+      '<path d="M24 11C15 2 13 15 18 18c3 2 5-1 6-4 1 3 3 6 6 4 5-3 3-16-6-7Z" stroke="#d8352f" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<circle cx="24" cy="21" r="3.4" fill="#e3ad43" stroke="#ffe09b" stroke-width="1"/>' +
+      '<g stroke="#641f1c" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 27c-8-5-11 5-5 9 5 3 10-2 14-8 4 6 9 11 14 8 6-4 3-14-5-9-7 4-11 12-18 19-7 7 1 14 7 8 6-6 9-13 14-20"/><path d="M33 27c8-5 11 5 5 9-5 3-10-2-14-8-4 6-9 11-14 8-6-4-3-14 5-9 7 4 11 12 18 19 7 7-1 14-7 8-6-6-9-13-14-20"/></g>' +
+      '<g stroke="#e23b34" stroke-width="3.35" stroke-linecap="round" stroke-linejoin="round"><path d="M15 27c-8-5-11 5-5 9 5 3 10-2 14-8 4 6 9 11 14 8 6-4 3-14-5-9-7 4-11 12-18 19-7 7 1 14 7 8 6-6 9-13 14-20"/><path d="M33 27c8-5 11 5 5 9-5 3-10-2-14-8-4 6-9 11-14 8-6-4-3-14 5-9 7 4 11 12 18 19 7 7-1 14-7 8-6-6-9-13-14-20"/></g>' +
+      '<path d="M24 56v8" stroke="#8d2722" stroke-width="2"/><circle cx="24" cy="64" r="3" fill="#e4ad43" stroke="#ffe09b" stroke-width="1"/><path d="M21 67v8M24 67v9M27 67v8" stroke="#d93630" stroke-width="2.2" stroke-linecap="round"/>' +
+      '</svg>'
+  };
+
+  /* ---- 工具 ---- */
+  var $ = function (id) { return document.getElementById(id); };
+  var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
+  var todayStr = function (ts) {
+    var d = ts ? new Date(ts) : new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  };
+  var diffDays = function (ts) {
+    return Math.max(0, Math.floor((Date.now() - ts) / 86400000));
+  };
+  var daysLabel = function (ts) {
+    var n = diffDays(ts);
+    return n === 0 ? '今日' : n + ' 日';
+  };
+  var uid = function () {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  };
+  var escapeHtml = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+
+  /* ---- 数据 ---- */
+  var load = function () {
+    try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; } catch (e) { return []; }
+  };
+  var save = function () {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(wishes)); } catch (e) {}
+  };
+  var getById = function (id) {
+    for (var i = 0; i < wishes.length; i++) if (wishes[i].id === id) return wishes[i];
+    return null;
+  };
+
+  var wishes = load();
+  var els = {};
+  var openId = null;       /* 当前详情愿望 id */
+  var carrierSel = 'tag';  /* 立愿弹窗当前承愿物 */
+  var traceFor = null;     /* 今日行愿弹窗对应愿望 id */
+  var releaseFor = null;   /* 放下确认对应愿望 id */
+  var toastTimer = null;
+  var dragState = null;
+  var suppressClickUntil = 0;
+
+  function defaultSpotFor(w, branchIndex, lanternIndex) {
+    if (w.position && isFinite(w.position.x) && isFinite(w.position.y)) return w.position;
+    return w.carrier === 'lantern'
+      ? LANTERN_SPOTS[lanternIndex % LANTERN_SPOTS.length]
+      : TREE_SPOTS[branchIndex % TREE_SPOTS.length];
+  }
+  function localPoint(e) {
+    var r = els.treeBg.getBoundingClientRect();
+    return { x:(e.clientX-r.left)/r.width*100, y:(e.clientY-r.top)/r.height*100, rect:r };
+  }
+  function showAnchors() {
+    els.anchorLayer.innerHTML = TREE_SPOTS.map(function (p, i) {
+      return '<i class="wish-anchor" data-slot="'+i+'" style="left:'+p.x+'%;top:'+p.y+'%"></i>';
+    }).join('');
+    els.anchorLayer.classList.add('show');
+  }
+  function hideAnchors() {
+    els.anchorLayer.classList.remove('show');
+    els.anchorLayer.innerHTML = '';
+  }
+  function nearestSlot(p) {
+    var best = null;
+    TREE_SPOTS.forEach(function (s, i) {
+      var dx=(s.x-p.x)*p.rect.width/100, dy=(s.y-p.y)*p.rect.height/100;
+      var d=Math.sqrt(dx*dx+dy*dy);
+      if (!best || d<best.distance) best={index:i,point:s,distance:d};
+    });
+    return best;
+  }
+  function beginWishDrag(e) {
+    var node=e.target.closest('.wish');
+    if (!node || e.button!==0) return;
+    var w=getById(node.getAttribute('data-id'));
+    if (!w) return;
+    var p=localPoint(e);
+    dragState={node:node,w:w,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY,moved:false,origin:w.position?{x:w.position.x,y:w.position.y}:null,last:p};
+    node.setPointerCapture(e.pointerId);
+    node.classList.add('dragging');
+    if (w.carrier!=='lantern') showAnchors();
+    e.preventDefault();
+  }
+  function moveWishDrag(e) {
+    if (!dragState || e.pointerId!==dragState.pointerId) return;
+    var p=localPoint(e), dx=e.clientX-dragState.startX, dy=e.clientY-dragState.startY;
+    if (!dragState.moved && Math.sqrt(dx*dx+dy*dy)<5) return;
+    dragState.moved=true; dragState.last=p;
+    var x=Math.max(2,Math.min(98,p.x)), y=Math.max(7,Math.min(86,p.y));
+    if (dragState.w.carrier==='lantern') {
+      if (x>20 && x<80) x=x<50?20:80;
+    } else {
+      var near=nearestSlot(p);
+      var dots=els.anchorLayer.querySelectorAll('.wish-anchor');
+      for(var i=0;i<dots.length;i++) dots[i].classList.toggle('near',near&&Number(dots[i].getAttribute('data-slot'))===near.index&&near.distance<54);
+    }
+    dragState.node.style.left=x+'%'; dragState.node.style.top=y+'%';
+    e.preventDefault();
+  }
+  function endWishDrag(e) {
+    if (!dragState || e.pointerId!==dragState.pointerId) return;
+    var d=dragState, p=d.last;
+    d.node.classList.remove('dragging');
+    try{d.node.releasePointerCapture(e.pointerId);}catch(_e){}
+    if (d.moved) {
+      if (d.w.carrier==='lantern') {
+        var lx=Math.max(3,Math.min(97,p.x));
+        if(lx>20&&lx<80) lx=lx<50?20:80;
+        d.w.position={x:lx,y:Math.max(10,Math.min(82,p.y))};
+      } else {
+        var near=nearestSlot(p);
+        if (near && near.distance<64) d.w.position={x:near.point.x,y:near.point.y};
+        else if (d.origin) d.w.position=d.origin;
+      }
+      save(); renderTree(); suppressClickUntil=Date.now()+260;
+    }
+    hideAnchors(); dragState=null;
+  }
+
+  /* ---- 承愿物挂载 ---- */
+  function renderTree() {
+    var h = els.hangers;
+    var branchIndex=0, lanternIndex=0;
+    h.innerHTML = wishes.filter(function (w) { return w.status !== 'released'; }).map(function (w, i) {
+      var spot = defaultSpotFor(w, branchIndex, lanternIndex);
+      if (w.carrier==='lantern') lanternIndex++; else branchIndex++;
+      var name = w.name || '未名之愿';
+      return '<button type="button" class="wish wish--' + w.carrier + ' wish--' + w.status +
+        '" style="left:' + spot.x + '%;top:' + spot.y + '%" data-id="' + w.id + '" title="拖动调整位置 · 点击查看愿望">' +
+        '<span class="wish-obj">' + CARRIER_SVG[w.carrier] + '</span>' +
+        '<span class="wish-name">' + escapeHtml(name) + '</span>' +
+        '<span class="wish-mark">✦</span>' +
+        '</button>';
+    }).join('');
+  }
+
+  /* ---- 愿迹抽屉 ---- */
+  function renderDrawer() {
+    els.tracesCount.textContent = String(wishes.length);
+    if (!wishes.length) {
+      els.tracesList.innerHTML = '<div class="tr-empty">尚无愿迹 · 愿树空悬。<br>可在「祝祷台」立下第一愿。</div>';
+      return;
+    }
+    els.tracesList.innerHTML = wishes.map(function (w) {
+      var trs = w.traces || [];
+      var trHtml = trs.length
+        ? '<div class="tr-traces">' + trs.map(function (t) {
+            return '<div class="tr-item"><span class="tr-date">' + escapeHtml(t.date) + '</span><span class="tr-text">' + escapeHtml(t.text) + '</span></div>';
+          }).join('') + '</div>'
+        : '<div class="tr-none">尚无愿迹 · 行愿后见于此</div>';
+      return '<div class="tr-wish ' + w.status + '">' +
+        '<div class="tr-head"><span class="tr-name">' + escapeHtml(w.name || '未名之愿') + '</span>' +
+        '<span class="tr-badge ' + w.status + '">' + STATUS_TEXT[w.status] + '</span></div>' +
+        '<div class="tr-meta">立愿 ' + daysLabel(w.createdAt) + ' · 行愿 ' + trs.length + ' 次' +
+        (w.targetDate ? ' · 目标 ' + escapeHtml(w.targetDate) : '') + '</div>' +
+        trHtml + '</div>';
+    }).join('');
+  }
+
+  /* ---- 详情面板 ---- */
+  function renderDetail() {
+    var w = getById(openId);
+    if (!w) { els.detail.classList.remove('open'); return; }
+    els.dName.textContent = w.name || '未名之愿';
+    els.dStatus.textContent = STATUS_TEXT[w.status];
+    els.dStatus.className = 'd-badge ' + w.status;
+    els.dContent.textContent = w.content || '（未填写内容）';
+    els.dCreated.textContent = todayStr(w.createdAt);
+    els.dTarget.textContent = w.targetDate || '未设';
+    els.dDays.textContent = daysLabel(w.createdAt);
+    els.dTraces.textContent = (w.traces || []).length + ' 次';
+    els.dTraceBtn.disabled = w.status !== 'active';
+    els.dDoneBtn.disabled = w.status !== 'active';
+    els.dReleaseBtn.disabled = w.status === 'released';
+    els.detail.classList.add('open');
+  }
+
+  function openDetail(id) { openId = id; renderDetail(); }
+  function closeDetail() { openId = null; els.detail.classList.remove('open'); }
+
+  /* ---- 弹窗 ---- */
+  function openModal(mask, modal) { mask.classList.add('open'); modal.classList.add('open'); }
+  function closeModal(mask, modal) { mask.classList.remove('open'); modal.classList.remove('open'); }
+
+  /* ---- 提示 ---- */
+  function toast(msg) {
+    els.toast.textContent = msg;
+    els.toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { els.toast.classList.remove('show'); }, 2200);
+  }
+
+  /* ---- 立愿弹窗 ---- */
+  function openWishModal() {
+    els.wName.value = ''; els.wContent.value = ''; els.wTarget.value = '';
+    carrierSel = 'tag';
+    syncCarrierSel();
+    openModal(els.wishMask, els.wishModal);
+    setTimeout(function () { els.wName.focus(); }, 60);
+  }
+  function syncCarrierSel() {
+    var cards = els.carrierGrid.querySelectorAll('.carrier-card');
+    for (var i = 0; i < cards.length; i++) {
+      var c = cards[i];
+      c.classList.toggle('sel', c.getAttribute('data-carrier') === carrierSel);
+      c.querySelector('.cc-obj').innerHTML = CARRIER_SVG[c.getAttribute('data-carrier')];
+    }
+  }
+  function submitWish() {
+    var name = els.wName.value.trim();
+    if (!name) { toast('请先给此愿一个名字'); els.wName.focus(); return; }
+    var content = els.wContent.value.trim();
+    var target = els.wTarget.value || null;
+    var w = {
+      id: uid(), name: name, content: content, targetDate: target,
+      carrier: carrierSel, status: 'active',
+      createdAt: Date.now(), doneAt: null, releasedAt: null, traces: []
+    };
+    wishes.push(w);
+    save(); renderTree(); renderDrawer();
+    closeModal(els.wishMask, els.wishModal);
+    toast('「' + name + '」已挂上枝头');
+  }
+
+  /* ---- 今日行愿 ---- */
+  function openTraceModal() {
+    if (!traceFor) return;
+    var w = getById(traceFor);
+    if (!w) return;
+    els.traceHint.textContent = '今日为此愿「' + (w.name || '未名之愿') + '」做了什么？';
+    els.traceText.value = '';
+    openModal(els.traceMask, els.traceModal);
+    setTimeout(function () { els.traceText.focus(); }, 60);
+  }
+  function submitTrace() {
+    var w = getById(traceFor);
+    if (!w) return;
+    var text = els.traceText.value.trim();
+    if (!text) { toast('写一句今日所行再记下'); els.traceText.focus(); return; }
+    w.traces.push({ ts: Date.now(), date: todayStr(), text: text });
+    save(); renderTree(); renderDrawer(); renderDetail();
+    closeModal(els.traceMask, els.traceModal);
+    toast('已记入愿迹 · 行愿 ' + w.traces.length + ' 次');
+  }
+
+  /* ---- 愿已成 / 放下 ---- */
+  function markDone() {
+    var w = getById(openId);
+    if (!w || w.status !== 'active') return;
+    w.status = 'done'; w.doneAt = Date.now();
+    save(); renderTree(); renderDrawer(); renderDetail();
+    toast('此愿已成 · 归于愿迹');
+  }
+  function openRelease() {
+    var w = getById(openId);
+    if (!w || w.status === 'released') return;
+    releaseFor = openId;
+    els.releaseText.textContent = '放下「' + (w.name || '未名之愿') + '」？放下后仍可在愿迹中回看。';
+    openModal(els.releaseMask, els.releaseModal);
+  }
+  function doRelease() {
+    var w = getById(releaseFor);
+    if (!w) return;
+    w.status = 'released'; w.releasedAt = Date.now();
+    save(); renderTree(); renderDrawer(); renderDetail();
+    closeModal(els.releaseMask, els.releaseModal);
+    toast('此愿已放下 · 归于愿迹');
+  }
+
+  /* ---- 初始化 ---- */
+  function init() {
+    els.hangers = $('hangers');
+    els.treeStage = $('treeStage');
+    els.treeBg = $('treeBg'); els.anchorLayer = $('wishAnchors');
+    els.tracesProp = $('tracesProp'); els.tracesCount = $('tracesCount');
+    els.tracesDrawer = $('tracesDrawer'); els.tracesMask = $('tracesMask');
+    els.tracesClose = $('tracesClose'); els.tracesList = $('tracesList');
+    els.altarBtn = $('altarBtn');
+    els.wishMask = $('wishMask'); els.wishModal = $('wishModal');
+    els.wishClose = $('wishClose'); els.wName = $('wName'); els.wContent = $('wContent');
+    els.wTarget = $('wTarget'); els.carrierGrid = $('carrierGrid'); els.wishSubmit = $('wishSubmit');
+    els.detail = $('detailPanel'); els.dName = $('dName'); els.dStatus = $('dStatus');
+    els.dContent = $('dContent'); els.dCreated = $('dCreated'); els.dTarget = $('dTarget');
+    els.dDays = $('dDays'); els.dTraces = $('dTraces');
+    els.dTraceBtn = $('dTraceBtn'); els.dViewTraces = $('dViewTraces');
+    els.dDoneBtn = $('dDoneBtn'); els.dReleaseBtn = $('dReleaseBtn'); els.dClose = $('dClose');
+    els.traceMask = $('traceMask'); els.traceModal = $('traceModal');
+    els.traceClose = $('traceClose'); els.traceHint = $('traceHint');
+    els.traceText = $('traceText'); els.traceSubmit = $('traceSubmit');
+    els.releaseMask = $('releaseMask'); els.releaseModal = $('releaseModal');
+    els.releaseNo = $('releaseNo'); els.releaseYes = $('releaseYes'); els.releaseText = $('releaseText');
+    els.toast = $('toast');
+
+    /* 事件 */
+    els.altarBtn.addEventListener('click', openWishModal);
+    els.wishClose.addEventListener('click', function () { closeModal(els.wishMask, els.wishModal); });
+    els.wishMask.addEventListener('click', function () { closeModal(els.wishMask, els.wishModal); });
+    els.wishSubmit.addEventListener('click', submitWish);
+    els.wName.addEventListener('keydown', function (e) { if (e.key === 'Enter') submitWish(); });
+
+    els.carrierGrid.addEventListener('click', function (e) {
+      var card = e.target.closest('.carrier-card');
+      if (card) { carrierSel = card.getAttribute('data-carrier'); syncCarrierSel(); }
+    });
+
+    /* 点击树上愿物 */
+    els.hangers.addEventListener('pointerdown', beginWishDrag);
+    window.addEventListener('pointermove', moveWishDrag, {passive:false});
+    window.addEventListener('pointerup', endWishDrag);
+    window.addEventListener('pointercancel', endWishDrag);
+    els.hangers.addEventListener('click', function (e) {
+      var w = e.target.closest('.wish');
+      if (w && Date.now()>=suppressClickUntil) { openDetail(w.getAttribute('data-id')); }
+    });
+    els.treeStage.addEventListener('click', function (e) {
+      if (!e.target.closest('.wish')) closeDetail();
+    });
+    els.dClose.addEventListener('click', closeDetail);
+
+    els.dTraceBtn.addEventListener('click', function () { traceFor = openId; openTraceModal(); });
+    els.traceClose.addEventListener('click', function () { closeModal(els.traceMask, els.traceModal); });
+    els.traceMask.addEventListener('click', function () { closeModal(els.traceMask, els.traceModal); });
+    els.traceSubmit.addEventListener('click', submitTrace);
+
+    els.dDoneBtn.addEventListener('click', markDone);
+    els.dReleaseBtn.addEventListener('click', openRelease);
+    els.releaseNo.addEventListener('click', function () { closeModal(els.releaseMask, els.releaseModal); });
+    els.releaseMask.addEventListener('click', function () { closeModal(els.releaseMask, els.releaseModal); });
+    els.releaseYes.addEventListener('click', doRelease);
+
+    els.dViewTraces.addEventListener('click', function () { closeDetail(); openDrawer(); });
+    els.tracesProp.addEventListener('click', function () { openDrawer(); });
+    els.tracesClose.addEventListener('click', function () { closeDrawer(); });
+    els.tracesMask.addEventListener('click', function () { closeDrawer(); });
+
+    renderTree(); renderDrawer(); syncCarrierSel();
+  }
+  function openDrawer() {
+    renderDrawer();
+    els.tracesDrawer.classList.add('open');
+    els.tracesMask.classList.add('open');
+  }
+  function closeDrawer() {
+    els.tracesDrawer.classList.remove('open');
+    els.tracesMask.classList.remove('open');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<!-- 东玄顶部导航 -->
+<div class="east-nav">
+  <a class="east-nav-link" href="bird_ios.html">玄鸟占卜桌</a>
+</div>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -7,9 +7,23 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="魔法猫">
   <meta name="theme-color" content="#0d001a">
+  <link rel="stylesheet" href="world_switch.css">
   <title>🌙 显化之境 · 意念成真</title>
   <style>
+    :root {
+      --ui-bg: rgba(24,13,44,0.92);
+      --ui-purple: #9f72df;
+      --ui-purple-text: #d8c1f4;
+      --ui-blue: #579fc9;
+      --ui-blue-text: #b9def1;
+      --ui-gold: #d5a553;
+      --ui-gold-text: #f1d49a;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     /* ===== 全局：禁文本选中 / 图片拖拽 / 长按菜单（原生手感） ===== */
@@ -159,6 +173,17 @@
     .altar-item .gem-emerald  { background: linear-gradient(135deg, #50d090, #208050); }
     .altar-item .gem-sapphire { background: linear-gradient(135deg, #5a9aff, #2058c0); }
 
+    /* 圆阵中的水晶图片（web 布袋水晶） */
+    .altar-item .altar-item-image {
+      width: 58px; height: 92px; display: block; object-fit: contain;
+      pointer-events: none;
+      filter: drop-shadow(0 0 8px rgba(var(--item-glow, 150,190,255),.5));
+      transition: filter .35s ease;
+    }
+    .altar-item.activated .altar-item-image {
+      filter: brightness(1.2) saturate(1.08) drop-shadow(0 0 10px rgba(var(--item-glow, 150,190,255),.9));
+    }
+
     .altar-item .candle-mini {
       width: 12px; height: 22px;
       background: linear-gradient(180deg, #f0dcc0, #dcc0a0);
@@ -208,44 +233,97 @@
 
     /* ===== 意图面板 ===== */
     #intentionPanel {
-      position: fixed;
-      right: 30px; top: 50%; transform: translateY(-50%);
-      z-index: 60;
-      width: 220px;
-      background: rgba(10,4,22,0.85);
-      border: 2px solid #5a307a;
-      padding: 18px 16px;
-      backdrop-filter: blur(8px);
+      --wish-accent: #d5a553; --wish-accent-soft: rgba(213,165,83,.2); --wish-ink: #f1d49a;
+      --wish-surface: linear-gradient(155deg, rgba(30,18,48,.97), rgba(15,9,31,.95));
+      --wish-input: rgba(10,6,24,.48); --wish-shadow: rgba(0,0,0,.38);
+      position: fixed; left: 50%; top: 50%;
+      width: min(356px, calc(100vw - 34px));
+      padding: 42px 24px 24px;
+      transform: translate(-50%, -50%) scale(.94);
+      border: 1px solid var(--wish-accent); border-radius: 24px;
+      background: var(--wish-surface); color: var(--wish-ink);
+      box-shadow: 0 22px 55px var(--wish-shadow), 0 0 28px var(--wish-accent-soft), inset 0 0 30px rgba(255,255,255,.025);
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity .28s, transform .34s cubic-bezier(.2,.8,.2,1), visibility .28s;
+      z-index: 420;
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
     }
+    #intentionPanel.open { opacity: 1; visibility: visible; pointer-events: auto; transform: translate(-50%,-50%) scale(1); }
+    #intentionPanel::before { content: ''; position: absolute; inset: 8px; border: 1px solid var(--wish-accent-soft); border-radius: 17px; pointer-events: none; }
+    #intentionPanel .intention-emblem {
+      position: absolute; left: 50%; top: -25px; transform: translateX(-50%);
+      width: 50px; height: 50px; display: grid; place-items: center;
+      border: 1px solid var(--wish-accent); border-radius: 50%;
+      background: var(--wish-surface); color: var(--wish-ink);
+      box-shadow: 0 8px 20px var(--wish-shadow), 0 0 16px var(--wish-accent-soft);
+      z-index: 2;
+    }
+    #intentionPanel .intention-emblem::after { content: ''; position: absolute; inset: 5px; border: 1px solid var(--wish-accent-soft); border-radius: 50%; }
+    #intentionPanel .intention-emblem svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.45; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px var(--wish-accent-soft)); }
     #intentionPanel .panel-title {
-      font-size: 12px; letter-spacing: 3px; color: #c9a0ff;
-      text-align: center; padding-bottom: 10px;
-      border-bottom: 2px solid #3a1e5e; margin-bottom: 12px;
+      text-align: center;
+      margin: 0 34px 20px; padding: 0 0 16px;
+      border: 0; border-bottom: 1px solid var(--wish-accent-soft);
+      color: var(--wish-ink); font-size: 14px; letter-spacing: 6px;
     }
     #intentionInput {
-      width: 100%; min-height: 120px;
-      background: rgba(20,8,40,0.4);
-      border: 2px solid #3a1e5e;
-      color: #e0ccff;
-      font-family: inherit; font-size: 12px; line-height: 1.8;
-      padding: 10px; resize: vertical;
-      outline: none;
-      transition: border-color 0.3s;
-      letter-spacing: 1px;
+      width: 100%; min-height: 176px; padding: 18px; resize: none;
+      border: 1px solid var(--wish-accent-soft); border-radius: 16px;
+      background: var(--wish-input); color: var(--wish-ink);
+      font-family: inherit; font-size: 13px; line-height: 1.9; letter-spacing: 1px;
+      outline: none; box-sizing: border-box;
+      box-shadow: inset 0 0 18px rgba(0,0,0,.07), inset 0 0 0 5px rgba(255,255,255,.018);
     }
-    #intentionInput:focus { border-color: #8a4dff; }
-    #intentionInput::placeholder { color: #5a3a7a; }
+    #intentionInput:focus { border-color: var(--wish-accent); box-shadow: 0 0 0 3px var(--wish-accent-soft), inset 0 0 18px rgba(0,0,0,.06); }
+    #intentionInput::placeholder { color: rgba(241,212,154,.46); }
+    #wishGenerateBtn {
+      width: 100%; height: 50px; margin-top: 18px;
+      border: 1px solid var(--wish-accent); border-radius: 25px;
+      background: transparent; color: var(--wish-ink);
+      font-family: inherit; font-size: 13px; letter-spacing: 6px; cursor: pointer;
+      box-shadow: inset 0 0 12px var(--wish-accent-soft);
+      transition: all .3s;
+    }
+    #wishGenerateBtn:hover {
+      border-color: var(--wish-ink); background: var(--wish-accent-soft);
+      box-shadow: 0 8px 22px var(--wish-accent-soft), inset 0 0 12px rgba(255,255,255,.06);
+      transform: translateY(-1px);
+    }
+    #intentionCloseBtn {
+      position: absolute; z-index: 3; top: 15px; right: 15px;
+      width: 27px; height: 27px; padding: 0;
+      border: 1px solid var(--wish-accent-soft); border-radius: 50%;
+      background: transparent; color: var(--wish-ink); cursor: pointer;
+    }
+    #intentionCloseBtn::before, #intentionCloseBtn::after {
+      content: ''; position: absolute; left: 6px; top: 12px;
+      width: 13px; height: 1.3px; border-radius: 2px; background: currentColor;
+    }
+    #intentionCloseBtn::before { transform: rotate(45deg); }
+    #intentionCloseBtn::after { transform: rotate(-45deg); }
+    #intentionCloseBtn:hover { border-color: var(--wish-accent); box-shadow: 0 0 10px var(--wish-accent-soft); }
+    #intentionBackdrop {
+      position: fixed; inset: 0; z-index: 419;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      background: rgba(8,4,18,.28);
+      -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+      transition: opacity .28s, visibility .28s;
+    }
+    #intentionBackdrop.open { opacity: 1; visibility: visible; pointer-events: auto; }
+    body:has(#intentionPanel.open) #altar { opacity: .22; filter: blur(2px); transition: opacity .3s, filter .3s; }
 
-    /* ===== 占卜抽屉（右侧） ===== */
+    /* ===== 占卜抽屉（对齐黑猫：transform 滑出、固定高度、垂直居中） ===== */
     #divinationDrawer {
       position: fixed;
-      left: 0; top: 50%; transform: translateY(-50%);
+      left: 0; top: 50%;
+      width: min(280px, 74vw);
       z-index: 60;
-      transition: all 0.4s cubic-bezier(0.25,1,0.5,1);
+      transform: translate(-100%, -50%);
+      transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
     }
-    #divinationDrawer.closed { width: 0; }
+    #divinationDrawer.closed { transform: translate(-100%, -50%); }
     #divinationDrawer.closed .drawer-panel { display: none; }
-    #divinationDrawer.open { width: 200px; }
+    #divinationDrawer.open { transform: translate(0, -50%); }
 
     /* ===== 左侧标签（物品/记录，固定常显，不随抽屉移动，同黑猫占卜桌尺寸） ===== */
     .side-tab {
@@ -266,39 +344,110 @@
     #divTab { top: calc(50% - 100px); }
     #recTab { top: calc(50% + 30px); }
 
+    /* ===== 书签式侧边标签（对齐 web manifest） ===== */
+    .side-tab.drawer-bookmark {
+      width: 36px; height: 86px; padding: 0;
+      border-left: none; border-radius: 0 10px 10px 0;
+      writing-mode: horizontal-tb; letter-spacing: 0;
+      display: grid; place-items: center;
+      overflow: hidden; isolation: isolate; backdrop-filter: blur(8px);
+    }
+    .side-tab.drawer-bookmark::before {
+      content: ''; position: absolute; inset: 4px 4px 4px 0;
+      border: 1px solid rgba(var(--bookmark-rgb,210,190,238),.32);
+      border-left: none; border-radius: 0 9px 9px 0;
+      box-shadow: inset -3px 0 8px rgba(var(--bookmark-rgb,210,190,238),.08);
+      pointer-events: none;
+    }
+    .side-tab.drawer-bookmark::after {
+      content: ''; position: absolute; inset: 5px 5px 5px 0;
+      border-radius: 0 8px 8px 0;
+      background:
+        radial-gradient(circle at 50% 24%, rgba(var(--bookmark-rgb,210,190,238),.30) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 50% 76%, rgba(var(--bookmark-rgb,210,190,238),.30) 0 1px, transparent 1.4px),
+        linear-gradient(135deg, transparent 46%, rgba(var(--bookmark-rgb,210,190,238),.10) 47% 49%, transparent 50%) 0 0 / 12px 12px,
+        linear-gradient(45deg, transparent 46%, rgba(var(--bookmark-rgb,210,190,238),.07) 47% 49%, transparent 50%) 0 0 / 12px 12px;
+      opacity: .72; pointer-events: none; z-index: -1;
+    }
+    .drawer-bookmark .tab-text {
+      writing-mode: vertical-rl; letter-spacing: 4px; font-size: 14px;
+      line-height: 1; transform: translateX(1px);
+      text-shadow: 0 0 6px rgba(var(--bookmark-rgb,210,190,238),.35);
+    }
+    #divTab.drawer-bookmark {
+      --bookmark-rgb: 230,197,121;
+      top: calc(50% - 78px); color: var(--ui-gold-text); border-color: var(--ui-gold);
+      background: linear-gradient(90deg, rgba(28,18,45,.97), rgba(24,13,44,.93));
+    }
+    #recTab.drawer-bookmark {
+      --bookmark-rgb: 153,213,239;
+      top: calc(50% + 23px); color: var(--ui-blue-text); border-color: #5ba4cd;
+      background: linear-gradient(90deg, rgba(20,34,52,.96), rgba(24,13,44,.9));
+    }
+    .side-tab.drawer-bookmark:hover { width: 41px; color: #fff; }
+
+    /* ===== 意图面板呼出按钮（信封图标，对齐 web） ===== */
+    #intentionTab {
+      position: fixed; right: 12px; top: 50%; transform: translateY(-50%);
+      z-index: 410; width: 58px; height: 58px; padding: 0;
+      display: grid; place-items: center;
+      border: 2px solid #d5a553; border-radius: 50%;
+      background: radial-gradient(circle at 50% 38%, rgba(65,42,82,.98), #180d2c);
+      color: #f1d49a; cursor: pointer;
+      box-shadow: 0 0 18px rgba(213,165,83,.3), inset 0 0 10px rgba(241,212,154,.08);
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #intentionTab svg { width: 27px; height: 27px; fill: none; stroke: currentColor; stroke-width: 1.45; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px rgba(241,212,154,.5)); pointer-events: none; }
+    #intentionTab:hover, #intentionTab.active { transform: translateY(-50%) scale(1.08); border-color: #edc879; box-shadow: 0 0 28px rgba(213,165,83,.5), inset 0 0 12px rgba(241,212,154,.12); }
+
     #divinationDrawer .drawer-panel {
       width: 100%; height: 440px;
-      background: rgba(10,4,22,0.92);
-      border: 2px solid #5a307a; border-left: none;
+      background: linear-gradient(135deg, rgba(24,13,44,.98), rgba(13,6,28,.96));
+      border: 2px solid #d5a553; border-left: none;
+      border-radius: 0 16px 16px 0;
       backdrop-filter: blur(8px);
       padding: 14px 10px 14px 36px;   /* 左内边距避开侧边标签 */
       overflow-y: auto;
+      box-shadow: 8px 0 24px rgba(213,165,83,.16), inset -1px 0 rgba(241,212,154,.07);
     }
     #divinationDrawer .drawer-panel .panel-title {
+      text-align: center;
+      color: #f1d49a;
+      border: 0; border-bottom: 1px solid rgba(142,104,48,.62);
+      padding: 0 0 16px;
       margin-bottom: 22px;   /* 与下方物品格子拉开间距 */
+      letter-spacing: 6px;
     }
 
     .divination-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
     }
     .divination-item {
-      background: rgba(10,4,22,0.6);
-      border: 2px solid #3a1e5e;
-      aspect-ratio: 1.3;
-      display: flex;
+      background: rgba(24,13,44,.82);
+      border: 2px solid rgba(142,104,48,.62);
+      aspect-ratio: 1;
+      display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      cursor: pointer;
+      cursor: pointer; gap: 4px;
       transition: all 0.25s;
+      box-shadow: inset 0 0 12px rgba(213,165,83,.04);
     }
     .divination-item:hover {
-      border-color: #8a4dff; background: rgba(20,8,40,0.8);
-      transform: scale(1.03);
+      border-color: #e8c574; background: rgba(35,19,61,.96);
+      transform: scale(1.05);
+      box-shadow: 0 0 18px rgba(213,165,83,.22), inset 0 0 12px rgba(213,165,83,.06);
     }
     .divination-item:hover .di-label {
-      color: #e0ccff;
-      text-shadow: 0 0 6px rgba(180,100,255,0.5);
+      color: #fff1cc;
+      text-shadow: 0 0 6px rgba(213,165,83,0.5);
     }
-    .divination-item .di-label { font-size: 12px; color: #c9a0ff; letter-spacing: 1px; white-space: nowrap; }
+    .divination-item .di-label { font-size: 11px; color: #f1d49a; letter-spacing: 1px; white-space: nowrap; }
+    .divination-item .di-image {
+      width: 44px; height: 50px; object-fit: contain; display: block;
+      pointer-events: none;
+      filter: drop-shadow(0 0 6px rgba(var(--item-glow, 150,190,255),.48));
+    }
 
     /* ===== 激活按钮（与清除按钮同排同高，固定宽度不变形） ===== */
     #activateBtn {
@@ -411,24 +560,6 @@
     }
     #guidance.active { opacity: 1; color: #c9a0ff; }
 
-    /* ===== 顶部月相 ===== */
-    #moonPhase {
-      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-      z-index: 15;
-      display: flex; align-items: center; gap: 10px;
-      opacity: 0.3;
-      pointer-events: none;
-    }
-    #moonPhase .moon {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 50%, #f0e8c0, #c8b888 40%, #0a0218 41%);
-      box-shadow: 0 0 20px rgba(240,232,192,0.1);
-    }
-    #moonPhase .moon-text {
-      font-size: 10px; color: #8a7a5a; letter-spacing: 2px;
-    }
-
     /* ===== 状态提示 ===== */
     .status-toast {
       position: fixed; bottom: 160px; left: 50%; transform: translateX(-50%);
@@ -450,14 +581,14 @@
 
     /* ===== 显化计数器 ===== */
     #manifestCount {
-      position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
+      position: fixed; top: calc(70px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
       z-index: 15;
       font-size: 10px; color: #5a3a7a; letter-spacing: 2px;
       opacity: 0.4;
       pointer-events: none;
     }
 
-    /* ===== 清空圆阵按钮（秘仪圆环风格，同占卜桌🧹，位于左下角） ===== */
+    /* ===== 清空圆阵按钮（秘仪圆环风格，同占卜桌，位于左下角） ===== */
     #altarClearBtn {
       position: fixed;
       bottom: 42px; left: 40px;
@@ -504,21 +635,95 @@
     #altarClearBtn:hover .clear-rune { color: rgba(200,160,255,0.5); }
     @keyframes altarRingSpin { to { transform: rotate(360deg); } }
 
-    /* ===== 生成许愿瓶按钮 ===== */
-    #wishGenerateBtn {
-      width: 100%;
-      margin-top: 14px;
-      padding: 11px 0;
-      background: rgba(180,100,255,0.15);
-      border: 2px solid #8a4dff;
-      color: #d4b0ff;
-      font-family: inherit;
-      font-size: 12px;
-      letter-spacing: 4px;
-      cursor: pointer;
-      transition: all 0.3s;
+    /* 清空按钮 SVG：魔法扫帚（对齐 web） */
+    #altarClearBtn .clear-icon {
+      width: 27px; height: 27px; color: var(--ui-purple-text);
+      filter: drop-shadow(0 0 4px rgba(193,154,238,.5)); pointer-events: none;
     }
-    #wishGenerateBtn:hover { background: rgba(180,100,255,0.25); border-color: #b080ff; box-shadow: 0 0 16px rgba(180,100,255,0.2); }
+    #altarClearBtn .clear-icon path {
+      fill: none; stroke: currentColor; stroke-width: 1.7;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    #altarClearBtn .magic-broom-handle {
+      fill: none; stroke: #9b5b42; stroke-width: 2.15;
+      stroke-linecap: round; stroke-linejoin: round;
+      filter: drop-shadow(0 0 2px rgba(199,126,82,0.5));
+    }
+    #altarClearBtn .magic-broom-handle-highlight {
+      fill: none; stroke: #edb486; stroke-width: .55; stroke-linecap: round; opacity: .72;
+    }
+    #altarClearBtn .magic-broom-band { fill: #e3ae52; stroke: #ffe3a0; stroke-width: .75; }
+    #altarClearBtn .magic-broom-brush { fill: #ef6356; stroke: #ff9b66; stroke-width: 1; filter: drop-shadow(0 0 3px rgba(239,99,86,0.48)); }
+    #altarClearBtn .magic-broom-detail { fill: none; stroke: #ffd28a; stroke-width: .75; }
+    #altarClearBtn .magic-broom-ribbon { fill: none; stroke: #e3ae52; stroke-width: .75; stroke-linecap: round; }
+    #altarClearBtn .magic-broom-star { fill: #c79aff; stroke: none; transform-origin: center; transition: transform 0.3s ease; filter: drop-shadow(0 0 3px rgba(199,154,255,0.7)); }
+    #altarClearBtn:hover .clear-icon .magic-broom-star { transform: scale(1.18); }
+
+    /* 记录按钮 SVG：布局图标（保存当前布置，对齐 web） */
+    #manifestRecordBtn .layout-icon {
+      width: 25px; height: 25px; color: var(--ui-blue-text);
+      overflow: visible;
+      filter: drop-shadow(0 0 4px rgba(131,195,229,0.5));
+      pointer-events: none;
+    }
+    #manifestRecordBtn .layout-frame,
+    #manifestRecordBtn .layout-line {
+      fill: none; stroke: currentColor; stroke-width: 1.55;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    #manifestRecordBtn .layout-node { fill: #fff3c8; stroke: none; }
+
+    /* ===== 布局保存对话框 ===== */
+    #layoutSaveDialog {
+      position: fixed; inset: 0; z-index: 21000;
+      display: none; place-items: center;
+      background: rgba(5,2,12,0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    #layoutSaveDialog.open { display: grid; }
+    #layoutSaveDialog .layout-save-card {
+      width: min(86vw, 340px);
+      background: linear-gradient(160deg, rgba(15,34,44,.98), rgba(6,16,26,.99));
+      border: 1px solid rgba(87,159,201,.5);
+      border-radius: 16px;
+      padding: 22px 20px 20px;
+      box-shadow: 0 22px 60px rgba(0,0,0,.6), inset 0 0 30px rgba(87,159,201,.05);
+    }
+    #layoutSaveDialog .m-head {
+      text-align: center; color: var(--ui-blue-text);
+      font-size: 15px; letter-spacing: 6px; margin-bottom: 18px;
+    }
+    #layoutNameInput {
+      width: 100%; padding: 10px 12px;
+      background: rgba(4,12,22,.7);
+      border: 1px solid rgba(87,159,201,.4); border-radius: 10px;
+      color: var(--ui-blue-text);
+      font: 13px inherit; letter-spacing: 2px; outline: none;
+      color-scheme: dark;
+    }
+    #layoutNameInput:focus { border-color: #83c3e5; box-shadow: 0 0 13px rgba(87,159,201,.2); }
+    #layoutSaveDialog .confirm-acts {
+      display: flex; gap: 10px; margin-top: 18px;
+    }
+    #layoutSaveDialog .confirm-acts button {
+      flex: 1; height: 42px; border-radius: 21px;
+      border: 1px solid rgba(87,159,201,.4);
+      background: rgba(87,159,201,.08);
+      color: var(--ui-blue-text);
+      font: 12px inherit; letter-spacing: 4px; cursor: pointer;
+      transition: .22s;
+    }
+    #layoutSaveDialog .confirm-acts button:hover {
+      border-color: #83c3e5; background: rgba(87,159,201,.16);
+    }
+    #layoutSaveDialog .confirm-acts .primary {
+      border-color: var(--ui-gold); color: var(--ui-gold-text);
+      background: rgba(213,165,83,.12);
+    }
+    #layoutSaveDialog .confirm-acts .primary:hover {
+      border-color: #edc879; background: rgba(213,165,83,.22);
+    }
 
     /* ===== 许愿瓶（瓶子 + 瓶内卷纸条） ===== */
     .wish-bottle {
@@ -604,46 +809,38 @@
     .wish-bottle.open .rolled-note .note-roll { display: none; }
     .wish-bottle.open .rolled-note .wax-seal { display: none; }
 
-    /* ===== 意图面板呼出按钮（仅手机显示） ===== */
-    #intentionTab {
-      display: none;
-    }
-
     /* ===== 手机适配（放在基础规则之后覆盖） ===== */
     @media (max-width: 768px) {
       #altar {
         width: min(86vw, 420px); height: min(86vw, 420px);
       }
       #intentionTab {
-        display: flex;
+        display: grid;
         position: fixed;
-        right: 0; top: 50%; transform: translateY(-50%);
+        right: 12px; top: 50%; transform: translateY(-50%);
         z-index: 22;
-        width: 34px; height: 88px;
-        background: rgba(20,8,40,0.85);
-        border: 2px solid #5a307a; border-right: none;
-        border-radius: 6px 0 0 6px;
+        width: 58px; height: 58px; padding: 0;
+        border: 2px solid #d5a553; border-radius: 50%;
+        background: radial-gradient(circle at 50% 38%, rgba(65,42,82,.98), #180d2c);
+        color: #f1d49a;
         align-items: center; justify-content: center;
-        font-size: 15px; color: #a070d8; cursor: pointer;
-        writing-mode: vertical-rl; letter-spacing: 3px;
-        transition: all 0.3s;
+        writing-mode: horizontal-tb; letter-spacing: 0;
+        box-shadow: 0 0 18px rgba(213,165,83,.3), inset 0 0 10px rgba(241,212,154,.08);
+        transition: transform .3s, box-shadow .3s, border-color .3s;
       }
-      #intentionTab:hover { border-color: #b080ff; color: #e0ccff; }
+      #intentionTab:hover, #intentionTab.active {
+        border-color: #edc879;
+        box-shadow: 0 0 28px rgba(213,165,83,.5), inset 0 0 12px rgba(241,212,154,.12);
+        transform: translateY(-50%) scale(1.08);
+      }
       #intentionPanel {
-        right: 0; top: 50%;
-        transform: translate(105%, -50%);
-        width: min(84vw, 320px);
-        max-height: 70vh; overflow-y: auto;
-        transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        max-height: 82vh; overflow-y: auto;
       }
-      #intentionPanel.open { transform: translate(0, -50%); }
-      #divinationDrawer.open { width: 180px; }
       #activateBtn { bottom: calc(10px + env(safe-area-inset-bottom)); width: 104px; height: 44px; font-size: 12px; letter-spacing: 0px; border-radius: 22px; }
       #altarClearBtn { bottom: calc(10px + env(safe-area-inset-bottom)); left: 36px; }
       #guidance { bottom: 92px; font-size: 10px; letter-spacing: 2px; }
-      #manifestCount { top: 60px; }
+      #manifestCount { top: calc(60px + env(safe-area-inset-top)); }
       .rune { font-size: 11px; }
-      #recordDrawer.open { width: 180px; }
     }
 
     /* ===== 记录按钮（右下角，蓝色系） ===== */
@@ -697,20 +894,23 @@
       #manifestRecordBtn { bottom: calc(10px + env(safe-area-inset-bottom)); right: 36px; }
     }
 
-    /* ===== 记录抽屉 ===== */
+    /* ===== 记录抽屉（对齐黑猫：transform 滑出、固定高度、垂直居中） ===== */
     #recordDrawer {
       position: fixed;
-      left: 0; top: 50%; transform: translateY(-50%);
+      left: 0; top: 50%;
+      width: min(280px, 74vw);
       z-index: 60;
-      transition: all 0.4s cubic-bezier(0.25,1,0.5,1);
+      transform: translate(-100%, -50%);
+      transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
     }
-    #recordDrawer.closed { width: 0; }
+    #recordDrawer.closed { transform: translate(-100%, -50%); }
     #recordDrawer.closed .drawer-panel { display: none; }
-    #recordDrawer.open { width: 200px; }
+    #recordDrawer.open { transform: translate(0, -50%); }
     #recordDrawer .drawer-panel {
-      width: 100%; height: 400px;
+      width: 100%; height: 440px;
       background: rgba(10,4,22,0.92);
       border: 2px solid #5a307a; border-left: none;
+      border-radius: 0 16px 16px 0;
       backdrop-filter: blur(8px);
       padding: 14px 10px 14px 36px;   /* 左内边距避开侧边标签 */
       overflow-y: auto;
@@ -726,7 +926,7 @@
     }
     #captureOverlay.active { display: block; }
     #captureTip {
-      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+      position: fixed; top: calc(20px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
       background: rgba(20,8,40,0.92);
       border: 2px solid #5a307a;
       color: #d4b0ff;
@@ -898,27 +1098,35 @@
       padding: 30px 0; letter-spacing: 2px; line-height: 2;
     }
 
-    /* ===== 圣物柜：炼金魔药列表 ===== */
-    .potion-sec-title {
-      font-size: 11px; letter-spacing: 3px; color: #a080d0;
-      text-align: center; margin: 16px 0 8px;
-      padding-top: 12px; border-top: 1px dashed #3a1e5e;
+    /* ===== 记录抽屉：蓝色主题（对齐 web / 占卜桌） ===== */
+    #recordDrawer .drawer-panel {
+      background: linear-gradient(135deg, rgba(14,28,44,.97), rgba(10,18,30,.98));
+      border-color: #5ba4cd;
+      box-shadow: 8px 0 24px rgba(91,164,205,.16), inset -1px 0 rgba(185,222,241,.07);
     }
-    .potion-list { display: flex; flex-direction: column; gap: 8px; }
-    .potion-item {
-      background: rgba(10,4,22,0.6);
-      border: 2px solid #3a1e5e;
-      border-radius: 8px;
-      padding: 10px 12px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      font-size: 13px; color: #c9a0ff; letter-spacing: 2px;
-      transition: all 0.25s;
+    #recordDrawer .panel-title {
+      text-align: center;
+      color: var(--ui-blue-text);
+      border: 0; border-bottom: 1px solid rgba(87,159,201,.42);
+      padding: 0 0 16px;
+      margin-bottom: 22px;
+      letter-spacing: 6px;
     }
-    .potion-item:hover { border-color: #8a4dff; background: rgba(20,8,40,0.8); color: #e0ccff; }
-    .potion-empty { font-size: 11px; color: #5a3a7a; text-align: center; padding: 12px 0; line-height: 1.8; letter-spacing: 1px; }
+    #recordDrawer .record-item {
+      background: rgba(18,31,48,.76);
+      border-color: rgba(87,159,201,.5);
+      color: var(--ui-blue-text);
+    }
+    #recordDrawer .record-item:hover {
+      border-color: #87c5e5;
+      background: rgba(24,43,62,.94);
+      box-shadow: 0 0 18px rgba(91,164,205,.27);
+    }
+    #recordDrawer .record-item .ri-q { color: var(--ui-blue-text); }
+    #recordDrawer .record-item .ri-date,
+    #recordDrawer .record-empty { color: rgba(185,222,241,.58); }
 
-    /* ===== 圆阵中的魔药瓶（CSS 绘制） ===== */
+    /* ===== 圆阵中的魔药瓶（CSS 绘制，兼容旧布局） ===== */
     .altar-item .altar-potion {
       position: relative;
       width: 26px; height: 44px;
@@ -931,16 +1139,11 @@
     .altar-potion .ap-liquid { position:absolute; left:0; right:0; bottom:0; height:55%; background:linear-gradient(180deg, rgba(150,80,255,0.6), rgba(80,30,150,0.8)); }
   </style>
 </head>
-<body>
+<body data-world="west">
+<script src="world_switch.js"></script>
 
 <!-- 星空 -->
 <div id="starfield"></div>
-
-<!-- 月相 -->
-<div id="moonPhase">
-  <div class="moon"></div>
-  <span class="moon-text">盈月 · 显化之夜</span>
-</div>
 
 <!-- 显化计数器 -->
 <div id="manifestCount">✦ 圆阵中的物品：0 ✦</div>
@@ -960,9 +1163,11 @@
   <div class="altar-glow"></div>
 </div>
 
-<!-- 意图面板（许愿瓶） -->
+<!-- 意图面板（星愿笺） -->
 <div id="intentionPanel">
-  <div class="panel-title">✦ 星 愿 笺 ✦</div>
+  <button id="intentionCloseBtn" type="button" title="关闭星愿笺" aria-label="关闭星愿笺"></button>
+  <div class="intention-emblem" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16.8 3.8A8.4 8.4 0 1 0 20.2 16 7.2 7.2 0 0 1 16.8 3.8Z"/><path d="m8 6 .35.85.85.35-.85.35L8 8.4l-.35-.85-.85-.35.85-.35L8 6Zm9.4 9.2.3.72.72.3-.72.3-.3.72-.3-.72-.72-.3.72-.3.3-.72Z"/></svg></div>
+  <div class="panel-title">星 愿 笺</div>
   <textarea id="intentionInput" placeholder="写下你的愿望，投入许愿瓶...
 
 例如：
@@ -972,21 +1177,22 @@
 • 召唤理想伴侣"></textarea>
   <button id="wishGenerateBtn">生 成 许 愿 瓶</button>
 </div>
+<div id="intentionBackdrop"></div>
 
-<!-- 意图面板呼出按钮（手机端显示） -->
-<div id="intentionTab">许愿瓶</div>
+<!-- 意图面板呼出按钮（信封图标，对齐 web） -->
+<button id="intentionTab" type="button" title="打开星愿笺" aria-label="打开星愿笺" aria-expanded="false">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h10.5A1.5 1.5 0 0 1 18 6v13H7.5A1.5 1.5 0 0 1 6 17.5z"/><path d="M6 17.5A1.5 1.5 0 0 1 7.5 16H18M9 8h6M9 11h4.5"/><path d="m15.5 3 .45 1.05L17 4.5l-1.05.45L15.5 6l-.45-1.05L14 4.5l1.05-.45z"/></svg>
+</button>
 
 <!-- 左侧标签（固定常显，不随抽屉移动） -->
-<div class="side-tab" id="divTab">物品</div>
-<div class="side-tab" id="recTab">记录</div>
+<div class="side-tab drawer-bookmark" id="divTab"><span class="tab-text">圣物</span></div>
+<div class="side-tab drawer-bookmark" id="recTab"><span class="tab-text">记录</span></div>
 
 <!-- 右侧占卜抽屉 -->
 <div id="divinationDrawer" class="closed">
   <div class="drawer-panel">
-    <div class="panel-title">✦ 圣 物 柜 ✦</div>
+    <div class="panel-title">✦ 圣 物 库 ✦</div>
     <div class="divination-grid" id="divinationGrid"></div>
-    <div class="potion-sec-title">✦ 炼 金 魔 药 ✦</div>
-    <div class="potion-list" id="potionGrid"></div>
   </div>
 </div>
 
@@ -1007,20 +1213,32 @@
   <span class="clear-rune r2">✦</span>
   <span class="clear-rune r3">✦</span>
   <span class="clear-rune r4">✦</span>
-  🧹
+  <svg class="clear-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path class="magic-broom-handle" d="M8.25 14.55C12.35 12.75 16.7 9.75 20.7 5.65"/>
+    <path class="magic-broom-handle-highlight" d="M8.65 14.2C12.55 12.5 16.65 9.62 20.35 5.85"/>
+    <path class="magic-broom-band" d="M7.1 13.65c.72.42 1.43.93 2.12 1.55l-1.05 1.55a14 14 0 0 0-2.18-1.55l1.11-1.55Z"/>
+    <path class="magic-broom-brush" d="M6.1 14.9c.82.32 1.6.78 2.35 1.38-.62 1.02-1.17 2.16-1.65 3.4-1.65.2-3.25.05-4.8-.48 1-1.76 2.36-3.2 4.1-4.3Z"/>
+    <path class="magic-broom-detail" d="M2.85 18.95c1.55-.28 2.9-.95 4.3-2.45M4.2 19.38c1.25-.35 2.25-1.02 3.35-2.28M5.62 19.55c.78-.42 1.45-1.02 2.18-1.88"/>
+    <path class="magic-broom-ribbon" d="M7.35 15.85c.18 1.18.92 1.58.66 2.7-.15.62-.62 1.02-.28 1.78"/>
+    <path class="magic-broom-star" d="M18.2 9.3l.42 1.15 1.15.42-1.15.42-.42 1.15-.42-1.15-1.15-.42 1.15-.42.42-1.15ZM13.7 6.2l.28.72.72.28-.72.28-.28.72-.28-.72-.72-.28.72-.28.28-.72Z"/>
+  </svg>
 </button>
 
-<!-- 记录按钮 -->
-<button id="manifestRecordBtn" title="记录">
+<!-- 记录按钮（保存当前布置） -->
+<button id="manifestRecordBtn" title="保存当前布置" aria-label="保存当前布置">
   <span class="clear-rune r1">✦</span>
   <span class="clear-rune r2">✦</span>
   <span class="clear-rune r3">✦</span>
   <span class="clear-rune r4">✦</span>
-  📔
+  <svg class="layout-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path class="layout-frame" d="M5 4.5h11.5L20 8v11.5H5zM8 4.5v5h8v-5M8 16h8"/>
+    <path class="layout-line" d="m9 13 3-1.8 3 1.8"/>
+    <circle class="layout-node" cx="9" cy="13" r="1.15"/><circle class="layout-node" cx="12" cy="11.2" r="1.15"/><circle class="layout-node" cx="15" cy="13" r="1.15"/>
+  </svg>
 </button>
 
 <!-- 引导文字 -->
-<div id="guidance">将水晶、蜡烛与许愿瓶放入圆阵 · 点击显化</div>
+<div id="guidance">将水晶与许愿瓶放入圆阵 · 点击显化</div>
 
 <!-- 状态提示 -->
 <div class="status-toast" id="statusToast"></div>
@@ -1033,6 +1251,18 @@
   <div class="ring"></div>
   <div class="ring"></div>
   <div class="ring"></div>
+</div>
+
+<!-- 布局保存对话框 -->
+<div id="layoutSaveDialog" aria-hidden="true">
+  <div class="layout-save-card">
+    <div class="m-head">保 存 布 置</div>
+    <input id="layoutNameInput" type="text" maxlength="24" placeholder="给这次布置起一个名字">
+    <div class="confirm-acts">
+      <button id="layoutSaveCancel">取 消</button>
+      <button class="primary" id="layoutSaveConfirm">保 存</button>
+    </div>
+  </div>
 </div>
 
 <!-- 选区截图工具 -->
@@ -1065,7 +1295,6 @@
 <!-- 顶部导航 -->
 <div style="position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;z-index:999;display:flex;gap:10px;">
   <a href="reading_ios.html" style="background:rgba(20,8,40,0.8);border:2px solid #5a307a;color:#a070d8;padding:6px 16px;font-size:12px;cursor:pointer;font-family:inherit;letter-spacing:2px;text-decoration:none;transition:all 0.3s;border-radius:999px;" onmouseover="this.style.borderColor='#b080ff';this.style.color='#e0ccff'" onmouseout="this.style.borderColor='#5a307a';this.style.color='#a070d8'">黑猫占卜桌</a>
-  <a href="magic_ios.html" style="background:rgba(20,8,40,0.8);border:2px solid #5a307a;color:#a070d8;padding:6px 16px;font-size:12px;cursor:pointer;font-family:inherit;letter-spacing:2px;text-decoration:none;transition:all 0.3s;border-radius:999px;" onmouseover="this.style.borderColor='#b080ff';this.style.color='#e0ccff'" onmouseout="this.style.borderColor='#5a307a';this.style.color='#a070d8'">魔法工坊</a>
 </div>
 
 <script src="html2canvas.min.js"></script>
@@ -1111,11 +1340,14 @@ for (let i = 0; i < 120; i++) {
 //  2. 显化物品数据
 // ============================================================
 const DIVINATION_ITEMS = [
-  { id: 'white',    icon: '💎', name: '白水晶', type: 'crystal', cls: 'gem-white' },
-  { id: 'amethyst', icon: '💎', name: '紫水晶', type: 'crystal', cls: 'gem-amethyst' },
-  { id: 'rose',     icon: '💎', name: '粉水晶', type: 'crystal', cls: 'gem-rose' },
-  { id: 'citrine',  icon: '💎', name: '黄水晶', type: 'crystal', cls: 'gem-citrine' },
-  { id: 'candle',   icon: '🕯️', name: '蜡烛',   type: 'candle' },
+  { id: 'crystal1', type: 'crystal', name: '紫水晶', image: '图片/布袋/crystal1.png', glow: '174,112,255' },
+  { id: 'crystal2', type: 'crystal', name: '蓝水晶', image: '图片/布袋/csystal2.png', glow: '125,184,255' },
+  { id: 'crystal3', type: 'crystal', name: '绿水晶', image: '图片/布袋/crystal3.png', glow: '100,235,142' },
+  { id: 'crystal4', type: 'crystal', name: '黄水晶', image: '图片/布袋/crystal4.png', glow: '244,190,82' },
+  { id: 'crystal5', type: 'crystal', name: '粉水晶', image: '图片/布袋/crystal5.png', glow: '255,126,190' },
+  { id: 'crystal6', type: 'crystal', name: '红水晶', image: '图片/布袋/crystal6.png', glow: '255,105,112' },
+  { id: 'crystal7', type: 'crystal', name: '黑曜石', image: '图片/布袋/crystal7.png', glow: '145,148,168' },
+  { id: 'crystal8', type: 'crystal', name: '白水晶', image: '图片/布袋/crystal8.png', glow: '225,238,255' },
 ];
 
 // ============================================================
@@ -1143,17 +1375,25 @@ const divTab = document.getElementById('divTab');
 divTab.addEventListener('click', () => {
   divDrawer.classList.toggle('closed');
   divDrawer.classList.toggle('open');
-  renderPotions();
 });
 
 // 意图面板呼出按钮（手机端）：点「许愿瓶」呼出/收起输入框
 const intentionTab = document.getElementById('intentionTab');
 const intentionPanel = document.getElementById('intentionPanel');
+const intentionBackdrop = document.getElementById('intentionBackdrop');
+const intentionCloseBtn = document.getElementById('intentionCloseBtn');
+function setIntentionPanel(open) {
+  intentionPanel.classList.toggle('open', open);
+  intentionBackdrop.classList.toggle('open', open);
+  intentionTab.setAttribute('aria-expanded', String(open));
+}
 intentionTab.addEventListener('click', () => {
   divDrawer.classList.remove('open');
   divDrawer.classList.add('closed');
-  intentionPanel.classList.toggle('open');
+  setIntentionPanel(!intentionPanel.classList.contains('open'));
 });
+intentionCloseBtn.addEventListener('click', () => setIntentionPanel(false));
+intentionBackdrop.addEventListener('click', () => setIntentionPanel(false));
 
 // ============================================================
 //  5.5 生成许愿瓶（愿望写入瓶内纸条，瓶子出现在圆阵中央）
@@ -1271,7 +1511,7 @@ wishGenerateBtn.addEventListener('click', () => {
   updateCount();
   if (isActivated) el.classList.add('activated');
   showToast('✦ 许愿瓶已投入圆阵');
-  intentionPanel.classList.remove('open');   // 生成后收起面板
+  setIntentionPanel(false);   // 生成后收起面板
 });
 
 // 许愿瓶点击交互：单击直接打开（纸条上浮看愿望），再单击塞回
@@ -1284,7 +1524,8 @@ function setupBottleInteractions(el) {
 function renderDivinationItems() {
   const grid = document.getElementById('divinationGrid');
   grid.innerHTML = DIVINATION_ITEMS.map(item => `
-    <div class="divination-item" data-item-id="${item.id}">
+    <div class="divination-item" data-item-id="${item.id}" style="--item-glow:${item.glow || '255,190,118'}">
+      <img class="di-image" src="${item.image}" alt="${item.name}" draggable="false">
       <span class="di-label">${item.name}</span>
     </div>
   `).join('');
@@ -1302,32 +1543,11 @@ function renderDivinationItems() {
 }
 renderDivinationItems();
 
-// 圣物柜：读取魔法工坊存入的炼金魔药
+// 圣物柜：兼容旧布局中已存入的炼金魔药（恢复用）
 const SANCTUM_KEY = 'magiccat_sanctum';
 function loadSanctum() {
   try { return JSON.parse(localStorage.getItem(SANCTUM_KEY)) || []; } catch (e) { return []; }
 }
-function renderPotions() {
-  const grid = document.getElementById('potionGrid');
-  const list = loadSanctum();
-  if (!list.length) {
-    grid.innerHTML = '<div class="potion-empty">暂无魔药<br>前往魔法工坊炼制存入</div>';
-    return;
-  }
-  grid.innerHTML = list.map(p => `
-    <div class="potion-item" data-id="${p.id}" title="${(p.ingredients || []).join('、')}">${p.name}</div>
-  `).join('');
-  grid.querySelectorAll('.potion-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const pot = loadSanctum().find(x => x.id === item.dataset.id);
-      if (!pot) return;
-      addToAltar({ id: 'potion_' + pot.id, icon: '🧪', name: pot.name, type: 'potion', ingredients: pot.ingredients });
-      divDrawer.classList.remove('open');
-      divDrawer.classList.add('closed');
-    });
-  });
-}
-renderPotions();
 
 // ============================================================
 //  6. 添加到圆阵
@@ -1355,7 +1575,8 @@ function addToAltar(data) {
   el.style.top = (cy - 18) + 'px';
 
   if (data.type === 'crystal') {
-    el.innerHTML = `<div class="gem ${data.cls}"></div><span class="altar-item-label">${data.name}</span>`;
+    el.style.setProperty('--item-glow', data.glow || '150,190,255');
+    el.innerHTML = `<img class="altar-item-image" src="${data.image}" alt="${data.name}" draggable="false"><span class="altar-item-label">${data.name}</span>`;
   } else if (data.type === 'candle') {
     el.innerHTML = `<div class="candle-mini"><div class="wick"></div><div class="flame lit"></div></div><span class="altar-item-label">蜡烛</span>`;
   } else if (data.type === 'scroll') {
@@ -1507,7 +1728,7 @@ activateBtn.addEventListener('click', () => {
 
   if (isActivated) {
     // 激活
-    activateBtn.querySelector('.btn-text').textContent = 'ing';
+    activateBtn.querySelector('.btn-text').textContent = '显 化 中';
     activateBtn.classList.add('active');
     guidance.textContent = '✦ 能量流转于圆阵之中 ✦';
     guidance.classList.add('active');
@@ -1533,7 +1754,7 @@ activateBtn.addEventListener('click', () => {
     // 解除
     activateBtn.querySelector('.btn-text').textContent = '显 化';
     activateBtn.classList.remove('active');
-    guidance.textContent = '将水晶、蜡烛与许愿瓶放入圆阵 · 点击显化';
+    guidance.textContent = '将水晶与许愿瓶放入圆阵 · 点击显化';
     guidance.classList.remove('active');
 
     altarItems.forEach(a => a.el.classList.remove('activated'));
@@ -1570,18 +1791,21 @@ function showToast(text) {
 //  13. 桌面点击取消选中
 // ============================================================
 const desktop = document.getElementById('desktop');
-desktop.addEventListener('click', (e) => {
-  if (e.target === desktop) {
-    divDrawer.classList.remove('open');
-    divDrawer.classList.add('closed');
-  }
+// 点击抽屉/标签/星愿笺之外的任意空白处，关闭两个抽屉（对齐黑猫行为）
+document.addEventListener('click', (e) => {
+  if (e.target.closest('#divinationDrawer, #recordDrawer, #divTab, #recTab, #intentionTab, #intentionPanel')) return;
+  divDrawer.classList.remove('open');
+  divDrawer.classList.add('closed');
+  const rd = document.getElementById('recordDrawer');
+  rd.classList.remove('open');
+  rd.classList.add('closed');
 });
 
 // 点击空白处关闭星愿笺（许愿瓶面板）
 document.addEventListener('click', (e) => {
   if (!intentionPanel.classList.contains('open')) return;
   if (!e.target.closest('#intentionPanel') && !e.target.closest('#intentionTab')) {
-    intentionPanel.classList.remove('open');
+    setIntentionPanel(false);
   }
 });
 
@@ -1616,15 +1840,116 @@ function persistRecords(records) {
   try { localStorage.setItem(RECORDS_KEY, JSON.stringify(records)); } catch (e) { alert('保存失败：存储空间不足'); }
 }
 
-// —— 记录按钮 → 打开选区截图 ——
+// —— 记录按钮 → 保存当前布置（对齐 web，不再截图） ——
+const layoutSaveDialog = document.getElementById('layoutSaveDialog');
+const layoutNameInput = document.getElementById('layoutNameInput');
+const layoutSaveConfirm = document.getElementById('layoutSaveConfirm');
+const layoutSaveCancel = document.getElementById('layoutSaveCancel');
+
+function closeLayoutSaveDialog() {
+  layoutSaveDialog.classList.remove('open');
+  layoutSaveDialog.setAttribute('aria-hidden', 'true');
+}
+
+function defaultLayoutName() {
+  const d = new Date();
+  return `星愿布置 ${d.getMonth() + 1}月${d.getDate()}日`;
+}
+
+function serializeCurrentLayout(name) {
+  const aw = Math.max(1, altar.offsetWidth);
+  const ah = Math.max(1, altar.offsetHeight);
+  return {
+    id: 'layout_' + Date.now(),
+    name,
+    ts: Date.now(),
+    activated: isActivated,
+    items: altarItems.map(item => ({
+      id: item.id,
+      type: item.type,
+      left: (parseFloat(item.el.style.left) || 0) / aw,
+      top: (parseFloat(item.el.style.top) || 0) / ah,
+      wish: item.type === 'bottle' ? (intentionInput.value || '') : ''
+    }))
+  };
+}
+
+function clearAltarForRestore() {
+  altarItems.forEach(item => item.el.remove());
+  altarItems = [];
+  wishBottleEl = null;
+  isActivated = false;
+  activateBtn.classList.remove('active');
+  activateBtn.querySelector('.btn-text').textContent = '显 化';
+  guidance.textContent = '将水晶与许愿瓶放入圆阵 · 点击显化';
+  guidance.classList.remove('active');
+  energyWave.classList.remove('active');
+  updateCount();
+}
+
+function restoreLayout(layout) {
+  clearAltarForRestore();
+  const aw = Math.max(1, altar.offsetWidth);
+  const ah = Math.max(1, altar.offsetHeight);
+  (layout.items || []).forEach(saved => {
+    let restoredEl = null;
+    if (saved.type === 'bottle') {
+      intentionInput.value = saved.wish || '';
+      wishGenerateBtn.click();
+      restoredEl = wishBottleEl;
+    } else {
+      let data = null;
+      if (saved.type === 'potion') {
+        const pot = loadSanctum().find(p => ('potion_' + p.id) === saved.id);
+        if (pot) data = { id: saved.id, icon: '🧪', name: pot.name, type: 'potion', ingredients: pot.ingredients };
+      }
+      // 兼容旧版 CSS 水晶 id → 新图片水晶 id
+      const LEGACY_CRYSTAL = { white: 'crystal8', amethyst: 'crystal1', rose: 'crystal5', citrine: 'crystal4', emerald: 'crystal3', sapphire: 'crystal2' };
+      const resolvedId = LEGACY_CRYSTAL[saved.id] || saved.id;
+      const fallback = DIVINATION_ITEMS.find(item => item.id === resolvedId);
+      addToAltar(data || fallback || { id: saved.id, type: saved.type, name: '魔法物品' });
+      restoredEl = altarItems.length ? altarItems[altarItems.length - 1].el : null;
+    }
+    if (restoredEl) {
+      restoredEl.style.left = (saved.left * aw) + 'px';
+      restoredEl.style.top = (saved.top * ah) + 'px';
+    }
+  });
+  isActivated = !!layout.activated;
+  activateBtn.classList.toggle('active', isActivated);
+  activateBtn.querySelector('.btn-text').textContent = isActivated ? '显 化 中' : '显 化';
+  guidance.textContent = isActivated ? '✦ 能量流转于圆阵之中 ✦' : '将水晶与许愿瓶放入圆阵 · 点击显化';
+  guidance.classList.toggle('active', isActivated);
+  energyWave.classList.toggle('active', isActivated);
+  altarItems.forEach(item => item.el.classList.toggle('activated', isActivated));
+  recDrawer.classList.remove('open');
+  recDrawer.classList.add('closed');
+  showToast(`✦ 已还原「${layout.name}」`);
+}
+
 manifestRecordBtn.addEventListener('click', () => {
-  _captureDataUrl = null;
-  captureRect.style.display = 'none';
-  captureTip.textContent = '拖拽选择要保存的区域';
-  captureConfirm.classList.remove('show');
-  captureCancel.classList.remove('show');
-  _selStart = null;
-  captureOverlay.classList.add('active');
+  if (!altarItems.length) { showToast('✦ 圆阵空空如也，请先放入物品'); return; }
+  layoutNameInput.value = defaultLayoutName();
+  layoutSaveDialog.classList.add('open');
+  layoutSaveDialog.setAttribute('aria-hidden', 'false');
+  setTimeout(() => { layoutNameInput.focus(); layoutNameInput.select(); }, 0);
+});
+
+layoutSaveConfirm.addEventListener('click', () => {
+  const name = layoutNameInput.value.trim();
+  if (!name) { layoutNameInput.focus(); return; }
+  const records = loadRecords();
+  records.unshift(serializeCurrentLayout(name));
+  persistRecords(records);
+  closeLayoutSaveDialog();
+  renderRecords();
+  showToast(`✦ 已保存布置「${name}」`);
+});
+layoutSaveCancel.addEventListener('click', closeLayoutSaveDialog);
+layoutSaveDialog.addEventListener('click', e => { if (e.target === layoutSaveDialog) closeLayoutSaveDialog(); });
+layoutNameInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') layoutSaveConfirm.click();
+  if (e.key === 'Escape') closeLayoutSaveDialog();
 });
 
 captureOverlay.addEventListener('pointerdown', (e) => {
@@ -1781,7 +2106,7 @@ const recTab = document.getElementById('recTab');
 recTab.addEventListener('click', () => {
   divDrawer.classList.remove('open');
   divDrawer.classList.add('closed');
-  intentionPanel.classList.remove('open');
+  setIntentionPanel(false);
   recDrawer.classList.toggle('open');
   recDrawer.classList.toggle('closed');
   renderRecords();
@@ -1791,25 +2116,30 @@ function renderRecords() {
   const grid = document.getElementById('recGrid');
   const records = loadRecords();
   if (!records.length) {
-    grid.innerHTML = '<div class="record-empty">暂无记录<br>点右下角 📔 按钮记录</div>';
+    grid.innerHTML = '<div class="record-empty">暂无布置<br>点右下角按钮保存当前布置</div>';
     return;
   }
-  grid.innerHTML = records.map(r => `
+  grid.innerHTML = records.map(r => {
+    const count = (r.items || []).length;
+    const activated = r.activated ? ' · 显化中' : '';
+    const date = r.ts ? new Date(r.ts).toLocaleString() : '';
+    return `
     <div class="record-item" data-id="${r.id}">
-      <img src="${r.img}" alt="记录">
       <div class="ri-info">
-        <div class="ri-q">${r.question || '（无愿望）'}</div>
-        <div class="ri-date">${new Date(r.ts).toLocaleString()}</div>
+        <div class="ri-q">${r.name || '未命名布置'}${activated}</div>
+        <div class="ri-date">${count} 件物品 · ${date}</div>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
   grid.querySelectorAll('.record-item').forEach(item => {
     item.addEventListener('click', () => {
       const rec = loadRecords().find(x => x.id === item.dataset.id);
-      if (rec) {
-        recDrawer.classList.remove('open');
-        recDrawer.classList.add('closed');
-        openRecordPage(rec);
+      if (!rec) return;
+      if (rec.items) {
+        restoreLayout(rec);
+      } else {
+        showToast('✦ 旧版截图记录已不适用，可删除');
       }
     });
   });

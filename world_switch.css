@@ -1,0 +1,119 @@
+/* ============================================================
+   世界切换入口（公共层）· world_switch.css
+   西玄页：玄鸟（青铜·古玉 → 玄鸟之境 / 东玄）
+   东玄页：黑猫（紫晶·月星 → 黑猫之境 / 西玄）
+   由 world_switch.js 注入，依据 <body data-world="west|east"> 切换图案。
+   与右上角的「世界内导航」（魔法工坊 / 显化之境…）层级相互独立。
+   ============================================================ */
+.world-switch {
+  position: fixed;
+  bottom: 14px; right: 14px;
+  z-index: 2400;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  cursor: pointer; text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  color: var(--ws-ink, #cdb079);
+  background:
+    radial-gradient(circle at 50% 36%, rgba(255,255,255,.06), transparent 55%),
+    linear-gradient(160deg, rgba(22,20,16,.94), rgba(7,9,9,.92));
+  border: 1px solid var(--ws-border, rgba(196,161,92,.6));
+  box-shadow:
+    0 0 0 4px var(--ws-halo, rgba(196,161,92,.10)),
+    inset 0 0 16px var(--ws-halo, rgba(196,161,92,.12)),
+    0 6px 18px rgba(0,0,0,.42);
+  transition: transform .3s, box-shadow .3s, border-color .3s, color .3s;
+}
+.world-switch::before {
+  content: '';
+  position: absolute; inset: 6px;
+  border-radius: 50%;
+  border: 1px solid var(--ws-border, rgba(196,161,92,.30));
+  pointer-events: none;
+}
+.world-switch::after {
+  content: '';
+  position: absolute; inset: -4px;
+  border-radius: 50%;
+  border: 1px dashed var(--ws-border, rgba(196,161,92,.18));
+  animation: worldSwitchSpin 46s linear infinite;
+  pointer-events: none;
+}
+@keyframes worldSwitchSpin { to { transform: rotate(360deg); } }
+.world-switch svg {
+  position: relative; z-index: 1;
+  width: 30px; height: 30px;
+  filter: drop-shadow(0 0 5px var(--ws-glow, rgba(205,176,121,.3)));
+}
+.world-switch:hover {
+  transform: translateY(-1px) scale(1.05);
+  color: var(--ws-ink-hi, #f0d9a6);
+  border-color: var(--ws-border-hi, rgba(226,190,112,.9));
+  box-shadow:
+    0 0 0 4px var(--ws-halo, rgba(196,161,92,.16)),
+    0 0 24px var(--ws-glow, rgba(205,176,121,.4)),
+    0 8px 26px rgba(0,0,0,.5);
+}
+.world-switch:active { transform: scale(.96); }
+
+/* 西玄页 → 玄鸟（青铜 · 古玉） */
+.world-switch--west {
+  left:18px;top:18px;right:auto;bottom:auto;
+  --ws-ink: #cdb079;
+  --ws-ink-hi: #f2dca6;
+  --ws-border: rgba(196,161,92,.58);
+  --ws-border-hi: rgba(228,192,114,.95);
+  --ws-halo: rgba(196,161,92,.12);
+  --ws-glow: rgba(214,178,108,.38);
+}
+.world-switch--west svg{width:38px;height:38px}
+
+/* 东玄页 → 黑猫（紫晶 · 月星） */
+.world-switch--east {
+  right:14px;bottom:14px;left:auto;top:auto;
+  --ws-ink: #c5a6ea;
+  --ws-ink-hi: #e8d4ff;
+  --ws-border: rgba(159,114,223,.6);
+  --ws-border-hi: rgba(195,155,245,.95);
+  --ws-halo: rgba(159,114,223,.14);
+  --ws-glow: rgba(159,114,223,.42);
+}
+.world-switch--west .ws-tip{left:calc(100% + 12px);right:auto;border-right:1px solid var(--ws-border);border-left:0;border-radius:0 15px 15px 0;background:linear-gradient(90deg,rgba(8,10,10,.94),rgba(18,16,14,.86));transform:translateY(-50%) translateX(-6px)}
+.world-switch--west:hover .ws-tip{transform:translateY(-50%) translateX(0)}
+
+/* 悬浮提示（通往另一世界的符号） */
+.world-switch .ws-tip {
+  position: absolute;
+  right: calc(100% + 12px); top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 7px 14px 7px 13px;
+  border: 1px solid var(--ws-border, rgba(196,161,92,.42));
+  border-right: 0;
+  border-radius: 15px 0 0 15px;
+  background: linear-gradient(270deg, rgba(8,10,10,.94), rgba(18,16,14,.86));
+  color: var(--ws-ink, #cdb079);
+  letter-spacing: 3px; font-size: 12px;
+  white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: opacity .28s, transform .28s;
+  box-shadow: 0 6px 20px rgba(0,0,0,.38);
+}
+.world-switch .ws-tip em {
+  font-style: normal;
+  font-size: 10px; letter-spacing: 4px;
+  opacity: .66;
+}
+.world-switch:hover .ws-tip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+@media (max-width: 720px) {
+  .world-switch { bottom: 10px; right: 10px; width: 48px; height: 48px; }
+  .world-switch svg { width: 26px; height: 26px; }
+  .world-switch--west{left:calc(10px + env(safe-area-inset-left));top:calc(10px + env(safe-area-inset-top));right:auto;bottom:auto}.world-switch--east{right:calc(10px + env(safe-area-inset-right));bottom:calc(10px + env(safe-area-inset-bottom));left:auto;top:auto}
+  .world-switch--west svg{width:31px;height:31px}
+  .world-switch .ws-tip { display: none; }
+}
