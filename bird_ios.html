@@ -70,11 +70,11 @@ button {
 .stage-wrap{
   position:fixed;inset:0;z-index:5;
 }
-.aux{height:100%;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(178,151,88,.3) transparent;padding:18px 20px 120px;}
+.aux{height:100%;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(178,151,88,.3) transparent;padding:calc(18px + env(safe-area-inset-top)) 20px 120px;}
 .aux::-webkit-scrollbar{width:4px}
 .aux::-webkit-scrollbar-thumb{background:rgba(178,151,88,.3);border-radius:2px}
 
-.main-stage{display:none;height:100%;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(178,151,88,.3) transparent;padding:16px 26px 120px;}
+.main-stage{display:none;height:100%;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(178,151,88,.3) transparent;padding:calc(16px + env(safe-area-inset-top)) 26px 120px;}
 .main-stage::-webkit-scrollbar{width:5px}
 .main-stage::-webkit-scrollbar-thumb{background:rgba(178,151,88,.3);border-radius:3px}
 body.chart-mode .aux{display:none;}
@@ -211,7 +211,7 @@ body.chart-mode .main-stage{display:block;}
   width:auto;max-width:none;min-height:100%;
   margin:0;border:0;border-radius:0;
   overflow-y:auto;
-  padding:20px 16px calc(44px + env(safe-area-inset-bottom));
+  padding:calc(20px + env(safe-area-inset-top)) 16px calc(44px + env(safe-area-inset-bottom));
   background:linear-gradient(165deg,rgba(8,20,17,.98),rgba(2,8,7,.99));
   box-shadow:none;
 }
@@ -1016,6 +1016,7 @@ body.chart-mode .main-stage{display:block;}
     els.yInfo.textContent = '五十用一，存四十九 · 起筮。';
     els.yProgress.textContent = '';
     els.yHex.innerHTML = '';
+    moveCastBtnToStage();
     els.mainStage.scrollTo({ top: 0, behavior: 'smooth' });
     if (yMode === 'quick') { quickYarrow(); } else { yRunVariation(); }
   }
@@ -1025,6 +1026,7 @@ body.chart-mode .main-stage{display:block;}
     yLines = [];
     els.yarrowView.hidden = true;
     els.hexStage.hidden = false;
+    moveCastBtnBack();
     complete();
   }
   function switchImplement(sj) {
@@ -1038,6 +1040,14 @@ body.chart-mode .main-stage{display:block;}
   /* ============ 两页切换：第一页起卦表单 / 第二页结果 ============ */
   function goToResult() { document.body.classList.add('chart-mode'); }
   function goToCast() { document.body.classList.remove('chart-mode'); }
+
+  /* 蓍草模式下：把「起筮/行一变」按钮随动画移到第二页，完成时移回第一页 */
+  function moveCastBtnToStage() {
+    els.yProgress.insertAdjacentElement('afterend', els.castBtn);
+  }
+  function moveCastBtnBack() {
+    els.castNote.insertAdjacentElement('beforebegin', els.castBtn);
+  }
 
   /* ============ 重置 ============ */
   function resetAll() {
@@ -1061,6 +1071,7 @@ body.chart-mode .main-stage{display:block;}
       : (method === 'coins' ? '静心默念所问之事，然后起卦。' : '选择日期时刻，然后起卦。');
     els.fullChartBtn.disabled = true; els.aiBtn.disabled = true; els.saveBtn.disabled = true;
     toggleFullChart(false);
+    moveCastBtnBack();
     goToCast();
   }
 

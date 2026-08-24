@@ -1373,6 +1373,9 @@ const divDrawer = document.getElementById('divinationDrawer');
 const divTab = document.getElementById('divTab');
 
 divTab.addEventListener('click', () => {
+  recDrawer.classList.remove('open');
+  recDrawer.classList.add('closed');
+  setIntentionPanel(false);
   divDrawer.classList.toggle('closed');
   divDrawer.classList.toggle('open');
 });
