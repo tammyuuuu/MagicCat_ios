@@ -878,7 +878,7 @@
     #captureOverlay {
       position: fixed; inset: 0;
       z-index: 20000;
-      background: rgba(5,2,12,0.45);
+      background: rgba(4,10,17,0.5);
       display: none;
       cursor: crosshair;
       touch-action: none;   /* 拖拽选区域时不被浏览器滚动/回弹干扰 */
@@ -886,20 +886,21 @@
     #captureOverlay.active { display: block; }
     #captureTip {
       position: fixed; top: calc(20px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
-      background: rgba(20,8,40,0.92);
-      border: 2px solid #5a307a;
-      color: #d4b0ff;
+      background: rgba(14,28,44,0.94);
+      border: 2px solid #5ba4cd;
+      color: #b9def1;
       padding: 10px 22px;
       font-size: 14px;
       letter-spacing: 2px;
       z-index: 20010;
       border-radius: 20px;
       white-space: nowrap;
+      box-shadow: 0 0 18px rgba(91,164,205,.18);
     }
     #captureRect {
       position: fixed;
-      border: 2px dashed #b080ff;
-      background: rgba(180,100,255,0.12);
+      border: 2px dashed rgba(91,164,205,.9);
+      background: rgba(91,164,205,0.14);
       display: none;
       z-index: 20005;
       pointer-events: none;
@@ -918,38 +919,48 @@
     .capture-btn.show { display: flex; }
     #captureConfirm {
       bottom: 130px; left: 50%; transform: translateX(-50%);
-      background: rgba(60,160,90,0.92);
-      border: 2px solid #50d090;
-      color: #e0ffe8;
+      background: rgba(14,28,44,0.94);
+      border: 2px solid #5ba4cd;
+      color: #b9def1;
+      box-shadow: 0 0 18px rgba(91,164,205,0.2);
     }
+    #captureConfirm:hover { border-color: #87c5e5; color: #fff; }
     #captureCancel {
       bottom: 70px; left: 50%; transform: translateX(-50%);
       width: 46px; height: 46px;
       padding: 0;
       border-radius: 50%;
-      background: rgba(60,30,10,0.92);
-      border: 2px solid #c8a050;
-      color: #f0d080;
-      font-size: 16px;
+      background: rgba(14,28,44,0.94);
+      border: 2px solid #5ba4cd;
+      color: #b9def1;
+      font-size: 0;
+      flex-shrink: 0;
+    }
+    #captureCancel svg {
+      width: 15px; height: 15px;
+      display: block;
+      stroke: currentColor;
+      stroke-width: 2.4;
+      stroke-linecap: round;
     }
 
-    /* ===== 记录页 ===== */
+    /* ===== 记录页（蓝色主题） ===== */
     #recordPage {
       position: fixed; inset: 0;
       z-index: 15000;
-      background: radial-gradient(ellipse at 50% 30%, #1a0a2e, #0d001a);
+      background: radial-gradient(ellipse at 50% 30%, #14263a, #08121d);
       display: none;
       overflow-y: auto;
-      padding: 20px 18px 40px;
+      padding: calc(24px + env(safe-area-inset-top)) 18px calc(44px + env(safe-area-inset-bottom));
     }
     #recordPage.active { display: block; }
     #recordPage .rp-title {
       text-align: center;
-      color: #c9a0ff;
+      color: #9fd0ec;
       font-size: 18px;
       letter-spacing: 6px;
       padding-bottom: 14px;
-      border-bottom: 2px solid #3a1e5e;
+      border-bottom: 2px solid rgba(87,159,201,.42);
       margin-bottom: 16px;
     }
     #recordPage .rp-photo {
@@ -959,14 +970,14 @@
     }
     #recordPage .rp-photo img {
       max-width: 100%;
-      border: 3px solid #6b3fa0;
+      border: 3px solid #5ba4cd;
       border-radius: 6px;
-      box-shadow: 0 0 30px rgba(180,100,255,0.25);
+      box-shadow: 0 0 30px rgba(91,164,205,0.3);
     }
     #recordPage .rp-field { margin-bottom: 16px; }
     #recordPage .rp-field label {
       display: block;
-      color: #a080d0;
+      color: #8fb8d4;
       font-size: 13px;
       letter-spacing: 3px;
       margin-bottom: 6px;
@@ -974,9 +985,9 @@
     #recordPage .rp-field input,
     #recordPage .rp-field textarea {
       width: 100%;
-      background: rgba(20,8,40,0.7);
-      border: 2px solid #5a307a;
-      color: #e0ccff;
+      background: rgba(13,26,40,0.75);
+      border: 2px solid rgba(87,159,201,.7);
+      color: #cfe6f5;
       font-family: inherit;
       font-size: 14px;
       padding: 12px 14px;
@@ -990,20 +1001,20 @@
       line-height: 1.8;
     }
     #recordPage .rp-field input:focus,
-    #recordPage .rp-field textarea:focus { border-color: #b080ff; }
+    #recordPage .rp-field textarea:focus { border-color: #87c5e5; }
     #recordPage .rp-actions {
       display: flex;
-      justify-content: center;
-      gap: 14px;
-      margin-top: 8px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 18px;
     }
     #recordPage .rp-btn {
       height: 46px; padding: 0 26px;
       border-radius: 23px;
-      border: 2px solid #8a4dff;
-      background: rgba(30,12,60,0.9);
-      color: #d4b0ff;
+      border: 2px solid #5ba4cd;
+      background: rgba(14,28,44,0.94);
+      color: #b9def1;
       font-family: inherit;
       font-size: 14px;
       letter-spacing: 3px;
@@ -1014,16 +1025,21 @@
       justify-content: center;
       line-height: 1;
     }
-    #recordPage .rp-btn:hover { border-color: #b080ff; color: #fff; }
-    #recordPage .rp-btn.primary { border-color: #50d090; background: rgba(60,160,90,0.85); color: #e0ffe8; }
-    #recordPage .rp-btn.danger  { border-color: #ff6a8a; background: rgba(160,60,80,0.85); color: #ffe0e8; }
-    /* 关闭按钮：圆形 ✕ */
+    #recordPage .rp-btn:hover { border-color: #87c5e5; color: #fff; }
+    /* 关闭按钮：圆形 ✕（SVG 精确居中） */
     #recordPage #rpCancel {
       width: 46px; height: 46px;
       padding: 0;
       border-radius: 50%;
-      font-size: 16px;
+      font-size: 0;
       flex-shrink: 0;
+    }
+    #recordPage #rpCancel svg {
+      width: 15px; height: 15px;
+      display: block;
+      stroke: currentColor;
+      stroke-width: 2.4;
+      stroke-linecap: round;
     }
 
     /* ===== 记录抽屉 ===== */
@@ -1082,6 +1098,26 @@
     #drawerRec .record-item .ri-q { color: var(--ui-blue-text); }
     #drawerRec .record-item .ri-date,
     #drawerRec .record-empty { color: rgba(185,222,241,.58); }
+
+    /* 记录库条目删除按钮 */
+    .record-item .ri-delete {
+      width: 44px; height: 44px; margin-left: 8px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent;
+      border: 1px solid rgba(87,159,201,.55);
+      border-radius: 50%;
+      color: rgba(185,222,241,.9);
+      font-size: 15px; line-height: 1; cursor: pointer;
+      flex-shrink: 0; padding: 0;
+      transition: border-color .2s, color .2s, background .2s, transform .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .record-item .ri-delete:hover,
+    .record-item .ri-delete:active {
+      border-color: #ff7a8a; color: #ff9daa;
+      background: rgba(255,122,138,.14);
+    }
+    .record-item .ri-delete:active { transform: scale(.94); }
   </style>
 </head>
 <body data-world="west">
@@ -1174,7 +1210,9 @@
   <div id="captureTip">拖拽选择要保存的区域</div>
   <div id="captureRect"></div>
   <button class="capture-btn" id="captureConfirm">保存</button>
-  <button class="capture-btn" id="captureCancel">✕</button>
+  <button class="capture-btn" id="captureCancel" aria-label="取消" title="取消">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
 </div>
 
 <!-- 记录页 -->
@@ -1190,9 +1228,10 @@
     <textarea id="rpInterp" placeholder="记录解读内容..."></textarea>
   </div>
   <div class="rp-actions">
-    <button class="rp-btn primary" id="rpSave">保存</button>
-    <button class="rp-btn danger" id="rpDelete" style="display:none;">删除</button>
-    <button class="rp-btn" id="rpCancel">✕</button>
+    <button class="rp-btn" id="rpSave">保存</button>
+    <button class="rp-btn" id="rpCancel" aria-label="关闭" title="关闭">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
   </div>
 </div>
 
@@ -2250,7 +2289,6 @@ const rpPhoto     = document.getElementById('rpPhoto');
 const rpQuestion  = document.getElementById('rpQuestion');
 const rpInterp    = document.getElementById('rpInterp');
 const rpSave      = document.getElementById('rpSave');
-const rpDelete    = document.getElementById('rpDelete');
 const rpCancel    = document.getElementById('rpCancel');
 
 const RECORDS_KEY = 'magiccat_records';
@@ -2370,7 +2408,6 @@ function openRecordPage(record) {
     rpQuestion.value = record.question || '';
     rpInterp.value = record.interp || '';
     rpSave.textContent = '更新';
-    rpDelete.style.display = 'flex';
   } else {
     _viewingRecordId = null;
     rpTitle.textContent = '✦ 新 记 录 ✦';
@@ -2378,7 +2415,6 @@ function openRecordPage(record) {
     rpQuestion.value = '';
     rpInterp.value = '';
     rpSave.textContent = '保存';
-    rpDelete.style.display = 'none';
   }
   recordPage.classList.add('active');
 }
@@ -2413,15 +2449,6 @@ rpSave.addEventListener('click', () => {
   closeRecordPage();
 });
 
-rpDelete.addEventListener('click', () => {
-  if (!_viewingRecordId) return;
-  if (!confirm('确定删除这条记录？')) return;
-  const records = loadRecords().filter(r => r.id !== _viewingRecordId);
-  persistRecords(records);
-  renderRecords();
-  closeRecordPage();
-});
-
 rpCancel.addEventListener('click', closeRecordPage);
 
 // —— 记录抽屉渲染 ——
@@ -2439,9 +2466,20 @@ function renderRecords() {
         <div class="ri-q">${r.question || '（无问题）'}</div>
         <div class="ri-date">${new Date(r.ts).toLocaleString()}</div>
       </div>
+      <button type="button" class="ri-delete" aria-label="删除这条记录" title="删除">✕</button>
     </div>
   `).join('');
   grid.querySelectorAll('.record-item').forEach(item => {
+    const delBtn = item.querySelector('.ri-delete');
+    if (delBtn) delBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const rec = loadRecords().find(x => x.id === item.dataset.id);
+      if (!rec) return;
+      if (!confirm('确定删除这条记录？')) return;
+      const records = loadRecords().filter(x => x.id !== item.dataset.id);
+      persistRecords(records);
+      renderRecords();
+    });
     item.addEventListener('click', () => {
       const rec = loadRecords().find(x => x.id === item.dataset.id);
       if (rec) {
@@ -2594,7 +2632,7 @@ if (deckList.length > 0) {
 
 <!-- 导航 -->
 <div style="position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;z-index:999;display:flex;gap:10px;">
-  <a href="manifest_ios.html" style="background:rgba(20,8,40,0.8);border:2px solid #5a307a;color:#a070d8;padding:6px 16px;font-size:12px;cursor:pointer;font-family:inherit;letter-spacing:2px;text-decoration:none;transition:all 0.3s;border-radius:999px;" onmouseover="this.style.borderColor='#b080ff';this.style.color='#e0ccff'" onmouseout="this.style.borderColor='#5a307a';this.style.color='#a070d8'">显化之境</a>
+  <a href="manifest_ios.html" style="background:rgba(30,22,6,0.45);border:2px solid rgba(213,165,83,0.55);color:rgba(240,212,148,0.72);padding:6px 16px;font-size:12px;cursor:pointer;font-family:inherit;letter-spacing:2px;text-decoration:none;transition:all 0.3s;border-radius:999px;box-shadow:none;" onmouseover="this.style.background='rgba(70,50,16,0.9)';this.style.borderColor='#f5dd9a';this.style.color='#fff3cf';this.style.boxShadow='0 0 14px rgba(245,221,154,0.45)'" onmouseout="this.style.background='rgba(30,22,6,0.45)';this.style.borderColor='rgba(213,165,83,0.55)';this.style.color='rgba(240,212,148,0.72)';this.style.boxShadow='none'">显化之境</a>
 </div>
 
 </body>
