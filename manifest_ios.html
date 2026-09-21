@@ -1472,7 +1472,8 @@
     .love-title { color:#e6b7ca;text-shadow:0 0 16px rgba(213,132,169,.28); }
     .love-action { color:#e2b3c7;border-color:rgba(213,146,177,.58);background:rgba(53,27,49,.64); }
     /* ===== 爱的独立空间：深夜玫瑰 / 月光星雾 ===== */
-    body.mode-love #themeSwitcher { opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,-8px); }
+    /* 注：旧的 body.mode-love #themeSwitcher 死规则已移除，配色入口的隐藏改由
+       #themeToggle / #themeSheet 的 ritual-special 规则统一处理 */
     body.mode-love #starfield { background:radial-gradient(ellipse at 28% 28%,rgba(116,66,103,.18),transparent 34%),radial-gradient(ellipse at 74% 72%,rgba(102,62,90,.16),transparent 38%),linear-gradient(135deg,#090713 0%,#170b1d 46%,#120b18 72%,#08070e 100%)!important;filter:saturate(.78); }
     body.mode-love #starfield .star { opacity:.08!important;animation:none!important; }
 
@@ -2038,9 +2039,482 @@ body.mode-love .love-portals { padding:4px 10px 96px; row-gap:10px; }
 /* ---- iOS 移植标记 ---- */
 /* __IOS_RITUAL_MODES_INJECTED__ */
 
+
+    /* ============================================================
+
+       页面配色（四套主题：星夜紫晶 / 霜白墨羽 / 琥珀秘卷 / 雾糖奇遇）
+
+       与 web 显化之境、iOS 黑猫占卜桌共用 localStorage.magiccat_reading_theme
+
+       默认「星夜紫晶」不写 data-theme 属性
+
+       ============================================================ */
+
+
+
+    /* ----- 顶部导航：黑猫占卜桌 ----- */
+
+    .top-nav {
+
+      position: fixed;
+
+      top: calc(12px + env(safe-area-inset-top));
+
+      right: 12px;
+
+      z-index: 999;
+
+      display: flex; gap: 10px; align-items: center;
+
+      pointer-events: none;
+
+    }
+
+    .ui-nav-link {
+
+      pointer-events: auto;
+
+      min-height: 40px;
+
+      padding: 0 18px;
+
+      display: inline-flex; align-items: center; justify-content: center;
+
+      border-radius: 999px;
+
+      border: 2px solid #5a307a;
+
+      background: rgba(20,8,40,.8);
+
+      color: #a070d8;
+
+      font-family: inherit;
+
+      font-size: 12px; letter-spacing: 2px;
+
+      text-decoration: none;
+
+      -webkit-tap-highlight-color: transparent;
+
+      transition: background .3s, border-color .3s, color .3s, box-shadow .3s;
+
+    }
+
+    .ui-nav-link:hover, .ui-nav-link:active { border-color: #b080ff; color: #e0ccff; box-shadow: 0 0 14px rgba(176,128,255,.35); }
+
+
+
+    /* ----- 配色入口（顶部居中，点开底部色卡面板） ----- */
+
+    #themeToggle {
+
+      position: fixed;
+
+      top: calc(14px + env(safe-area-inset-top));
+
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      z-index: 1401;   /* 高于遮罩，面板打开时仍可点按收起 */
+
+      width: 44px; height: 44px; padding: 0;
+
+      display: grid; place-items: center;
+
+      border-radius: 50%;
+
+      border: 2px solid var(--ui-purple);
+
+      background: var(--ui-bg);
+
+      color: var(--ui-purple-text);
+
+      cursor: pointer;
+
+      font-family: inherit;
+
+      -webkit-tap-highlight-color: transparent;
+
+      backdrop-filter: blur(8px);
+
+      box-shadow: 0 0 16px rgba(159,114,223,.22), inset 0 0 10px rgba(159,114,223,.08);
+
+      transition: transform .28s, border-color .28s, box-shadow .28s, background .28s, color .28s, opacity .4s;
+
+    }
+
+    #themeToggle:active { transform: translateX(-50%) scale(.94); }
+
+    #themeToggle[aria-expanded="true"] { border-color: var(--ui-gold); color: var(--ui-gold-text); }
+
+    #themeToggle svg {
+
+      width: 23px; height: 23px;
+
+      fill: none; stroke: currentColor; stroke-width: 1.55;
+
+      stroke-linecap: round; stroke-linejoin: round;
+
+      pointer-events: none;
+
+      filter: drop-shadow(0 0 4px currentColor);
+
+    }
+
+
+
+    /* ----- 底部色卡面板 ----- */
+
+    #themeSheetBackdrop { position: fixed; inset: 0; z-index: 1399; background: transparent; display: none; }
+
+    #themeSheetBackdrop.open { display: block; }
+
+    #themeSheet {
+
+      position: fixed; left: 0; right: 0; bottom: 0;
+
+      z-index: 1400;
+
+      padding: 15px 16px calc(16px + env(safe-area-inset-bottom));
+
+      border-radius: 22px 22px 0 0;
+
+      border-top: 2px solid var(--ui-purple);
+
+      background: var(--ui-bg);
+
+      color: var(--ui-purple-text);
+
+      backdrop-filter: blur(16px);
+
+      box-shadow: 0 -12px 34px rgba(0,0,0,.34);
+
+      transform: translateY(105%);
+
+      visibility: hidden;
+
+      touch-action: manipulation;
+
+      transition: transform .4s cubic-bezier(.25,1,.5,1), visibility .4s;
+
+    }
+
+    #themeSheet.open { transform: translateY(0); visibility: visible; }
+
+    #themeSheet .ts-title {
+
+      text-align: center;
+
+      font-size: 13px; letter-spacing: 5px;
+
+      padding-bottom: 11px; margin-bottom: 11px;
+
+      border-bottom: 1px solid var(--ui-purple);
+
+      opacity: .8;
+
+    }
+
+    #themeSheet .ts-list { display: grid; gap: 9px; }
+
+    #themeSheet .ts-card {
+
+      width: 100%; min-height: 62px;
+
+      display: flex; align-items: center; gap: 14px;
+
+      padding: 8px 15px;
+
+      border-radius: 15px;
+
+      border: 2px solid var(--ui-purple);
+
+      background: rgba(0,0,0,.14);
+
+      color: inherit; font-family: inherit;
+
+      text-align: left; cursor: pointer;
+
+      -webkit-tap-highlight-color: transparent;
+
+      transition: transform .2s, border-color .2s, background .2s;
+
+    }
+
+    #themeSheet .ts-card:active { transform: scale(.985); }
+
+    #themeSheet .ts-card.active { border-color: var(--ui-gold); background: rgba(0,0,0,.22); box-shadow: inset 0 0 0 1px var(--ui-gold); }
+
+    #themeSheet .ts-swatch { width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0; border: 2px solid rgba(255,255,255,.4); }
+
+    #themeSheet .ts-swatch--mystic { background: #8f62d1; border-color: #d4b35f; }
+
+    #themeSheet .ts-swatch--noir { background: #fffdf9; border-color: rgba(23,23,26,.42); }
+
+    #themeSheet .ts-swatch--parchment { background: #4a1722; border-color: #c9a454; }
+
+    #themeSheet .ts-swatch--dopamine { background: linear-gradient(135deg,#f2a8c5 0 35%,#a9d8ee 35% 68%,#bfe4d2 68%); border-color: rgba(143,175,204,.6); }
+
+    #themeSheet .ts-meta { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+
+    #themeSheet .ts-meta b { font-size: 14px; font-weight: 400; letter-spacing: 2px; }
+
+    #themeSheet .ts-meta em { font-style: normal; font-size: 10px; letter-spacing: 1px; opacity: .62; }
+
+    #themeSheet .ts-check { margin-left: auto; font-size: 13px; opacity: 0; transition: opacity .2s; }
+
+    #themeSheet .ts-card.active .ts-check { opacity: 1; }
+    /* ----- 面板与入口的「框」跟随当前背景的材质语言 ----- */
+    /* 霜白墨羽：象牙白实底 + 墨色双线框 + 轻投影（无发光） */
+    body[data-theme="noir"] #themeToggle { background: rgba(255,253,249,.86); border: 2px solid #17171a; color: #17171a; box-shadow: 0 5px 14px rgba(0,0,0,.1); }
+    body[data-theme="noir"] #themeSheet { background: rgba(255,253,249,.985); border: 2px solid #17171a; border-bottom: 0; box-shadow: 0 -10px 30px rgba(0,0,0,.16), inset 0 0 0 1px rgba(255,255,255,.8); backdrop-filter: none; }
+    body[data-theme="noir"] #themeSheet::before { content:''; position:absolute; inset:7px 7px 0; border:1px solid rgba(23,23,26,.28); border-bottom:0; border-radius:15px 15px 0 0; pointer-events:none; }
+    body[data-theme="noir"] #themeSheet .ts-title { border-bottom-color: rgba(23,23,26,.3); color: #17171a; }
+    body[data-theme="noir"] #themeSheet .ts-card { background: #f4f1eb; border: 2px solid rgba(23,23,26,.42); box-shadow: none; }
+    body[data-theme="noir"] #themeSheet .ts-card.active { background: #fff; border-color: #17171a; box-shadow: inset 0 0 0 1px #17171a; }
+    body[data-theme="noir"] #themeSheet .ts-check { color: #17171a; }
+
+    /* 琥珀秘卷：深浅双色珐琅 + 古铜双圈包边 + 内发光 */
+    body[data-theme="parchment"] #themeToggle { background: radial-gradient(circle at 36% 28%,rgba(255,231,165,.12),transparent 23%),radial-gradient(circle,#54202c 0 58%,#251318 72%); border: 2px solid #b89049; color: #efd584; box-shadow: 0 6px 17px rgba(0,0,0,.38),0 0 0 2px rgba(66,39,22,.85),0 0 0 3px rgba(202,163,82,.35),inset 0 0 10px rgba(238,198,105,.09); }
+    body[data-theme="parchment"] #themeSheet { background: linear-gradient(145deg,rgba(58,20,28,.985),rgba(16,38,34,.985)); border: 2px solid #b89049; border-bottom: 0; color: #f2dc9c; box-shadow: 0 -10px 34px rgba(0,0,0,.5),0 0 0 2px rgba(66,39,22,.85),0 0 0 3px rgba(202,163,82,.3),inset 0 0 24px rgba(238,198,105,.06); backdrop-filter: none; }
+    body[data-theme="parchment"] #themeSheet::before { content:''; position:absolute; inset:7px 7px 0; border:1px solid rgba(221,181,92,.3); border-bottom:0; border-radius:15px 15px 0 0; pointer-events:none; }
+    body[data-theme="parchment"] #themeSheet .ts-title { border-bottom-color: rgba(203,167,92,.5); color: #ead18e; }
+    body[data-theme="parchment"] #themeSheet .ts-card { background: linear-gradient(145deg,rgba(84,31,42,.86),rgba(27,58,52,.8)); border: 2px solid rgba(190,151,79,.62); color: #f0d99a; box-shadow: inset 0 0 10px rgba(215,175,91,.05); }
+    body[data-theme="parchment"] #themeSheet .ts-card.active { background: linear-gradient(145deg,rgba(102,38,52,.95),rgba(32,70,63,.9)); border-color: #e0c174; color: #fff0bd; box-shadow: inset 0 0 0 1px rgba(240,208,128,.4),0 0 16px rgba(203,167,92,.2); }
+    body[data-theme="parchment"] #themeSheet .ts-check { color: #efd584; }
+
+    /* 雾糖奇遇：雾白磨砂玻璃 + 糖果细边 + 内侧白线 */
+    body[data-theme="dopamine"] #themeToggle { background: radial-gradient(circle at 35% 26%,rgba(255,255,255,.95),rgba(255,255,255,.58) 42%,rgba(244,246,250,.7)); border: 2px solid #c5a9dc; color: #68758a; box-shadow: 0 6px 15px rgba(112,129,151,.13),inset 0 0 0 2px rgba(255,255,255,.62); }
+    body[data-theme="dopamine"] #themeSheet { background: linear-gradient(180deg,rgba(255,255,255,.97),rgba(246,248,251,.95)); border: 2px solid #a9cfe3; border-bottom: 0; color: #68758a; box-shadow: 0 -10px 30px rgba(112,129,151,.2),inset 0 0 0 2px rgba(255,255,255,.7); }
+    body[data-theme="dopamine"] #themeSheet .ts-title { border-bottom-color: rgba(145,203,230,.42); color: #607c91; }
+    body[data-theme="dopamine"] #themeSheet .ts-card { background: rgba(255,255,255,.86); border: 2px solid rgba(151,190,215,.55); box-shadow: 0 4px 11px rgba(112,129,151,.08),inset 0 0 0 1px rgba(255,255,255,.7); }
+    body[data-theme="dopamine"] #themeSheet .ts-card.active { background: #fff; border-color: #e598b8; box-shadow: 0 6px 16px rgba(223,114,165,.18),inset 0 0 0 1px rgba(255,255,255,.8); }
+    body[data-theme="dopamine"] #themeSheet .ts-check { color: #df72a5; }
+
+
+
+    /* ----- 面板与入口按钮的各主题细化 ----- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* ----- 进入丰盛 / 爱 仪式时收起配色入口（与 web 一致） ----- */
+
+    body.ritual-special #themeToggle,
+
+    body.ritual-special #themeSheet,
+
+    body.ritual-special #themeSheetBackdrop,
+
+    body.mode-abundance #themeToggle,
+
+    body.mode-love #themeToggle {
+
+      opacity: 0; visibility: hidden; pointer-events: none;
+
+    }
+
+
+
+    /* ===== 以下四套配色的组件级规则，从 web 显化之境移植 ===== */
+    body[data-theme="noir"] { --ui-bg:rgba(255,253,249,.9);--ui-purple-text:#242429;color:#242429;background:#faf9f6; }
+    body[data-theme="noir"] #starfield { background-color:#fbfaf7;background-image:radial-gradient(ellipse at 50% 36%,rgba(255,255,255,.98),rgba(240,240,238,.64) 48%,rgba(224,224,222,.58) 100%),radial-gradient(circle at 18% 22%,rgba(255,255,255,.9),transparent 28%),radial-gradient(circle at 82% 72%,rgba(205,205,210,.22),transparent 32%); }
+    body[data-theme="noir"] .star { display:block;background:#55565b;box-shadow:0 0 3px rgba(25,25,28,.32),0 0 8px rgba(255,255,255,.96);animation:noirStarTwinkle 3.4s ease-in-out infinite alternate!important; }
+    body[data-theme="noir"] .star:nth-child(3n) { width:1px!important;height:1px!important;background:#a9a9ad;animation-duration:4.6s!important; }
+    body[data-theme="noir"] .star:nth-child(11n) { width:3px!important;height:3px!important;background:#fff;border:1px solid rgba(52,52,56,.42);box-shadow:0 0 4px rgba(30,30,34,.32),0 0 11px rgba(255,255,255,1);animation-duration:1.8s!important; }
+    body[data-theme="noir"] .altar-ring { border-color:rgba(25,25,28,.42)!important;box-shadow:0 0 12px rgba(0,0,0,.06),inset 0 0 16px rgba(0,0,0,.025); }
+    body[data-theme="noir"] .rune-ring { border-color:rgba(25,25,28,.25); }
+    body[data-theme="noir"] .rune { color:rgba(25,25,28,.42); }
+    body[data-theme="noir"] .altar-glow { background:radial-gradient(circle,rgba(30,30,34,.08),transparent 70%); }
+    body[data-theme="noir"] .altar-item.activated::after { border-color:rgba(25,25,28,.34); }
+    body[data-theme="noir"] .world-switch--west { --ws-ink:#2c2d32;--ws-ink-hi:#0f0f12; --ws-border:rgba(37,37,41,.5);--ws-border-hi:rgba(37,37,41,.85); --ws-halo:rgba(37,37,41,.14);--ws-glow:rgba(37,37,41,.3); background:linear-gradient(160deg,rgba(255,253,249,.96),rgba(238,237,233,.92)); box-shadow:0 0 0 4px rgba(37,37,41,.08),inset 0 0 14px rgba(37,37,41,.08),0 6px 18px rgba(20,20,24,.16); }
+    body[data-theme="noir"] .world-switch--west .ws-tip { border-color:rgba(37,37,41,.42);background:linear-gradient(90deg,rgba(255,253,249,.98),rgba(240,239,236,.94)); }
+    body[data-theme="noir"] .energy-burst { background:radial-gradient(circle,rgba(255,255,255,.48),rgba(180,180,184,.14) 42%,transparent 72%); }
+    body[data-theme="noir"] .energy-wave .ring { border-color:rgba(35,35,39,.26);box-shadow:0 0 10px rgba(255,255,255,.5); }
+    body[data-theme="noir"] .energy-wave .ring:nth-child(3) { border-color:rgba(105,105,110,.18); }
+    body[data-theme="noir"] #activateBtn.active { background:rgba(255,255,255,.78);border-color:#252529;color:#252529;box-shadow:0 0 24px rgba(35,35,39,.18),0 0 0 4px rgba(255,255,255,.55); }
+    body[data-theme="noir"] #divinationDrawer .drawer-panel,body[data-theme="noir"] #recordDrawer .drawer-panel,body[data-theme="noir"] #intentionPanel,body[data-theme="noir"] #layoutSaveDialog .layout-save-card,body[data-theme="noir"] #recordPage { background:rgba(255,253,249,.94);border-color:#252529;color:#252529;box-shadow:0 12px 32px rgba(0,0,0,.12); }
+    body[data-theme="noir"] .drawer-bookmark,body[data-theme="noir"] #intentionTab,body[data-theme="noir"] #activateBtn,body[data-theme="noir"] #altarClearBtn,body[data-theme="noir"] #manifestRecordBtn,body[data-theme="noir"] .ui-nav-link { background:rgba(255,253,249,.82);border-color:#252529;color:#252529;box-shadow:0 5px 14px rgba(0,0,0,.1); }
+    body[data-theme="noir"] .ui-nav-link { background:rgba(255,253,249,.46);border:2px solid #17171a;color:#17171a;box-shadow:0 5px 14px rgba(0,0,0,.1);backdrop-filter:blur(6px); }
+    body[data-theme="noir"] .ui-nav-link:hover { background:#17171a;border-color:#17171a;color:#fff; }
+    body[data-theme="noir"] #divinationDrawer .panel-title,body[data-theme="noir"] #recordDrawer .panel-title,body[data-theme="noir"] #intentionPanel .panel-title { color:#252529;border-color:rgba(25,25,28,.3);text-shadow:none; }
+    body[data-theme="noir"] #altarClearBtn .clear-icon,body[data-theme="noir"] #manifestRecordBtn .layout-icon { color:#252529;filter:none; }
+    body[data-theme="noir"] #guidance,body[data-theme="noir"] #guidance.active { color:#4d4d52;text-shadow:none; }
+    body[data-theme="noir"] .status-toast { background:rgba(255,253,249,.95);border-color:#252529;color:#252529;box-shadow:0 8px 22px rgba(0,0,0,.12); }
+    body[data-theme="noir"] #activateBtn .btn-star,body[data-theme="noir"] #activateBtn.active .btn-star { color:#252529;text-shadow:none; }
+    body[data-theme="noir"] #altarClearBtn::before,body[data-theme="noir"] #manifestRecordBtn::before { border-color:rgba(37,37,41,.38); }
+    body[data-theme="noir"] #altarClearBtn::after,body[data-theme="noir"] #manifestRecordBtn::after { border-color:rgba(37,37,41,.14); }
+    body[data-theme="noir"] #altarClearBtn .clear-rune,body[data-theme="noir"] #manifestRecordBtn .clear-rune { color:rgba(37,37,41,.48);text-shadow:none; }
+    body[data-theme="noir"] #altarClearBtn .magic-broom-handle,body[data-theme="noir"] #altarClearBtn .magic-broom-handle-highlight,body[data-theme="noir"] #altarClearBtn .magic-broom-detail,body[data-theme="noir"] #altarClearBtn .magic-broom-ribbon { fill:none;stroke:#252529;filter:none; }
+    body[data-theme="noir"] #altarClearBtn .magic-broom-band { fill:#fff;stroke:#252529; }
+    body[data-theme="noir"] #altarClearBtn .magic-broom-brush { fill:#fff;stroke:#252529; }
+    body[data-theme="noir"] #altarClearBtn .magic-broom-star,body[data-theme="noir"] #manifestRecordBtn .layout-node { fill:#252529; }
+    body[data-theme="noir"] #manifestRecordBtn .layout-frame,body[data-theme="noir"] #manifestRecordBtn .layout-line { stroke:#252529; }
+    body[data-theme="noir"] #divTab.drawer-bookmark,body[data-theme="noir"] #recTab.drawer-bookmark { --bookmark-rgb:32,32,36;background:rgba(255,253,249,.94);border-color:#252529;color:#252529;box-shadow:4px 7px 15px rgba(0,0,0,.1); }
+    body[data-theme="noir"] #divinationDrawer .divination-item,body[data-theme="noir"] #divinationDrawer .potion-item,body[data-theme="noir"] #recordDrawer .record-item { background:rgba(255,253,249,.72);border-color:rgba(37,37,41,.62);color:#252529;box-shadow:none; }
+    body[data-theme="noir"] #divinationDrawer .divination-item:hover,body[data-theme="noir"] #divinationDrawer .potion-item:hover,body[data-theme="noir"] #recordDrawer .record-item:hover { background:#fff;border-color:#111;color:#111;box-shadow:0 5px 13px rgba(0,0,0,.1); }
+    body[data-theme="noir"] #divinationDrawer .di-label,body[data-theme="noir"] #divinationDrawer .potion-sec-title,body[data-theme="noir"] #recordDrawer .record-item .ri-q,body[data-theme="noir"] #recordDrawer .ri-count,body[data-theme="noir"] #recordDrawer .record-empty { color:#252529;border-color:rgba(37,37,41,.34); }
+    body[data-theme="noir"] #recordDrawer .layout-delete,body[data-theme="noir"] #divinationDrawer .potion-delete { color:#252529;background:#fffdf9;border-color:rgba(37,37,41,.55); }
+    body[data-theme="noir"] #intentionInput,body[data-theme="noir"] #wishGenerateBtn,body[data-theme="noir"] #layoutSaveDialog input,body[data-theme="noir"] #layoutSaveDialog button,body[data-theme="noir"] #recordPage input,body[data-theme="noir"] #recordPage textarea,body[data-theme="noir"] #recordPage .rp-btn { background:rgba(255,255,255,.7);border-color:#252529;color:#252529; }
+    body[data-theme="parchment"] { --ui-bg:rgba(43,17,23,.94);--ui-purple-text:#f0d990;color:#f0d990;background:#160b0d; }
+    body[data-theme="parchment"] #starfield { background:radial-gradient(ellipse at 50% 35%,#55242d,#271117 68%,#12090b); }
+    body[data-theme="parchment"] .star { background:#e8c778;opacity:.3!important; }
+    body[data-theme="parchment"] .altar-ring { border-color:rgba(216,177,91,.48)!important;box-shadow:0 0 22px rgba(205,151,66,.12),inset 0 0 20px rgba(205,151,66,.05); }
+    body[data-theme="parchment"] .rune-ring { border-color:rgba(223,193,116,.48); }
+    body[data-theme="parchment"] .rune { color:rgba(240,213,145,.58); }
+    body[data-theme="parchment"] .altar-glow { background:radial-gradient(circle,rgba(191,113,60,.2),rgba(91,35,37,.09) 45%,transparent 72%); }
+    body[data-theme="parchment"] .altar-item.activated::after { border-color:rgba(203,167,92,.44); }
+    body[data-theme="parchment"] .world-switch--west { --ws-ink:#e8c97d;--ws-ink-hi:#f6e0a2; --ws-border:rgba(203,167,92,.66);--ws-border-hi:rgba(228,192,114,.95); --ws-halo:rgba(203,167,92,.18);--ws-glow:rgba(232,190,116,.44); }
+    body[data-theme="parchment"] .energy-burst { background:radial-gradient(circle,rgba(223,193,116,.3),rgba(92,43,34,.13) 46%,transparent 72%); }
+    body[data-theme="parchment"] .energy-wave .ring { border-color:rgba(203,167,92,.3);box-shadow:0 0 10px rgba(203,167,92,.12); }
+    body[data-theme="parchment"] .energy-wave .ring:nth-child(3) { border-color:rgba(95,145,126,.22); }
+    body[data-theme="parchment"] #divinationDrawer .drawer-panel,body[data-theme="parchment"] #recordDrawer .drawer-panel,body[data-theme="parchment"] #intentionPanel,body[data-theme="parchment"] #layoutSaveDialog .layout-save-card,body[data-theme="parchment"] #recordPage { background:linear-gradient(145deg,rgba(68,24,33,.97),rgba(16,42,37,.96));border-color:#b89049;color:#eed696;box-shadow:0 15px 36px rgba(0,0,0,.4); }
+    body[data-theme="parchment"] .drawer-bookmark,body[data-theme="parchment"] #intentionTab,body[data-theme="parchment"] #activateBtn,body[data-theme="parchment"] #altarClearBtn,body[data-theme="parchment"] #manifestRecordBtn,body[data-theme="parchment"] .ui-nav-link { background:linear-gradient(145deg,#4a1a26,#173b35);border-color:#b89049;color:#ecd38f;box-shadow:0 5px 15px rgba(0,0,0,.3); }
+    body[data-theme="parchment"] .ui-nav-link { background:linear-gradient(145deg,#4a1a26,#173b35);border:1px solid #b89049;color:#ecd38f;box-shadow:0 5px 14px rgba(0,0,0,.3),inset 0 0 0 1px rgba(238,199,105,.06); }
+    body[data-theme="parchment"] .ui-nav-link:hover { border-color:#e0c174;color:#fff0bd; }
+    body[data-theme="parchment"] #divinationDrawer .panel-title,body[data-theme="parchment"] #recordDrawer .panel-title,body[data-theme="parchment"] #intentionPanel .panel-title { color:#efd58f;border-color:rgba(203,167,92,.5); }
+    body[data-theme="parchment"] #guidance,body[data-theme="parchment"] #guidance.active { color:#dfc174;text-shadow:0 0 8px rgba(203,167,92,.2); }
+    body[data-theme="parchment"] .status-toast { background:linear-gradient(145deg,rgba(74,26,38,.97),rgba(23,59,53,.97));border-color:#c09a50;color:#f1d994;box-shadow:0 9px 24px rgba(0,0,0,.34),inset 0 0 10px rgba(239,213,132,.05); }
+    body[data-theme="parchment"] #activateBtn .btn-star,body[data-theme="parchment"] #activateBtn.active .btn-star { color:#efd584;text-shadow:0 0 5px rgba(203,167,92,.3); }
+    body[data-theme="parchment"] #altarClearBtn::before,body[data-theme="parchment"] #manifestRecordBtn::before { border-color:rgba(203,167,92,.44); }
+    body[data-theme="parchment"] #altarClearBtn::after,body[data-theme="parchment"] #manifestRecordBtn::after { border-color:rgba(223,193,116,.18); }
+    body[data-theme="parchment"] #altarClearBtn .clear-rune,body[data-theme="parchment"] #manifestRecordBtn .clear-rune { color:rgba(239,213,132,.56); }
+    body[data-theme="parchment"] #altarClearBtn .magic-broom-handle,body[data-theme="parchment"] #altarClearBtn .magic-broom-handle-highlight,body[data-theme="parchment"] #altarClearBtn .magic-broom-detail,body[data-theme="parchment"] #altarClearBtn .magic-broom-ribbon { fill:none;stroke:#efd584;filter:none; }
+    body[data-theme="parchment"] #altarClearBtn .magic-broom-band { fill:#173b35;stroke:#efd584; }
+    body[data-theme="parchment"] #altarClearBtn .magic-broom-brush { fill:#4a1a26;stroke:#efd584; }
+    body[data-theme="parchment"] #altarClearBtn .magic-broom-star,body[data-theme="parchment"] #manifestRecordBtn .layout-node { fill:#efd584; }
+    body[data-theme="parchment"] #manifestRecordBtn .layout-frame,body[data-theme="parchment"] #manifestRecordBtn .layout-line { stroke:#efd584; }
+    body[data-theme="parchment"] #divTab.drawer-bookmark { --bookmark-rgb:203,167,92;background:linear-gradient(145deg,#4a1a26,#173b35);border-color:#c09a50;color:#f1d994; }
+    body[data-theme="parchment"] #recTab.drawer-bookmark { --bookmark-rgb:112,151,148;background:linear-gradient(145deg,#173b35,#4a1a26);border-color:#9fbdad;color:#d8e6d9; }
+    body[data-theme="parchment"] #divinationDrawer .divination-item,body[data-theme="parchment"] #divinationDrawer .potion-item,body[data-theme="parchment"] #recordDrawer .record-item { background:linear-gradient(145deg,rgba(73,25,35,.82),rgba(22,55,48,.78));border-color:rgba(203,167,92,.58);color:#efd596;box-shadow:inset 0 0 10px rgba(215,175,91,.04); }
+    body[data-theme="parchment"] #divinationDrawer .di-label,body[data-theme="parchment"] #divinationDrawer .potion-sec-title,body[data-theme="parchment"] #recordDrawer .record-item .ri-q,body[data-theme="parchment"] #recordDrawer .ri-count { color:#efd596;border-color:rgba(203,167,92,.45); }
+    body[data-theme="parchment"] #recordDrawer .layout-delete,body[data-theme="parchment"] #divinationDrawer .potion-delete { color:#efd596;background:#29141a;border-color:#b89049; }
+    body[data-theme="parchment"] #intentionInput,body[data-theme="parchment"] #wishGenerateBtn,body[data-theme="parchment"] #layoutSaveDialog input,body[data-theme="parchment"] #layoutSaveDialog button,body[data-theme="parchment"] #recordPage input,body[data-theme="parchment"] #recordPage textarea,body[data-theme="parchment"] #recordPage .rp-btn { background:rgba(28,22,21,.58);border-color:#b89049;color:#efd596; }
+    body[data-theme="dopamine"] { --ui-bg:rgba(255,255,255,.78);--ui-purple-text:#68758a;color:#68758a;background:#f8f7f4; }
+    body[data-theme="dopamine"] #starfield { background-color:#fbfbfa;background-image:radial-gradient(circle at 24% 22%,rgba(242,168,197,.24),transparent 34%),radial-gradient(circle at 78% 72%,rgba(169,216,238,.28),transparent 37%),radial-gradient(circle at 62% 18%,rgba(191,228,210,.2),transparent 28%),radial-gradient(circle,rgba(255,255,255,.88) 0 1px,transparent 1.5px);background-size:auto,auto,auto,20px 20px; }
+    body[data-theme="dopamine"] .star { background:#91cbe6;box-shadow:0 0 4px rgba(145,203,230,.62),0 0 9px rgba(255,255,255,.96);animation:dopamineStarTwinkle 3.2s ease-in-out infinite alternate!important; }
+    body[data-theme="dopamine"] .star:nth-child(3n) { background:#e598b8;box-shadow:0 0 5px rgba(229,152,184,.48); }
+    body[data-theme="dopamine"] .star:nth-child(3n+1) { background:#9fd8bf;box-shadow:0 0 5px rgba(159,216,191,.5); }
+    body[data-theme="dopamine"] .star:nth-child(7n) { width:3px!important;height:3px!important;background:#fff;box-shadow:0 0 5px #fff,0 0 12px rgba(169,216,238,.85);animation-duration:1.65s!important; }
+    body[data-theme="dopamine"] .star:nth-child(5n) { animation-duration:4.4s!important; }
+    body[data-theme="dopamine"] .altar-ring { border-color:rgba(145,203,230,.55)!important;box-shadow:0 0 25px rgba(169,216,238,.18),inset 0 0 22px rgba(242,168,197,.08); }
+    body[data-theme="dopamine"] .altar-ring:nth-child(even) { border-color:rgba(229,152,184,.38)!important; }
+    body[data-theme="dopamine"] .rune-ring { border-color:rgba(225,193,112,.42); }
+    body[data-theme="dopamine"] .rune { color:rgba(114,137,164,.45); }
+    body[data-theme="dopamine"] .altar-glow { background:radial-gradient(circle,rgba(242,168,197,.18),rgba(169,216,238,.09) 45%,transparent 72%); }
+    body[data-theme="dopamine"] .altar-item.activated::after { border-color:rgba(229,152,184,.38); }
+    body[data-theme="dopamine"] .world-switch--west { --ws-ink:#b66788;--ws-ink-hi:#df72a5; --ws-border:rgba(229,152,184,.62);--ws-border-hi:rgba(233,120,168,.92); --ws-halo:rgba(229,152,184,.2);--ws-glow:rgba(229,152,184,.42); background:linear-gradient(160deg,rgba(255,255,255,.96),rgba(248,244,249,.94)); box-shadow:0 0 0 4px rgba(229,152,184,.14),inset 0 0 14px rgba(229,152,184,.14),0 6px 18px rgba(112,129,151,.16); }
+    body[data-theme="dopamine"] .world-switch--west .ws-tip { border-color:rgba(229,152,184,.5);background:linear-gradient(90deg,rgba(255,255,255,.98),rgba(247,244,250,.95));color:#b66788; }
+    body[data-theme="dopamine"] .energy-burst { background:radial-gradient(circle,rgba(242,168,197,.23),rgba(169,216,238,.12) 46%,transparent 72%); }
+    body[data-theme="dopamine"] .energy-wave .ring { border-color:rgba(145,203,230,.34);box-shadow:0 0 10px rgba(169,216,238,.16); }
+    body[data-theme="dopamine"] .energy-wave .ring:nth-child(2) { border-color:rgba(229,152,184,.26); }
+    body[data-theme="dopamine"] .energy-wave .ring:nth-child(3) { border-color:rgba(191,228,210,.32); }
+    body[data-theme="dopamine"] #divinationDrawer .drawer-panel,body[data-theme="dopamine"] #recordDrawer .drawer-panel,body[data-theme="dopamine"] #intentionPanel,body[data-theme="dopamine"] #layoutSaveDialog .layout-save-card,body[data-theme="dopamine"] #recordPage { background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(247,246,250,.88));border-color:#a9cfe3;color:#68758a;box-shadow:0 14px 38px rgba(112,129,151,.17);backdrop-filter:blur(12px); }
+    body[data-theme="dopamine"] .drawer-bookmark,body[data-theme="dopamine"] #intentionTab,body[data-theme="dopamine"] #activateBtn,body[data-theme="dopamine"] #altarClearBtn,body[data-theme="dopamine"] #manifestRecordBtn,body[data-theme="dopamine"] .ui-nav-link { background:rgba(255,255,255,.68);border-color:#a9cfe3;color:#68758a;box-shadow:0 6px 16px rgba(112,129,151,.12);backdrop-filter:blur(8px); }
+    body[data-theme="dopamine"] .ui-nav-link { background:rgba(255,255,255,.58);border:1.5px solid #a9cfe3;color:#67758a;box-shadow:0 5px 13px rgba(112,129,151,.1);backdrop-filter:blur(7px); }
+    body[data-theme="dopamine"] .ui-nav-link:hover { background:rgba(255,255,255,.85);border-color:#e598b8;color:#68758a; }
+    body[data-theme="dopamine"] #intentionTab { background:rgba(255,255,255,.72);border-color:#91cbe6;color:#607c91;box-shadow:0 6px 17px rgba(145,203,230,.18),0 0 0 3px rgba(169,216,238,.1); }
+    body[data-theme="dopamine"] #intentionTab svg { stroke:#607c91;filter:drop-shadow(0 0 4px rgba(145,203,230,.38)); }
+    body[data-theme="dopamine"] #intentionTab:hover,body[data-theme="dopamine"] #intentionTab.active { border-color:#72b9dc;color:#486d86;box-shadow:0 8px 20px rgba(145,203,230,.24),0 0 0 3px rgba(169,216,238,.16); }
+    body[data-theme="dopamine"] #activateBtn { border-color:#e598b8; }
+    body[data-theme="dopamine"] #altarClearBtn { background:rgba(255,248,251,.82);border-color:#e598b8;color:#b66788;box-shadow:0 6px 16px rgba(229,152,184,.18); }
+    body[data-theme="dopamine"] #divinationDrawer .panel-title,body[data-theme="dopamine"] #recordDrawer .panel-title,body[data-theme="dopamine"] #intentionPanel .panel-title { color:#68758a;border-color:rgba(145,203,230,.45);text-shadow:none; }
+    body[data-theme="dopamine"] #altarClearBtn .clear-icon,body[data-theme="dopamine"] #manifestRecordBtn .layout-icon { color:#68758a;filter:none; }
+    body[data-theme="dopamine"] #guidance,body[data-theme="dopamine"] #guidance.active { color:#78869a;text-shadow:none; }
+    body[data-theme="dopamine"] .status-toast { background:rgba(255,255,255,.9);border-color:#e598b8;color:#68758a;box-shadow:0 9px 24px rgba(112,129,151,.15),0 0 0 3px rgba(169,216,238,.16);backdrop-filter:blur(9px); }
+    body[data-theme="dopamine"] #activateBtn .btn-star,body[data-theme="dopamine"] #activateBtn.active .btn-star { color:#df72a5;text-shadow:0 0 5px rgba(229,152,184,.28); }
+    body[data-theme="dopamine"] #altarClearBtn::before { border-color:rgba(229,152,184,.5); }
+    body[data-theme="dopamine"] #manifestRecordBtn::before { border-color:rgba(145,203,230,.52); }
+    body[data-theme="dopamine"] #altarClearBtn::after,body[data-theme="dopamine"] #manifestRecordBtn::after { border-color:rgba(104,117,138,.14); }
+    body[data-theme="dopamine"] #altarClearBtn .clear-rune { color:rgba(229,152,184,.62);text-shadow:none; }
+    body[data-theme="dopamine"] #manifestRecordBtn .clear-rune { color:rgba(145,203,230,.68);text-shadow:none; }
+    body[data-theme="dopamine"] #altarClearBtn .magic-broom-handle,body[data-theme="dopamine"] #altarClearBtn .magic-broom-handle-highlight,body[data-theme="dopamine"] #altarClearBtn .magic-broom-detail,body[data-theme="dopamine"] #altarClearBtn .magic-broom-ribbon { fill:none;stroke:#b66788;filter:none; }
+    body[data-theme="dopamine"] #altarClearBtn .magic-broom-band { fill:#bfe4d2;stroke:#6f9f8d; }
+    body[data-theme="dopamine"] #altarClearBtn .magic-broom-brush { fill:#f2a8c5;stroke:#c9789c; }
+    body[data-theme="dopamine"] #altarClearBtn .magic-broom-star { fill:#df72a5; }
+    body[data-theme="dopamine"] #manifestRecordBtn .layout-frame,body[data-theme="dopamine"] #manifestRecordBtn .layout-line { stroke:#607c91; }
+    body[data-theme="dopamine"] #manifestRecordBtn .layout-node { fill:#df72a5; }
+    body[data-theme="dopamine"] #divTab.drawer-bookmark { --bookmark-rgb:229,152,184;background:rgba(255,255,255,.72);border-color:#e598b8;color:#866a7a; }
+    body[data-theme="dopamine"] #recTab.drawer-bookmark { --bookmark-rgb:145,203,230;background:rgba(255,255,255,.72);border-color:#91cbe6;color:#607c91; }
+    body[data-theme="dopamine"] #divinationDrawer .divination-item,body[data-theme="dopamine"] #divinationDrawer .potion-item,body[data-theme="dopamine"] #recordDrawer .record-item { background:rgba(255,255,255,.66);border-color:rgba(145,203,230,.58);color:#68758a;box-shadow:0 4px 11px rgba(112,129,151,.08); }
+    body[data-theme="dopamine"] #divinationDrawer .divination-item:nth-child(3n+1) { border-color:rgba(229,152,184,.62); }
+    body[data-theme="dopamine"] #divinationDrawer .divination-item:nth-child(3n+2) { border-color:rgba(191,228,210,.75); }
+    body[data-theme="dopamine"] #divinationDrawer .di-label,body[data-theme="dopamine"] #divinationDrawer .potion-sec-title,body[data-theme="dopamine"] #recordDrawer .record-item .ri-q,body[data-theme="dopamine"] #recordDrawer .ri-count,body[data-theme="dopamine"] #recordDrawer .record-empty { color:#68758a;border-color:rgba(145,203,230,.42); }
+    body[data-theme="dopamine"] #recordDrawer .layout-delete,body[data-theme="dopamine"] #divinationDrawer .potion-delete { color:#68758a;background:rgba(255,255,255,.78);border-color:#91cbe6; }
+    body[data-theme="dopamine"] #intentionInput,body[data-theme="dopamine"] #wishGenerateBtn,body[data-theme="dopamine"] #layoutSaveDialog input,body[data-theme="dopamine"] #layoutSaveDialog button,body[data-theme="dopamine"] #recordPage input,body[data-theme="dopamine"] #recordPage textarea,body[data-theme="dopamine"] #recordPage .rp-btn { background:rgba(255,255,255,.72);border-color:#a9cfe3;color:#68758a; }
+    body[data-theme="noir"] #intentionPanel { --wish-accent:#29292d;--wish-accent-soft:rgba(41,41,45,.17);--wish-ink:#29292d;--wish-surface:linear-gradient(155deg,rgba(255,255,255,.98),rgba(247,246,242,.96));--wish-input:rgba(255,255,255,.7);--wish-shadow:rgba(20,20,24,.15); }
+    body[data-theme="parchment"] #intentionPanel { --wish-accent:#c09a50;--wish-accent-soft:rgba(203,167,92,.23);--wish-ink:#f1d994;--wish-surface:linear-gradient(155deg,rgba(74,26,38,.98),rgba(22,55,48,.97));--wish-input:rgba(19,19,19,.28);--wish-shadow:rgba(0,0,0,.42); }
+    body[data-theme="dopamine"] #intentionPanel { --wish-accent:#91cbe6;--wish-accent-soft:rgba(145,203,230,.24);--wish-ink:#607c91;--wish-surface:linear-gradient(155deg,rgba(255,255,255,.96),rgba(247,251,252,.9));--wish-input:rgba(255,255,255,.62);--wish-shadow:rgba(112,129,151,.18); }
+    body[data-theme="dopamine"] #intentionPanel .intention-emblem { border-color:#e598b8;color:#c77499;box-shadow:0 8px 20px rgba(112,129,151,.14),0 0 16px rgba(229,152,184,.2); }
+    body[data-theme="noir"] #intentionBackdrop { background:rgba(248,247,243,.48); }
+    body[data-theme="parchment"] #intentionBackdrop { background:rgba(28,10,14,.38); }
+    body[data-theme="dopamine"] #intentionBackdrop { background:rgba(250,251,251,.46); }
+    body[data-theme="noir"] .wish-bottle { --bottle-line:#33343a;--bottle-line-soft:rgba(51,52,58,.28);--bottle-glass:rgba(255,255,255,.72);--bottle-depth:rgba(168,169,174,.2);--bottle-glint:#fff;--bottle-star:#383940;--note-bg:linear-gradient(155deg,rgba(255,255,255,.96),rgba(236,236,233,.92));--note-line:rgba(51,52,58,.55);--note-ink:#2c2d32;filter:drop-shadow(0 8px 10px rgba(20,20,24,.16)); }
+    body[data-theme="parchment"] .wish-bottle { --bottle-line:#c09a50;--bottle-line-soft:rgba(203,167,92,.42);--bottle-glass:rgba(75,25,36,.66);--bottle-depth:rgba(17,58,49,.64);--bottle-glint:#f0d990;--bottle-star:#f1d994;--note-bg:linear-gradient(145deg,rgba(74,26,38,.94),rgba(20,53,46,.92));--note-line:rgba(203,167,92,.72);--note-ink:#f1d994; }
+    body[data-theme="dopamine"] .wish-bottle { --bottle-line:#91cbe6;--bottle-line-soft:rgba(145,203,230,.38);--bottle-glass:rgba(242,168,197,.22);--bottle-depth:rgba(191,228,210,.3);--bottle-glint:#fff;--bottle-star:#df72a5;--note-bg:linear-gradient(155deg,rgba(255,255,255,.94),rgba(240,248,250,.9));--note-line:rgba(145,203,230,.7);--note-ink:#607c91;filter:drop-shadow(0 8px 11px rgba(112,129,151,.14)) drop-shadow(0 0 8px rgba(145,203,230,.2)); }
+    /* ===== 三种仪式入口与丰盛练习（增量层） ===== */ /* 星夜紫晶（默认）：仅在没有 data-theme 时生效，四套配色各自覆盖 */ body:not([data-theme]) #activateBtn { background:linear-gradient(155deg,rgba(42,19,68,.96),rgba(27,10,48,.96)); border-color:#a967d3;color:#f0d8ff; box-shadow:0 0 19px rgba(180,91,205,.3),inset 0 0 13px rgba(232,139,211,.08); }
+    body:not([data-theme]) #activateBtn::before { border-color:rgba(214,121,205,.38); }
+    body:not([data-theme]) #activateBtn:hover:not(:disabled), body:not([data-theme]) #activateBtn.active { background:linear-gradient(155deg,rgba(69,27,91,.98),rgba(42,14,66,.98)); border-color:#e08acb;color:#ffe8fb; box-shadow:0 0 32px rgba(202,103,197,.48),inset 0 0 16px rgba(239,147,211,.13); }
+    body:not([data-theme]) #activateBtn .btn-star, body:not([data-theme]) #activateBtn.active .btn-star { color:#e8a4db;text-shadow:0 0 7px rgba(232,126,208,.62); }
+    body:not([data-theme]) #activateBtn.locked { cursor:default;opacity:1;filter:none;box-shadow:0 0 19px rgba(180,91,205,.3),inset 0 0 13px rgba(232,139,211,.08); }
+    body:not([data-theme]) #activateBtn.locked:hover { opacity:1;filter:none; background:linear-gradient(155deg,rgba(69,27,91,.98),rgba(42,14,66,.98)); border-color:#e08acb;color:#ffe8fb; box-shadow:0 0 32px rgba(202,103,197,.48),inset 0 0 16px rgba(239,147,211,.13); }
+    /* ----- 三种仪式入口跟随页面配色：显化 / 丰盛 / 爱 ----- */ /* 霜白墨羽：象牙白玻璃 + 墨色镂空线稿，悬停反白为实心墨 */ body[data-theme="noir"] #abundanceModeBtn, body[data-theme="noir"] #loveModeBtn { color:#252529;border-color:#252529;background:rgba(255,253,249,.82); box-shadow:0 5px 14px rgba(0,0,0,.1); }
+    body[data-theme="noir"] #abundanceModeBtn:hover, body[data-theme="noir"] #abundanceModeBtn.active, body[data-theme="noir"] #loveModeBtn:hover, body[data-theme="noir"] #loveModeBtn.active { color:#fff;border-color:#17171a;background:#17171a; box-shadow:0 0 22px rgba(23,23,26,.26),0 0 0 4px rgba(23,23,26,.1); }
+    body[data-theme="noir"] #abundanceModeBtn svg circle { fill:rgba(23,23,26,.1); }
+    body[data-theme="noir"] #loveModeBtn svg path[fill] { fill:rgba(23,23,26,.08); }
+    body[data-theme="noir"] #activateBtn:hover:not(:disabled):not(.active), body[data-theme="noir"] #activateBtn.locked:hover { background:#17171a;border-color:#17171a;color:#fff; box-shadow:0 0 22px rgba(23,23,26,.26),0 6px 16px rgba(0,0,0,.18); }
+    body[data-theme="noir"] #activateBtn:hover:not(:disabled) .btn-star { color:#fff;text-shadow:none; }
+    body[data-theme="noir"] #activateBtn::before { border-color:rgba(23,23,26,.3); }
+    body[data-theme="noir"] .ritual-mode-btn::after { background:rgba(255,253,249,.97); }
+    /* 琥珀秘卷：古铜包边的深色珐琅，丰盛走金、爱走玫瑰金 */ body[data-theme="parchment"] #abundanceModeBtn, body[data-theme="parchment"] #loveModeBtn { border:2px solid #b89049;color:#f0d686; background:radial-gradient(circle at 36% 28%,rgba(255,231,165,.12),transparent 23%),radial-gradient(circle,#54202c 0 58%,#251318 72%); box-shadow:0 6px 17px rgba(0,0,0,.38),0 0 0 2px rgba(66,39,22,.85),0 0 0 3px rgba(202,163,82,.35),inset 0 0 10px rgba(238,198,105,.09); }
+    body[data-theme="parchment"] #loveModeBtn { border-color:rgba(198,139,160,.75);color:#eab8c9; background:radial-gradient(circle at 36% 28%,rgba(255,231,165,.1),transparent 23%),radial-gradient(circle,#4a2338 0 58%,#1e1020 72%); }
+    body[data-theme="parchment"] #abundanceModeBtn:hover, body[data-theme="parchment"] #abundanceModeBtn.active { border-color:#f0cc79;color:#fff0bd; background:radial-gradient(circle,#5f2634 0 58%,#2b171d 72%); box-shadow:0 0 24px rgba(226,177,76,.34),0 0 0 2px rgba(75,44,24,.9),0 0 0 3px rgba(224,193,116,.48); }
+    body[data-theme="parchment"] #loveModeBtn:hover, body[data-theme="parchment"] #loveModeBtn.active { border-color:#e5aac5;color:#ffe0ec; background:radial-gradient(circle,#552a42 0 58%,#221226 72%); box-shadow:0 0 24px rgba(208,127,165,.27),0 0 0 2px rgba(75,44,24,.9),0 0 0 3px rgba(224,193,116,.3); }
+    body[data-theme="parchment"] #abundanceModeBtn svg circle { fill:rgba(91,61,23,.42); }
+    body[data-theme="parchment"] #loveModeBtn svg path[fill] { fill:rgba(111,49,78,.3); }
+    body[data-theme="parchment"] #activateBtn:hover:not(:disabled), body[data-theme="parchment"] #activateBtn.active, body[data-theme="parchment"] #activateBtn.locked:hover { background:linear-gradient(155deg,#5a2030,#1c453c);border-color:#e0c174;color:#fff0bd; box-shadow:0 0 26px rgba(203,167,92,.3),inset 0 0 14px rgba(255,222,139,.1); }
+    body[data-theme="parchment"] #activateBtn::before { border-color:rgba(221,181,92,.42); }
+    body[data-theme="parchment"] .ritual-mode-btn::after { background:linear-gradient(145deg,rgba(74,26,38,.97),rgba(22,55,48,.97)); }
+    /* 雾糖奇遇：雾白玻璃 + 低饱和糖果色描边（丰盛奶油黄 / 爱 糖果粉） */ body[data-theme="dopamine"] #abundanceModeBtn, body[data-theme="dopamine"] #loveModeBtn { background:radial-gradient(circle at 35% 26%,rgba(255,255,255,.95),rgba(255,255,255,.58) 42%,rgba(244,246,250,.7)); box-shadow:0 6px 15px rgba(112,129,151,.13),inset 0 0 0 2px rgba(255,255,255,.62); }
+    body[data-theme="dopamine"] #abundanceModeBtn { border-color:#e7c977;color:#8a7540; }
+    body[data-theme="dopamine"] #loveModeBtn { border-color:#e598b8;color:#b66788; }
+    body[data-theme="dopamine"] #abundanceModeBtn:hover, body[data-theme="dopamine"] #abundanceModeBtn.active { border-color:#f0dd9a;color:#7b6534;background:rgba(255,255,255,.94); box-shadow:0 8px 20px rgba(112,129,151,.17),0 0 0 3px rgba(255,255,255,.6),0 0 18px rgba(231,201,119,.32); }
+    body[data-theme="dopamine"] #loveModeBtn:hover, body[data-theme="dopamine"] #loveModeBtn.active { border-color:#f2a8c5;color:#a85f7d;background:rgba(255,255,255,.94); box-shadow:0 8px 20px rgba(112,129,151,.17),0 0 0 3px rgba(255,255,255,.6),0 0 18px rgba(229,152,184,.34); }
+    body[data-theme="dopamine"] #abundanceModeBtn svg circle { fill:rgba(242,226,163,.55); }
+    body[data-theme="dopamine"] #loveModeBtn svg path[fill] { fill:rgba(242,168,197,.34); }
+    body[data-theme="dopamine"] #activateBtn:hover:not(:disabled), body[data-theme="dopamine"] #activateBtn.active, body[data-theme="dopamine"] #activateBtn.locked:hover { background:rgba(255,255,255,.94);border-color:#e598b8;color:#b66788; box-shadow:0 0 24px rgba(229,152,184,.32),0 0 0 4px rgba(255,255,255,.5); }
+    body[data-theme="dopamine"] #activateBtn::before { border-color:rgba(229,152,184,.42); }
+    body[data-theme="dopamine"] .ritual-mode-btn::after { background:rgba(255,255,255,.97); }
 </style>
 </head>
 <body data-world="west">
+<script>
+/* 配色尽早生效（先于星空/圆阵渲染），避免首屏先按默认色渲染再切换 */
+(function () {
+  var THEMES = ['noir', 'parchment', 'dopamine'];
+  var BG = { mystic: '#0d001a', noir: '#faf9f6', parchment: '#160b0d', dopamine: '#f8f7f4' };
+  var t = 'mystic';
+  try { t = localStorage.getItem('magiccat_reading_theme') || 'mystic'; } catch (e) {}
+  if (THEMES.indexOf(t) < 0) t = 'mystic';
+  if (t !== 'mystic') document.body.setAttribute('data-theme', t);
+  document.documentElement.style.backgroundColor = BG[t];
+  var meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', BG[t]);
+})();
+</script>
 <script src="world_switch.js"></script>
 
 <!-- 星空 -->
@@ -2396,10 +2870,48 @@ body.mode-love .love-portals { padding:4px 10px 96px; row-gap:10px; }
   </div>
 </div>
 
-<!-- 顶部导航 -->
-<div style="position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;z-index:999;display:flex;gap:10px;">
-  <a href="reading_ios.html" style="background:rgba(20,8,40,0.8);border:2px solid #5a307a;color:#a070d8;padding:6px 16px;font-size:12px;cursor:pointer;font-family:inherit;letter-spacing:2px;text-decoration:none;transition:all 0.3s;border-radius:999px;" onmouseover="this.style.borderColor='#b080ff';this.style.color='#e0ccff'" onmouseout="this.style.borderColor='#5a307a';this.style.color='#a070d8'">黑猫占卜桌</a>
+<!-- 顶部导航：黑猫占卜桌 + 配色入口 -->
+<div class="top-nav">
+  <a class="ui-nav-link" href="reading_ios.html">黑猫占卜桌</a>
 </div>
+
+<!-- 配色入口：一颗按钮 + 底部色卡面板 -->
+<button id="themeToggle" type="button" aria-label="切换页面配色" aria-expanded="false" aria-controls="themeSheet">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="8.7"/>
+    <circle cx="12" cy="6.4" r="1.35"/>
+    <circle cx="17.6" cy="12" r="1.35"/>
+    <circle cx="12" cy="17.6" r="1.35"/>
+    <circle cx="6.4" cy="12" r="1.35"/>
+    <circle cx="12" cy="12" r="1.05"/>
+  </svg>
+</button>
+<div id="themeSheetBackdrop"></div>
+<section id="themeSheet" role="dialog" aria-modal="true" aria-label="页面配色">
+  <div class="ts-title">页 面 配 色</div>
+  <div class="ts-list">
+    <button class="ts-card" type="button" data-theme="mystic" aria-pressed="false">
+      <span class="ts-swatch ts-swatch--mystic"></span>
+      <span class="ts-meta"><b>星夜紫晶</b><em>星雨 · 紫晶 · 月光</em></span>
+      <span class="ts-check">✦</span>
+    </button>
+    <button class="ts-card" type="button" data-theme="noir" aria-pressed="false">
+      <span class="ts-swatch ts-swatch--noir"></span>
+      <span class="ts-meta"><b>霜白墨羽</b><em>象牙白 · 墨线稿</em></span>
+      <span class="ts-check">✦</span>
+    </button>
+    <button class="ts-card" type="button" data-theme="parchment" aria-pressed="false">
+      <span class="ts-swatch ts-swatch--parchment"></span>
+      <span class="ts-meta"><b>琥珀秘卷</b><em>宝石釉面 · 古铜包边</em></span>
+      <span class="ts-check">✦</span>
+    </button>
+    <button class="ts-card" type="button" data-theme="dopamine" aria-pressed="false">
+      <span class="ts-swatch ts-swatch--dopamine"></span>
+      <span class="ts-meta"><b>雾糖奇遇</b><em>雾白底 · 低饱和糖果色</em></span>
+      <span class="ts-check">✦</span>
+    </button>
+  </div>
+</section>
 
 <script src="abundance_core.js"></script>
 <script src="love_v01.js"></script>
@@ -3502,5 +4014,62 @@ function exitOverlaysForRitual() {
 exitOverlaysForRitual();
 
 </script>
+<script>
+/* ============================================================
+   页面配色：四套主题（与 web 显化之境、iOS 黑猫占卜桌共用 key）
+   ============================================================ */
+(function () {
+  var THEME_KEY = 'magiccat_reading_theme';
+  var THEMES = ['mystic', 'noir', 'parchment', 'dopamine'];
+  var PAGE_BG = { mystic: '#0d001a', noir: '#faf9f6', parchment: '#160b0d', dopamine: '#f8f7f4' };
+  var toggle = document.getElementById('themeToggle');
+  var sheet = document.getElementById('themeSheet');
+  var backdrop = document.getElementById('themeSheetBackdrop');
+  var cards = [].slice.call(document.querySelectorAll('#themeSheet .ts-card'));
+  var metaColor = document.querySelector('meta[name="theme-color"]');
+  if (!toggle || !sheet) return;
+
+  function applyManifestTheme(theme, persist) {
+    var next = THEMES.indexOf(theme) >= 0 ? theme : 'mystic';
+    if (next === 'mystic') document.body.removeAttribute('data-theme');
+    else document.body.setAttribute('data-theme', next);
+    document.documentElement.style.backgroundColor = PAGE_BG[next];
+    if (metaColor) metaColor.setAttribute('content', PAGE_BG[next]);
+    cards.forEach(function (card) {
+      var active = card.getAttribute('data-theme') === next;
+      card.classList.toggle('active', active);
+      card.setAttribute('aria-pressed', String(active));
+    });
+    if (persist !== false) {
+      try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+    }
+  }
+
+  function openSheet() {
+    sheet.classList.add('open');
+    backdrop.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+  }
+  function closeSheet() {
+    sheet.classList.remove('open');
+    backdrop.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', function () {
+    if (sheet.classList.contains('open')) closeSheet(); else openSheet();
+  });
+  backdrop.addEventListener('click', closeSheet);
+  cards.forEach(function (card) {
+    card.addEventListener('click', function () { applyManifestTheme(card.getAttribute('data-theme')); });
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSheet(); });
+
+  var saved = 'mystic';
+  try { saved = localStorage.getItem(THEME_KEY) || 'mystic'; } catch (e) {}
+  applyManifestTheme(saved, false);
+})();
+</script>
+
 </body>
 </html>
