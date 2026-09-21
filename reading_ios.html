@@ -1118,9 +1118,647 @@
       background: rgba(255,122,138,.14);
     }
     .record-item .ri-delete:active { transform: scale(.94); }
+
+    /* ============================================================
+       页面配色（四套主题，与 web 黑猫占卜桌共用选择与记忆）
+       默认 mystic 不写 data-theme 属性
+       ============================================================ */
+
+    /* ----- 顶部导航：配色按钮 + 显化之境 ----- */
+    .top-nav {
+      position: fixed;
+      top: calc(12px + env(safe-area-inset-top));
+      right: 12px;
+      z-index: 999;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      pointer-events: none;
+    }
+    .ui-nav-link {
+      pointer-events: auto;
+      min-height: 40px;
+      padding: 0 18px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 999px;
+      border: 2px solid rgba(213,165,83,.55);
+      background: rgba(30,22,6,.45);
+      color: rgba(240,212,148,.72);
+      font-family: inherit;
+      font-size: 12px; letter-spacing: 2px;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: background .3s, border-color .3s, color .3s, box-shadow .3s, transform .2s;
+    }
+    .ui-nav-link:hover, .ui-nav-link:active {
+      border-color: #f5dd9a; color: #fff3cf;
+      box-shadow: 0 0 14px rgba(245,221,154,.45);
+    }
+
+    /* ----- 配色入口（顶部居中，点开底部色卡面板） ----- */
+    #themeToggle {
+      position: fixed;
+      top: calc(14px + env(safe-area-inset-top));
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1401;   /* 高于遮罩，面板打开时仍可点按收起 */
+      width: 44px; height: 44px; padding: 0;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      border: 2px solid var(--ui-purple);
+      background: var(--ui-bg);
+      color: var(--ui-purple-text);
+      cursor: pointer;
+      font-family: inherit;
+      -webkit-tap-highlight-color: transparent;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 16px rgba(159,114,223,.22), inset 0 0 10px rgba(159,114,223,.08);
+      transition: transform .28s, border-color .28s, box-shadow .28s, background .28s, color .28s;
+    }
+    #themeToggle:active { transform: translateX(-50%) scale(.94); }
+    #themeToggle[aria-expanded="true"] { border-color: var(--ui-gold); color: var(--ui-gold-text); }
+    #themeToggle svg {
+      width: 23px; height: 23px;
+      fill: none; stroke: currentColor; stroke-width: 1.55;
+      stroke-linecap: round; stroke-linejoin: round;
+      pointer-events: none;
+      filter: drop-shadow(0 0 4px currentColor);
+    }
+
+    /* ----- 底部色卡面板 ----- */
+    #themeSheetBackdrop {
+      position: fixed; inset: 0;
+      z-index: 1399;
+      background: transparent;
+      display: none;
+    }
+    #themeSheetBackdrop.open { display: block; }
+    #themeSheet {
+      position: fixed; left: 0; right: 0; bottom: 0;
+      z-index: 1400;
+      padding: 15px 16px calc(16px + env(safe-area-inset-bottom));
+      border-radius: 22px 22px 0 0;
+      border-top: 2px solid var(--ui-purple);
+      background: var(--ui-bg);
+      color: var(--ui-purple-text);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 -12px 34px rgba(0,0,0,.34);
+      transform: translateY(105%);
+      visibility: hidden;
+      touch-action: manipulation;
+      transition: transform .4s cubic-bezier(.25,1,.5,1), visibility .4s;
+    }
+    #themeSheet.open { transform: translateY(0); visibility: visible; }
+    #themeSheet .ts-title {
+      text-align: center;
+      font-size: 13px; letter-spacing: 5px;
+      padding-bottom: 11px; margin-bottom: 11px;
+      border-bottom: 1px solid var(--ui-purple);
+      opacity: .8;
+    }
+    #themeSheet .ts-list { display: grid; gap: 9px; }
+    #themeSheet .ts-card {
+      width: 100%; min-height: 62px;
+      display: flex; align-items: center; gap: 14px;
+      padding: 8px 15px;
+      border-radius: 15px;
+      border: 2px solid var(--ui-purple);
+      background: rgba(0,0,0,.14);
+      color: inherit; font-family: inherit;
+      text-align: left; cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .2s, border-color .2s, background .2s;
+    }
+    #themeSheet .ts-card:active { transform: scale(.985); }
+    #themeSheet .ts-card.active {
+      border-color: var(--ui-gold);
+      background: rgba(0,0,0,.22);
+      box-shadow: inset 0 0 0 1px var(--ui-gold);
+    }
+    #themeSheet .ts-swatch {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,.4);
+    }
+    #themeSheet .ts-swatch--mystic { background: #8f62d1; border-color: #d4b35f; }
+    #themeSheet .ts-swatch--noir { background: #fffdf9; border-color: rgba(23,23,26,.42); }
+    #themeSheet .ts-swatch--parchment { background: #4a1722; border-color: #c9a454; }
+    #themeSheet .ts-swatch--dopamine { background: linear-gradient(135deg,#f2a8c5 0 35%,#a9d8ee 35% 68%,#bfe4d2 68%); border-color: rgba(143,175,204,.6); }
+    #themeSheet .ts-meta { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+    #themeSheet .ts-meta b { font-size: 14px; font-weight: 400; letter-spacing: 2px; }
+    #themeSheet .ts-meta em { font-style: normal; font-size: 10px; letter-spacing: 1px; opacity: .62; }
+    #themeSheet .ts-check { margin-left: auto; font-size: 13px; opacity: 0; transition: opacity .2s; }
+    #themeSheet .ts-card.active .ts-check { opacity: 1; }
+
+    /* ---------- 一、霜白墨羽 ---------- */
+    body[data-theme="noir"] {
+      --ui-bg: rgba(255,253,249,.94);
+      --ui-blue: #6d6d73; --ui-blue-text: #2b2b30;
+      --ui-purple: #202024; --ui-purple-text: #242429;
+      --ui-gold: #17171a; --ui-gold-text: #17171a;
+      color: #17171a; background: #f4f1eb;
+    }
+    body[data-theme="noir"] #desktop {
+      background:
+        linear-gradient(90deg, rgba(23,23,26,.035) 1px, transparent 1px) 0 0/38px 38px,
+        linear-gradient(rgba(23,23,26,.035) 1px, transparent 1px) 0 0/38px 38px,
+        radial-gradient(ellipse at 50% 34%, #fffefa 0, #faf8f3 62%, #f0ede6 100%);
+    }
+    body[data-theme="noir"] #desktop::before { display: none; }
+    body[data-theme="noir"] .drawer,
+    body[data-theme="noir"] #drawerDeck,
+    body[data-theme="noir"] #drawerRec {
+      background: rgba(255,253,249,.985);
+      border-color: #202024;
+      color: #17171a;
+      box-shadow: 9px 0 26px rgba(0,0,0,.14), inset 0 0 0 1px rgba(255,255,255,.8);
+    }
+    body[data-theme="noir"] .drawer-title,
+    body[data-theme="noir"] #drawerDeck .drawer-title,
+    body[data-theme="noir"] #drawerRec .drawer-title { color: #17171a; border-color: rgba(23,23,26,.42); text-shadow: none; }
+    body[data-theme="noir"] .drawer-item,
+    body[data-theme="noir"] #drawerDeck .drawer-item,
+    body[data-theme="noir"] #drawerRec .record-item {
+      background: #f8f5ef; border-color: rgba(23,23,26,.4); color: #17171a;
+    }
+    body[data-theme="noir"] .drawer-item:hover,
+    body[data-theme="noir"] #drawerRec .record-item:hover { background: #fff; border-color: #17171a; color: #17171a; }
+    body[data-theme="noir"] .gem-label { color: rgba(23,23,26,.72); }
+    body[data-theme="noir"] #drawerRec .record-item img { border-color: rgba(23,23,26,.4); }
+    body[data-theme="noir"] #drawerRec .record-item .ri-q { color: #242429; }
+    body[data-theme="noir"] #drawerRec .record-item .ri-date,
+    body[data-theme="noir"] #drawerRec .record-empty { color: rgba(23,23,26,.5); }
+    body[data-theme="noir"] .record-item .ri-delete { border-color: rgba(23,23,26,.45); color: #242429; }
+    body[data-theme="noir"] #tabDeck.drawer-bookmark,
+    body[data-theme="noir"] #tabRec.drawer-bookmark {
+      --bookmark-rgb: 23,23,26;
+      background: rgba(255,253,249,.5);
+      border-color: #17171a; color: #17171a;
+      box-shadow: 3px 5px 13px rgba(0,0,0,.09);
+    }
+    body[data-theme="noir"] .side-tab.drawer-bookmark::before { border-color: rgba(23,23,26,.3); box-shadow: none; }
+    body[data-theme="noir"] .side-tab.drawer-bookmark:hover { color: #17171a; }
+    body[data-theme="noir"] #clearBtn,
+    body[data-theme="noir"] #shuffleBtn,
+    body[data-theme="noir"] #recordBtn,
+    body[data-theme="noir"] #astroDiceToggle {
+      background: rgba(255,253,249,.46);
+      border: 2px solid #17171a;
+      color: #17171a;
+      text-shadow: none;
+      box-shadow: 0 5px 14px rgba(0,0,0,.1);
+    }
+    body[data-theme="noir"] #clearBtn::before,
+    body[data-theme="noir"] #shuffleBtn::before,
+    body[data-theme="noir"] #recordBtn::before { border-color: rgba(23,23,26,.28); }
+    body[data-theme="noir"] #clearBtn::after,
+    body[data-theme="noir"] #shuffleBtn::after,
+    body[data-theme="noir"] #recordBtn::after { border-color: rgba(23,23,26,.2); }
+    body[data-theme="noir"] #clearBtn:hover,
+    body[data-theme="noir"] #shuffleBtn:hover,
+    body[data-theme="noir"] #recordBtn:hover,
+    body[data-theme="noir"] #astroDiceToggle:hover,
+    body[data-theme="noir"] .ui-nav-link:hover { background: #17171a; border-color: #17171a; color: #fff; box-shadow: none; }
+    body[data-theme="noir"] #clearBtn .clear-rune,
+    body[data-theme="noir"] #shuffleBtn .shuffle-rune,
+    body[data-theme="noir"] #recordBtn .clear-rune { color: rgba(23,23,26,.42); text-shadow: none; }
+    body[data-theme="noir"] #clearBtn:hover .clear-rune,
+    body[data-theme="noir"] #shuffleBtn:hover .shuffle-rune,
+    body[data-theme="noir"] #recordBtn:hover .clear-rune { color: rgba(255,255,255,.55); }
+    body[data-theme="noir"] #clearBtn .clear-icon,
+    body[data-theme="noir"] #shuffleBtn .shuffle-icon,
+    body[data-theme="noir"] #recordBtn .record-icon,
+    body[data-theme="noir"] #astroDiceToggle svg { color: #17171a; filter: none; }
+    body[data-theme="noir"] #clearBtn:hover .clear-icon,
+    body[data-theme="noir"] #shuffleBtn:hover .shuffle-icon,
+    body[data-theme="noir"] #recordBtn:hover .record-icon { color: #fff; }
+    body[data-theme="noir"] .clear-icon .magic-broom-handle,
+    body[data-theme="noir"] .clear-icon .magic-broom-band,
+    body[data-theme="noir"] .clear-icon .magic-broom-brush,
+    body[data-theme="noir"] .clear-icon .magic-broom-detail {
+      fill: none; stroke: currentColor; stroke-width: 1.35; filter: none;
+    }
+    body[data-theme="noir"] .clear-icon .magic-broom-handle { stroke-width: 1.65; }
+    body[data-theme="noir"] .clear-icon .magic-broom-handle-highlight,
+    body[data-theme="noir"] .clear-icon .magic-broom-ribbon,
+    body[data-theme="noir"] .clear-icon .magic-broom-star { display: none; }
+    body[data-theme="noir"] #recordBtn .record-icon .camera-body,
+    body[data-theme="noir"] #recordBtn .record-icon .camera-lens { stroke: #17171a; }
+    body[data-theme="noir"] #recordBtn .record-icon .camera-spark { fill: #17171a; filter: none; }
+    body[data-theme="noir"] #recordBtn:hover .record-icon .camera-body,
+    body[data-theme="noir"] #recordBtn:hover .record-icon .camera-lens { stroke: #fff; }
+    body[data-theme="noir"] #recordBtn:hover .record-icon .camera-spark { fill: #fff; }
+    body[data-theme="noir"] #astroDiceClose {
+      background: rgba(255,253,249,.72); border-color: #17171a; color: #17171a;
+      box-shadow: 0 4px 12px rgba(0,0,0,.12);
+    }
+    body[data-theme="noir"] #astroDiceClose:hover { background: #17171a; color: #fff; }
+    body[data-theme="noir"] .fan-card .card-inner { border-color: #17171a; box-shadow: inset 0 0 0 1px rgba(255,255,255,.28); }
+    body[data-theme="noir"] .fan-card:hover .card-inner { border-color: #17171a; box-shadow: 0 7px 18px rgba(0,0,0,.24); }
+    body[data-theme="noir"] .fan-card.preselected .card-inner { border-color: #17171a; box-shadow: 0 8px 24px rgba(0,0,0,.28); animation: none; }
+    body[data-theme="noir"] #fanArea.shuffling .fan-card { filter: brightness(1.05) drop-shadow(0 0 9px rgba(0,0,0,.28)); }
+    body[data-theme="noir"] .placed-card { border-color: #17171a; box-shadow: 0 7px 18px rgba(0,0,0,.18); }
+    body[data-theme="noir"] .placed-card:hover { border-color: #17171a; box-shadow: 0 9px 26px rgba(0,0,0,.28); }
+    body[data-theme="noir"] .fan-counter { color: #17171a; text-shadow: none; }
+    body[data-theme="noir"] .astro-die {
+      --die-face-center: rgba(255,253,249,.9);
+      --die-face-1: rgba(255,253,249,.74);
+      --die-face-2: rgba(235,232,226,.72);
+      --die-face-3: rgba(255,253,249,.68);
+      --die-face-4: rgba(225,222,216,.7);
+      --die-face-5: rgba(246,243,237,.72);
+      --die-edge: #17171a;
+      color: #17171a; text-shadow: none;
+      filter: drop-shadow(0 6px 7px rgba(0,0,0,.14));
+    }
+    body[data-theme="noir"] .astro-die::before { display: none; }
+    body[data-theme="noir"] .astro-die .die-shell { filter: none; }
+    body[data-theme="noir"] .astro-die .die-shell polygon,
+    body[data-theme="noir"] .astro-die .die-face-center { stroke: #17171a !important; stroke-width: 1.05 !important; filter: none; }
+    body[data-theme="noir"] .astro-die .die-center-inset { fill: rgba(255,253,249,.62); stroke: #17171a !important; }
+    body[data-theme="noir"] .astro-die-label { color: rgba(23,23,26,.68); }
+    body[data-theme="noir"] #cardZoom { background: rgba(244,241,235,.9); }
+    body[data-theme="noir"] #cardZoom .zoom-card { border-color: #17171a; box-shadow: 0 12px 34px rgba(0,0,0,.2); }
+    body[data-theme="noir"] #cardZoom .zoom-card.interp { scrollbar-color: #17171a transparent; }
+    body[data-theme="noir"] #cardZoom .zoom-card.interp::-webkit-scrollbar-thumb { background: #17171a; }
+    body[data-theme="noir"] #cardZoom .zoom-close,
+    body[data-theme="noir"] #cardZoom .zoom-flip {
+      background: transparent; border-color: #17171a; color: #17171a; box-shadow: none;
+    }
+    body[data-theme="noir"] #cardZoom .zoom-interpret { background: transparent; border-color: #17171a; color: #17171a; }
+    body[data-theme="noir"] #cardZoom .zoom-close:hover,
+    body[data-theme="noir"] #cardZoom .zoom-flip:hover,
+    body[data-theme="noir"] #cardZoom .zoom-interpret:hover,
+    body[data-theme="noir"] #cardZoom .zoom-interpret.back:hover { background: #17171a; border-color: #17171a; color: #fff; box-shadow: none; }
+    body[data-theme="noir"] #captureTip,
+    body[data-theme="noir"] #captureConfirm,
+    body[data-theme="noir"] #captureCancel { background: #17171a; border-color: #17171a; color: #fff; box-shadow: 0 7px 20px rgba(0,0,0,.2); }
+    body[data-theme="noir"] #captureRect { border-color: #17171a; background: rgba(23,23,26,.08); box-shadow: 0 0 0 1px rgba(255,255,255,.8), 0 6px 20px rgba(0,0,0,.1); }
+    body[data-theme="noir"] #recordPage { background: radial-gradient(ellipse at 50% 30%, #fffdf9, #ece9e3); }
+    body[data-theme="noir"] #recordPage .rp-title { color: #17171a; border-color: rgba(23,23,26,.42); text-shadow: none; }
+    body[data-theme="noir"] #recordPage .rp-field label { color: #45454a; }
+    body[data-theme="noir"] #recordPage .rp-field input,
+    body[data-theme="noir"] #recordPage .rp-field textarea { background: #f6f3ed; border-color: rgba(23,23,26,.48); color: #17171a; }
+    body[data-theme="noir"] #recordPage .rp-field input:focus,
+    body[data-theme="noir"] #recordPage .rp-field textarea:focus { border-color: #17171a; }
+    body[data-theme="noir"] #recordPage .rp-photo img { border-color: #17171a; box-shadow: 0 8px 24px rgba(0,0,0,.14); }
+    body[data-theme="noir"] #recordPage .rp-btn { background: #17171a; border-color: #17171a; color: #fff; }
+    body[data-theme="noir"] #recordPage .rp-btn:hover { background: #fff; border-color: #17171a; color: #17171a; }
+    body[data-theme="noir"] .ui-nav-link { background: rgba(255,253,249,.46); border: 2px solid #17171a; color: #17171a; box-shadow: 0 5px 14px rgba(0,0,0,.1); }
+    body[data-theme="noir"] #themeToggle { background: rgba(255,253,249,.86); border-color: #17171a; color: #17171a; box-shadow: 0 5px 14px rgba(0,0,0,.1); }
+    body[data-theme="noir"] #themeSheet { background: rgba(255,253,249,.965); }
+    body[data-theme="noir"] #themeSheet .ts-card { background: #f4f1eb; }
+    body[data-theme="noir"] #themeSheet .ts-card.active { background: #fff; }
+    body[data-theme="noir"] .world-switch--west {
+      --ws-ink: #2c2d32; --ws-ink-hi: #0f0f12;
+      --ws-border: rgba(37,37,41,.5); --ws-border-hi: rgba(37,37,41,.85);
+      --ws-halo: rgba(37,37,41,.14); --ws-glow: rgba(37,37,41,.3);
+      background: linear-gradient(160deg, rgba(255,253,249,.96), rgba(238,237,233,.92));
+      box-shadow: 0 0 0 4px rgba(37,37,41,.08), inset 0 0 14px rgba(37,37,41,.08), 0 6px 18px rgba(20,20,24,.16);
+    }
+
+    /* ---------- 二、琥珀秘卷 ---------- */
+    body[data-theme="parchment"] {
+      --ui-bg: rgba(28,13,15,.95);
+      --ui-blue: #a8864c; --ui-blue-text: #ead49b;
+      --ui-purple: #c3a05b; --ui-purple-text: #f0d990;
+      --ui-gold: #cba75c; --ui-gold-text: #f4dfa0;
+      color: #f0d79a; background: #160b0d;
+    }
+    body[data-theme="parchment"] #desktop {
+      background:
+        radial-gradient(circle at 50% 42%, rgba(85,37,40,.58), transparent 48%),
+        repeating-conic-gradient(from 45deg, rgba(216,175,92,.035) 0 12.5%, transparent 12.5% 25%) 0 0/84px 84px,
+        linear-gradient(145deg, #35141d, #171116 58%, #0d1818);
+    }
+    body[data-theme="parchment"] #desktop::before { filter: sepia(.5) saturate(.7); opacity: .12; }
+    body[data-theme="parchment"] .drawer,
+    body[data-theme="parchment"] #drawerDeck,
+    body[data-theme="parchment"] #drawerRec {
+      background: linear-gradient(145deg, rgba(42,17,22,.98), rgba(16,30,28,.97));
+      border-color: #a9864a;
+      color: #eed797;
+      box-shadow: 9px 0 28px rgba(0,0,0,.45), inset 0 0 24px rgba(213,173,90,.05);
+    }
+    body[data-theme="parchment"] .drawer-title,
+    body[data-theme="parchment"] #drawerDeck .drawer-title,
+    body[data-theme="parchment"] #drawerRec .drawer-title { color: #ead18e; border-color: rgba(203,167,92,.5); text-shadow: 0 0 8px rgba(203,167,92,.18); }
+    body[data-theme="parchment"] .drawer-item,
+    body[data-theme="parchment"] #drawerDeck .drawer-item,
+    body[data-theme="parchment"] #drawerRec .record-item {
+      background: linear-gradient(145deg, rgba(67,23,32,.82), rgba(23,51,46,.78));
+      border-color: rgba(190,151,79,.58);
+      color: #edd596;
+      box-shadow: inset 0 0 10px rgba(215,175,91,.035);
+    }
+    body[data-theme="parchment"] .drawer-item:hover,
+    body[data-theme="parchment"] #drawerRec .record-item:hover { background: linear-gradient(145deg, rgba(84,31,42,.94), rgba(30,64,58,.9)); border-color: #e0c174; color: #fff0bd; }
+    body[data-theme="parchment"] .gem-label { color: rgba(237,213,150,.72); }
+    body[data-theme="parchment"] #drawerRec .record-item img { border-color: rgba(190,151,79,.58); }
+    body[data-theme="parchment"] #drawerRec .record-item .ri-q { color: #edd596; }
+    body[data-theme="parchment"] #drawerRec .record-item .ri-date,
+    body[data-theme="parchment"] #drawerRec .record-empty { color: rgba(237,213,150,.5); }
+    body[data-theme="parchment"] .record-item .ri-delete { border-color: rgba(190,151,79,.55); color: #efd596; }
+    body[data-theme="parchment"] #tabDeck.drawer-bookmark {
+      --bookmark-rgb: 213,175,92;
+      background: linear-gradient(90deg,#421823,#1b3631); border-color: #c09a50; color: #f1d994;
+    }
+    body[data-theme="parchment"] #tabRec.drawer-bookmark {
+      --bookmark-rgb: 112,151,148;
+      background: linear-gradient(90deg,#1b3631,#421823); border-color: #9fbdad; color: #d8e6d9;
+    }
+    body[data-theme="parchment"] #clearBtn,
+    body[data-theme="parchment"] #shuffleBtn,
+    body[data-theme="parchment"] #recordBtn,
+    body[data-theme="parchment"] #astroDiceToggle,
+    body[data-theme="parchment"] #astroDiceClose {
+      border: 2px solid #b89049; color: #f0d686;
+      background:
+        radial-gradient(circle at 36% 28%, rgba(255,231,165,.12), transparent 23%),
+        radial-gradient(circle, #54202c 0 58%, #251318 72%);
+      box-shadow: 0 6px 17px rgba(0,0,0,.38), 0 0 0 2px rgba(66,39,22,.85), 0 0 0 3px rgba(202,163,82,.35), inset 0 0 10px rgba(238,198,105,.09);
+      text-shadow: 0 1px 2px #1b0d0d; filter: none;
+    }
+    body[data-theme="parchment"] #shuffleBtn {
+      background:
+        radial-gradient(circle at 36% 28%, rgba(255,231,165,.12), transparent 23%),
+        radial-gradient(circle, #17483d 0 58%, #10251f 72%);
+    }
+    body[data-theme="parchment"] #recordBtn {
+      background:
+        radial-gradient(circle at 36% 28%, rgba(255,231,165,.12), transparent 23%),
+        radial-gradient(circle, #183b49 0 58%, #101f27 72%);
+    }
+    body[data-theme="parchment"] #clearBtn::before,
+    body[data-theme="parchment"] #shuffleBtn::before,
+    body[data-theme="parchment"] #recordBtn::before { border: 1px solid rgba(221,181,92,.46); animation: none; }
+    body[data-theme="parchment"] #clearBtn::after,
+    body[data-theme="parchment"] #shuffleBtn::after,
+    body[data-theme="parchment"] #recordBtn::after { border-color: rgba(255,226,148,.15); }
+    body[data-theme="parchment"] #clearBtn:hover,
+    body[data-theme="parchment"] #shuffleBtn:hover,
+    body[data-theme="parchment"] #recordBtn:hover,
+    body[data-theme="parchment"] #astroDiceToggle:hover,
+    body[data-theme="parchment"] #astroDiceClose:hover,
+    body[data-theme="parchment"] .ui-nav-link:hover {
+      border-color: #e0c174; color: #fff0bd; filter: brightness(1.1);
+      box-shadow: 0 8px 22px rgba(0,0,0,.42), 0 0 0 2px rgba(75,44,24,.9), 0 0 0 3px rgba(224,193,116,.48), inset 0 0 13px rgba(255,222,139,.12);
+    }
+    body[data-theme="parchment"] #clearBtn .clear-rune,
+    body[data-theme="parchment"] #shuffleBtn .shuffle-rune,
+    body[data-theme="parchment"] #recordBtn .clear-rune { color: rgba(241,210,126,.52); text-shadow: 0 0 4px rgba(216,174,85,.25); }
+    body[data-theme="parchment"] #clearBtn .clear-icon,
+    body[data-theme="parchment"] #shuffleBtn .shuffle-icon,
+    body[data-theme="parchment"] #recordBtn .record-icon,
+    body[data-theme="parchment"] #astroDiceToggle svg { color: #efd584; filter: drop-shadow(0 1px 1px #1a0d0c); }
+    body[data-theme="parchment"] .clear-icon .magic-broom-handle,
+    body[data-theme="parchment"] .clear-icon .magic-broom-handle-highlight,
+    body[data-theme="parchment"] .clear-icon .magic-broom-band,
+    body[data-theme="parchment"] .clear-icon .magic-broom-brush,
+    body[data-theme="parchment"] .clear-icon .magic-broom-detail,
+    body[data-theme="parchment"] .clear-icon .magic-broom-ribbon { fill: none; stroke: #efd584; filter: none; }
+    body[data-theme="parchment"] .clear-icon .magic-broom-star,
+    body[data-theme="parchment"] #recordBtn .record-icon .camera-spark { fill: #efd584; stroke: none; filter: none; }
+    body[data-theme="parchment"] #recordBtn .record-icon .camera-body,
+    body[data-theme="parchment"] #recordBtn .record-icon .camera-lens { stroke: #efd584; }
+    body[data-theme="parchment"] .fan-card .card-inner { border-color: #8e6b38; box-shadow: inset 0 0 10px rgba(204,164,82,.08); }
+    body[data-theme="parchment"] .fan-card:hover .card-inner,
+    body[data-theme="parchment"] .fan-card.preselected .card-inner { border-color: #d1aa5c; box-shadow: 0 7px 20px rgba(0,0,0,.36), 0 0 12px rgba(203,167,92,.16); animation: none; }
+    body[data-theme="parchment"] #fanArea.shuffling .fan-card { filter: brightness(1.08) drop-shadow(0 0 8px rgba(203,167,92,.28)); }
+    body[data-theme="parchment"] .placed-card,
+    body[data-theme="parchment"] #cardZoom .zoom-card { border-color: #9e7840; box-shadow: 0 8px 24px rgba(0,0,0,.38); }
+    body[data-theme="parchment"] .placed-card:hover { border-color: #d1aa5c; box-shadow: 0 10px 28px rgba(0,0,0,.42), 0 0 13px rgba(203,167,92,.15); }
+    body[data-theme="parchment"] .fan-counter { color: #dfc174; text-shadow: none; }
+    body[data-theme="parchment"] .astro-die {
+      --die-face-center: #3b1520;
+      --die-face-1: #57202d;
+      --die-face-2: #153b34;
+      --die-face-3: #253a31;
+      --die-face-4: #4a1a26;
+      --die-face-5: #183744;
+      --die-edge: #d2ae61;
+      color: #f0d88f; text-shadow: 0 0 5px rgba(232,194,105,.45);
+      filter: drop-shadow(0 7px 8px rgba(0,0,0,.45));
+    }
+    body[data-theme="parchment"] .astro-die .die-shell { filter: drop-shadow(0 0 2px rgba(210,174,97,.5)); }
+    body[data-theme="parchment"] .astro-die .die-shell polygon,
+    body[data-theme="parchment"] .astro-die .die-face-center { stroke: #d2ae61 !important; filter: none; }
+    body[data-theme="parchment"] .astro-die .die-center-inset { fill: rgba(59,21,32,.6); stroke: #d2ae61 !important; }
+    body[data-theme="parchment"] .astro-die-label { color: rgba(240,213,145,.7); }
+    body[data-theme="parchment"] #cardZoom { background: rgba(22,11,13,.88); }
+    body[data-theme="parchment"] #cardZoom .zoom-card.interp { scrollbar-color: #c3a05b transparent; }
+    body[data-theme="parchment"] #cardZoom .zoom-card.interp::-webkit-scrollbar-thumb { background: #c3a05b; }
+    body[data-theme="parchment"] #captureTip,
+    body[data-theme="parchment"] #captureConfirm,
+    body[data-theme="parchment"] #captureCancel { background: linear-gradient(145deg,#491a25,#173a34); border-color: #b89049; color: #eed696; box-shadow: 0 5px 15px rgba(0,0,0,.32); }
+    body[data-theme="parchment"] #captureRect { border-color: #c7a45a; background: rgba(91,48,41,.14); box-shadow: 0 0 18px rgba(203,167,92,.2); }
+    body[data-theme="parchment"] #recordPage { background: radial-gradient(ellipse at 50% 30%, #35141d, #150b0d); }
+    body[data-theme="parchment"] #recordPage .rp-title { color: #efd58f; border-color: rgba(203,167,92,.5); }
+    body[data-theme="parchment"] #recordPage .rp-field label { color: rgba(237,213,150,.78); }
+    body[data-theme="parchment"] #recordPage .rp-field input,
+    body[data-theme="parchment"] #recordPage .rp-field textarea { background: rgba(28,22,21,.58); border-color: #b89049; color: #efd596; }
+    body[data-theme="parchment"] #recordPage .rp-photo img { border-color: #b89049; box-shadow: 0 0 26px rgba(203,167,92,.24); }
+    body[data-theme="parchment"] #recordPage .rp-btn { background: linear-gradient(145deg,#491a25,#173a34); border-color: #b89049; color: #eed696; }
+    body[data-theme="parchment"] #recordPage .rp-btn:hover { border-color: #e0c174; color: #fff0bd; }
+    body[data-theme="parchment"] .ui-nav-link { background: linear-gradient(145deg,#4a1a26,#173b35); border: 1px solid #b89049; color: #ecd38f; box-shadow: 0 5px 14px rgba(0,0,0,.3); }
+    body[data-theme="parchment"] #themeToggle { background: linear-gradient(145deg,#4a1a26,#173b35); border-color: #b89049; color: #efd584; box-shadow: 0 5px 14px rgba(0,0,0,.3); }
+    body[data-theme="parchment"] #themeSheet { background: linear-gradient(180deg, rgba(45,19,25,.98), rgba(14,26,24,.99)); }
+    body[data-theme="parchment"] #themeSheet .ts-card { background: linear-gradient(145deg, rgba(67,23,32,.72), rgba(23,51,46,.68)); }
+    body[data-theme="parchment"] #themeSheet .ts-card.active { background: linear-gradient(145deg, rgba(84,31,42,.86), rgba(30,64,58,.82)); }
+    body[data-theme="parchment"] .world-switch--west {
+      --ws-ink: #e8c97d; --ws-ink-hi: #f6e0a2;
+      --ws-border: rgba(203,167,92,.66); --ws-border-hi: rgba(228,192,114,.95);
+      --ws-halo: rgba(203,167,92,.18); --ws-glow: rgba(232,190,116,.44);
+    }
+
+    /* ---------- 三、雾糖奇遇 ---------- */
+    body[data-theme="dopamine"] {
+      --ui-bg: rgba(252,250,249,.9);
+      --ui-blue: #91cbe6; --ui-blue-text: #607c91;
+      --ui-purple: #c5a9dc; --ui-purple-text: #68758a;
+      --ui-gold: #e7c977; --ui-gold-text: #766841;
+      color: #67758a; background: #f8f7f4;
+    }
+    body[data-theme="dopamine"] #desktop {
+      background:
+        radial-gradient(circle at 13% 20%, rgba(242,168,197,.32), transparent 25%),
+        radial-gradient(circle at 83% 18%, rgba(169,216,238,.34), transparent 26%),
+        radial-gradient(circle at 76% 78%, rgba(191,228,210,.3), transparent 28%),
+        radial-gradient(circle at 23% 80%, rgba(242,239,165,.27), transparent 26%),
+        linear-gradient(145deg, #fbfaf7, #f3f3f1 56%, #f8f4f7);
+    }
+    body[data-theme="dopamine"] #desktop::before {
+      display: block;
+      opacity: .72;
+      filter: none;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.92) 0 1px, transparent 1.6px),
+        radial-gradient(circle, rgba(184,192,202,.28) 0 .7px, transparent 1.25px);
+      background-size: 19px 19px, 13px 13px;
+      background-position: 0 0, 7px 5px;
+    }
+    body[data-theme="dopamine"] .drawer,
+    body[data-theme="dopamine"] #drawerDeck,
+    body[data-theme="dopamine"] #drawerRec {
+      background: linear-gradient(145deg, rgba(255,255,255,.91), rgba(246,247,250,.83));
+      border-color: #a9cde1;
+      color: #67758a;
+      box-shadow: 9px 9px 28px rgba(112,129,151,.14), inset 0 0 18px rgba(255,255,255,.65);
+    }
+    body[data-theme="dopamine"] .drawer-title,
+    body[data-theme="dopamine"] #drawerDeck .drawer-title,
+    body[data-theme="dopamine"] #drawerRec .drawer-title { color: #68758a; border-color: rgba(143,175,204,.42); text-shadow: none; }
+    body[data-theme="dopamine"] .drawer-item,
+    body[data-theme="dopamine"] #drawerDeck .drawer-item,
+    body[data-theme="dopamine"] #drawerRec .record-item {
+      background: rgba(255,255,255,.65);
+      border-color: rgba(151,190,215,.52);
+      color: #67758a;
+      box-shadow: 0 4px 11px rgba(112,129,151,.08), inset 0 0 0 1px rgba(255,255,255,.65);
+    }
+    body[data-theme="dopamine"] .drawer-item:hover,
+    body[data-theme="dopamine"] #drawerRec .record-item:hover { background: rgba(255,255,255,.9); border-color: #e598b8; color: #68758a; }
+    body[data-theme="dopamine"] .gem-label { color: #68758a; }
+    body[data-theme="dopamine"] #drawerRec .record-item img { border-color: rgba(151,190,215,.62); }
+    body[data-theme="dopamine"] #drawerRec .record-item .ri-q { color: #67758a; }
+    body[data-theme="dopamine"] #drawerRec .record-item .ri-date,
+    body[data-theme="dopamine"] #drawerRec .record-empty { color: rgba(103,117,138,.55); }
+    body[data-theme="dopamine"] .record-item .ri-delete { border-color: #b6d7e8; color: #607c91; }
+    body[data-theme="dopamine"] #tabDeck.drawer-bookmark,
+    body[data-theme="dopamine"] #tabRec.drawer-bookmark {
+      background: rgba(255,255,255,.6);
+      color: #67758a;
+      box-shadow: 4px 7px 16px rgba(112,129,151,.11);
+    }
+    body[data-theme="dopamine"] #tabDeck.drawer-bookmark { --bookmark-rgb: 181,155,215; border-color: #c5a9dc; }
+    body[data-theme="dopamine"] #tabRec.drawer-bookmark { --bookmark-rgb: 145,203,230; border-color: #91cbe6; }
+    body[data-theme="dopamine"] .side-tab.drawer-bookmark::before { box-shadow: none; }
+    body[data-theme="dopamine"] .side-tab.drawer-bookmark:hover { color: #68758a; }
+    body[data-theme="dopamine"] #clearBtn,
+    body[data-theme="dopamine"] #shuffleBtn,
+    body[data-theme="dopamine"] #recordBtn,
+    body[data-theme="dopamine"] #astroDiceToggle,
+    body[data-theme="dopamine"] #astroDiceClose {
+      background: radial-gradient(circle at 35% 26%, rgba(255,255,255,.95), rgba(255,255,255,.58) 42%, rgba(244,246,250,.7));
+      color: #67758a;
+      border: 2px solid #a9cfe3;
+      box-shadow: 0 6px 15px rgba(112,129,151,.13), inset 0 0 0 2px rgba(255,255,255,.62);
+      text-shadow: none;
+    }
+    body[data-theme="dopamine"] #clearBtn { border-color: #e598b8; color: #b66788; }
+    body[data-theme="dopamine"] #shuffleBtn { border-color: #c9d983; color: #7b8960; }
+    body[data-theme="dopamine"] #recordBtn,
+    body[data-theme="dopamine"] #astroDiceToggle,
+    body[data-theme="dopamine"] #astroDiceClose,
+    body[data-theme="dopamine"] #astroDiceToggle:hover { border-color: #91cbe6; color: #607c91; }
+    body[data-theme="dopamine"] #clearBtn::before,
+    body[data-theme="dopamine"] #shuffleBtn::before,
+    body[data-theme="dopamine"] #recordBtn::before { border-style: solid; border-width: 1px; animation: none; opacity: .55; }
+    body[data-theme="dopamine"] #clearBtn:hover,
+    body[data-theme="dopamine"] #shuffleBtn:hover,
+    body[data-theme="dopamine"] #recordBtn:hover,
+    body[data-theme="dopamine"] #astroDiceToggle:hover,
+    body[data-theme="dopamine"] #astroDiceClose:hover,
+    body[data-theme="dopamine"] .ui-nav-link:hover {
+      filter: brightness(1.02); transform: scale(1.07);
+      box-shadow: 0 8px 20px rgba(112,129,151,.17), 0 0 0 3px rgba(255,255,255,.5);
+    }
+    body[data-theme="dopamine"] #clearBtn .clear-rune,
+    body[data-theme="dopamine"] #shuffleBtn .shuffle-rune,
+    body[data-theme="dopamine"] #recordBtn .clear-rune { color: rgba(103,117,138,.34); text-shadow: none; }
+    body[data-theme="dopamine"] #clearBtn .clear-icon,
+    body[data-theme="dopamine"] #shuffleBtn .shuffle-icon,
+    body[data-theme="dopamine"] #recordBtn .record-icon,
+    body[data-theme="dopamine"] #astroDiceToggle svg { color: currentColor; filter: none; }
+    body[data-theme="dopamine"] .clear-icon .magic-broom-handle,
+    body[data-theme="dopamine"] .clear-icon .magic-broom-handle-highlight,
+    body[data-theme="dopamine"] .clear-icon .magic-broom-band,
+    body[data-theme="dopamine"] .clear-icon .magic-broom-brush,
+    body[data-theme="dopamine"] .clear-icon .magic-broom-detail,
+    body[data-theme="dopamine"] .clear-icon .magic-broom-ribbon { fill: none; stroke: #b66788; filter: none; }
+    body[data-theme="dopamine"] .clear-icon .magic-broom-star,
+    body[data-theme="dopamine"] #recordBtn .record-icon .camera-spark { fill: #a9d8ee; stroke: none; filter: none; }
+    body[data-theme="dopamine"] #recordBtn .record-icon .camera-body,
+    body[data-theme="dopamine"] #recordBtn .record-icon .camera-lens { stroke: #607c91; }
+    body[data-theme="dopamine"] .fan-card .card-inner { border-color: #a9cfe3; box-shadow: 0 4px 12px rgba(112,129,151,.09); }
+    body[data-theme="dopamine"] .fan-card:hover .card-inner,
+    body[data-theme="dopamine"] .fan-card.preselected .card-inner { border-color: #e598b8; box-shadow: 0 7px 20px rgba(223,114,165,.18), 0 0 0 2px rgba(169,216,238,.25); animation: none; }
+    body[data-theme="dopamine"] #fanArea.shuffling .fan-card { filter: brightness(1.04) drop-shadow(0 0 8px rgba(169,216,238,.4)); }
+    body[data-theme="dopamine"] .placed-card,
+    body[data-theme="dopamine"] #cardZoom .zoom-card { border-color: #a9cfe3; box-shadow: 0 8px 22px rgba(112,129,151,.15); }
+    body[data-theme="dopamine"] .placed-card:hover { border-color: #e598b8; box-shadow: 0 10px 26px rgba(223,114,165,.18); }
+    body[data-theme="dopamine"] .fan-counter { color: #68758a; text-shadow: none; }
+    body[data-theme="dopamine"] .astro-die {
+      --candy-rgb: 242,168,197;
+      --die-face-center: rgba(var(--candy-rgb),.78);
+      --die-face-1: rgba(var(--candy-rgb),.68);
+      --die-face-2: rgba(var(--candy-rgb),.55);
+      --die-face-3: rgba(var(--candy-rgb),.62);
+      --die-face-4: rgba(var(--candy-rgb),.5);
+      --die-face-5: rgba(var(--candy-rgb),.58);
+      --die-edge: rgba(255,255,255,.96);
+      color: #53657d; font-weight: 600;
+      text-shadow: 0 1px 0 rgba(255,255,255,.95), 0 0 3px rgba(255,255,255,.72);
+      filter: drop-shadow(0 7px 8px rgba(112,129,151,.17));
+    }
+    body[data-theme="dopamine"] .astro-die[data-kind="zodiac"] { --candy-rgb: 191,228,210; }
+    body[data-theme="dopamine"] .astro-die[data-kind="planet"] { --candy-rgb: 169,216,238; }
+    body[data-theme="dopamine"] .astro-die::before { background: radial-gradient(circle, rgba(var(--candy-rgb),.35), transparent 70%); filter: blur(7px); }
+    body[data-theme="dopamine"] .astro-die .die-shell { filter: drop-shadow(0 0 2px rgba(255,255,255,.72)); }
+    body[data-theme="dopamine"] .astro-die .die-shell polygon,
+    body[data-theme="dopamine"] .astro-die .die-face-center { stroke: rgba(255,255,255,.96) !important; filter: none; }
+    body[data-theme="dopamine"] .astro-die .die-center-inset { fill: rgba(255,255,255,.8); stroke: rgba(125,151,178,.55) !important; }
+    body[data-theme="dopamine"] .astro-die-label { color: rgba(103,117,138,.8); }
+    body[data-theme="dopamine"] #cardZoom { background: rgba(246,247,250,.86); }
+    body[data-theme="dopamine"] #cardZoom .zoom-close,
+    body[data-theme="dopamine"] #cardZoom .zoom-flip { background: rgba(255,255,255,.8); border-color: #a9cfe3; color: #607c91; box-shadow: 0 5px 14px rgba(112,129,151,.14); }
+    body[data-theme="dopamine"] #cardZoom .zoom-interpret { background: rgba(255,255,255,.75); border-color: #91cbe6; color: #607c91; }
+    body[data-theme="dopamine"] #cardZoom .zoom-close:hover,
+    body[data-theme="dopamine"] #cardZoom .zoom-flip:hover,
+    body[data-theme="dopamine"] #cardZoom .zoom-interpret:hover { border-color: #e598b8; color: #b66788; }
+    body[data-theme="dopamine"] #captureTip,
+    body[data-theme="dopamine"] #captureConfirm,
+    body[data-theme="dopamine"] #captureCancel { background: rgba(255,255,255,.78); border-color: #91cbe6; color: #607c91; box-shadow: 0 5px 14px rgba(112,129,151,.12); }
+    body[data-theme="dopamine"] #captureRect { border-color: #91cbe6; background: rgba(169,216,238,.12); box-shadow: 0 0 0 1px rgba(255,255,255,.7); }
+    body[data-theme="dopamine"] #recordPage { background: radial-gradient(ellipse at 50% 30%, #fbfbfa, #eef1f4); }
+    body[data-theme="dopamine"] #recordPage .rp-title { color: #68758a; border-color: rgba(145,203,230,.42); text-shadow: none; }
+    body[data-theme="dopamine"] #recordPage .rp-field label { color: #7c8798; }
+    body[data-theme="dopamine"] #recordPage .rp-field input,
+    body[data-theme="dopamine"] #recordPage .rp-field textarea { background: rgba(255,255,255,.68); border-color: #b6d7e8; color: #67758a; }
+    body[data-theme="dopamine"] #recordPage .rp-photo img { border-color: #a9cfe3; box-shadow: 0 0 26px rgba(112,129,151,.16); }
+    body[data-theme="dopamine"] #recordPage .rp-btn { background: rgba(255,255,255,.75); border-color: #91cbe6; color: #607c91; }
+    body[data-theme="dopamine"] #recordPage .rp-btn:hover { border-color: #e598b8; color: #b66788; }
+    body[data-theme="dopamine"] .ui-nav-link { background: rgba(255,255,255,.58); border: 1.5px solid #a9cfe3; color: #67758a; box-shadow: 0 5px 13px rgba(112,129,151,.1); }
+    body[data-theme="dopamine"] #themeToggle { background: rgba(255,255,255,.8); border-color: #c5a9dc; color: #68758a; box-shadow: 0 5px 14px rgba(112,129,151,.13); }
+    body[data-theme="dopamine"] #themeSheet { background: rgba(255,255,255,.97); border-top-color: #c5a9dc; color: #68758a; }
+    body[data-theme="dopamine"] #themeSheet .ts-title { border-bottom-color: rgba(143,175,204,.42); }
+    body[data-theme="dopamine"] #themeSheet .ts-card { background: #f4f6f9; border-color: #c5a9dc; }
+    body[data-theme="dopamine"] #themeSheet .ts-card.active { background: #fff; border-color: #e598b8; box-shadow: inset 0 0 0 1px #e598b8; }
+    body[data-theme="dopamine"] .world-switch--west {
+      --ws-ink: #b66788; --ws-ink-hi: #df72a5;
+      --ws-border: rgba(229,152,184,.62); --ws-border-hi: rgba(233,120,168,.92);
+      --ws-halo: rgba(229,152,184,.2); --ws-glow: rgba(229,152,184,.42);
+      background: linear-gradient(160deg, rgba(255,255,255,.96), rgba(248,244,249,.94));
+      box-shadow: 0 0 0 4px rgba(229,152,184,.14), inset 0 0 14px rgba(229,152,184,.14), 0 6px 18px rgba(112,129,151,.16);
+    }
   </style>
 </head>
 <body data-world="west">
+<script>
+/* 配色尽早生效（先于牌桌渲染），避免首屏扇形牌框先按默认色渲染再过渡 */
+(function () {
+  var THEMES = ['noir', 'parchment', 'dopamine'];
+  var BG = { mystic: '#0d001a', noir: '#f4f1eb', parchment: '#27170f', dopamine: '#f9eaf2' };
+  var t = 'mystic';
+  try { t = localStorage.getItem('magiccat_reading_theme') || 'mystic'; } catch (e) {}
+  if (THEMES.indexOf(t) < 0) t = 'mystic';
+  if (t !== 'mystic') document.body.setAttribute('data-theme', t);
+  document.documentElement.style.backgroundColor = BG[t];
+  var meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', BG[t]);
+})();
+</script>
 <script src="world_switch.js"></script>
 
 <!-- 侧边标签 -->
@@ -1523,12 +2161,12 @@ function createFanCardEl(globalIdx, seqNum) {
   el.dataset.globalIdx = globalIdx;
   el.dataset.reversed = card.isReversed ? 'true' : 'false';
   el.innerHTML = backImg
-    ? `<div class="card-inner" style="padding:0;overflow:hidden;border-color:#5a307a;background:transparent;">
+    ? `<div class="card-inner" style="padding:0;overflow:hidden;background:transparent;">
         <img src="${backImg}" alt="" draggable="false" style="display:block;width:100%;height:auto;"
              onerror="this.style.display='none';this.parentElement.style.cssText+=';width:80px;height:120px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#1a0a30,#0c0218);'">
         <span class="card-number">${seqNum || ''}</span>
        </div>`
-    : `<div class="card-inner" style="border-color:#5a307a;">
+    : `<div class="card-inner">
         <span class="card-number">${seqNum || ''}</span>
        </div>`;
   el.addEventListener('click', (e) => {
@@ -1669,7 +2307,11 @@ function startFanCardDrag(e, globalIdx) {
   srcEl.style.transition = 'none';
   srcEl.style.transform = 'rotate(-5deg) scale(' + fanScale + ')';   // 保留扇形缩放，大小与扇形一致
   const inner = srcEl.querySelector('.card-inner');
-  if (inner) { inner.style.boxShadow = '0 8px 32px rgba(180,100,255,0.4)'; inner.style.borderColor = '#b080ff'; }
+  if (inner) {
+    const isNoir = document.body.dataset.theme === 'noir';
+    inner.style.boxShadow = isNoir ? '0 8px 24px rgba(0,0,0,.28)' : '0 8px 32px rgba(180,100,255,0.4)';
+    inner.style.borderColor = isNoir ? '#17171a' : '#b080ff';
+  }
   document.body.appendChild(srcEl);
 
   const offsetX = e.clientX - startLeft;
@@ -2110,7 +2752,11 @@ if (IS_MOBILE) {
     srcEl.style.pointerEvents = 'none';
     srcEl.style.transform = 'rotate(-5deg) scale(' + fanScale + ')';   // 保留扇形缩放，大小与扇形一致
     const inner = srcEl.querySelector('.card-inner');
-    if (inner) { inner.style.boxShadow = '0 8px 32px rgba(180,100,255,0.4)'; inner.style.borderColor = '#b080ff'; }
+    if (inner) {
+      const isNoir = document.body.dataset.theme === 'noir';
+      inner.style.boxShadow = isNoir ? '0 8px 24px rgba(0,0,0,.28)' : '0 8px 32px rgba(180,100,255,0.4)';
+      inner.style.borderColor = isNoir ? '#17171a' : '#b080ff';
+    }
     return { srcEl, cw, ch, card, gi: globalIdx, offsetX, offsetY, layW, layH };
   }
 
@@ -2624,16 +3270,141 @@ clearBtn.addEventListener('click', () => {
   if (!astroDiceRolling) setAstroDiceOnDesk(false);
 });
 
-// 默认显示第一个牌组
+// ============================================================
+//  4.5 配色默认牌组（对齐 web）
+//  第四个配色「雾糖奇遇」(dopamine) 默认使用小小奇遇雷诺曼
+//  其余配色未配置，保持原行为（默认第一个牌组）
+// ============================================================
+const THEME_DEFAULT_DECK = { dopamine: '小小奇遇雷诺曼' };
+
+function deckForTheme(theme) {
+  const key = theme || document.body.dataset.theme || 'mystic';
+  const deckName = THEME_DEFAULT_DECK[key];
+  return deckName ? deckList.find(d => d.name === deckName) || null : null;
+}
+
+// 默认显示第一个牌组；当前配色若配了专属牌组则优先使用
+let _bootTheme = 'mystic';
+try { _bootTheme = localStorage.getItem('magiccat_reading_theme') || 'mystic'; } catch (_) {}
 if (deckList.length > 0) {
-  selectDeckAndOpen(deckList[0]);
+  selectDeckAndOpen(deckForTheme(_bootTheme) || deckList[0]);
 }
 </script>
 
-<!-- 导航 -->
-<div style="position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;z-index:999;display:flex;gap:10px;">
-  <a href="manifest_ios.html" style="background:rgba(30,22,6,0.45);border:2px solid rgba(213,165,83,0.55);color:rgba(240,212,148,0.72);padding:6px 16px;font-size:12px;cursor:pointer;font-family:inherit;letter-spacing:2px;text-decoration:none;transition:all 0.3s;border-radius:999px;box-shadow:none;" onmouseover="this.style.background='rgba(70,50,16,0.9)';this.style.borderColor='#f5dd9a';this.style.color='#fff3cf';this.style.boxShadow='0 0 14px rgba(245,221,154,0.45)'" onmouseout="this.style.background='rgba(30,22,6,0.45)';this.style.borderColor='rgba(213,165,83,0.55)';this.style.color='rgba(240,212,148,0.72)';this.style.boxShadow='none'">显化之境</a>
+<!-- 顶部导航 -->
+<div class="top-nav">
+  <a class="ui-nav-link" href="manifest_ios.html">显化之境</a>
 </div>
+
+<!-- 配色入口：一颗按钮 + 底部色卡面板 -->
+<button id="themeToggle" type="button" aria-label="切换桌面配色" aria-expanded="false" aria-controls="themeSheet">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="8.7"/>
+    <circle cx="12" cy="6.4" r="1.35"/>
+    <circle cx="17.6" cy="12" r="1.35"/>
+    <circle cx="12" cy="17.6" r="1.35"/>
+    <circle cx="6.4" cy="12" r="1.35"/>
+    <circle cx="12" cy="12" r="1.05"/>
+  </svg>
+</button>
+<div id="themeSheetBackdrop"></div>
+<section id="themeSheet" role="dialog" aria-modal="true" aria-label="桌面配色">
+  <div class="ts-title">桌 面 配 色</div>
+  <div class="ts-list">
+    <button class="ts-card" type="button" data-theme="mystic" aria-pressed="false">
+      <span class="ts-swatch ts-swatch--mystic"></span>
+      <span class="ts-meta"><b>星夜紫晶</b><em>星雨 · 紫晶 · 月光</em></span>
+      <span class="ts-check">✦</span>
+    </button>
+    <button class="ts-card" type="button" data-theme="noir" aria-pressed="false">
+      <span class="ts-swatch ts-swatch--noir"></span>
+      <span class="ts-meta"><b>霜白墨羽</b><em>象牙白 · 墨线稿</em></span>
+      <span class="ts-check">✦</span>
+    </button>
+    <button class="ts-card" type="button" data-theme="parchment" aria-pressed="false">
+      <span class="ts-swatch ts-swatch--parchment"></span>
+      <span class="ts-meta"><b>琥珀秘卷</b><em>宝石釉面 · 古铜包边</em></span>
+      <span class="ts-check">✦</span>
+    </button>
+    <button class="ts-card" type="button" data-theme="dopamine" aria-pressed="false">
+      <span class="ts-swatch ts-swatch--dopamine"></span>
+      <span class="ts-meta"><b>雾糖奇遇</b><em>雾白底 · 低饱和糖果色</em></span>
+      <span class="ts-check">✦</span>
+    </button>
+  </div>
+</section>
+
+<script>
+/* ============================================================
+   页面配色：四套主题（与 web 黑猫占卜桌共用 key 与默认值）
+   ============================================================ */
+(function () {
+  var THEME_KEY = 'magiccat_reading_theme';
+  var THEMES = ['mystic', 'noir', 'parchment', 'dopamine'];
+  var PAGE_BG = {
+    mystic: '#0d001a',
+    noir: '#f4f1eb',
+    parchment: '#27170f',
+    dopamine: '#f9eaf2'
+  };
+  var toggle = document.getElementById('themeToggle');
+  var sheet = document.getElementById('themeSheet');
+  var backdrop = document.getElementById('themeSheetBackdrop');
+  var cards = [].slice.call(document.querySelectorAll('#themeSheet .ts-card'));
+  var metaColor = document.querySelector('meta[name="theme-color"]');
+
+  function applyReadingTheme(theme, persist) {
+    var next = THEMES.indexOf(theme) >= 0 ? theme : 'mystic';
+    if (next === 'mystic') document.body.removeAttribute('data-theme');
+    else document.body.setAttribute('data-theme', next);
+    /* iOS 橡皮筋区域 / 状态栏跟随主题 */
+    document.documentElement.style.backgroundColor = PAGE_BG[next];
+    if (metaColor) metaColor.setAttribute('content', PAGE_BG[next]);
+    cards.forEach(function (card) {
+      var active = card.getAttribute('data-theme') === next;
+      card.classList.toggle('active', active);
+      card.setAttribute('aria-pressed', String(active));
+    });
+    if (persist !== false) {
+      try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+    }
+  }
+
+  function openSheet() {
+    sheet.classList.add('open');
+    backdrop.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+  }
+  function closeSheet() {
+    sheet.classList.remove('open');
+    backdrop.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', function () {
+    if (sheet.classList.contains('open')) closeSheet(); else openSheet();
+  });
+  backdrop.addEventListener('click', closeSheet);
+  /* 选中配色后面板保持打开，方便连续对比；点空白或再次点按钮收起 */
+  cards.forEach(function (card) {
+    card.addEventListener('click', function () {
+      applyReadingTheme(card.getAttribute('data-theme'));
+      /* 该配色若配了专属牌组（雾糖奇遇 → 小小奇遇雷诺曼），跟着换过去 */
+      try {
+        var deck = typeof deckForTheme === 'function' ? deckForTheme(card.getAttribute('data-theme')) : null;
+        if (deck && typeof selectDeckAndOpen === 'function') selectDeckAndOpen(deck);
+      } catch (e) {}
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeSheet();
+  });
+
+  var saved = 'mystic';
+  try { saved = localStorage.getItem(THEME_KEY) || 'mystic'; } catch (e) {}
+  applyReadingTheme(saved, false);
+})();
+</script>
 
 </body>
 </html>
