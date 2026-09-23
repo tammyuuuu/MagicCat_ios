@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-title" content="魔法猫">
   <meta name="theme-color" content="#0d001a">
   <link rel="stylesheet" href="world_switch.css">
-  <title>🔮 黑猫占卜桌</title>
+  <title>魔法猫</title>
   <style>
     :root {
       --ui-bg: rgba(24,13,44,0.92);
@@ -1244,7 +1244,7 @@
     #themeSheet .ts-swatch--mystic { background: #8f62d1; border-color: #d4b35f; }
     #themeSheet .ts-swatch--noir { background: #fffdf9; border-color: rgba(23,23,26,.42); }
     #themeSheet .ts-swatch--parchment { background: #4a1722; border-color: #c9a454; }
-    #themeSheet .ts-swatch--dopamine { background: linear-gradient(135deg,#f2a8c5 0 35%,#a9d8ee 35% 68%,#bfe4d2 68%); border-color: rgba(143,175,204,.6); }
+    #themeSheet .ts-swatch--dopamine { background: #f2a8c5; border-color: #e598b8; }
     #themeSheet .ts-meta { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
     #themeSheet .ts-meta b { font-size: 14px; font-weight: 400; letter-spacing: 2px; }
     #themeSheet .ts-meta em { font-style: normal; font-size: 10px; letter-spacing: 1px; opacity: .62; }
@@ -1755,7 +1755,103 @@
       background: linear-gradient(160deg, rgba(255,255,255,.96), rgba(248,244,249,.94));
       box-shadow: 0 0 0 4px rgba(229,152,184,.14), inset 0 0 14px rgba(229,152,184,.14), 0 6px 18px rgba(112,129,151,.16);
     }
-  </style>
+
+/* 猫爪配色入口：沿用操作按钮的主题材质与交互。 */
+body #themeToggle, body[data-theme] #themeToggle {
+  --paw-fill: #19191c;
+  --paw-rim: #8a4dff;
+  --paw-hover-rim: #b080ff;
+  --paw-ivory-outline: transparent;
+  --paw-bg: rgba(30,12,60,.9);
+  --paw-shadow: 0 0 14px rgba(180,100,255,.15);
+  --paw-hover-shadow: 0 0 24px rgba(180,100,255,.35);
+  --paw-orbit: rgba(180,100,255,.28);
+  --paw-inner: rgba(180,100,255,.08);
+  box-sizing: border-box;
+  border: 0;
+  background: var(--paw-bg);
+  box-shadow: var(--paw-shadow);
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+  color: var(--paw-rim);
+  transition: all .35s cubic-bezier(.25,1,.5,1);
+}
+body[data-theme="noir"] #themeToggle {
+  --paw-fill: #fffaf2;
+  --paw-rim: #17171a; --paw-hover-rim: #17171a;
+  --paw-ivory-outline: #17171a;
+  --paw-bg: rgba(255,253,249,.46);
+  --paw-shadow: 0 5px 14px rgba(0,0,0,.1);
+  --paw-hover-shadow: none;
+  --paw-orbit: rgba(23,23,26,.28);
+  --paw-inner: rgba(23,23,26,.2);
+}
+body[data-theme="parchment"] #themeToggle {
+  --paw-fill: #19191c;
+  --paw-rim: #b89049; --paw-hover-rim: #e0c174;
+  --paw-bg: radial-gradient(circle at 36% 28%,rgba(255,231,165,.12),transparent 23%),radial-gradient(circle,#54202c 0 58%,#251318 72%);
+  --paw-shadow: 0 6px 17px rgba(0,0,0,.38),0 0 0 2px rgba(66,39,22,.85),0 0 0 3px rgba(202,163,82,.35),inset 0 0 10px rgba(238,198,105,.09);
+  --paw-hover-shadow: 0 8px 22px rgba(0,0,0,.42),0 0 0 2px rgba(75,44,24,.9),0 0 0 3px rgba(224,193,116,.48),inset 0 0 13px rgba(255,222,139,.12);
+  --paw-orbit: rgba(221,181,92,.46);
+  --paw-inner: rgba(255,226,148,.15);
+}
+body[data-theme="dopamine"] #themeToggle {
+  --paw-fill: #fffaf2;
+  --paw-rim: #e598b8; --paw-hover-rim: #e598b8;
+  --paw-ivory-outline: #e598b8;
+  --paw-bg: radial-gradient(circle at 35% 26%,rgba(255,255,255,.95),rgba(255,255,255,.58) 42%,rgba(244,246,250,.7));
+  --paw-shadow: 0 6px 15px rgba(112,129,151,.13),inset 0 0 0 2px rgba(255,255,255,.62);
+  --paw-hover-shadow: 0 8px 20px rgba(112,129,151,.17),0 0 0 3px rgba(255,255,255,.5);
+  --paw-orbit: rgba(180,100,255,.28);
+}
+body #themeToggle .theme-paw-icon {
+  width: 100%; height: 100%; display: block;
+  fill: none; stroke: none; filter: none;
+}
+#themeToggle .paw-body {
+  fill: var(--paw-fill); stroke: var(--paw-rim);
+  stroke-width: 2px; vector-effect: non-scaling-stroke;
+}
+#themeToggle .paw-ivory { stroke: var(--paw-ivory-outline); stroke-width: .7; }
+#themeToggle .paw-pad { fill: var(--paw-rim); }
+#themeToggle .paw-ring {
+  fill: none; stroke: var(--paw-rim);
+  stroke-width: 2px; vector-effect: non-scaling-stroke;
+}
+body #themeToggle::before {
+  content: ''; position: absolute; inset: -6px;
+  border: 1px dashed var(--paw-orbit); border-radius: 50%;
+  pointer-events: none; animation: themePawOrbit 14s linear infinite;
+}
+body #themeToggle::after {
+  content: ''; position: absolute; inset: 1px;
+  border: 1px solid var(--paw-inner); border-radius: 50%; pointer-events: none;
+}
+body[data-theme="parchment"] #themeToggle::before,
+body[data-theme="dopamine"] #themeToggle::before { border-style: solid; animation: none; }
+body[data-theme="dopamine"] #themeToggle::before { opacity: .55; }
+@keyframes themePawOrbit { to { transform: rotate(360deg); } }
+body #themeToggle:is([aria-expanded="true"], :focus-visible, :active) {
+  --paw-rim: var(--paw-hover-rim);
+  box-shadow: var(--paw-hover-shadow);
+}
+body[data-theme="noir"] #themeToggle:is([aria-expanded="true"], :focus-visible, :active) { background: #17171a; }
+@media (hover: hover) {
+  body #themeToggle:hover {
+    --paw-rim: var(--paw-hover-rim);
+    box-shadow: var(--paw-hover-shadow);
+    transform: translateX(-50%) scale(1.08);
+  }
+  body[data-theme="noir"] #themeToggle:hover { background: #17171a; }
+  body[data-theme="parchment"] #themeToggle:hover { filter: brightness(1.1); }
+  body[data-theme="dopamine"] #themeToggle:hover { filter: brightness(1.02); transform: translateX(-50%) scale(1.07); }
+}
+body #themeToggle:active { transform: translateX(-50%) scale(.95); }
+body #themeToggle:focus-visible { outline: 2px solid var(--paw-rim); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  body #themeToggle { transition: none; }
+  body #themeToggle::before { animation: none; }
+}
+</style>
 </head>
 <body data-world="west">
 <script>
@@ -3311,13 +3407,17 @@ if (deckList.length > 0) {
 
 <!-- 配色入口：一颗按钮 + 底部色卡面板 -->
 <button id="themeToggle" type="button" aria-label="切换桌面配色" aria-expanded="false" aria-controls="themeSheet">
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="12" cy="12" r="8.7"/>
-    <circle cx="12" cy="6.4" r="1.35"/>
-    <circle cx="17.6" cy="12" r="1.35"/>
-    <circle cx="12" cy="17.6" r="1.35"/>
-    <circle cx="6.4" cy="12" r="1.35"/>
-    <circle cx="12" cy="12" r="1.05"/>
+  <svg class="theme-paw-icon" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+    <defs><clipPath id="themePawClip"><circle cx="50" cy="50" r="47"/></clipPath></defs>
+    <g clip-path="url(#themePawClip)" stroke="none">
+      <path class="paw-body" d="M26 103C28 86 27 78 22 65C17 54 12 46 15 39C18 30 25 30 30 34C28 24 33 18 39 18C44 18 48 21 50 25C53 20 57 18 62 18C70 18 74 26 72 34C78 29 86 33 87 40C89 49 82 57 78 67C73 80 73 90 76 103Z"/>
+      <ellipse cx="26" cy="46" rx="5.8" ry="8.1" fill="#9865d8" transform="rotate(-18 26 46)"/>
+      <ellipse class="paw-ivory" cx="41" cy="33" rx="5.8" ry="8.4" fill="#fff8ea" transform="rotate(-7 41 33)"/>
+      <ellipse cx="60" cy="33" rx="5.8" ry="8.4" fill="#80334e" transform="rotate(7 60 33)"/>
+      <ellipse cx="76" cy="46" rx="5.8" ry="8.1" fill="#f2a8c5" transform="rotate(18 76 46)"/>
+      <path class="paw-pad" d="M50 48C42 48 38 54 35 59C29 62 27 67 29 71C32 78 41 76 47 74C49 73 51 73 54 74C61 77 70 77 73 71C76 65 70 61 65 58C61 52 57 48 50 48Z"/>
+    </g>
+    <circle class="paw-ring" cx="50" cy="50" r="47"/>
   </svg>
 </button>
 <div id="themeSheetBackdrop"></div>
