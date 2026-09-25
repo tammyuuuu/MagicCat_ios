@@ -1,7 +1,7 @@
 /* ============================================================
    世界切换入口（公共层）· world_switch.css
-   西玄页：玄鸟（青铜·古玉 → 玄鸟之境 / 东玄）
-   东玄页：黑猫（紫晶·月星 → 黑猫之境 / 西玄）
+   西玄页：四境飞鸟徽章（随背景主题 → 玄鸟之境 / 东玄）
+   东玄页：坐猫徽章（古玉·金星 → 黑猫之境 / 西玄）
    由 world_switch.js 注入，依据 <body data-world="west|east"> 切换图案。
    与右上角的「世界内导航」（魔法工坊 / 显化之境…）层级相互独立。
    ============================================================ */
@@ -57,29 +57,79 @@
 }
 .world-switch:active { transform: scale(.96); }
 
-/* 西玄页 → 玄鸟（青铜 · 古玉） */
+/* 西玄页 → 飞鸟徽章；默认星夜紫晶 */
 .world-switch--west {
-  left:18px;top:18px;right:auto;bottom:auto;
-  --ws-ink: #cdb079;
-  --ws-ink-hi: #f2dca6;
-  --ws-border: rgba(196,161,92,.58);
-  --ws-border-hi: rgba(228,192,114,.95);
-  --ws-halo: rgba(196,161,92,.12);
-  --ws-glow: rgba(214,178,108,.38);
+  left:calc(18px + env(safe-area-inset-left));
+  top:calc(18px + env(safe-area-inset-top));right:auto;bottom:auto;
+  --ws-ink: #eadcfb;
+  --ws-ink-hi: #fff2d0;
+  --ws-accent: #d8b96d;
+  --ws-paper: #302044;
+  --ws-border: #aa83ca;
+  --ws-border-hi: #ead2ff;
+  --ws-halo: rgba(177,131,221,.12);
+  --ws-glow: rgba(190,150,234,.28);
+  --ws-tip-bg: #251832;
+  background:radial-gradient(circle at 32% 22%,#594071,#302044 60%,#1b112a);
+  border:0;
+  box-shadow:0 0 0 3px var(--ws-halo),0 4px 14px var(--ws-glow);
 }
-.world-switch--west svg{width:38px;height:38px}
+.world-switch--west::before,.world-switch--west::after{content:none}
+.world-switch--west svg{width:100%;height:100%;filter:none}
+.ws-bird-paper{fill:none}
+.ws-seal-orbit{stroke:var(--ws-accent)}
+.ws-seal-stars{fill:var(--ws-accent)}
+.world-switch--west:focus-visible{outline:2px solid var(--ws-accent);outline-offset:5px}
+/* 霜白墨羽：参考图的象牙纸、深墨雕版与浅金星芒 */
+body[data-theme="noir"] .world-switch--west {
+  --ws-ink:#303044;--ws-ink-hi:#171722;--ws-accent:#ae8d58;
+  --ws-paper:#faf8f1;--ws-border:#303044;--ws-border-hi:#171722;
+  --ws-halo:rgba(48,48,68,.06);--ws-glow:rgba(48,48,68,.12);
+  --ws-tip-bg:#faf8f1;
+  background:#faf8f1;
+  box-shadow:0 3px 9px rgba(48,48,68,.12);
+}
+/* 琥珀秘卷：酒红珐琅、古铜金箔与双层包边 */
+body[data-theme="parchment"] .world-switch--west {
+  --ws-ink:#f0d79a;--ws-ink-hi:#fff0c4;--ws-accent:#c99b50;
+  --ws-paper:#4a202b;--ws-border:#b89049;--ws-border-hi:#f0d79a;
+  --ws-halo:rgba(185,144,73,.18);--ws-glow:rgba(202,163,82,.2);
+  --ws-tip-bg:#391d25;
+  background:radial-gradient(circle at 32% 24%,#743545,#4a202b 55%,#183b34);
+  box-shadow:0 0 0 1px #b89049,0 0 0 3px #493620,0 4px 12px rgba(0,0,0,.3);
+}
+body[data-theme="parchment"] .ws-seal-dashes{stroke-dasharray:1 2.5}
+/* 雾糖奇遇：雾白瓷面、蓝紫鸟羽与玫瑰粉星芒 */
+body[data-theme="dopamine"] .world-switch--west {
+  --ws-ink:#7c709f;--ws-ink-hi:#665486;--ws-accent:#ce83a4;
+  --ws-paper:#fcfaff;--ws-border:#c5a9dc;--ws-border-hi:#df9bbc;
+  --ws-halo:rgba(197,169,220,.14);--ws-glow:rgba(169,207,227,.28);
+  --ws-tip-bg:#fcfaff;
+  background:linear-gradient(140deg,#fff 12%,#f9e8f2 48%,#e3f1fa);
+  box-shadow:0 0 0 3px rgba(255,255,255,.65),0 4px 14px rgba(139,129,172,.18);
+}
+body[data-theme="dopamine"] .ws-seal-dashes{stroke:#a9cfe3;stroke-dasharray:.6 3.5;stroke-width:1.1}
 
-/* 东玄页 → 黑猫（紫晶 · 月星） */
+/* 东玄页 → 坐猫：沿用玄鸟占卜桌的深墨绿、古玉黄绿与暗金 */
 .world-switch--east {
-  right:14px;bottom:14px;left:auto;top:auto;
-  --ws-ink: #c5a6ea;
-  --ws-ink-hi: #e8d4ff;
-  --ws-border: rgba(159,114,223,.6);
-  --ws-border-hi: rgba(195,155,245,.95);
-  --ws-halo: rgba(159,114,223,.14);
-  --ws-glow: rgba(159,114,223,.42);
+  right:calc(14px + env(safe-area-inset-right));
+  bottom:calc(14px + env(safe-area-inset-bottom));left:auto;top:auto;
+  --ws-ink: #d7e6bd;
+  --ws-ink-hi: #f0dca0;
+  --ws-accent: var(--gold, #d8c491);
+  --ws-border: var(--bronze, #a98a50);
+  --ws-border-hi: #f0dca0;
+  --ws-halo: rgba(178,151,88,.12);
+  --ws-glow: rgba(127,208,176,.18);
+  background:radial-gradient(circle at 34% 24%,#375749,var(--bg2, #12302a) 58%,var(--bg0, #050f0d));
+  border:0;
+  box-shadow:0 0 0 3px var(--ws-halo),0 4px 14px rgba(0,0,0,.35);
 }
-.world-switch--west .ws-tip{left:calc(100% + 12px);right:auto;border-right:1px solid var(--ws-border);border-left:0;border-radius:0 15px 15px 0;background:linear-gradient(90deg,rgba(8,10,10,.94),rgba(18,16,14,.86));transform:translateY(-50%) translateX(-6px)}
+.world-switch--east::before,.world-switch--east::after{content:none}
+.world-switch--east svg{width:100%;height:100%;filter:none}
+.world-switch--east:focus-visible{outline:2px solid var(--ws-accent);outline-offset:5px}
+.world-switch--east .ws-tip{background:linear-gradient(270deg,#0a1f1a,#12302a);text-align:right;align-items:flex-end}
+.world-switch--west .ws-tip{left:calc(100% + 12px);right:auto;border-right:1px solid var(--ws-border);border-left:0;border-radius:0 15px 15px 0;background:var(--ws-tip-bg);transform:translateY(-50%) translateX(-6px)}
 .world-switch--west:hover .ws-tip{transform:translateY(-50%) translateX(0)}
 
 /* 悬浮提示（通往另一世界的符号） */
@@ -114,6 +164,18 @@
   .world-switch { bottom: 10px; right: 10px; width: 48px; height: 48px; }
   .world-switch svg { width: 26px; height: 26px; }
   .world-switch--west{left:calc(10px + env(safe-area-inset-left));top:calc(10px + env(safe-area-inset-top));right:auto;bottom:auto}.world-switch--east{right:calc(10px + env(safe-area-inset-right));bottom:calc(10px + env(safe-area-inset-bottom));left:auto;top:auto}
-  .world-switch--west svg{width:31px;height:31px}
+  .world-switch--west svg,.world-switch--east svg{width:100%;height:100%}
   .world-switch .ws-tip { display: none; }
+}
+
+/* 五种徽章统一留空底色；覆盖各页面内嵌的旧主题底板及悬停样式。 */
+.world-switch,
+.world-switch:hover,
+.world-switch .ws-tip {
+  background: none !important;
+  box-shadow: none !important;
+}
+.world-switch .ws-tip {
+  border: 0 !important;
+  border-radius: 0;
 }
