@@ -1,3 +1,7 @@
 # 改前备份与一次性移植脚本（保留本地，不入库）
 manifest_ios.html.bak_before_ritual_modes
 _port_ritual_modes.py
+
+# 四境高清原稿保留本地，网页使用对应 WebP
+/图片/盒子/四境塔罗/front-fool-*.png
+/图片/盒子/四境塔罗/back-*.png
