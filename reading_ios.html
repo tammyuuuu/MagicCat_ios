@@ -580,16 +580,133 @@
       pointer-events: none;
       box-shadow: inset 0 0 14px rgba(80,40,140,0.2);
     }
-    .fan-card .card-inner:not(:has(img))::before {
+    .fan-card .card-inner:not(.theme-tarot-host):not(:has(img))::before {
       content: '✦'; font-size: 28px; color: rgba(180,100,255,0.12); pointer-events: none;
     }
-    .fan-card .card-inner:not(:has(img))::after {
+    .fan-card .card-inner:not(.theme-tarot-host):not(:has(img))::after {
       content: ''; position: absolute; inset: 3px;
       border: 1px solid rgba(107,63,160,0.1); pointer-events: none;
     }
     .fan-card .card-inner img {
       width: 100%; height: auto; display: block; pointer-events: none;
     }
+
+    /* 四境塔罗样板：图案固定，颜色直接继承页面的四套配色 */
+    body {
+      --tarot-bg: #16092b; --tarot-bg-2: #321354;
+      --tarot-ink: #eadbff; --tarot-accent: #cda864;
+      --tarot-soft: rgba(191,137,255,.34); --tarot-shadow: rgba(123,62,190,.42);
+      --tarot-reading-bg: #21113a; --tarot-reading-ink: #fff7e8;
+      --tarot-reading-accent: #e3bd68; --tarot-reading-line: rgba(227,189,104,.42);
+      --tarot-reading-panel: #35204f;
+      --tarot-back-image: url('图片/盒子/四境塔罗/back-mystic.png');
+      --tarot-front-fool-image: url('图片/盒子/四境塔罗/front-fool-mystic.png');
+      --tarot-front-magician-image: url('图片/盒子/四境塔罗/front-magician-mystic.png');
+      --tarot-front-priestess-image: url('图片/盒子/四境塔罗/front-priestess-mystic.png');
+      --tarot-front-emperor-image: url('图片/盒子/四境塔罗/front-emperor-mystic.png');
+      --tarot-front-empress-image: url('图片/盒子/四境塔罗/front-empress-mystic.png');
+      --tarot-front-hierophant-image: url('图片/盒子/四境塔罗/front-hierophant-mystic.png');
+      --tarot-front-image: var(--tarot-front-fool-image);
+    }
+    body[data-theme="noir"] {
+      --tarot-bg: #fffdf8; --tarot-bg-2: #ece9e2;
+      --tarot-ink: #17171a; --tarot-accent: #17171a;
+      --tarot-soft: rgba(23,23,26,.2); --tarot-shadow: rgba(0,0,0,.2);
+      --tarot-reading-bg: #fffdf8; --tarot-reading-ink: #17171a;
+      --tarot-reading-accent: #17171a; --tarot-reading-line: rgba(23,23,26,.28);
+      --tarot-reading-panel: #f4f1eb;
+      --tarot-back-image: url('图片/盒子/四境塔罗/back-noir.png');
+      --tarot-front-fool-image: url('图片/盒子/四境塔罗/front-fool-noir.png');
+      --tarot-front-magician-image: url('图片/盒子/四境塔罗/front-magician-noir.png');
+      --tarot-front-priestess-image: url('图片/盒子/四境塔罗/front-priestess-noir.png');
+      --tarot-front-emperor-image: url('图片/盒子/四境塔罗/front-emperor-noir.png');
+      --tarot-front-empress-image: url('图片/盒子/四境塔罗/front-empress-noir.png');
+      --tarot-front-hierophant-image: url('图片/盒子/四境塔罗/front-hierophant-noir.png');
+      --tarot-front-image: var(--tarot-front-fool-image);
+    }
+    body[data-theme="parchment"] {
+      --tarot-bg: #401923; --tarot-bg-2: #173a35;
+      --tarot-ink: #f3dea0; --tarot-accent: #cda657;
+      --tarot-soft: rgba(238,207,126,.3); --tarot-shadow: rgba(0,0,0,.45);
+      --tarot-reading-bg: #5a1117; --tarot-reading-ink: #fff2d0;
+      --tarot-reading-accent: #efc66e; --tarot-reading-line: rgba(239,198,110,.45);
+      --tarot-reading-panel: #711b20;
+      --tarot-back-image: url('图片/盒子/四境塔罗/back-parchment.png');
+      --tarot-front-fool-image: url('图片/盒子/四境塔罗/front-fool-parchment.png');
+      --tarot-front-magician-image: url('图片/盒子/四境塔罗/front-magician-parchment.png');
+      --tarot-front-priestess-image: url('图片/盒子/四境塔罗/front-priestess-parchment.png');
+      --tarot-front-emperor-image: url('图片/盒子/四境塔罗/front-emperor-parchment.png');
+      --tarot-front-empress-image: url('图片/盒子/四境塔罗/front-empress-parchment.png');
+      --tarot-front-hierophant-image: url('图片/盒子/四境塔罗/front-hierophant-parchment.png');
+      --tarot-front-image: var(--tarot-front-fool-image);
+    }
+    body[data-theme="dopamine"] {
+      --tarot-bg: #fffafc; --tarot-bg-2: #e5f3f8;
+      --tarot-ink: #66778e; --tarot-accent: #df78a7;
+      --tarot-soft: rgba(145,203,230,.4); --tarot-shadow: rgba(112,129,151,.2);
+      --tarot-reading-bg: #dff4fb; --tarot-reading-ink: #17171a;
+      --tarot-reading-accent: #e66f9c; --tarot-reading-line: rgba(23,23,26,.2);
+      --tarot-reading-panel: #ccebf6;
+      --tarot-back-image: url('图片/盒子/四境塔罗/back-dopamine.png');
+      --tarot-front-fool-image: url('图片/盒子/四境塔罗/front-fool-dopamine.png');
+      --tarot-front-magician-image: url('图片/盒子/四境塔罗/front-magician-dopamine.png');
+      --tarot-front-priestess-image: url('图片/盒子/四境塔罗/front-priestess-dopamine.png');
+      --tarot-front-emperor-image: url('图片/盒子/四境塔罗/front-emperor-dopamine.png');
+      --tarot-front-empress-image: url('图片/盒子/四境塔罗/front-empress-dopamine.png');
+      --tarot-front-hierophant-image: url('图片/盒子/四境塔罗/front-hierophant-dopamine.png');
+      --tarot-front-image: var(--tarot-front-fool-image);
+    }
+    .theme-tarot-card {
+      box-sizing: border-box; width: 100%; aspect-ratio: 0.582; position: relative;
+      overflow: hidden; color: var(--tarot-ink);
+      background:
+        radial-gradient(circle at 50% 36%, var(--tarot-bg-2), transparent 52%),
+        linear-gradient(155deg, var(--tarot-bg-2), var(--tarot-bg));
+      border: 2px solid var(--tarot-accent);
+      box-shadow: inset 0 0 0 3px var(--tarot-bg), inset 0 0 0 4px var(--tarot-soft), inset 0 0 22px var(--tarot-shadow);
+      transition: color .35s, background .35s, border-color .35s, box-shadow .35s;
+    }
+    .theme-tarot-card.theme-tarot-thumb { width: 42px; height: 72.16px; aspect-ratio: auto; flex: none; }
+    .fan-card .card-inner.theme-tarot-host {
+      border: 0; background: transparent; box-shadow: none;
+    }
+    .theme-tarot-card::before {
+      content: ''; position: absolute; inset: 7%; border: 1px solid var(--tarot-soft);
+      border-radius: 46% 46% 10% 10% / 32% 32% 8% 8%; pointer-events: none;
+    }
+    .theme-tarot-back { display: grid; place-items: center; }
+    .theme-tarot-back.has-generated-art { border: 0; box-shadow: none; background: none; }
+    .theme-tarot-back.has-generated-art::before { content: none; }
+    .theme-tarot-back-art {
+      position: absolute; inset: 0; display: block;
+      background-image: var(--tarot-back-image);
+      background-size: 100% 100%; background-position: center; background-repeat: no-repeat;
+    }
+    .theme-tarot-front.has-generated-art { padding: 0; border: 0; box-shadow: none; background: none; }
+    .theme-tarot-front.has-generated-art::before { content: none; }
+    .theme-tarot-front-art {
+      position: absolute; inset: 0; display: block;
+      background-image: var(--tarot-front-image);
+      background-size: 100% 100%; background-position: center; background-repeat: no-repeat;
+    }
+    .theme-tarot-back .tt-orbit {
+      width: 62%; aspect-ratio: 1; border: 1px solid var(--tarot-accent); border-radius: 50%;
+      display: grid; place-items: center; position: relative;
+      box-shadow: 0 0 16px var(--tarot-shadow), inset 0 0 14px var(--tarot-shadow);
+    }
+    .theme-tarot-back .tt-orbit::before,
+    .theme-tarot-back .tt-orbit::after { content: ''; position: absolute; border: 1px solid var(--tarot-soft); border-radius: 50%; }
+    .theme-tarot-back .tt-orbit::before { inset: 13%; }
+    .theme-tarot-back .tt-orbit::after { inset: -18% 18%; transform: rotate(45deg); }
+    .theme-tarot-back .tt-moon { font-size: clamp(22px,3.2vw,40px); line-height: 1; color: var(--tarot-accent); text-shadow: 0 0 10px var(--tarot-shadow); }
+    .theme-tarot-back .tt-stars { position: absolute; inset: 10%; font-size: 9px; letter-spacing: 6px; display: flex; justify-content: space-between; color: var(--tarot-ink); opacity: .78; }
+    .theme-tarot-front { display: flex; flex-direction: column; align-items: center; padding: 8% 8% 6%; }
+    .theme-tarot-front .tt-number { font: 600 clamp(8px,1vw,12px) Georgia,serif; letter-spacing: 2px; color: var(--tarot-accent); }
+    .theme-tarot-front svg { width: 82%; flex: 1; min-height: 0; margin: 3% 0; overflow: visible; filter: drop-shadow(0 0 5px var(--tarot-shadow)); }
+    .theme-tarot-front svg * { vector-effect: non-scaling-stroke; }
+    .theme-tarot-front .tt-title { font: 600 clamp(9px,1.15vw,14px) Georgia,'Songti SC',serif; letter-spacing: .28em; color: var(--tarot-ink); }
+    .theme-tarot-front .tt-en { margin-top: 2px; font: 500 clamp(5px,.62vw,8px) Georgia,serif; letter-spacing: .2em; color: var(--tarot-accent); }
+    .card-front.is-reversed .theme-tarot-card { transform: rotate(180deg); }
     .fan-card .card-number {
       font-size: 13px; color: rgba(255,255,255,0.7);
       position: absolute; top: 4px; left: 50%; transform: translateX(-50%);
@@ -647,8 +764,8 @@
     .placed-card .card-front img {
       width: 100%; height: auto; display: block;
     }
-    .placed-card .card-back:not(:has(img)),
-    .placed-card .card-front:not(:has(img)) {
+    .placed-card .card-back:not(.theme-tarot-host):not(:has(img)),
+    .placed-card .card-front:not(.theme-tarot-host):not(:has(img)) {
       width: 100%; aspect-ratio: 2/3;
       display: flex; align-items: center; justify-content: center;
     }
@@ -664,10 +781,10 @@
     .placed-card .card-back,
     .placed-card .card-front { backface-visibility: hidden; }
     .placed-card .card-back { position: relative; }
-    .placed-card .card-back:not(:has(img)) {
+    .placed-card .card-back:not(.theme-tarot-host):not(:has(img)) {
       background: radial-gradient(circle at 50% 50%, #1a0a30, #0c0218);
     }
-    .placed-card .card-back:not(:has(img))::before {
+    .placed-card .card-back:not(.theme-tarot-host):not(:has(img))::before {
       content: '✦'; font-size: 36px; color: rgba(180,100,255,0.15);
     }
 
@@ -676,6 +793,15 @@
       width: 100%; transform: rotateY(180deg);
     }
     .placed-card .card-front.is-reversed img { transform: rotate(180deg); }
+    .placed-card.theme-tarot-placement { aspect-ratio: 0.582; }
+    .placed-card.theme-tarot-placement .card-flipper,
+    .placed-card.theme-tarot-placement .theme-tarot-host,
+    .placed-card.theme-tarot-placement .theme-tarot-card { width: 100%; height: 100%; }
+    .placed-card.theme-tarot-placement .card-flipper { aspect-ratio: 0.582; }
+    .placed-card.theme-tarot-placement .theme-tarot-host {
+      display: block; aspect-ratio: 0.582; background: transparent;
+    }
+    .placed-card.theme-tarot-placement .theme-tarot-host::before { content: none; }
 
     .placed-card:not(.revealed) .card-back { display: block; position: relative; height: 100%; }
     .placed-card:not(.revealed) .card-front { display: none; position: absolute; }
@@ -747,6 +873,132 @@
     #cardZoom .zoom-card.interp img { width: 100%; height: auto; display: block; }
     #cardZoom .zoom-card.interp::-webkit-scrollbar { width: 6px; }
     #cardZoom .zoom-card.interp::-webkit-scrollbar-thumb { background: #8a4dff; border-radius: 3px; }
+    #cardZoom .zoom-card.theme-tarot-zoom {
+      width: min(88vw, 372px); aspect-ratio: 0.582;
+      overflow: hidden; border-color: var(--tarot-accent);
+      background: var(--tarot-bg); color: var(--tarot-ink);
+    }
+    #cardZoom .zoom-card.theme-tarot-zoom.interp {
+      overflow-y: auto; overscroll-behavior: contain;
+      scrollbar-color: var(--tarot-reading-accent) transparent;
+    }
+    #cardZoom .zoom-card.theme-tarot-zoom.interp::-webkit-scrollbar-thumb {
+      background: var(--tarot-reading-accent);
+    }
+    #cardZoom .theme-tarot-zoom-face,
+    #cardZoom .theme-tarot-zoom-face > .theme-tarot-card,
+    #cardZoom .theme-tarot-info-back,
+    #cardZoom .theme-tarot-meaning { width: 100%; height: 100%; }
+    #cardZoom .theme-tarot-zoom-face.is-reversed { transform: rotate(180deg); }
+    #cardZoom .theme-tarot-info-back {
+      box-sizing: border-box; position: relative; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: clamp(22px,6vw,40px);
+      color: var(--tarot-ink); text-align: center;
+      background:
+        radial-gradient(circle at 50% 36%, var(--tarot-bg-2), transparent 48%),
+        linear-gradient(155deg, var(--tarot-bg-2), var(--tarot-bg));
+      box-shadow: inset 0 0 0 5px var(--tarot-bg), inset 0 0 0 7px var(--tarot-accent), inset 0 0 0 11px var(--tarot-bg), inset 0 0 0 12px var(--tarot-soft);
+    }
+    #cardZoom .theme-tarot-info-back::before {
+      content: ''; position: absolute; inset: 8%; border: 1px solid var(--tarot-soft);
+      border-radius: 46% 46% 10% 10% / 25% 25% 7% 7%; pointer-events: none;
+    }
+    .tt-info-orbit {
+      width: 46%; aspect-ratio: 1; display: grid; place-items: center; position: relative;
+      border: 1px solid var(--tarot-accent); border-radius: 50%;
+      box-shadow: 0 0 22px var(--tarot-shadow), inset 0 0 18px var(--tarot-shadow);
+    }
+    .tt-info-orbit::before { content: ''; position: absolute; inset: 14%; border: 1px solid var(--tarot-soft); border-radius: 50%; }
+    .tt-info-orbit span { font-size: clamp(34px,10vw,56px); color: var(--tarot-accent); text-shadow: 0 0 12px var(--tarot-shadow); }
+    .tt-info-title { margin-top: 10%; font: 600 clamp(20px,5.8vw,30px) Georgia,'Songti SC',serif; letter-spacing: .18em; }
+    .tt-info-en { margin-top: 3px; font: 500 9px Georgia,serif; letter-spacing: .22em; color: var(--tarot-accent); }
+    .tt-info-grid { width: 78%; margin-top: 9%; border-top: 1px solid var(--tarot-soft); }
+    .tt-info-row { display: flex; justify-content: space-between; gap: 12px; padding: 8px 2px; border-bottom: 1px solid var(--tarot-soft); font-size: clamp(10px,2.7vw,13px); }
+    .tt-info-row b { color: var(--tarot-accent); font-weight: 500; letter-spacing: .12em; }
+    #cardZoom .theme-tarot-meaning {
+      box-sizing: border-box; position: relative; display: flex; flex-direction: column;
+      padding: clamp(20px,5.4vw,36px) clamp(18px,5vw,32px);
+      text-align: left; color: var(--tarot-reading-ink);
+      font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      background: var(--tarot-reading-bg);
+      box-shadow: none;
+    }
+    #cardZoom .theme-tarot-zoom.interp .theme-tarot-meaning {
+      height: auto; min-height: 100%;
+    }
+    #cardZoom .theme-tarot-meaning::before,
+    #cardZoom .theme-tarot-meaning::after { content: none; }
+    .tt-meaning-head { padding-bottom: 12px; border-bottom: 1px solid var(--tarot-reading-line); }
+    .tt-meaning-index { font: 600 15px Georgia,serif; letter-spacing: .14em; color: var(--tarot-reading-accent); }
+    .tt-meaning-name { margin-top: 4px; font: 600 clamp(22px,6vw,30px) Georgia,'Songti SC',serif; letter-spacing: .14em; }
+    .tt-meaning-orientation {
+      display: inline-block; margin-left: .25em; color: var(--tarot-reading-accent);
+      font-size: clamp(15px,.58em,18px); font-weight: 650; letter-spacing: .08em; vertical-align: .08em;
+    }
+    .tt-meaning-en { margin-top: 3px; font: 600 11px Georgia,serif; letter-spacing: .18em; color: var(--tarot-reading-accent); }
+    .tt-meaning-meta { display: flex; flex-wrap: wrap; gap: 7px 8px; padding: 11px 0; border-bottom: 1px solid var(--tarot-reading-line); }
+    .tt-meaning-meta span { padding: 5px 9px; border: 1px solid var(--tarot-reading-line); border-radius: 14px; font-size: clamp(15px,3.2vw,17px); }
+    .tt-meaning-theme { margin: 10px 0 0; font-size: clamp(15px,3.4vw,17px); line-height: 1.65; }
+    .tt-meaning-section { padding: 10px 0 9px; border-bottom: 1px solid var(--tarot-reading-line); }
+    .tt-meaning-section b { display: block; margin-bottom: 5px; font-size: clamp(15px,3.2vw,17px); letter-spacing: .12em; color: var(--tarot-reading-accent); }
+    .tt-meaning-section strong { display: block; margin-bottom: 6px; font-size: clamp(17px,3.6vw,19px); line-height: 1.6; font-weight: 650; }
+    .tt-meaning-section .tt-meaning-keywords {
+      color: var(--tarot-reading-accent);
+      font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      font-size: clamp(15px,3.4vw,17px);
+      font-weight: 600;
+    }
+    .tt-meaning-section h3 {
+      margin: 12px 0 7px; font-size: clamp(18px,3.8vw,20px); font-weight: 900;
+      font-family: "Songti SC", SimSun, serif;
+      -webkit-text-stroke: .32px currentColor;
+    }
+    .tt-meaning-section p { margin: 0 0 8px; font-size: clamp(15px,3.4vw,17px); line-height: 1.7; letter-spacing: .02em; }
+    .tt-main-message {
+      padding: 10px 12px 3px; border: 1px solid var(--tarot-reading-line);
+      border-radius: 14px; background: transparent;
+    }
+    .tt-meaning-section blockquote {
+      margin: 9px 0 1px; padding: 8px 10px; border: 1px solid var(--tarot-reading-line);
+      border-left: 3px solid var(--tarot-reading-accent); border-radius: 4px;
+      background: var(--tarot-reading-panel);
+    }
+    .tt-meaning-section .tt-simple-title + blockquote { margin-top: 0; }
+    .tt-meaning-section blockquote span { display: block; font-size: clamp(15px,3.4vw,17px); line-height: 1.6; font-weight: 400; }
+    .tt-topic-section { padding: 10px 0 9px; border-bottom: 1px solid var(--tarot-reading-line); }
+    .tt-topic-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+    .tt-topic-tabs button {
+      min-width: 0; padding: 7px 2px; border: 1px solid var(--tarot-reading-line); border-radius: 14px;
+      color: var(--tarot-reading-ink); background: transparent;
+      font: 600 clamp(16px,3.35vw,17px) "Songti SC", SimSun, serif;
+      -webkit-text-stroke: 0;
+      cursor: pointer;
+    }
+    .tt-topic-tabs button.active {
+      color: var(--tarot-reading-ink); background: var(--tarot-reading-panel); border-color: var(--tarot-reading-accent);
+    }
+    .tt-topic-panel { display: none; padding: 10px 2px 2px; }
+    .tt-topic-panel.active { display: block; }
+    .tt-topic-panel > b {
+      display: block; margin-bottom: 5px; color: var(--tarot-reading-accent);
+      font: 600 clamp(15px,3.2vw,17px) "Songti SC", SimSun, serif;
+    }
+    .tt-topic-panel p { margin: 0; font-size: clamp(15px,3.4vw,17px); line-height: 1.7; }
+    .tt-meaning-symbols { padding: 9px 0 8px; }
+    .tt-meaning-symbols > b {
+      display: block; margin-bottom: 7px; font: 900 clamp(18px,3.8vw,20px) "Songti SC", SimSun, serif;
+      letter-spacing: .12em; color: var(--tarot-reading-ink);
+      -webkit-text-stroke: .32px currentColor;
+    }
+    .tt-meaning-symbols > div { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 8px; }
+    .tt-meaning-symbols span { display: flex; flex-direction: column; gap: 3px; padding: 7px 10px; border: 1px solid var(--tarot-reading-line); border-radius: 14px; font-size: clamp(15px,3.15vw,16px); line-height: 1.48; }
+    .tt-meaning-symbols span strong {
+      color: var(--tarot-reading-accent); font: 900 1.08em "Songti SC", SimSun, serif;
+      -webkit-text-stroke: .26px currentColor;
+    }
+    .tt-meaning-advice { margin-top: auto; padding: 10px 11px; border: 1px solid var(--tarot-reading-line); border-radius: 5px; background: var(--tarot-reading-panel); }
+    .tt-meaning-advice b { display: block; margin-bottom: 4px; font-size: 12px; letter-spacing: .14em; color: var(--tarot-reading-accent); }
+    .tt-meaning-advice p { margin: 0; font-size: clamp(12px,3vw,14px); line-height: 1.62; }
     /* 关闭按钮（右上） */
     #cardZoom .zoom-close {
       position: fixed; top: calc(20px + env(safe-area-inset-top)); right: 20px;
@@ -2054,6 +2306,61 @@ function loadDecksFromConfig() {
       aspectRatio: cfg.aspectRatio || 2 / 3,
     });
   });
+
+  deckList.push({
+    id: 'theme-tarot-prototype', name: '四境塔罗·愚人', count: 1, icon: '✦',
+    _themeTarot: true,
+    _cards: [{
+      id: 'theme-tarot-fool', number: '0', name: '愚人', englishName: 'THE FOOL',
+      type: 'theme-tarot', _themeTarot: true, _themeArt: 'fool',
+      meaning: {
+        element: '风', planet: '天王星 Uranus', hebrew: 'Aleph', path: '卡巴拉路径 11',
+        spirit: '第五元素：灵 Spirit',
+        upright: '开始 · 尝试 · 好奇 · 自由 · 新机会',
+        uprightText: [
+          '你可能正遇到一个新的机会，或者想尝试一件以前没有做过的事。',
+          '现在不一定能看清最后会怎样，但这并不代表不能开始。只要风险在自己能够承受的范围内，可以先试试看，再根据实际情况调整。'
+        ],
+        uprightSimple: '想做的事，可以先迈出第一步。',
+        reversed: '冲动 · 没准备好 · 害怕开始 · 低估风险',
+        reversedText: [
+          '你可能太急着开始一件事，还没有考虑清楚后果；也可能刚好相反——明明很想行动，却因为担心失败一直拖着。',
+          '不需要等到万事俱备，但也不要什么都不准备。'
+        ],
+        reversedSimple: '先看清风险，再决定要不要往前走。',
+        topics: [
+          {
+            key: 'love', label: '感情',
+            upright: '可能有新的相遇、新鲜感，或者关系即将进入一个新的阶段。先相处看看，不必太早给关系下结论。',
+            reversed: '容易因为一时心动做决定；也可能因为害怕受伤，而迟迟不敢开始。'
+          },
+          {
+            key: 'career', label: '事业',
+            upright: '适合尝试新的工作、项目、专业或学习方向。即使暂时不知道结果，也可以先了解、先体验。',
+            reversed: '可能想法很多，但准备不足。先了解实际情况，再决定是否行动。'
+          },
+          {
+            key: 'wealth', label: '财富',
+            upright: '可以尝试新的赚钱方式或计划，但更适合从自己能够承担的小规模开始。',
+            reversed: '注意冲动消费、盲目投入，以及还没有了解清楚就做决定。'
+          },
+          {
+            key: 'health', label: '健康',
+            upright: '适合从轻松、可持续的小习惯开始，让身体慢慢恢复活力。循序渐进，比一开始要求自己做到完美更重要。',
+            reversed: '留意冲动运动、作息混乱或忽略身体发出的信号。先了解自己的状态，再安排适合的节奏。'
+          }
+        ],
+        symbols: [
+          ['吊篮', '熟悉的舒适区'],
+          ['跃出的猫', '把好奇变成行动'],
+          ['猫爬架', '已有能力与支持'],
+          ['柔软垫子', '为冒险准备落点']
+        ],
+        advice: '勇敢不是忽略风险，而是在看见风险之后，仍愿意迈出能够承担的一步。'
+      }
+    }],
+    noReverse: false, layout: 'portrait', aspectRatio: 0.582,
+  });
 }
 loadDecksFromConfig();
 
@@ -2067,7 +2374,9 @@ function renderDecks() {
     const thumb = d._backImg;
     return `
     <div class="drawer-item" data-deck-id="${d.id}">
-      ${thumb
+      ${d._themeTarot
+        ? themeTarotBackMarkup('theme-tarot-thumb')
+        : thumb
         ? `<img src="${thumb}" alt="" style="max-width:50px;max-height:70px;width:auto;height:auto;border:2px solid #4a2a6a;display:block;" draggable="false" onerror="this.outerHTML='<span style=font-size:24px;>🃏</span>'">`
         : '<span style="font-size:24px;">🃏</span>'
       }
@@ -2100,7 +2409,86 @@ function selectDeckAndOpen(deck) {
   if (deck._backImg) {
     currentDeck._images = { back: deck._backImg, fronts: deck._frontImgs || [], noReverse: deck.noReverse || false, layout: deck.layout || 'portrait', aspectRatio: deck.aspectRatio || 2 / 3 };
   }
+  currentDeck._themeTarot = !!deck._themeTarot;
   openFan();
+}
+
+function themeTarotBackMarkup(extraClass) {
+  return `<div class="theme-tarot-card theme-tarot-back has-generated-art ${extraClass || ''}" aria-label="四境塔罗牌背">
+    <span class="theme-tarot-back-art" aria-hidden="true"></span>
+  </div>`;
+}
+
+function themeTarotFrontMarkup(card) {
+  const artKey = card._themeArt || 'fool';
+  return `<div class="theme-tarot-card theme-tarot-front has-generated-art" style="--tarot-front-image:var(--tarot-front-${artKey}-image)" aria-label="${card.name}">
+    <span class="theme-tarot-front-art" aria-hidden="true"></span>
+  </div>`;
+}
+
+function themeTarotMeaningMarkup(card) {
+  const meaning = card.meaning || {};
+  const symbols = Array.isArray(meaning.symbols) ? meaning.symbols : [];
+  const isReversed = !!card.isReversed;
+  const direction = isReversed ? '逆位' : '正位';
+  const keywords = isReversed ? meaning.reversed : meaning.upright;
+  const paragraphs = isReversed ? meaning.reversedText : meaning.uprightText;
+  const simple = isReversed ? meaning.reversedSimple : meaning.uprightSimple;
+  const topicList = Array.isArray(meaning.topics) ? meaning.topics : [];
+  const paragraphList = Array.isArray(paragraphs) ? paragraphs : [paragraphs].filter(Boolean);
+  return `<article class="theme-tarot-meaning" aria-label="${card.name}牌意">
+    <header class="tt-meaning-head">
+      <div class="tt-meaning-index">${card.number || '0'} · ${card.englishName || 'THE FOOL'}</div>
+      <div class="tt-meaning-name">${card.name}<span class="tt-meaning-orientation">· ${direction}</span></div>
+    </header>
+    <div class="tt-meaning-meta">
+      <span>元素 · ${meaning.element || '风'}</span>
+      <span>行星 · ${meaning.planet || '天王星'}</span>
+      <span>字母 · ${meaning.hebrew || 'Aleph'}</span>
+    </div>
+    <section class="tt-meaning-section tt-meaning-direction">
+      <strong class="tt-meaning-keywords">${keywords || ''}</strong>
+      <h3>它在告诉你</h3>
+      <div class="tt-main-message">${paragraphList.map(text => `<p>${text}</p>`).join('')}</div>
+      <h3 class="tt-simple-title">简单来说</h3>
+      <blockquote><span>${simple || ''}</span></blockquote>
+    </section>
+    <section class="tt-topic-section">
+      <div class="tt-topic-tabs" role="tablist" aria-label="解读领域">
+        ${topicList.map((topic, index) => `<button type="button" role="tab" aria-selected="${index === 0}" data-topic="${topic.key}" class="${index === 0 ? 'active' : ''}">${topic.label}</button>`).join('')}
+      </div>
+      ${topicList.map((topic, index) => `<div class="tt-topic-panel${index === 0 ? ' active' : ''}" role="tabpanel" data-topic-panel="${topic.key}"><p>${isReversed ? topic.reversed : topic.upright}</p></div>`).join('')}
+    </section>
+    <section class="tt-meaning-symbols"><b>画面象征</b><div>${symbols.map(([name, text]) => `<span><strong>${name}</strong>${text}</span>`).join('')}</div></section>
+  </article>`;
+}
+
+function initThemeTarotMeaningTabs() {
+  const tabs = [...zoomCard.querySelectorAll('.tt-topic-tabs button')];
+  const panels = [...zoomCard.querySelectorAll('.tt-topic-panel')];
+  tabs.forEach(tab => tab.addEventListener('click', () => {
+    const key = tab.dataset.topic;
+    tabs.forEach(item => {
+      const selected = item === tab;
+      item.classList.toggle('active', selected);
+      item.setAttribute('aria-selected', selected ? 'true' : 'false');
+    });
+    panels.forEach(panel => panel.classList.toggle('active', panel.dataset.topicPanel === key));
+  }));
+}
+
+function themeTarotInfoBackMarkup(card) {
+  const meaning = card.meaning || {};
+  return `<article class="theme-tarot-info-back" aria-label="${card.name}背面信息">
+    <div class="tt-info-orbit"><span>☾</span></div>
+    <div class="tt-info-title">${card.number || '0'} · ${card.name}</div>
+    <div class="tt-info-en">${card.englishName || 'THE FOOL'}</div>
+    <div class="tt-info-grid">
+      <div class="tt-info-row"><b>元素</b><span>${meaning.element || '风'}</span></div>
+      <div class="tt-info-row"><b>行星</b><span>${meaning.planet || '天王星 Uranus'}</span></div>
+      <div class="tt-info-row"><b>字母</b><span>${meaning.hebrew || 'Aleph'}</span></div>
+    </div>
+  </article>`;
 }
 
 // ============================================================
@@ -2143,6 +2531,7 @@ document.addEventListener('contextmenu', (e) => e.preventDefault());
 function shuffleDeck(deck) {
   const arr = [...deck];
   const images = deck._images;
+  const isThemeTarot = deck._themeTarot;
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -2150,6 +2539,7 @@ function shuffleDeck(deck) {
   const noRev = currentDeck._images?.noReverse;
   const result = arr.map(card => ({ ...card, isReversed: noRev ? false : Math.random() < 0.5 }));
   result._images = images;
+  result._themeTarot = isThemeTarot;
   return result;
 }
 
@@ -2269,7 +2659,9 @@ function createFanCardEl(globalIdx, seqNum) {
   if (currentDeck._images?.layout === 'landscape') el.classList.add('landscape');
   el.dataset.globalIdx = globalIdx;
   el.dataset.reversed = card.isReversed ? 'true' : 'false';
-  el.innerHTML = backImg
+  el.innerHTML = currentDeck._themeTarot
+    ? `<div class="card-inner theme-tarot-host" style="padding:0;overflow:hidden;background:transparent;">${themeTarotBackMarkup()}</div>`
+    : backImg
     ? `<div class="card-inner" style="padding:0;overflow:hidden;background:transparent;">
         <img src="${backImg}" alt="" draggable="false" style="display:block;width:100%;height:auto;"
              onerror="this.style.display='none';this.parentElement.style.cssText+=';width:80px;height:120px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#1a0a30,#0c0218);'">
@@ -2475,12 +2867,15 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed, sizeW, sizeH
 
   const backImg  = currentDeck._images?.back;
   const frontImg = card._imgUrl;
+  const isThemeTarot = !!(currentDeck._themeTarot || card._themeTarot);
 
   const placed = document.createElement('div');
   placed.className = 'placed-card';
+  if (isThemeTarot) placed.classList.add('theme-tarot-placement');
   if (isLandscape) placed.classList.add('landscape');
   placed.dataset.cardId = card.id;
   placed.dataset.globalIdx = globalIdx;
+  placed.dataset.reversed = isReversed ? 'true' : 'false';
   // 视觉左上角 clamp 后换算成布局坐标（牌 transform-origin 为中心，scale=s）
   const vLeft = Math.max(0, Math.min(baseX, Math.max(0, window.innerWidth - vw)));
   const vTop  = Math.max(0, Math.min(baseY, Math.max(0, window.innerHeight - vh)));
@@ -2490,13 +2885,17 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed, sizeW, sizeH
 
   placed.innerHTML = `
     <div class="card-flipper">
-      <div class="card-back">
-        ${backImg
+      <div class="card-back${isThemeTarot ? ' theme-tarot-host' : ''}">
+        ${isThemeTarot
+          ? themeTarotBackMarkup()
+          : backImg
           ? `<img src="${backImg}" alt="" draggable="false" onerror="this.outerHTML='<div style=display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:2/3;background:radial-gradient(circle,#1a0a30,#0c0218);><span style=font-size:36px;color:rgba(180,100,255,0.15);>✦</span></div>'">`
           : ''}
       </div>
-      <div class="card-front${isReversed ? ' is-reversed' : ''}">
-        ${frontImg
+      <div class="card-front${isReversed ? ' is-reversed' : ''}${isThemeTarot ? ' theme-tarot-host' : ''}">
+        ${isThemeTarot
+          ? themeTarotFrontMarkup(card)
+          : frontImg
           ? `<img src="${frontImg}" alt="${card.name}" draggable="false" onerror="this.outerHTML='<div style=display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;aspect-ratio:2/3;background:linear-gradient(160deg,#1a0a30,#0c0218);padding:8px;><span>${card.number}</span><span style=font-size:1.5em;>🌟</span><span>${card.name}</span></div>'">`
           : `<div style="width:100%;aspect-ratio:2/3;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,#1a0a30,#0c0218);padding:8px;">
               <span style="font-size:inherit;color:#7a4a9a;">${card.number}</span>
@@ -2594,7 +2993,11 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed, sizeW, sizeH
 
     placed.addEventListener('click', (e) => {
       if (dragDist > 5) return;
-      placed.classList.toggle('revealed');
+      if (placed.classList.contains('revealed')) {
+        openCardZoom(placed, card.name);
+      } else {
+        placed.classList.add('revealed');
+      }
     });
 
     placed.addEventListener('mousedown', (e) => {
@@ -2716,6 +3119,24 @@ let _zoomBackSrc  = null;    // 牌背面图
 let _zoomCardName = '';
 let _zoomInterpSrc = null;   // 解读图路径
 let _zoomShowingInterp = false;
+let _zoomThemeCard = null;
+let _zoomThemeSide = 'front';
+
+function renderThemeTarotZoom() {
+  if (!_zoomThemeCard) return;
+  zoomCard.classList.add('theme-tarot-zoom');
+  zoomCard.classList.toggle('interp', _zoomShowingInterp);
+  zoomCard.innerHTML = _zoomShowingInterp
+    ? themeTarotMeaningMarkup(_zoomThemeCard)
+    : _zoomThemeSide === 'back'
+      ? themeTarotInfoBackMarkup(_zoomThemeCard)
+      : `<div class="theme-tarot-zoom-face${_zoomThemeCard.isReversed ? ' is-reversed' : ''}">${themeTarotFrontMarkup(_zoomThemeCard)}</div>`;
+  if (_zoomShowingInterp) initThemeTarotMeaningTabs();
+  zoomFlip.textContent = _zoomThemeSide === 'back' ? '翻回正面' : '翻面';
+  zoomFlip.style.visibility = _zoomShowingInterp ? 'hidden' : '';
+  zoomInterpret.classList.toggle('back', _zoomShowingInterp);
+  zoomInterpret.textContent = _zoomShowingInterp ? '返回牌面' : '解读';
+}
 
 function openCardZoom(placed, name) {
   const isRevealed = placed.classList.contains('revealed');
@@ -2733,6 +3154,10 @@ function openCardZoom(placed, name) {
   // 推导解读图路径：1.png → 1_.png
   const cardId = placed.dataset.cardId;
   const card = currentDeck.find(c => c.id === cardId);
+  _zoomThemeCard = card?._themeTarot
+    ? { ...card, isReversed: placed.dataset.reversed === 'true' }
+    : null;
+  _zoomThemeSide = 'front';
   _zoomInterpSrc = card?._imgUrl
     ? String(card._imgUrl).replace(/(\d+)\.(\w+)$/, '$1_.$2')
     : null;
@@ -2741,13 +3166,19 @@ function openCardZoom(placed, name) {
   zoomInterpret.textContent = '解读';
   // 先隐藏解读按钮，确认解读图真实存在后再显示（避免 404 破图）
   zoomInterpret.style.display = 'none';
-  if (_zoomInterpSrc) {
+  zoomFlip.style.visibility = '';
+  if (_zoomThemeCard) {
+    zoomInterpret.style.display = 'flex';
+  } else if (_zoomInterpSrc) {
     const probe = new Image();
     probe.onload = () => { zoomInterpret.style.display = 'flex'; };
     probe.src = _zoomInterpSrc;
   }
 
-  if (src) {
+  zoomCard.classList.remove('theme-tarot-zoom');
+  if (_zoomThemeCard) {
+    renderThemeTarotZoom();
+  } else if (src) {
     zoomCard.innerHTML = `<img src="${src}" alt="${name}" draggable="false">`;
   } else {
     zoomCard.innerHTML = `<div style="width:60vw;aspect-ratio:2/3;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#1a0a30,#0c0218);font-size:18px;color:#c9a0ff;border:3px solid #6b3fa0;">${name}</div>`;
@@ -2758,6 +3189,11 @@ function openCardZoom(placed, name) {
 // 翻面：切换桌面牌正反面并同步放大视图
 zoomFlip.addEventListener('click', () => {
   if (!_zoomPlaced) return;
+  if (_zoomThemeCard) {
+    _zoomThemeSide = _zoomThemeSide === 'front' ? 'back' : 'front';
+    renderThemeTarotZoom();
+    return;
+  }
   _zoomPlaced.classList.toggle('revealed');
   _zoomShowingInterp = false;
   zoomCard.classList.remove('interp');
@@ -2770,6 +3206,11 @@ zoomFlip.addEventListener('click', () => {
 
 // 解读按钮：切换 牌面 ↔ 解读图
 zoomInterpret.addEventListener('click', () => {
+  if (_zoomThemeCard) {
+    _zoomShowingInterp = !_zoomShowingInterp;
+    renderThemeTarotZoom();
+    return;
+  }
   if (!_zoomInterpSrc) return;
   _zoomShowingInterp = !_zoomShowingInterp;
   if (_zoomShowingInterp) {
@@ -2793,6 +3234,11 @@ function closeCardZoom() {
   zoomInterpret.textContent = '解读';
   _zoomShowingInterp = false;
   _zoomPlaced = null;
+  _zoomThemeCard = null;
+  _zoomThemeSide = 'front';
+  zoomFlip.textContent = '翻面';
+  zoomFlip.style.visibility = '';
+  zoomCard.classList.remove('theme-tarot-zoom');
   _zoomFrontSrc = _zoomBackSrc = _zoomInterpSrc = null;
 }
 
@@ -3396,7 +3842,7 @@ function deckForTheme(theme) {
 let _bootTheme = 'mystic';
 try { _bootTheme = localStorage.getItem('magiccat_reading_theme') || 'mystic'; } catch (_) {}
 if (deckList.length > 0) {
-  selectDeckAndOpen(deckForTheme(_bootTheme) || deckList[0]);
+  selectDeckAndOpen(deckList.find(d => d.id === 'theme-tarot-prototype') || deckForTheme(_bootTheme) || deckList[0]);
 }
 </script>
 
@@ -3505,7 +3951,7 @@ if (deckList.length > 0) {
       /* 该配色若配了专属牌组（雾糖奇遇 → 小小奇遇雷诺曼），跟着换过去 */
       try {
         var deck = typeof deckForTheme === 'function' ? deckForTheme(card.getAttribute('data-theme')) : null;
-        if (deck && typeof selectDeckAndOpen === 'function') selectDeckAndOpen(deck);
+        if (!(currentDeck && currentDeck._themeTarot) && deck && typeof selectDeckAndOpen === 'function') selectDeckAndOpen(deck);
       } catch (e) {}
     });
   });
