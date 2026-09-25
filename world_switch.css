@@ -57,16 +57,16 @@
 }
 .world-switch:active { transform: scale(.96); }
 
-/* 西玄页 → 飞鸟徽章；默认星夜紫晶 */
+/* 西玄页 → 飞鸟徽章；星夜紫晶采用牌盒标签的装饰紫与文字高亮色 */
 .world-switch--west {
   left:calc(18px + env(safe-area-inset-left));
   top:calc(18px + env(safe-area-inset-top));right:auto;bottom:auto;
-  --ws-ink: #eadcfb;
-  --ws-ink-hi: #fff2d0;
-  --ws-accent: #d8b96d;
+  --ws-ink: #c39bf1;
+  --ws-ink-hi: #d8c1f4;
+  --ws-accent: #d5a553;
   --ws-paper: #302044;
-  --ws-border: #aa83ca;
-  --ws-border-hi: #ead2ff;
+  --ws-border: #9f72df;
+  --ws-border-hi: #c39bf1;
   --ws-halo: rgba(177,131,221,.12);
   --ws-glow: rgba(190,150,234,.28);
   --ws-tip-bg: #251832;
@@ -114,7 +114,7 @@ body[data-theme="dopamine"] .ws-seal-dashes{stroke:#a9cfe3;stroke-dasharray:.6 3
 .world-switch--east {
   right:calc(14px + env(safe-area-inset-right));
   bottom:calc(14px + env(safe-area-inset-bottom));left:auto;top:auto;
-  --ws-ink: #d7e6bd;
+  --ws-ink: #aec58e;
   --ws-ink-hi: #f0dca0;
   --ws-accent: var(--gold, #d8c491);
   --ws-border: var(--bronze, #a98a50);
