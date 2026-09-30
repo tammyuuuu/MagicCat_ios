@@ -71,6 +71,9 @@
       button.className = 'offline-download';
       const size = (group.bytes / 1024 / 1024).toFixed(1);
       let ready = await countReady(group);
+      button.dataset.complete = String(ready === group.files.length);
+      button.disabled = ready === group.files.length;
+      button.textContent = button.disabled ? '已下载' : '下载 / 补齐';
       progress.value = ready;
       status.textContent = `${group.files.length} 张图片 · ${size} MB · 已完成 ${ready}/${group.files.length}`;
       row.append(title,status,progress,button); rows.append(row); buttons.push(button);
@@ -92,7 +95,14 @@
           progress.value = ready;
           status.textContent = ready === group.files.length ? `已完成 ${ready}/${ready} · 可以离线使用` : `已暂停 · 已保留 ${ready}/${group.files.length}`;
         } catch (error) { status.textContent = error.message + '；可再次点击继续'; }
-        finally { running = false; buttons.forEach(other => other.disabled = false); button.textContent = '下载 / 补齐'; }
+        finally {
+          running = false;
+          button.dataset.complete = String(ready === group.files.length);
+          buttons.forEach(other => {
+            other.disabled = other.dataset.complete === 'true';
+            other.textContent = other.disabled ? '已下载' : '下载 / 补齐';
+          });
+        }
       };
     }
   }
