@@ -1,0 +1,49 @@
+<!doctype html><meta charset="utf-8"><title>PWA 本地验证</title>
+<button id="online">准备联网测试</button><button id="offline">验证断网</button>
+<button id="updated">检查更新后的数据</button><pre id="result">等待测试</pre><script>
+(() => {
+const output = document.querySelector('#result');
+if (!['127.0.0.1','localhost','[::1]'].includes(location.hostname)) {
+ document.querySelectorAll('button').forEach(button => button.disabled = true);
+ output.textContent = '仅用于本地浏览器测试。';
+ return;
+}
+const resources = ['reading_ios.html','manifest_ios.html','bird_ios.html','wish_ios.html',
+'waite_meanings.js','lenormand_meanings.js','图片/盒子/维特塔罗/0.webp',
+'图片/盒子/四境塔罗/front-world-mystic.webp','图片/布袋/crystal1.webp'];
+const markerKey = '__pwa_review_test';
+document.querySelector('#updated').onclick = async () => {
+ const registration = await navigator.serviceWorker.getRegistration('../');
+ await registration.update();
+ const art = await caches.open('magiccat-/ios/art-v1');
+ output.textContent = '更新结果\n本地数据 '+localStorage.getItem(markerKey)+'\n图片缓存数 '+(await art.keys()).length+'\n运行 Worker '+registration.active.scriptURL+'\n等待更新 '+!!registration.waiting;
+};
+document.querySelector('#online').onclick = async () => {
+ try {
+  const registration = await navigator.serviceWorker.register('../sw.js?review=1', {updateViaCache:'none'});
+  await navigator.serviceWorker.ready;
+  if (!navigator.serviceWorker.controller) await new Promise(resolve => navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true}));
+  const results=[];
+  for (const path of resources) {
+   const response=await fetch('../'+path);
+   if (!response.ok) throw new Error(path+': '+response.status);
+   if(path.endsWith('.webp')) { const image=await createImageBitmap(await response.blob()); image.close(); }
+   results.push(path+' OK');
+  }
+  localStorage.setItem(markerKey,'keep-after-update');
+  const names = await caches.keys();
+  const art = await caches.open('magiccat-/ios/art-v1');
+  const requests = await art.keys();
+  output.textContent='在线通过\n'+results.join('\n')+'\nSW scope '+registration.scope+'\n图片缓存数 '+requests.length+'\n缓存 '+names.join(',');
+ } catch(error) { output.textContent='失败 '+String(error); }
+};
+document.querySelector('#offline').onclick=async()=>{
+ try{
+  const results=[];
+  for(const path of resources){const response=await fetch('../'+path);if(!response.ok)throw new Error(path+': '+response.status);await response.arrayBuffer();results.push(path+' OFFLINE OK');}
+  if(localStorage.getItem(markerKey)!=='keep-after-update')throw new Error('本地数据丢失');
+  output.textContent='断网通过\n'+results.join('\n')+'\n本地数据保留';
+ }catch(error){output.textContent='失败 '+String(error);}
+};
+})();
+</script>

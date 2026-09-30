@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -7,9 +7,9 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=icon1">
-  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png?v=icon1">
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png?v=icon1">
+  <link rel="icon" type="image/webp" sizes="192x192" href="icons/icon-192.webp?v=icon1">
+  <link rel="icon" type="image/webp" sizes="512x512" href="icons/icon-512.webp?v=icon1">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.webp?v=icon1">
   <meta name="apple-mobile-web-app-title" content="魔法猫">
   <meta name="theme-color" content="#0d001a">
   <link rel="stylesheet" href="world_switch.css">
@@ -2595,6 +2595,7 @@ body #themeToggle:focus-visible { outline: 2px solid var(--paw-rim); outline-off
   body #themeToggle::before { animation: none; }
 }
 </style>
+<script src="pwa.js" defer></script>
 </head>
 <body data-world="west">
 <script>
@@ -3058,14 +3059,14 @@ for (let i = 0; i < 120; i++) {
 //  2. 显化物品数据
 // ============================================================
 const DIVINATION_ITEMS = [
-  { id: 'crystal1', type: 'crystal', name: '紫水晶', image: '图片/布袋/crystal1.png', glow: '174,112,255' },
-  { id: 'crystal2', type: 'crystal', name: '蓝水晶', image: '图片/布袋/csystal2.png', glow: '125,184,255' },
-  { id: 'crystal3', type: 'crystal', name: '绿水晶', image: '图片/布袋/crystal3.png', glow: '100,235,142' },
-  { id: 'crystal4', type: 'crystal', name: '黄水晶', image: '图片/布袋/crystal4.png', glow: '244,190,82' },
-  { id: 'crystal5', type: 'crystal', name: '粉水晶', image: '图片/布袋/crystal5.png', glow: '255,126,190' },
-  { id: 'crystal6', type: 'crystal', name: '红水晶', image: '图片/布袋/crystal6.png', glow: '255,105,112' },
-  { id: 'crystal7', type: 'crystal', name: '黑曜石', image: '图片/布袋/crystal7.png', glow: '145,148,168' },
-  { id: 'crystal8', type: 'crystal', name: '白水晶', image: '图片/布袋/crystal8.png', glow: '225,238,255' },
+  { id: 'crystal1', type: 'crystal', name: '紫水晶', image: '图片/布袋/crystal1.webp', glow: '174,112,255' },
+  { id: 'crystal2', type: 'crystal', name: '蓝水晶', image: '图片/布袋/csystal2.webp', glow: '125,184,255' },
+  { id: 'crystal3', type: 'crystal', name: '绿水晶', image: '图片/布袋/crystal3.webp', glow: '100,235,142' },
+  { id: 'crystal4', type: 'crystal', name: '黄水晶', image: '图片/布袋/crystal4.webp', glow: '244,190,82' },
+  { id: 'crystal5', type: 'crystal', name: '粉水晶', image: '图片/布袋/crystal5.webp', glow: '255,126,190' },
+  { id: 'crystal6', type: 'crystal', name: '红水晶', image: '图片/布袋/crystal6.webp', glow: '255,105,112' },
+  { id: 'crystal7', type: 'crystal', name: '黑曜石', image: '图片/布袋/crystal7.webp', glow: '145,148,168' },
+  { id: 'crystal8', type: 'crystal', name: '白水晶', image: '图片/布袋/crystal8.webp', glow: '225,238,255' },
 ];
 
 // ============================================================
@@ -3150,7 +3151,7 @@ function renderWishNoteDataURL(wish) {
     ctx.fillText(ln, (W - tw) / 2, y);
     y += lineH;
   }
-  return canvas.toDataURL('image/png');
+  return canvas.toDataURL('image/webp');
 }
 
 // 把圆阵物品底下的文字标签预渲染成图片（同样规避 html2canvas 中文截图只显最后一个字的问题）
@@ -3180,7 +3181,7 @@ function rasterizeAltarLabel(el) {
   label.textContent = '';
   label.style.width = Math.round(w) + 'px';
   label.style.height = h + 'px';
-  label.style.backgroundImage = `url(${canvas.toDataURL('image/png')})`;
+  label.style.backgroundImage = `url(${canvas.toDataURL('image/webp')})`;
   label.style.backgroundSize = `${w}px ${h}px`;
   label.style.backgroundRepeat = 'no-repeat';
 }
