@@ -1,0 +1,45 @@
+.offline-dialog {
+  position: fixed;
+  inset: calc(env(safe-area-inset-top, 0px) + 24px) calc(env(safe-area-inset-right, 0px) + 18px) calc(env(safe-area-inset-bottom, 0px) + 24px) calc(env(safe-area-inset-left, 0px) + 18px);
+  margin: auto;
+  width: min(720px, calc(100% - 36px));
+  max-width: 720px;
+  max-height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 48px);
+  max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 48px);
+  padding: 22px;
+  overflow: hidden;
+  border: 1px solid var(--tarot-reading-line, #65427c);
+  border-radius: 24px;
+  background: var(--tarot-reading-bg, #21112f);
+  color: var(--tarot-reading-ink, #e7d7f4);
+  box-shadow: 0 24px 80px rgba(0,0,0,.32);
+  font: 14px/1.65 system-ui, sans-serif;
+}
+.offline-dialog[open] { display: flex; flex-direction: column; gap: 20px; }
+.offline-dialog::backdrop { background: rgba(10,8,20,.48); backdrop-filter: blur(6px); }
+.offline-header { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; gap: 16px; }
+.offline-eyebrow { display: block; font-size: 11px; letter-spacing: 3px; opacity: .65; }
+.offline-header h2 { font-size: 22px; font-weight: 600; letter-spacing: 2px; }
+.offline-close { width: 44px; height: 44px; flex-shrink: 0; border-radius: 50%; border: 1px solid var(--tarot-reading-line); background: var(--tarot-reading-panel); color: inherit; font-size: 18px; cursor: pointer; }
+.offline-layout { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 14px; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.offline-guide, .offline-downloads { min-width: 0; padding: 16px; border: 1px solid var(--tarot-reading-line); border-radius: 18px; background: var(--tarot-reading-panel); }
+.offline-guide { align-self: start; }
+.offline-layout h3 { font-size: 14px; letter-spacing: 1px; margin-bottom: 12px; color: var(--tarot-reading-accent); }
+.offline-guide ol { padding-left: 20px; }
+.offline-guide li + li { margin-top: 8px; }
+.offline-guide p { margin: 16px 0 12px; }
+.offline-guide small { display: block; opacity: .65; font-size: 11px; }
+.offline-deck { padding: 14px 0; border-top: 1px solid var(--tarot-reading-line); }
+.offline-deck strong { display: block; font-size: 14px; font-weight: 600; }
+.offline-deck [aria-live] { font-size: 12px; opacity: .8; margin: 4px 0 8px; }
+.offline-deck progress { display: block; height: 6px; margin: 10px 0 12px; accent-color: var(--tarot-reading-accent); }
+.offline-download { min-height: 42px; padding: 8px 16px; border-radius: 12px; border: 1px solid var(--tarot-reading-line); background: var(--tarot-reading-bg); color: var(--tarot-reading-accent); font: inherit; cursor: pointer; }
+.offline-dialog button:disabled { opacity: .45; cursor: default; }
+.offline-dialog button:focus-visible { outline: 2px solid var(--tarot-reading-accent); outline-offset: 3px; }
+#drawerDeck .drawer-item { aspect-ratio: 3 / 4; padding: 12px 6px; border-radius: 12px; }
+@media (max-width: 600px) {
+  .offline-dialog { padding: 18px; }
+  .offline-layout { grid-template-columns: minmax(0, 1fr); }
+  .offline-guide, .offline-downloads { padding: 14px; }
+  .offline-guide ol { font-size: 13px; }
+}

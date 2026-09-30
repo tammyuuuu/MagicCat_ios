@@ -7,8 +7,9 @@
   entry.style.cssText = 'display:block;margin:8px auto 16px;padding:10px 18px;border:1px solid currentColor;border-radius:20px;background:transparent;color:inherit;font:inherit;cursor:pointer;';
   drawer.querySelector('.drawer-title').after(entry);
   const dialog = document.createElement('dialog');
-  dialog.style.cssText = 'width:min(440px,calc(100vw - 40px));max-height:80vh;overflow:auto;border:1px solid #b8a1c8;border-radius:20px;padding:20px;background:#f8f5fb;color:#362343;font:15px/1.6 sans-serif;';
-  dialog.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><strong>离线牌库</strong><button type="button" aria-label="关闭离线牌库">关闭</button></div><p>选择需要的牌组下载，完成后即可离线使用。建议连接 Wi-Fi，并保持页面打开。</p><div class="offline-decks">正在检查…</div><p style="font-size:12px">暂停或关闭会保留已下载图片。浏览器清理站点数据可能移除缓存。</p>';
+  dialog.className = 'offline-dialog';
+  dialog.setAttribute('aria-labelledby', 'offline-title');
+  dialog.innerHTML = '<header class="offline-header"><div><span class="offline-eyebrow">随身牌库</span><h2 id="offline-title">离线牌库</h2></div><button type="button" class="offline-close" aria-label="关闭离线牌库">✕</button></header><div class="offline-layout"><section class="offline-guide"><h3>如何使用</h3><ol><li>连接 Wi-Fi，选择想带走的牌组。</li><li>点击下载，保持页面打开至完成。</li><li>断网后照常抽牌、查看牌面与牌义。</li></ol><p>可随时暂停，已下载部分会保留；再次点击即可补齐。</p><small>主屏幕应用请在安装后打开，再下载牌包。浏览器清理站点数据可能移除缓存。</small></section><section class="offline-downloads"><h3>下载牌组</h3><div class="offline-decks">正在检查…</div></section></div>';
   document.body.append(dialog);
   const rows = dialog.querySelector('.offline-decks');
   let running = false, paused = false, groups = [];
@@ -62,12 +63,12 @@
     rows.replaceChildren(); buttons.length = 0;
     for (const group of groups) {
       const row = document.createElement('section');
-      row.style.cssText = 'border-top:1px solid #d9cfdf;padding:12px 0';
+      row.className = 'offline-deck';
       const title = document.createElement('strong'); title.textContent = group.name;
       const status = document.createElement('div'); status.setAttribute('aria-live','polite');
       const progress = document.createElement('progress'); progress.max = group.files.length; progress.style.width = '100%';
       const button = document.createElement('button'); button.type = 'button'; button.textContent = '下载 / 补齐';
-      button.style.cssText = 'min-height:44px;padding:8px 14px;border-radius:12px;border:1px solid #aa94ba;background:#eee6f3;color:#362343;font:inherit;cursor:pointer;';
+      button.className = 'offline-download';
       const size = (group.bytes / 1024 / 1024).toFixed(1);
       let ready = await countReady(group);
       progress.value = ready;

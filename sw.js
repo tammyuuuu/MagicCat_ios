@@ -9,7 +9,7 @@ const ART_CACHE = PREFIX + 'art-v1';
 const ART_REVISIONS = PREFIX + 'art-revisions-v1';
 const CORE = [
   'reading_ios.html', 'manifest_ios.html', 'bird_ios.html', 'wish_ios.html',
-  'manifest.json', 'pwa.js', 'offline-library.js', 'offline-library.json', 'world_switch.js', 'world_switch.css',
+  'manifest.json', 'pwa.js', 'offline-library.js', 'offline-library.css', 'offline-library.json', 'world_switch.js', 'world_switch.css',
   'card_images.js', 'decks.js', 'waite_meanings.js', 'lenormand_meanings.js',
   'html2canvas.min.js', 'abundance_core.js', 'love_v01.js', 'liuyao_core.js',
   'yao_ui.js', 'yao_ui.css', 'yijing_data.js',
