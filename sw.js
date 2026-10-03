@@ -3,7 +3,7 @@
 importScripts('./pwa-art.js');
 const BASE = new URL('./', self.location.href);
 const PREFIX = 'magiccat-' + BASE.pathname;
-const CORE_CACHE = PREFIX + 'core-v2';
+const CORE_CACHE = PREFIX + 'core-v3';
 // Kept across application releases. No user data lives in these caches.
 const ART_CACHE = PREFIX + 'art-v1';
 const ART_REVISIONS = PREFIX + 'art-revisions-v1';
