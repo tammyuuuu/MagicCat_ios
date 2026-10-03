@@ -9,8 +9,8 @@ if (!['127.0.0.1','localhost','[::1]'].includes(location.hostname)) {
  return;
 }
 const resources = ['reading_ios.html','manifest_ios.html','bird_ios.html','wish_ios.html',
-'waite_meanings.js','lenormand_meanings.js','图片/盒子/维特塔罗/0.webp',
-'图片/盒子/四境塔罗/front-world-mystic.webp','图片/布袋/crystal1.webp'];
+'waite_meanings.js','lenormand_meanings.js','图片/维特塔罗/0.webp',
+'图片/四境塔罗/front-world-mystic.webp','图片/水晶/crystal1.webp'];
 const markerKey = '__pwa_review_test';
 document.querySelector('#updated').onclick = async () => {
  const registration = await navigator.serviceWorker.getRegistration('../');

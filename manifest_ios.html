@@ -173,7 +173,7 @@
     .altar-item .gem-emerald  { background: linear-gradient(135deg, #50d090, #208050); }
     .altar-item .gem-sapphire { background: linear-gradient(135deg, #5a9aff, #2058c0); }
 
-    /* 圆阵中的水晶图片（web 布袋水晶） */
+    /* 圆阵中的水晶图片（web 水晶） */
     .altar-item .altar-item-image {
       width: 58px; height: 92px; display: block; object-fit: contain;
       pointer-events: none;
@@ -1970,6 +1970,7 @@ body.ritual-special #abundanceModeBtn, body.ritual-special #loveModeBtn { opacit
 }
 body.ritual-special #ritualStage { display:block !important; pointer-events:auto; }
 body.mode-abundance #ritualStage {
+  bottom:0 !important;
   background: radial-gradient(ellipse at 76% 6%, rgba(215,160,68,.17), transparent 44%),
               radial-gradient(ellipse at 6% 96%, rgba(202,144,58,.11), transparent 50%),
               linear-gradient(158deg,#0a0710 0%,#170c15 48%,#1c1016 76%,#0a0709 100%);
@@ -2010,6 +2011,17 @@ body.ritual-special #manifestRecordBtn,
 body.ritual-special #divinationDrawer,
 body.ritual-special #recordDrawer { opacity:0; pointer-events:none; }
 body.ritual-special #activateBtn { width:118px; letter-spacing:0; }
+/* 丰盛接管整页；离开按钮浮在丰盛背景上，内容预留底部操作区。 */
+body.mode-abundance #activateBtn {
+  z-index:12001;
+  bottom:calc(24px + env(safe-area-inset-bottom));
+}
+body.mode-abundance #ritualStage .abundance-screen {
+  height:100%;
+  box-sizing:border-box;
+  padding-bottom:calc(96px + env(safe-area-inset-bottom));
+  overflow-y:auto;
+}
 body.ritual-special #activateBtn .btn-star { opacity:0; }
 /* 模式内隐藏顶部导航与世界切换 */
 body.ritual-special a[href="reading_ios.html"],
@@ -3059,14 +3071,14 @@ for (let i = 0; i < 120; i++) {
 //  2. 显化物品数据
 // ============================================================
 const DIVINATION_ITEMS = [
-  { id: 'crystal1', type: 'crystal', name: '紫水晶', image: '图片/布袋/crystal1.webp', glow: '174,112,255' },
-  { id: 'crystal2', type: 'crystal', name: '蓝水晶', image: '图片/布袋/csystal2.webp', glow: '125,184,255' },
-  { id: 'crystal3', type: 'crystal', name: '绿水晶', image: '图片/布袋/crystal3.webp', glow: '100,235,142' },
-  { id: 'crystal4', type: 'crystal', name: '黄水晶', image: '图片/布袋/crystal4.webp', glow: '244,190,82' },
-  { id: 'crystal5', type: 'crystal', name: '粉水晶', image: '图片/布袋/crystal5.webp', glow: '255,126,190' },
-  { id: 'crystal6', type: 'crystal', name: '红水晶', image: '图片/布袋/crystal6.webp', glow: '255,105,112' },
-  { id: 'crystal7', type: 'crystal', name: '黑曜石', image: '图片/布袋/crystal7.webp', glow: '145,148,168' },
-  { id: 'crystal8', type: 'crystal', name: '白水晶', image: '图片/布袋/crystal8.webp', glow: '225,238,255' },
+  { id: 'crystal1', type: 'crystal', name: '紫水晶', image: '图片/水晶/crystal1.webp', glow: '174,112,255' },
+  { id: 'crystal2', type: 'crystal', name: '蓝水晶', image: '图片/水晶/csystal2.webp', glow: '125,184,255' },
+  { id: 'crystal3', type: 'crystal', name: '绿水晶', image: '图片/水晶/crystal3.webp', glow: '100,235,142' },
+  { id: 'crystal4', type: 'crystal', name: '黄水晶', image: '图片/水晶/crystal4.webp', glow: '244,190,82' },
+  { id: 'crystal5', type: 'crystal', name: '粉水晶', image: '图片/水晶/crystal5.webp', glow: '255,126,190' },
+  { id: 'crystal6', type: 'crystal', name: '红水晶', image: '图片/水晶/crystal6.webp', glow: '255,105,112' },
+  { id: 'crystal7', type: 'crystal', name: '黑曜石', image: '图片/水晶/crystal7.webp', glow: '145,148,168' },
+  { id: 'crystal8', type: 'crystal', name: '白水晶', image: '图片/水晶/crystal8.webp', glow: '225,238,255' },
 ];
 
 // ============================================================

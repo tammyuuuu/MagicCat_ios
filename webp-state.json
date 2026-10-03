@@ -11,440 +11,440 @@
     "target": "icons/icon-512.webp",
     "sha256": "fa3ec628896361c7131a2faa94f5a20288c67abfa5317a485564c02be79407a9"
   },
-  "图片/布袋/crystal1.png": {
-    "target": "图片/布袋/crystal1.webp",
+  "图片/水晶/crystal1.png": {
+    "target": "图片/水晶/crystal1.webp",
     "sha256": "a1877a72d4d33905f5ce98bc7ec421e9b46c5efa3f6fe21c4dbb40c6a090253c"
   },
-  "图片/布袋/crystal3.png": {
-    "target": "图片/布袋/crystal3.webp",
+  "图片/水晶/crystal3.png": {
+    "target": "图片/水晶/crystal3.webp",
     "sha256": "bb8061de20393ffebf658dd46e8d3d1379e32c9d887b151325bcdf3461d38d46"
   },
-  "图片/布袋/crystal4.png": {
-    "target": "图片/布袋/crystal4.webp",
+  "图片/水晶/crystal4.png": {
+    "target": "图片/水晶/crystal4.webp",
     "sha256": "49080bbfb65a27d46a8a773800ae590457d5e25aaa0eed9655e335be9c341416"
   },
-  "图片/布袋/crystal5.png": {
-    "target": "图片/布袋/crystal5.webp",
+  "图片/水晶/crystal5.png": {
+    "target": "图片/水晶/crystal5.webp",
     "sha256": "1a3e66546e6f52830f853e6498958a4ae5f0c99ad096a18f2245ddc199d5b815"
   },
-  "图片/布袋/crystal6.png": {
-    "target": "图片/布袋/crystal6.webp",
+  "图片/水晶/crystal6.png": {
+    "target": "图片/水晶/crystal6.webp",
     "sha256": "c5e95848f549a1c54d3275241a3bd4be18fd5dee6f93677dc0a4a243a6c259fe"
   },
-  "图片/布袋/crystal7.png": {
-    "target": "图片/布袋/crystal7.webp",
+  "图片/水晶/crystal7.png": {
+    "target": "图片/水晶/crystal7.webp",
     "sha256": "dd7d79abc508914ed8ecfbe38e485f06c36bdaf3e4f50fa69873db6b11add769"
   },
-  "图片/布袋/crystal8.png": {
-    "target": "图片/布袋/crystal8.webp",
+  "图片/水晶/crystal8.png": {
+    "target": "图片/水晶/crystal8.webp",
     "sha256": "c5b9cdc9d12366d1fd01c7de11abd15ecf9431b163473e6ec813dfdd6ed41589"
   },
-  "图片/布袋/csystal2.png": {
-    "target": "图片/布袋/csystal2.webp",
+  "图片/水晶/csystal2.png": {
+    "target": "图片/水晶/csystal2.webp",
     "sha256": "d3c96e9cc7682ea975a56c10113a776ae4a2248e42ba488ccfad0c6d53e57e99"
   },
-  "图片/盒子/四境塔罗/front-chariot-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-chariot-dopamine.webp",
+  "图片/四境塔罗/front-chariot-dopamine.png": {
+    "target": "图片/四境塔罗/front-chariot-dopamine.webp",
     "sha256": "bd07ad7f0f99b6a562ece4ada0e21bfe19feb3875e9e27c0473b77b65d191140"
   },
-  "图片/盒子/四境塔罗/front-chariot-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-chariot-mystic.webp",
+  "图片/四境塔罗/front-chariot-mystic.png": {
+    "target": "图片/四境塔罗/front-chariot-mystic.webp",
     "sha256": "83c557d366f208a843034325d27f381d1b898bc30d520d83df218933ed517888"
   },
-  "图片/盒子/四境塔罗/front-chariot-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-chariot-noir.webp",
+  "图片/四境塔罗/front-chariot-noir.png": {
+    "target": "图片/四境塔罗/front-chariot-noir.webp",
     "sha256": "2b2fcb8faeda0e44d47dbff699c3f9780e5fcdad0abf1a2a25bf39df5ffb0851"
   },
-  "图片/盒子/四境塔罗/front-chariot-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-chariot-parchment.webp",
+  "图片/四境塔罗/front-chariot-parchment.png": {
+    "target": "图片/四境塔罗/front-chariot-parchment.webp",
     "sha256": "a761a2b8e55dab7d9434ea9fc4d2b69f834e3c5e67d781deecf22657aa80a3f3"
   },
-  "图片/盒子/四境塔罗/front-death-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-death-dopamine.webp",
+  "图片/四境塔罗/front-death-dopamine.png": {
+    "target": "图片/四境塔罗/front-death-dopamine.webp",
     "sha256": "db2793a8622771b6dcea7684073946d16cb62e669692a56ef36a495164a09579"
   },
-  "图片/盒子/四境塔罗/front-death-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-death-mystic.webp",
+  "图片/四境塔罗/front-death-mystic.png": {
+    "target": "图片/四境塔罗/front-death-mystic.webp",
     "sha256": "838005dabeba27184509b04cd942dfc5c7a42a2ad47d969126e2f68c270d1dd6"
   },
-  "图片/盒子/四境塔罗/front-death-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-death-noir.webp",
+  "图片/四境塔罗/front-death-noir.png": {
+    "target": "图片/四境塔罗/front-death-noir.webp",
     "sha256": "df453b3f930bb3a3ff828a16bcf2ab12f64fb45c2bf09214b29aaa5c6eabeeee"
   },
-  "图片/盒子/四境塔罗/front-death-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-death-parchment.webp",
+  "图片/四境塔罗/front-death-parchment.png": {
+    "target": "图片/四境塔罗/front-death-parchment.webp",
     "sha256": "f5315ca76f80f1cb8417dae44a6ff0f8f6f72b9dca0e9a11d481a607860f7ece"
   },
-  "图片/盒子/四境塔罗/front-devil-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-devil-dopamine.webp",
+  "图片/四境塔罗/front-devil-dopamine.png": {
+    "target": "图片/四境塔罗/front-devil-dopamine.webp",
     "sha256": "6c6fd2637b10d91a8e3232094f1d5c4837af7b9347649cd5a556f60d889084ca"
   },
-  "图片/盒子/四境塔罗/front-devil-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-devil-mystic.webp",
+  "图片/四境塔罗/front-devil-mystic.png": {
+    "target": "图片/四境塔罗/front-devil-mystic.webp",
     "sha256": "89f146de8dfa92af1deb100bd5bac9e1ca627cf8855cc8bcbef9b3e55fae7cbb"
   },
-  "图片/盒子/四境塔罗/front-devil-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-devil-noir.webp",
+  "图片/四境塔罗/front-devil-noir.png": {
+    "target": "图片/四境塔罗/front-devil-noir.webp",
     "sha256": "e3bc4e215752a48227d56bdce6b5da53e341182c0b7649d8aabb447bff440536"
   },
-  "图片/盒子/四境塔罗/front-devil-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-devil-parchment.webp",
+  "图片/四境塔罗/front-devil-parchment.png": {
+    "target": "图片/四境塔罗/front-devil-parchment.webp",
     "sha256": "6854d030f3845c7d7c24e61224e4c52091b4cf1d1d346a7e9f791786d27a0bae"
   },
-  "图片/盒子/四境塔罗/front-emperor-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-emperor-dopamine.webp",
+  "图片/四境塔罗/front-emperor-dopamine.png": {
+    "target": "图片/四境塔罗/front-emperor-dopamine.webp",
     "sha256": "ab48e9955814a5cde1082d800b1f9ebb56ccf68bec36c018ef5aff43c307216a"
   },
-  "图片/盒子/四境塔罗/front-emperor-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-emperor-mystic.webp",
+  "图片/四境塔罗/front-emperor-mystic.png": {
+    "target": "图片/四境塔罗/front-emperor-mystic.webp",
     "sha256": "68ace6513fab28aa4f54b87e359fea37dfc52a380d407d8856c9ebe524ad0e2f"
   },
-  "图片/盒子/四境塔罗/front-emperor-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-emperor-noir.webp",
+  "图片/四境塔罗/front-emperor-noir.png": {
+    "target": "图片/四境塔罗/front-emperor-noir.webp",
     "sha256": "7250be78324ad5c75440f988f349676f6071bad9a93f38ebb4d9cd04a51cfcf7"
   },
-  "图片/盒子/四境塔罗/front-emperor-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-emperor-parchment.webp",
+  "图片/四境塔罗/front-emperor-parchment.png": {
+    "target": "图片/四境塔罗/front-emperor-parchment.webp",
     "sha256": "b38c15e6a8a993bcde3834f54497b1bb9882f05a0d88938a4b399bb184a3ce13"
   },
-  "图片/盒子/四境塔罗/front-empress-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-empress-dopamine.webp",
+  "图片/四境塔罗/front-empress-dopamine.png": {
+    "target": "图片/四境塔罗/front-empress-dopamine.webp",
     "sha256": "310f7eb6b62ddae4301b677d848d67431e3698b356041b707a649622242991d3"
   },
-  "图片/盒子/四境塔罗/front-empress-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-empress-mystic.webp",
+  "图片/四境塔罗/front-empress-mystic.png": {
+    "target": "图片/四境塔罗/front-empress-mystic.webp",
     "sha256": "3e1ab30965ca6b87c1a6eced809de14f3d001261f6d3dbbcf4c3308132fd8ef9"
   },
-  "图片/盒子/四境塔罗/front-empress-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-empress-noir.webp",
+  "图片/四境塔罗/front-empress-noir.png": {
+    "target": "图片/四境塔罗/front-empress-noir.webp",
     "sha256": "b584d724a0005760f68a11c44eb572ba8379c6836f64c01cd7f426a236908a25"
   },
-  "图片/盒子/四境塔罗/front-empress-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-empress-parchment.webp",
+  "图片/四境塔罗/front-empress-parchment.png": {
+    "target": "图片/四境塔罗/front-empress-parchment.webp",
     "sha256": "d2b0332ad75e67b367533acec185081ef91a7ca5fcbb1fac14ffe221c6b1b5a5"
   },
-  "图片/盒子/四境塔罗/front-hanged-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-hanged-dopamine.webp",
+  "图片/四境塔罗/front-hanged-dopamine.png": {
+    "target": "图片/四境塔罗/front-hanged-dopamine.webp",
     "sha256": "90cd2aa1a119119ef9461ae4df7bbb0056bdc98151085253a60bd243fb72369b"
   },
-  "图片/盒子/四境塔罗/front-hanged-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-hanged-mystic.webp",
+  "图片/四境塔罗/front-hanged-mystic.png": {
+    "target": "图片/四境塔罗/front-hanged-mystic.webp",
     "sha256": "7d93c473f84e69d3d8009bc61900b772674419aabff24dfb91eb79330968a461"
   },
-  "图片/盒子/四境塔罗/front-hanged-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-hanged-noir.webp",
+  "图片/四境塔罗/front-hanged-noir.png": {
+    "target": "图片/四境塔罗/front-hanged-noir.webp",
     "sha256": "7a79983689f481330402ddf7a5282e191091efee14df6f076f4fb7d17ea40985"
   },
-  "图片/盒子/四境塔罗/front-hanged-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-hanged-parchment.webp",
+  "图片/四境塔罗/front-hanged-parchment.png": {
+    "target": "图片/四境塔罗/front-hanged-parchment.webp",
     "sha256": "8407322db13d560c24c549163eca76082a6d961211af4e4bbc98a962a455f65d"
   },
-  "图片/盒子/四境塔罗/front-hermit-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-hermit-dopamine.webp",
+  "图片/四境塔罗/front-hermit-dopamine.png": {
+    "target": "图片/四境塔罗/front-hermit-dopamine.webp",
     "sha256": "2ecfc1846c6d3d984aea2f06b1067f5b11583b6818c324ee4230f7a2dbe417c9"
   },
-  "图片/盒子/四境塔罗/front-hermit-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-hermit-mystic.webp",
+  "图片/四境塔罗/front-hermit-mystic.png": {
+    "target": "图片/四境塔罗/front-hermit-mystic.webp",
     "sha256": "dad2aef0d6cff7103abbe5541e0b50decb5a650f856088c8645aac0037c1a827"
   },
-  "图片/盒子/四境塔罗/front-hermit-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-hermit-noir.webp",
+  "图片/四境塔罗/front-hermit-noir.png": {
+    "target": "图片/四境塔罗/front-hermit-noir.webp",
     "sha256": "8596d6a0323a5cd5ad04720bca861319cdcb964211a3ee1562853d0b2dd67743"
   },
-  "图片/盒子/四境塔罗/front-hermit-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-hermit-parchment.webp",
+  "图片/四境塔罗/front-hermit-parchment.png": {
+    "target": "图片/四境塔罗/front-hermit-parchment.webp",
     "sha256": "76c4cedd394204cd5acef9b2c6769647b2dabfa6d816a36c39443f4aef32a474"
   },
-  "图片/盒子/四境塔罗/front-hierophant-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-hierophant-dopamine.webp",
+  "图片/四境塔罗/front-hierophant-dopamine.png": {
+    "target": "图片/四境塔罗/front-hierophant-dopamine.webp",
     "sha256": "a6c062f442f566568908d369462d865b4e520bcdc71dcc97e22340ab53f41dd5"
   },
-  "图片/盒子/四境塔罗/front-hierophant-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-hierophant-mystic.webp",
+  "图片/四境塔罗/front-hierophant-mystic.png": {
+    "target": "图片/四境塔罗/front-hierophant-mystic.webp",
     "sha256": "60b041a4f8f38b76e2df151c349b88129186e1bd1acdd9c86e1c12c4ccac4fdc"
   },
-  "图片/盒子/四境塔罗/front-hierophant-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-hierophant-noir.webp",
+  "图片/四境塔罗/front-hierophant-noir.png": {
+    "target": "图片/四境塔罗/front-hierophant-noir.webp",
     "sha256": "d298b61dfbda7b1d1499a2ea1a2a1b6befef05d27c0693cf29d4bede2400ca01"
   },
-  "图片/盒子/四境塔罗/front-hierophant-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-hierophant-parchment.webp",
+  "图片/四境塔罗/front-hierophant-parchment.png": {
+    "target": "图片/四境塔罗/front-hierophant-parchment.webp",
     "sha256": "c733dbb53f04b4ff0e9e65e4aef3935f7747b0fa920ac9bec648dddd7d9f9041"
   },
-  "图片/盒子/四境塔罗/front-judgement-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-judgement-dopamine.webp",
+  "图片/四境塔罗/front-judgement-dopamine.png": {
+    "target": "图片/四境塔罗/front-judgement-dopamine.webp",
     "sha256": "22ecefa3889dc66eda6312c71b0d28ff98ad5000c82ce12357196fb09dc36f7d"
   },
-  "图片/盒子/四境塔罗/front-judgement-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-judgement-mystic.webp",
+  "图片/四境塔罗/front-judgement-mystic.png": {
+    "target": "图片/四境塔罗/front-judgement-mystic.webp",
     "sha256": "f057a2e61270aaecd81b47fb972952b758c7144db7b2d25316724278f2f89cce"
   },
-  "图片/盒子/四境塔罗/front-judgement-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-judgement-noir.webp",
+  "图片/四境塔罗/front-judgement-noir.png": {
+    "target": "图片/四境塔罗/front-judgement-noir.webp",
     "sha256": "03c68cbc76cfd8db710665d819e0b167d57e8b49fccf221542bf80fa06b16139"
   },
-  "图片/盒子/四境塔罗/front-judgement-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-judgement-parchment.webp",
+  "图片/四境塔罗/front-judgement-parchment.png": {
+    "target": "图片/四境塔罗/front-judgement-parchment.webp",
     "sha256": "e608c2d43ce9ba7f4461bfc17be6ef39213825bee954fdb33aed8309b0e2f765"
   },
-  "图片/盒子/四境塔罗/front-justice-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-justice-dopamine.webp",
+  "图片/四境塔罗/front-justice-dopamine.png": {
+    "target": "图片/四境塔罗/front-justice-dopamine.webp",
     "sha256": "b511d657b353499bb95c92662764b3d62434495de18c64ab195a665d3fa1552c"
   },
-  "图片/盒子/四境塔罗/front-justice-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-justice-mystic.webp",
+  "图片/四境塔罗/front-justice-mystic.png": {
+    "target": "图片/四境塔罗/front-justice-mystic.webp",
     "sha256": "3ad28a12739d1a9dbbbefb549d73d5a238cb96a85d8baf52e4072bf75b3b1145"
   },
-  "图片/盒子/四境塔罗/front-justice-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-justice-noir.webp",
+  "图片/四境塔罗/front-justice-noir.png": {
+    "target": "图片/四境塔罗/front-justice-noir.webp",
     "sha256": "0351dec972c32c32badcb12a28fb65d0f134d9af1d3f2deb46fed69692c2ea82"
   },
-  "图片/盒子/四境塔罗/front-justice-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-justice-parchment.webp",
+  "图片/四境塔罗/front-justice-parchment.png": {
+    "target": "图片/四境塔罗/front-justice-parchment.webp",
     "sha256": "22565eb1c66e2a3722646b494d613275c980b4eba68ca84bfe07a84d0ed40ff3"
   },
-  "图片/盒子/四境塔罗/front-lovers-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-lovers-dopamine.webp",
+  "图片/四境塔罗/front-lovers-dopamine.png": {
+    "target": "图片/四境塔罗/front-lovers-dopamine.webp",
     "sha256": "6be4604288a580b3450c00bbf40dc2bf02692e2f936222aba32b9db942fdafc0"
   },
-  "图片/盒子/四境塔罗/front-lovers-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-lovers-mystic.webp",
+  "图片/四境塔罗/front-lovers-mystic.png": {
+    "target": "图片/四境塔罗/front-lovers-mystic.webp",
     "sha256": "e14993b27cb9487868363af362b3233bb51685e7662c275bf3f7f4a1c76f6e01"
   },
-  "图片/盒子/四境塔罗/front-lovers-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-lovers-noir.webp",
+  "图片/四境塔罗/front-lovers-noir.png": {
+    "target": "图片/四境塔罗/front-lovers-noir.webp",
     "sha256": "f6c1e18f1513d6f366214047f787c9f8ac990f33b1477e3291849bdeba38eae7"
   },
-  "图片/盒子/四境塔罗/front-lovers-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-lovers-parchment.webp",
+  "图片/四境塔罗/front-lovers-parchment.png": {
+    "target": "图片/四境塔罗/front-lovers-parchment.webp",
     "sha256": "27e2179e0da6eebc5e860183c867a69cac68d389095c2246229e750e4712014a"
   },
-  "图片/盒子/四境塔罗/front-magician-noir-v2.png": {
-    "target": "图片/盒子/四境塔罗/front-magician-noir-v2.webp",
+  "图片/四境塔罗/front-magician-noir-v2.png": {
+    "target": "图片/四境塔罗/front-magician-noir-v2.webp",
     "sha256": "ee5b8d0aed03a46c2d30bf3af7a4072292b94420f455d2adb71d1b329a611bce"
   },
-  "图片/盒子/四境塔罗/front-moon-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-moon-dopamine.webp",
+  "图片/四境塔罗/front-moon-dopamine.png": {
+    "target": "图片/四境塔罗/front-moon-dopamine.webp",
     "sha256": "c4a98c23af7c15b627e91ce3d752fbe67056524484cd1e35ca1492ae471e8c6f"
   },
-  "图片/盒子/四境塔罗/front-moon-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-moon-mystic.webp",
+  "图片/四境塔罗/front-moon-mystic.png": {
+    "target": "图片/四境塔罗/front-moon-mystic.webp",
     "sha256": "88763a157c12bad35634183b7cd939c6a930e3147fefd6451f3db759b43d9bf9"
   },
-  "图片/盒子/四境塔罗/front-moon-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-moon-noir.webp",
+  "图片/四境塔罗/front-moon-noir.png": {
+    "target": "图片/四境塔罗/front-moon-noir.webp",
     "sha256": "f2a7d33140423bad79b0814446fec84d1615677289b39753c3b8b7bad0005f7b"
   },
-  "图片/盒子/四境塔罗/front-moon-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-moon-parchment.webp",
+  "图片/四境塔罗/front-moon-parchment.png": {
+    "target": "图片/四境塔罗/front-moon-parchment.webp",
     "sha256": "c05a8cc319fa9ffd39cede4acc020e11d4d39461fdb7a3736b7eefcd1e262087"
   },
-  "图片/盒子/四境塔罗/front-priestess-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-priestess-dopamine.webp",
+  "图片/四境塔罗/front-priestess-dopamine.png": {
+    "target": "图片/四境塔罗/front-priestess-dopamine.webp",
     "sha256": "b525571f556cf508a4eccc4d3e6ab2b68bee81f69a89511f031ec0b941e9e73b"
   },
-  "图片/盒子/四境塔罗/front-priestess-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-priestess-mystic.webp",
+  "图片/四境塔罗/front-priestess-mystic.png": {
+    "target": "图片/四境塔罗/front-priestess-mystic.webp",
     "sha256": "e24fa3a94f711420f48fa2ed74e7ca89fb0cabeb629e6db6cfe55aecb0810c93"
   },
-  "图片/盒子/四境塔罗/front-priestess-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-priestess-noir.webp",
+  "图片/四境塔罗/front-priestess-noir.png": {
+    "target": "图片/四境塔罗/front-priestess-noir.webp",
     "sha256": "67679d12e92431e67d707ca3a85b9f2cf4ea40ba695e409e83a0bd3f38ac96df"
   },
-  "图片/盒子/四境塔罗/front-priestess-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-priestess-parchment.webp",
+  "图片/四境塔罗/front-priestess-parchment.png": {
+    "target": "图片/四境塔罗/front-priestess-parchment.webp",
     "sha256": "50093c27e611409a7fa8041378cdb34c6eb4ef542b97081596137b8d22950a23"
   },
-  "图片/盒子/四境塔罗/front-star-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-star-dopamine.webp",
+  "图片/四境塔罗/front-star-dopamine.png": {
+    "target": "图片/四境塔罗/front-star-dopamine.webp",
     "sha256": "f148cc1d2a836f90bc2ed84e7bd6d4c51c0dc571cb32e4fb17194e7e71aff177"
   },
-  "图片/盒子/四境塔罗/front-star-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-star-mystic.webp",
+  "图片/四境塔罗/front-star-mystic.png": {
+    "target": "图片/四境塔罗/front-star-mystic.webp",
     "sha256": "0b8f28a26a4714dcd513185b9b2cb0bad14b68e662781af80c863b1fbd50e341"
   },
-  "图片/盒子/四境塔罗/front-star-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-star-noir.webp",
+  "图片/四境塔罗/front-star-noir.png": {
+    "target": "图片/四境塔罗/front-star-noir.webp",
     "sha256": "8219859df7d58b556cb7ab1b77f028c1e10fe2ba7e306626d1d6afbcf92a2523"
   },
-  "图片/盒子/四境塔罗/front-star-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-star-parchment.webp",
+  "图片/四境塔罗/front-star-parchment.png": {
+    "target": "图片/四境塔罗/front-star-parchment.webp",
     "sha256": "139d3d0ccac634471a57f04d07ad2c4f3a05e1b86e2b9d532fb979780406272b"
   },
-  "图片/盒子/四境塔罗/front-strength-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-strength-dopamine.webp",
+  "图片/四境塔罗/front-strength-dopamine.png": {
+    "target": "图片/四境塔罗/front-strength-dopamine.webp",
     "sha256": "fe5eba1926a0cc43cb7bff5b33e69b3810b13e1cede1a32dc8493625efaa940e"
   },
-  "图片/盒子/四境塔罗/front-strength-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-strength-mystic.webp",
+  "图片/四境塔罗/front-strength-mystic.png": {
+    "target": "图片/四境塔罗/front-strength-mystic.webp",
     "sha256": "937f8ced4f41fcae8b226dd117e8c40b7a844293e27a53165dbd7928547edfef"
   },
-  "图片/盒子/四境塔罗/front-strength-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-strength-noir.webp",
+  "图片/四境塔罗/front-strength-noir.png": {
+    "target": "图片/四境塔罗/front-strength-noir.webp",
     "sha256": "3af937a4049ce0a0cf09ad1eb24e649d54c8dd897b0d0bddd8bab0d638b24f66"
   },
-  "图片/盒子/四境塔罗/front-strength-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-strength-parchment.webp",
+  "图片/四境塔罗/front-strength-parchment.png": {
+    "target": "图片/四境塔罗/front-strength-parchment.webp",
     "sha256": "b941ef0687ed661ddc598d3ee136c0d8a7fdbb67a9d56baaf94c4c33ded7a15e"
   },
-  "图片/盒子/四境塔罗/front-sun-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-sun-dopamine.webp",
+  "图片/四境塔罗/front-sun-dopamine.png": {
+    "target": "图片/四境塔罗/front-sun-dopamine.webp",
     "sha256": "a5e6e1c40f99088d1f5541709cd00c9ff9805c396887dbf47aab3f69aa5a0aa3"
   },
-  "图片/盒子/四境塔罗/front-sun-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-sun-mystic.webp",
+  "图片/四境塔罗/front-sun-mystic.png": {
+    "target": "图片/四境塔罗/front-sun-mystic.webp",
     "sha256": "332831f7697fc28ed58177ac462be1ff8e18b789fd937a9c9866506f7b104a7e"
   },
-  "图片/盒子/四境塔罗/front-sun-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-sun-noir.webp",
+  "图片/四境塔罗/front-sun-noir.png": {
+    "target": "图片/四境塔罗/front-sun-noir.webp",
     "sha256": "cf8b9e1410db39de518f1fe717a65b92c58a0fe9f4160f349870cb77020ea9b2"
   },
-  "图片/盒子/四境塔罗/front-sun-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-sun-parchment.webp",
+  "图片/四境塔罗/front-sun-parchment.png": {
+    "target": "图片/四境塔罗/front-sun-parchment.webp",
     "sha256": "93d6df7376ff9d6162d73a35988ffaad62a16dedb019f45d9de01efb4415422d"
   },
-  "图片/盒子/四境塔罗/front-temperance-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-temperance-dopamine.webp",
+  "图片/四境塔罗/front-temperance-dopamine.png": {
+    "target": "图片/四境塔罗/front-temperance-dopamine.webp",
     "sha256": "93d555828b9a34bdfc4491441b38d727d6d7565ed37062519495f0ad9844540b"
   },
-  "图片/盒子/四境塔罗/front-temperance-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-temperance-mystic.webp",
+  "图片/四境塔罗/front-temperance-mystic.png": {
+    "target": "图片/四境塔罗/front-temperance-mystic.webp",
     "sha256": "d5285dc60e47e118259ecbe8b4c3c0102c81e3dc248b07877f231a870e7b3673"
   },
-  "图片/盒子/四境塔罗/front-temperance-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-temperance-noir.webp",
+  "图片/四境塔罗/front-temperance-noir.png": {
+    "target": "图片/四境塔罗/front-temperance-noir.webp",
     "sha256": "21d07362e887c73fafb30badaca5c4d1cdb6ef15a082cefe758ec48d9230276d"
   },
-  "图片/盒子/四境塔罗/front-temperance-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-temperance-parchment.webp",
+  "图片/四境塔罗/front-temperance-parchment.png": {
+    "target": "图片/四境塔罗/front-temperance-parchment.webp",
     "sha256": "ced7216b83becfcfe9db9922bb2c1b65933774fcfcd3776f889ecbcf10529158"
   },
-  "图片/盒子/四境塔罗/front-tower-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-tower-dopamine.webp",
+  "图片/四境塔罗/front-tower-dopamine.png": {
+    "target": "图片/四境塔罗/front-tower-dopamine.webp",
     "sha256": "1b7b8fedf43170ae1a7a5453453fb6fbb426dce34c8afedef1ee2be5ec832f0e"
   },
-  "图片/盒子/四境塔罗/front-tower-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-tower-mystic.webp",
+  "图片/四境塔罗/front-tower-mystic.png": {
+    "target": "图片/四境塔罗/front-tower-mystic.webp",
     "sha256": "d021fdd6e1aefcb14cebc48d1fc799686600603a4c291e99f6f916d5e1c75c12"
   },
-  "图片/盒子/四境塔罗/front-tower-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-tower-noir.webp",
+  "图片/四境塔罗/front-tower-noir.png": {
+    "target": "图片/四境塔罗/front-tower-noir.webp",
     "sha256": "398fb0a6e847bc8434b1684a70384237f267f8e83308bc9f60b0349570f1393e"
   },
-  "图片/盒子/四境塔罗/front-tower-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-tower-parchment.webp",
+  "图片/四境塔罗/front-tower-parchment.png": {
+    "target": "图片/四境塔罗/front-tower-parchment.webp",
     "sha256": "986b65fe12ba76f68bf76db6a220e840cd1d0cea56aa71868a04af1922e520fd"
   },
-  "图片/盒子/四境塔罗/front-wands-ace-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-ace-dopamine.webp",
+  "图片/四境塔罗/front-wands-ace-dopamine.png": {
+    "target": "图片/四境塔罗/front-wands-ace-dopamine.webp",
     "sha256": "2511e8fc8cc54f4dab3aae51419c343c192b48b96d78e1c715e6104dc28afb78"
   },
-  "图片/盒子/四境塔罗/front-wands-ace-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-ace-mystic.webp",
+  "图片/四境塔罗/front-wands-ace-mystic.png": {
+    "target": "图片/四境塔罗/front-wands-ace-mystic.webp",
     "sha256": "f8997ef6b16f7cac29806aa16c9d7bb8238713c5ca5d2bc86aedf98ec0da3f0b"
   },
-  "图片/盒子/四境塔罗/front-wands-ace-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-ace-noir.webp",
+  "图片/四境塔罗/front-wands-ace-noir.png": {
+    "target": "图片/四境塔罗/front-wands-ace-noir.webp",
     "sha256": "4024b8c07184e2549b4bd1bbd2484ca6b5f28daf25c76370f32615b844dc20f9"
   },
-  "图片/盒子/四境塔罗/front-wands-ace-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-ace-parchment.webp",
+  "图片/四境塔罗/front-wands-ace-parchment.png": {
+    "target": "图片/四境塔罗/front-wands-ace-parchment.webp",
     "sha256": "4d51621446e837a03dead08fedf18a0933b4c2f737ac97213d32a7b6fcfc0098"
   },
-  "图片/盒子/四境塔罗/front-wands-five-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-five-dopamine.webp",
+  "图片/四境塔罗/front-wands-five-dopamine.png": {
+    "target": "图片/四境塔罗/front-wands-five-dopamine.webp",
     "sha256": "427677c7dd569ae66bb6c76af7f400f845eca3f286ccd725ae6b7d6a736fb558"
   },
-  "图片/盒子/四境塔罗/front-wands-five-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-five-mystic.webp",
+  "图片/四境塔罗/front-wands-five-mystic.png": {
+    "target": "图片/四境塔罗/front-wands-five-mystic.webp",
     "sha256": "39a77e0009deb795011a45c8d6c311df914fb9bec39c6207939c9aa57d9932af"
   },
-  "图片/盒子/四境塔罗/front-wands-five-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-five-noir.webp",
+  "图片/四境塔罗/front-wands-five-noir.png": {
+    "target": "图片/四境塔罗/front-wands-five-noir.webp",
     "sha256": "a9e3e525ac3a74d816409e76e8ef81f9baac58100ba188627664cb96c829b2f1"
   },
-  "图片/盒子/四境塔罗/front-wands-five-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-five-parchment.webp",
+  "图片/四境塔罗/front-wands-five-parchment.png": {
+    "target": "图片/四境塔罗/front-wands-five-parchment.webp",
     "sha256": "27917e3e5c56ffd6e3737552fe94fa7825b6c4976851de8567f32e29e434f6be"
   },
-  "图片/盒子/四境塔罗/front-wands-four-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-four-dopamine.webp",
+  "图片/四境塔罗/front-wands-four-dopamine.png": {
+    "target": "图片/四境塔罗/front-wands-four-dopamine.webp",
     "sha256": "05c4088e4a10cc7105a64a6c874637840fa7c104502c74e145c23d1e4fddac93"
   },
-  "图片/盒子/四境塔罗/front-wands-four-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-four-mystic.webp",
+  "图片/四境塔罗/front-wands-four-mystic.png": {
+    "target": "图片/四境塔罗/front-wands-four-mystic.webp",
     "sha256": "3d0a32dba15d524999196011f268c558c6e953d86985030b14db4acaee2bc99a"
   },
-  "图片/盒子/四境塔罗/front-wands-four-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-four-noir.webp",
+  "图片/四境塔罗/front-wands-four-noir.png": {
+    "target": "图片/四境塔罗/front-wands-four-noir.webp",
     "sha256": "db761dd1067eea89c869d049cafd0c80afb6006e0271058d91db50be3e18c2e9"
   },
-  "图片/盒子/四境塔罗/front-wands-four-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-four-parchment.webp",
+  "图片/四境塔罗/front-wands-four-parchment.png": {
+    "target": "图片/四境塔罗/front-wands-four-parchment.webp",
     "sha256": "cbe4bdcaffeae7cc4d8fcb3fbc250a8ce645623436385f3a4be9ec56b52f2e9c"
   },
-  "图片/盒子/四境塔罗/front-wands-three-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-three-dopamine.webp",
+  "图片/四境塔罗/front-wands-three-dopamine.png": {
+    "target": "图片/四境塔罗/front-wands-three-dopamine.webp",
     "sha256": "4ffe5c31735bd93d9d4f10c6d8bb1e48bc770129193d16ecb8b33468d6ccab02"
   },
-  "图片/盒子/四境塔罗/front-wands-three-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-three-mystic.webp",
+  "图片/四境塔罗/front-wands-three-mystic.png": {
+    "target": "图片/四境塔罗/front-wands-three-mystic.webp",
     "sha256": "9c4459f387b70c21eb60234a389d839b60e1fd4cc2158ad5135a66a628b3969f"
   },
-  "图片/盒子/四境塔罗/front-wands-three-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-three-noir.webp",
+  "图片/四境塔罗/front-wands-three-noir.png": {
+    "target": "图片/四境塔罗/front-wands-three-noir.webp",
     "sha256": "cb544e78f3f49d52ac9660cbba4f15c0e9e5ec4fd478bd08cd7d26a243dce231"
   },
-  "图片/盒子/四境塔罗/front-wands-three-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-three-parchment.webp",
+  "图片/四境塔罗/front-wands-three-parchment.png": {
+    "target": "图片/四境塔罗/front-wands-three-parchment.webp",
     "sha256": "4e9ce3c4acf925a71c1657ac8addcf235e94a730ff7e66b8b75a2e29e3de96bb"
   },
-  "图片/盒子/四境塔罗/front-wands-two-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-two-dopamine.webp",
+  "图片/四境塔罗/front-wands-two-dopamine.png": {
+    "target": "图片/四境塔罗/front-wands-two-dopamine.webp",
     "sha256": "9917b026ddb51847bae2b41a9cf5f9b7c056fc68ad00169924176b62a06782f9"
   },
-  "图片/盒子/四境塔罗/front-wands-two-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-two-mystic.webp",
+  "图片/四境塔罗/front-wands-two-mystic.png": {
+    "target": "图片/四境塔罗/front-wands-two-mystic.webp",
     "sha256": "1da696f926094db1618b39df9769922c15742adb42aec56854c230421fc8826b"
   },
-  "图片/盒子/四境塔罗/front-wands-two-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-two-noir.webp",
+  "图片/四境塔罗/front-wands-two-noir.png": {
+    "target": "图片/四境塔罗/front-wands-two-noir.webp",
     "sha256": "38545cda2bf425dd3b54f659404d77b11da19c182954de81fc12823b48da0da7"
   },
-  "图片/盒子/四境塔罗/front-wands-two-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-wands-two-parchment.webp",
+  "图片/四境塔罗/front-wands-two-parchment.png": {
+    "target": "图片/四境塔罗/front-wands-two-parchment.webp",
     "sha256": "6917e2b791be7d5262f0db404db5496e20ef78367cc90d70d15d9e816990d7a4"
   },
-  "图片/盒子/四境塔罗/front-wheel-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-wheel-dopamine.webp",
+  "图片/四境塔罗/front-wheel-dopamine.png": {
+    "target": "图片/四境塔罗/front-wheel-dopamine.webp",
     "sha256": "b2c611e4f6ca331a57c7075cd22fff2ac0debb991e3a2dfd94455a12fe56171b"
   },
-  "图片/盒子/四境塔罗/front-wheel-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-wheel-mystic.webp",
+  "图片/四境塔罗/front-wheel-mystic.png": {
+    "target": "图片/四境塔罗/front-wheel-mystic.webp",
     "sha256": "27f49532d9b9eef8ad1aee28723abb3f0e2004e574a45b44e6a8f6848684f006"
   },
-  "图片/盒子/四境塔罗/front-wheel-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-wheel-noir.webp",
+  "图片/四境塔罗/front-wheel-noir.png": {
+    "target": "图片/四境塔罗/front-wheel-noir.webp",
     "sha256": "8872300d6e0868ffb63a8f485e0a6ad83c4d0c519165d83c40dd3c0cca06ed1c"
   },
-  "图片/盒子/四境塔罗/front-wheel-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-wheel-parchment.webp",
+  "图片/四境塔罗/front-wheel-parchment.png": {
+    "target": "图片/四境塔罗/front-wheel-parchment.webp",
     "sha256": "b8c0127290889e3c0e4e1c6001d6dc15d144c02bb756b45b56de30959ae7bdeb"
   },
-  "图片/盒子/四境塔罗/front-world-dopamine.png": {
-    "target": "图片/盒子/四境塔罗/front-world-dopamine.webp",
+  "图片/四境塔罗/front-world-dopamine.png": {
+    "target": "图片/四境塔罗/front-world-dopamine.webp",
     "sha256": "51dd455cad02c30ebf6b23d135ff01fe1531eb58e7e3b7165e6a34fbc403a4f6"
   },
-  "图片/盒子/四境塔罗/front-world-mystic.png": {
-    "target": "图片/盒子/四境塔罗/front-world-mystic.webp",
+  "图片/四境塔罗/front-world-mystic.png": {
+    "target": "图片/四境塔罗/front-world-mystic.webp",
     "sha256": "139fab64d8d32670f80d9f96eee8f93b4c797a55fc7a0a8828dd19146bd7681a"
   },
-  "图片/盒子/四境塔罗/front-world-noir.png": {
-    "target": "图片/盒子/四境塔罗/front-world-noir.webp",
+  "图片/四境塔罗/front-world-noir.png": {
+    "target": "图片/四境塔罗/front-world-noir.webp",
     "sha256": "977d7c2d3af9bf74dcb7028153d8ae0a4436174d0ffbc5ce16efa95e018bb021"
   },
-  "图片/盒子/四境塔罗/front-world-parchment.png": {
-    "target": "图片/盒子/四境塔罗/front-world-parchment.webp",
+  "图片/四境塔罗/front-world-parchment.png": {
+    "target": "图片/四境塔罗/front-world-parchment.webp",
     "sha256": "21139bbc003ba04d64a1cce5a19b397439e745f1731c5f2ade60bbb31875caed"
   }
 }

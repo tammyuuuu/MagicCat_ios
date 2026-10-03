@@ -1,2 +1,5 @@
 # PNG 原稿归档清单仅用于本机移动
 /png-archive-plan.json
+
+# 本机生成记录、预览与导出副本
+/output/

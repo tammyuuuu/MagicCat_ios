@@ -24,7 +24,7 @@ test('all 78 Waite cards match actual image numbering and suit order', () => {
   deck._cards.forEach((card, index) => {
     assert(card._waite && card.meaning, String(index));
     assert.equal(card.number, String(index));
-    assert.equal(card._imgUrl, `图片/盒子/维特塔罗/${index}.webp`);
+    assert.equal(card._imgUrl, `图片/维特塔罗/${index}.webp`);
     assert(fs.existsSync(path.join(root, card._imgUrl)));
   });
 });

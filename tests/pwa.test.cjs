@@ -122,8 +122,8 @@ test('optional pack rejects invalid paths and mismatched deployed artwork', asyn
 });
 test('offline inventory matches current image hashes and includes every deck', () => {
   const groups = JSON.parse(fs.readFileSync('offline-library.json','utf8'));
-  assert.equal(groups.length,7);
-  assert.deepEqual(groups.slice(0,3).map(group => group.files.length),[79,37,141]);
+  assert.equal(groups.length,8);
+  assert.deepEqual(groups.slice(0,4).map(group => group.files.length),[79,37,141,51]);
   for (const group of groups) {
     assert.equal(group.bytes,group.files.reduce((total,file)=>total+file.bytes,0));
     for (const file of group.files) {

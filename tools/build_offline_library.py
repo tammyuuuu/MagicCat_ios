@@ -21,7 +21,7 @@ def build():
         files.append(f'{folder}/back.{back.group(1) if back else extension}')
         groups.append({'id': str(len(groups)), 'name': name, 'files': files})
     text = (ROOT / 'reading_ios.html').read_text('utf-8')
-    urls = set(re.findall(r"图片/盒子/四境塔罗/[^\s\"'<>)]*\.webp", text))
+    urls = set(re.findall(r"图片/四境塔罗/[^\s\"'<>)]*\.webp", text))
     for theme, name in [('mystic', '星紫'), ('noir', '黑白'), ('parchment', '珐琅'), ('dopamine', '雾糖')]:
         files = sorted(url for url in urls if re.search(rf'-{theme}(?:-v\d+)?\.webp$', url))
         groups.append({'id': theme, 'name': f'四境塔罗 · {name}', 'files': files})

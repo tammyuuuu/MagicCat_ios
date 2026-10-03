@@ -19,7 +19,7 @@ test('all 36 cards map to their numbered artwork and complete interpretations', 
   assert.equal(vm.runInContext('deckList.find(d => d.name === "小小奇遇雷诺曼").noReverse', context), true);
   cards.forEach((card, index) => {
     assert.equal(card.number, String(index + 1).padStart(2, '0'));
-    assert.equal(card._imgUrl, `图片/盒子/小小奇遇雷诺曼/${index + 1}.webp`);
+    assert.equal(card._imgUrl, `图片/小小奇遇雷诺曼/${index + 1}.webp`);
     assert(fs.existsSync(path.join(root, card._imgUrl)));
     assert(card._lenormand);
     assert.equal(card.meaning.topics.length, 4);
