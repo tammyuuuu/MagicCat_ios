@@ -3,7 +3,7 @@
 importScripts('./pwa-art.js');
 const BASE = new URL('./', self.location.href);
 const PREFIX = 'magiccat-' + BASE.pathname;
-const CORE_CACHE = PREFIX + 'core-v3';
+const CORE_CACHE = PREFIX + 'core-v4';
 // Kept across application releases. No user data lives in these caches.
 const ART_CACHE = PREFIX + 'art-v1';
 const ART_REVISIONS = PREFIX + 'art-revisions-v1';
@@ -17,6 +17,45 @@ const CORE = [
   'icons/apple-touch-icon.webp?v=icon1'
 ].map(path => new URL(path, BASE).href);
 const refreshing = new Map();
+function artworkKey(input) {
+  const url = new URL(input, BASE);
+  const relative = decodeURIComponent(url.pathname.slice(BASE.pathname.length))
+    .replace(/^图片\/盒子\//, '图片/').replace(/^图片\/布袋\//, '图片/水晶/');
+  const key = new URL(relative, BASE);
+  key.search = url.search;
+  key.searchParams.delete('v');
+  key.searchParams.delete('card_retry');
+  return key.href;
+}
+let inventoryPromise;
+function artworkInventory() {
+  if (!inventoryPromise) inventoryPromise = (async () => {
+    const core = await caches.open(CORE_CACHE);
+    const response = await core.match(new URL('offline-library.json', BASE).href);
+    if (!response) return new Map();
+    const groups = await response.json();
+    return new Map(groups.flatMap(group => group.files.map(file => [artworkKey(file.url), file.sha256])));
+  })().catch(() => { inventoryPromise = undefined; return new Map(); });
+  return inventoryPromise;
+}
+async function migrateArtwork() {
+  const cache = await caches.open(ART_CACHE);
+  const revisions = await caches.open(ART_REVISIONS);
+  const inventory = await artworkInventory();
+  for (const request of await cache.keys()) {
+    const key = artworkKey(request.url);
+    const expected = inventory.get(key);
+    if (key === request.url || !expected) continue;
+    const known = await revisions.match(key);
+    if (await cache.match(key) && known && await known.text() === expected) continue;
+    const response = await cache.match(request);
+    const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', await response.clone().arrayBuffer()))]
+      .map(byte => byte.toString(16).padStart(2, '0')).join('');
+    if (hash !== expected) continue;
+    await cache.put(key, response);
+    await revisions.put(key, new Response(expected));
+  }
+}
 // Optional packs use the same artwork cache as ordinary drawing. Each completed
 // image is durable independently, so closing or pausing does not discard it.
 self.addEventListener('message', event => {
@@ -30,8 +69,9 @@ self.addEventListener('message', event => {
           !/\.webp$/i.test(url.pathname) || !/^[a-f0-9]{64}$/.test(revision)) throw new Error('图片地址无效');
       const cache = await caches.open(ART_CACHE);
       const revisions = await caches.open(ART_REVISIONS);
-      const known = await revisions.match(url.href);
-      if (await cache.match(url.href) && known && await known.text() === revision) {
+      const key = artworkKey(url.href);
+      const known = await revisions.match(key);
+      if (await cache.match(key) && known && await known.text() === revision) {
         port.postMessage({ok:true, reused:true});
         return;
       }
@@ -45,8 +85,8 @@ self.addEventListener('message', event => {
       const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))]
         .map(byte => byte.toString(16).padStart(2,'0')).join('');
       if (hash !== revision) throw new Error('图片已更新，请重新打开离线牌库后重试');
-      await cache.put(url.href, response);
-      await revisions.put(url.href, new Response(revision));
+      await cache.put(key, response);
+      await revisions.put(key, new Response(revision));
       port.postMessage({ok:true, reused:false});
     } catch (error) { port.postMessage({ok:false, error: error.name === 'QuotaExceededError' ? '存储空间不足，已下载部分已保留' : error.message}); }
   })());
@@ -59,7 +99,10 @@ self.addEventListener('install', event => {
   })());
 });
 self.addEventListener('activate', event => {
-  event.waitUntil(self.clients.claim());
+  event.waitUntil((async () => {
+    await migrateArtwork();
+    await self.clients.claim();
+  })());
 });
 function refresh(cache, key, url) {
   if (refreshing.has(key)) return refreshing.get(key);
@@ -91,10 +134,16 @@ async function artworkResponse(event, url) {
   const relative = decodeURIComponent(url.pathname.slice(BASE.pathname.length));
   const optimized = self.PWA_ART[relative];
   const target = optimized ? new URL(optimized, BASE).href : url.href;
-  const key = new URL(url.href);
-  key.searchParams.delete('card_retry');
-  const cached = await cache.match(key.href);
-  const update = refresh(cache, key.href, target);
+  const key = artworkKey(url.href);
+  const cached = await cache.match(key);
+  if (cached && !url.searchParams.has('card_retry')) {
+    const expected = (await artworkInventory()).get(key);
+    const revisions = await caches.open(ART_REVISIONS);
+    const known = await revisions.match(key);
+    // Verified downloaded packs are served locally without a network refresh.
+    if (expected && known && await known.text() === expected) return cached;
+  }
+  const update = refresh(cache, key, target);
   event.waitUntil(update.catch(() => {}));
   // Only requested images are downloaded; unchanged files use HTTP validation.
   if (cached && !url.searchParams.has('card_retry')) return cached;
@@ -107,7 +156,7 @@ async function artworkResponse(event, url) {
   }
   if (optimized) {
     const original = cached;
-    try { return await refresh(cache, url.href, url.href); }
+    try { return await refresh(cache, key, url.href); }
     catch (_) { if (original) return original; }
   }
   return new Response('', { status: 504 });
