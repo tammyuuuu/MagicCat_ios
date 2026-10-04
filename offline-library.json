@@ -1568,1214 +1568,8 @@
     "bytes": 4712988
   },
   {
-    "id": "mystic",
-    "name": "四境塔罗 · 星紫",
-    "files": [
-      {
-        "url": "图片/四境塔罗/back-mystic.webp",
-        "bytes": 152636,
-        "sha256": "d0f52780f811bf9046f5ab27acfef6dbc27d7c69b3947a60ed7caed6fbbda7df"
-      },
-      {
-        "url": "图片/四境塔罗/front-chariot-mystic.webp",
-        "bytes": 183018,
-        "sha256": "fb0686c3e8ac3ff3809b711023158c595e1a5bd879bb6ae1680bcaa7eea28550"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-ace-mystic.webp",
-        "bytes": 144034,
-        "sha256": "2e8f1da0dd7b49b711d6506d81685f17553d56b05ee8d896785426d2b642ee9d"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-eight-mystic.webp",
-        "bytes": 191182,
-        "sha256": "03c3f5fd7afe775397afaa368242238cea62577f3edb3e558cc2e64cd104d31c"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-five-mystic.webp",
-        "bytes": 180336,
-        "sha256": "f6c2db924c3cc1cce3fb92eb09fed49748421151b81a560d4fefb2eb5031bd48"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-four-mystic.webp",
-        "bytes": 180028,
-        "sha256": "b780b4d45d7b6b3692d1f010c208bbc0ed1a7b948003763c5319a77b627a5a1d"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-king-mystic.webp",
-        "bytes": 187716,
-        "sha256": "51ae6f9c2deed60b71621d519f70e6122e5055b475bdbbf35d7fcb9a49edf91b"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-nine-mystic.webp",
-        "bytes": 176642,
-        "sha256": "a2e8a2b693163a08f51904667155abdf398532a5aedd4a89a9b80b5c233f6c75"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-prince-mystic.webp",
-        "bytes": 137492,
-        "sha256": "8c39949720d46a413a60a7ba7fba3da2af23424cd969a99d5ad0ce7c60a6acb1"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-princess-mystic.webp",
-        "bytes": 179646,
-        "sha256": "36dfe28fc6e6c596ce83a52181f020748d945324656fc56fb229ad4846de852c"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-queen-mystic.webp",
-        "bytes": 176588,
-        "sha256": "601ed797aa0bd09cf280f1cb1a876736fb3601e218d70763ab11cd5a6c9428f1"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-seven-mystic.webp",
-        "bytes": 204600,
-        "sha256": "3f912c382feec64dd9762efc96bb2b3b81056c1c16f17600cb11173f7c9b3f5d"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-six-mystic.webp",
-        "bytes": 178480,
-        "sha256": "5881ffd5372e0f6bcc640e989d9d77dc488de7602a46779536dbe12114ddd721"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-ten-mystic.webp",
-        "bytes": 174984,
-        "sha256": "ff57296262ec0a98012bacb6dac016c8dd0570f40f31204218c5223a8cf61ea3"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-three-mystic.webp",
-        "bytes": 188064,
-        "sha256": "cd355963815dceffe49a86a7a3fafc30e7c31837f028dfce8cc8be6b1276f19c"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-two-mystic.webp",
-        "bytes": 169664,
-        "sha256": "17d8b6ddbe4d7dd1770f53275480ba02c12cb6bbb2288b5d4ecedae055f52707"
-      },
-      {
-        "url": "图片/四境塔罗/front-death-mystic.webp",
-        "bytes": 195632,
-        "sha256": "0b144f64a6031034249ea4eb4198fce8d098e97f560b757edc8f88d8e89e8821"
-      },
-      {
-        "url": "图片/四境塔罗/front-devil-mystic.webp",
-        "bytes": 193894,
-        "sha256": "2d684315110b7b4d164d6d40e9b4b98edc7d44ce10271d5011b1dcf613c6847b"
-      },
-      {
-        "url": "图片/四境塔罗/front-emperor-mystic.webp",
-        "bytes": 196232,
-        "sha256": "fc24205446adf08db8eddd0c2228fab39f6393c7a511eda16363070bca16af58"
-      },
-      {
-        "url": "图片/四境塔罗/front-empress-mystic.webp",
-        "bytes": 185948,
-        "sha256": "0b98fc99204c811e5a7ba134e3a425ce353abc390cb11a23198ff3ced7159bad"
-      },
-      {
-        "url": "图片/四境塔罗/front-fool-mystic.webp",
-        "bytes": 191026,
-        "sha256": "0a59d5f438f46d4524b5ec2b8d0786200fd397764bdde479a286ee92c15fa960"
-      },
-      {
-        "url": "图片/四境塔罗/front-hanged-mystic.webp",
-        "bytes": 149748,
-        "sha256": "883caee93f797f027af28e0fb39026a96bc7172f1e69aaa1f894dfe97b769962"
-      },
-      {
-        "url": "图片/四境塔罗/front-hermit-mystic.webp",
-        "bytes": 158984,
-        "sha256": "affc6c25568aac39607d093748c45de03234537015c3e5f8734048fbb0ca70c0"
-      },
-      {
-        "url": "图片/四境塔罗/front-hierophant-mystic.webp",
-        "bytes": 184212,
-        "sha256": "a438e38fb54109d14355dd76d70d9a9449e1b0dca4a6696510697ac5114f9ea0"
-      },
-      {
-        "url": "图片/四境塔罗/front-judgement-mystic.webp",
-        "bytes": 195368,
-        "sha256": "81699d09b43448e307086783e599856628bc87dcd60b20a74eb7e4aeb982185d"
-      },
-      {
-        "url": "图片/四境塔罗/front-justice-mystic.webp",
-        "bytes": 191510,
-        "sha256": "5e9e17e968274e237552f9f9e2fd10d72edd8a6139b64f05af1c5336aaf53c26"
-      },
-      {
-        "url": "图片/四境塔罗/front-lovers-mystic.webp",
-        "bytes": 195550,
-        "sha256": "8c2ec3a6bf75f8643a9bbd45ac0df9b5154e86263ba6bcd950b687e13560a8cb"
-      },
-      {
-        "url": "图片/四境塔罗/front-magician-mystic.webp",
-        "bytes": 153740,
-        "sha256": "618313f4ada04976faf6baca03633e8b7e02837972760b83322a066cb4d0fc3d"
-      },
-      {
-        "url": "图片/四境塔罗/front-moon-mystic.webp",
-        "bytes": 166526,
-        "sha256": "18c2108fd0147d0ca421cab283a62d3298d1d5615af0f702703cfc2691d17e1f"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-ace-mystic.webp",
-        "bytes": 203690,
-        "sha256": "5e11e3acb88c58fed73a89aa805af677cf2f45e52982883b45161026b96c9835"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-eight-mystic.webp",
-        "bytes": 179246,
-        "sha256": "c9269b1da268743549078413f89db51b1e9a304257948e88867dcf7baf7d9711"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-five-mystic.webp",
-        "bytes": 199528,
-        "sha256": "1f4adff2e43bb90703eeec590262997d1f326ef4a60f776ad32b42d4ef621adb"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-four-mystic.webp",
-        "bytes": 200186,
-        "sha256": "b353b2832c0c16a883e99558e415ca8a2726b30b235bb7a05dacd3e22155fc9f"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-king-mystic.webp",
-        "bytes": 200298,
-        "sha256": "78bc650dba8118523255727c490bdbb415bed6f9137a0925a6599917a6b0a51e"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-nine-mystic.webp",
-        "bytes": 196610,
-        "sha256": "4ce52c83bc5140fe9375ebf1749765becfaa37b1bbfd4ec486f2baa35409bdc3"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-prince-mystic.webp",
-        "bytes": 179146,
-        "sha256": "a2cc9423fa453d6b7f21bcd34d595712eeba187332e403471fb231ea540bddf2"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-princess-mystic.webp",
-        "bytes": 177444,
-        "sha256": "0d7eea496ea0646c4a8ec69bfd0dea1272de4c835cc446b8c97d007e3f71300c"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-queen-mystic.webp",
-        "bytes": 198708,
-        "sha256": "ed3f19ef35c61d9a1cc07b7be724a25700c76359fb5c57d4df007b4219ce5d64"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-seven-mystic.webp",
-        "bytes": 200034,
-        "sha256": "e2e22f5bbd2e11cb17095a1f5fb3e183fc8ba615847ecec2cde474d0c25dc6c5"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-six-mystic.webp",
-        "bytes": 197936,
-        "sha256": "5ef6e2f6db5d5bee289dc30cd41a9410fc1a3f6a13e2cfdb649324f5ebb01ca2"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-ten-mystic.webp",
-        "bytes": 204492,
-        "sha256": "2634cb816ab385fc1951fdbe3df424104b466dd4a3014dbc031609fb7c576eda"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-three-mystic.webp",
-        "bytes": 199060,
-        "sha256": "75c34587ef84281d46deb58fa38aeab4276cd5187c855c51cceed500242fa6c7"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-two-mystic.webp",
-        "bytes": 201170,
-        "sha256": "0bbf82389c184d3c1224e8c24fd955178ebffe3f4b1bc1860788fbbd5aa37581"
-      },
-      {
-        "url": "图片/四境塔罗/front-priestess-mystic.webp",
-        "bytes": 200198,
-        "sha256": "795e651be10153eee7b86855a880850b8cfc200c0d0bb1bbb742567868038aff"
-      },
-      {
-        "url": "图片/四境塔罗/front-star-mystic.webp",
-        "bytes": 185090,
-        "sha256": "061f187ce055ad5d61eeea1f2ae9414c529866d3ba9fd6ccfa6114d807a46189"
-      },
-      {
-        "url": "图片/四境塔罗/front-strength-mystic.webp",
-        "bytes": 160152,
-        "sha256": "11c7b82c773727fc2d9028552b4745479488dcb96ba9f6f24beb67b68bc6a0e2"
-      },
-      {
-        "url": "图片/四境塔罗/front-sun-mystic.webp",
-        "bytes": 180346,
-        "sha256": "50ca817cd0f6745dfc45ffffe200c8ce656cdcc3a9fd74ad55d73b7540aa5268"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-ace-mystic.webp",
-        "bytes": 119938,
-        "sha256": "5f726e55dc71b3451a948feff9f48a2cee9ae6e6e84302aa2eb1b5bf40dbc98f"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-eight-mystic.webp",
-        "bytes": 169550,
-        "sha256": "e4fbcb9c517e3673f5aa8657181fa17d4810293f2fb5040a62e404ed6a9ce726"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-five-mystic.webp",
-        "bytes": 164850,
-        "sha256": "dcc55cf59d15e6ecd988d44622ff92424f2716f514802e1f186820387baf6e09"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-four-mystic.webp",
-        "bytes": 159472,
-        "sha256": "39ae354f9d45121129abf8118639c10cd8e6d7d91d5564b7b56450254ce19b95"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-king-mystic.webp",
-        "bytes": 178224,
-        "sha256": "54442d283a118599d7c9759917829ace3ca62b406800795fcb685861b0258ec0"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-nine-mystic.webp",
-        "bytes": 158988,
-        "sha256": "0304054413372df9b2f1cafa1489cc564cfc7b3a002506875950cbf808f3caa9"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-prince-mystic.webp",
-        "bytes": 157108,
-        "sha256": "e02b5ffa5fcabc6199082491c3f41f3e83adabc11a68024e072ccfd074701dc4"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-princess-mystic.webp",
-        "bytes": 197180,
-        "sha256": "901034f84b956a6cb09334d9fc22bd80e8ea6eefacfc7dd8ab80a5fb2d5aa25b"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-queen-mystic.webp",
-        "bytes": 172062,
-        "sha256": "e8f4f25cc640d28823a5007a511e04ad7b97705bccc27f4a4ae850fc192da3b6"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-seven-mystic.webp",
-        "bytes": 161128,
-        "sha256": "effbb5076de9b6bd0623291955746578c41230192d263f2d044d4c0a570d35b9"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-six-mystic.webp",
-        "bytes": 154696,
-        "sha256": "dbb4b7736d02944a24ca282fcaa7f0b42031e4ef57d0ececc3cd394a610ce7a2"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-ten-mystic.webp",
-        "bytes": 155194,
-        "sha256": "1035643053bd1bf03073652b885313aff4534464f20e5c8aa695532d0a2ac868"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-three-mystic.webp",
-        "bytes": 160972,
-        "sha256": "b8e86969229d98e3a8641b850c419d3777001da0d3336e0269471cf16ed05f56"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-two-mystic.webp",
-        "bytes": 143884,
-        "sha256": "8085fce5e71a2518b9f17fef74aa828f8a15782efd7bcd142fada9952eac24fa"
-      },
-      {
-        "url": "图片/四境塔罗/front-temperance-mystic.webp",
-        "bytes": 198200,
-        "sha256": "a5d3fd0539833d0ce6dcc850e50330e1e3cca1ff6ac7da2e4eaeba0228abea4f"
-      },
-      {
-        "url": "图片/四境塔罗/front-tower-mystic.webp",
-        "bytes": 189920,
-        "sha256": "338bfb71328c2d29f64cd0fa7cc5f76c4c6737d3ea6398fdbfdb3c1e24742d87"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-ace-mystic.webp",
-        "bytes": 126790,
-        "sha256": "3d653c355d5c2422bab08333450b85cd0ad4c68fc92ec005090e56a7cbbb8619"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-eight-mystic.webp",
-        "bytes": 175534,
-        "sha256": "5f71afee86dceeb0620ed61e1132417b02159f0fe460de70ee8d5bd221be5b61"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-five-mystic.webp",
-        "bytes": 186342,
-        "sha256": "c7b76c4882c7c0892f8717ca57d450b3824d76099cc338d05d1569ed1eda0941"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-four-mystic.webp",
-        "bytes": 164552,
-        "sha256": "2356a0d4a3cc0de8ecdabe6667dca8471c2e0def21addc502d0545e4784ead7c"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-king-mystic.webp",
-        "bytes": 149558,
-        "sha256": "b7f8f795d5e02607e4d470faa97020455f8f6a3ae1347ca6b66f8c2cd7b5fb2b"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-nine-mystic.webp",
-        "bytes": 180278,
-        "sha256": "cea80b3cab6da7707a0dd4b7e01bd43dfdaa7fae04b863543543a9061ea0e378"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-prince-mystic.webp",
-        "bytes": 148756,
-        "sha256": "642d28721e513d3c11dfc8015d116e217892983f5df062694c97ea601e972618"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-princess-mystic.webp",
-        "bytes": 161048,
-        "sha256": "3f5b558f1b88273c6d9a864a92ef08d30aae8da38845d80d24a5e66088f6c3a5"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-queen-mystic.webp",
-        "bytes": 177692,
-        "sha256": "315b6198c24ed599e598e8af589940932809023467a94133bdef8606c4d35a97"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-seven-mystic.webp",
-        "bytes": 181500,
-        "sha256": "67bafbe4793ac93edc6a28d3c4c820810e0423bdab81eccbdf865ec02a985358"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-six-mystic.webp",
-        "bytes": 190172,
-        "sha256": "30d41eaeaf3632a36bc5758526c280a1752ece34a8411294c0e47342bf4c7f89"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-ten-mystic.webp",
-        "bytes": 187066,
-        "sha256": "8e083b3907d2b9043edde3b44eb96ce0f2380e4a5f3f4d61066ae0c60e140545"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-three-mystic.webp",
-        "bytes": 170144,
-        "sha256": "70855ccbf8d370470b9c6dec18bcaa422e69282496bdabddf78616ebf1f0bfb8"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-two-mystic.webp",
-        "bytes": 174620,
-        "sha256": "a17d6e75272a97c912d151a047eea36f8c8faba4cfa2f540be6e78d9c4078eab"
-      },
-      {
-        "url": "图片/四境塔罗/front-wheel-mystic.webp",
-        "bytes": 165908,
-        "sha256": "6017076e68986fe8c86de91324dd741e6e6c4906bf50f036d02dcfa82a13f11b"
-      },
-      {
-        "url": "图片/四境塔罗/front-world-mystic.webp",
-        "bytes": 184252,
-        "sha256": "dea332b0040cd8bb57aefe84f725231366a5831be3e447849b52b512cef6a9b1"
-      }
-    ],
-    "bytes": 13992392
-  },
-  {
-    "id": "noir",
-    "name": "四境塔罗 · 黑白",
-    "files": [
-      {
-        "url": "图片/四境塔罗/back-noir.webp",
-        "bytes": 143774,
-        "sha256": "e02cd912bd874e61762e3ed98c057667bed311f76991f09697cd11df48a83a4f"
-      },
-      {
-        "url": "图片/四境塔罗/front-chariot-noir.webp",
-        "bytes": 152178,
-        "sha256": "072a869aeff5b9a0199a6094a9ce73f932ae436060c335e6ed8e673f7e990789"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-ace-noir.webp",
-        "bytes": 154750,
-        "sha256": "b5691da5b1efd9956d34e20e5f14f684603003e13d2b9eca2fd7bc3c9ec512cc"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-eight-noir.webp",
-        "bytes": 186454,
-        "sha256": "5154c5e87cb93affb02076ff566a59dbb043e4cde03e01c282d74c115009ecd4"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-five-noir.webp",
-        "bytes": 200286,
-        "sha256": "acc572044c291e5135418a9538a34459b50ee24d91cba1525639ef3d0748225a"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-four-noir.webp",
-        "bytes": 195416,
-        "sha256": "76519b9ae359f2f76e6fdc5487d2fdb7d8c43bcd9f34c70ad6a6e4d8f3931f0d"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-king-noir.webp",
-        "bytes": 193156,
-        "sha256": "c05d686d0fb3006a6f7e8430080c84aecd8835f4a1dfd2bd3e8872d67096ee43"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-nine-noir.webp",
-        "bytes": 190930,
-        "sha256": "e8b270075901578c35e6330515557382f693783a3de2ecad673174be9ba96242"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-prince-noir.webp",
-        "bytes": 124396,
-        "sha256": "393cc6cd31013f58ebfca1cf972df81f54d3a831c9fa365b740a126479561c9a"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-princess-noir.webp",
-        "bytes": 175642,
-        "sha256": "7445bad67913cf32301a98f6a1871b0a223ee410d9b605c5146b110cc58dddee"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-queen-noir.webp",
-        "bytes": 199276,
-        "sha256": "96e8807eafdab366f3ac612c64aaa58a9148e75ea19840b8cd53a48db5d702e1"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-seven-noir.webp",
-        "bytes": 184850,
-        "sha256": "c7a13297175ef0f368bc4fb9e61128c9531996665a2f714d1bf83442059e0c40"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-six-noir.webp",
-        "bytes": 195086,
-        "sha256": "36f7926de9a2a25072c773cd5b81836c20d8c5c26c9711129a5314970d506ba0"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-ten-noir.webp",
-        "bytes": 183466,
-        "sha256": "75c6b98a9ee498f9c6d1d125e63bcc2a20a94fe2f11b5c1c1e8161927e2003ca"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-three-noir.webp",
-        "bytes": 195656,
-        "sha256": "7c80be793b3375fc41e02bc3db08710fc114131f7b066dad2c08f1a5bbce6934"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-two-noir.webp",
-        "bytes": 183594,
-        "sha256": "231f83f39c9b104ff8f4ac6a6932dee30e364c8d41597f1b2d40a35848860bcb"
-      },
-      {
-        "url": "图片/四境塔罗/front-death-noir.webp",
-        "bytes": 203840,
-        "sha256": "40335afde1d5e1ca934d795357b88d6a787ef7ea4bb16c99e79b5a57afcff499"
-      },
-      {
-        "url": "图片/四境塔罗/front-devil-noir.webp",
-        "bytes": 192858,
-        "sha256": "a2d75102f96baa6ae0aeffae9959af72f5ea98def1703000363704dbf19c7036"
-      },
-      {
-        "url": "图片/四境塔罗/front-emperor-noir.webp",
-        "bytes": 179976,
-        "sha256": "4b46e6a1d1eb2a323b9a5834058f9791008a885ecb02143ab2afe622213d6c78"
-      },
-      {
-        "url": "图片/四境塔罗/front-empress-noir.webp",
-        "bytes": 180352,
-        "sha256": "19704b0eb63cabd7ee8e6894a4c749ad76623e329040742167c1744b5d27c57d"
-      },
-      {
-        "url": "图片/四境塔罗/front-fool-noir.webp",
-        "bytes": 190142,
-        "sha256": "165b9cae1c5e17cc2272676ab012fe39f52b0db3a0fc6bb18ad23a8524837e61"
-      },
-      {
-        "url": "图片/四境塔罗/front-hanged-noir.webp",
-        "bytes": 143032,
-        "sha256": "9243800e7f7a05298fe56acece130685f40a607b839dcf6d0d40eb578de35308"
-      },
-      {
-        "url": "图片/四境塔罗/front-hermit-noir.webp",
-        "bytes": 154662,
-        "sha256": "9d9fc5019b415de5061ea9da982626c4b17b2ab07e5bb95eebe5c0f46020e979"
-      },
-      {
-        "url": "图片/四境塔罗/front-hierophant-noir.webp",
-        "bytes": 200214,
-        "sha256": "9607ab1d1d837ab28446f578f47a5c1cfc05127b153388b1e124c91085e61935"
-      },
-      {
-        "url": "图片/四境塔罗/front-judgement-noir.webp",
-        "bytes": 203136,
-        "sha256": "f499ca1cf13e4b2bfc9133a151e6a781a6fd2878c55a88a34df9acc7e8e65a81"
-      },
-      {
-        "url": "图片/四境塔罗/front-justice-noir.webp",
-        "bytes": 182690,
-        "sha256": "347a323f61cee7432a5cfc137526682e7420b1e602ecbfdd5c286fd79da7066c"
-      },
-      {
-        "url": "图片/四境塔罗/front-lovers-noir.webp",
-        "bytes": 188908,
-        "sha256": "1a8958e2183dee15872f76ea23216b74c3e5b5ddbce0ccb02fcb92360fb5374f"
-      },
-      {
-        "url": "图片/四境塔罗/front-magician-noir-v2.webp",
-        "bytes": 185840,
-        "sha256": "41d6f15f5391865d8f23044ddc55fe982737fbeb936ec2d9d1fff4366269c7f1"
-      },
-      {
-        "url": "图片/四境塔罗/front-moon-noir.webp",
-        "bytes": 180758,
-        "sha256": "02e52140adf725c15df2a93646ad776ab56449efa65a4332a6288c51ed9f6a78"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-ace-noir.webp",
-        "bytes": 197122,
-        "sha256": "5f1f05be4cc6490809814b3dbb0c3cda0d50b1fde074a2db4612c00629f371f0"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-eight-noir.webp",
-        "bytes": 191380,
-        "sha256": "f0baca15c83997ce54731c9d832770db6032df1d61453910e38dd9120e09b365"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-five-noir.webp",
-        "bytes": 200106,
-        "sha256": "e1def77fddb0e6db3d45516354af30d2a3966f072b12aadc46c43a04309781d1"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-four-noir.webp",
-        "bytes": 197398,
-        "sha256": "f9cdbcc3c7e3f11dbabf990a3dc3bd7474acc256d889d4c056d9f6e62e26966c"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-king-noir.webp",
-        "bytes": 194164,
-        "sha256": "42d895ee2ad576127180a5ccbdadc5b35942cf68bd44c576a7da367fc0fbbbe0"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-nine-noir.webp",
-        "bytes": 201898,
-        "sha256": "bca77fddea04b0ef18450dc312d6d90bb5cfc7ac11f8902f6708bc3d93f727c6"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-prince-noir.webp",
-        "bytes": 197902,
-        "sha256": "e4f2b49788a6937357b5c0f24fd3a721e931439ef7cdf1143b6cd76dfb13fc71"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-princess-noir.webp",
-        "bytes": 197848,
-        "sha256": "d779f3ac4defa69b35950fa8d424e0df033aa37030017e82d66c3bf849c49c3d"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-queen-noir.webp",
-        "bytes": 186834,
-        "sha256": "718412322e1e10655142f601678e5b50f4c05d9d00d869ef9c5e0e94658aa0c7"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-seven-noir.webp",
-        "bytes": 189524,
-        "sha256": "257f1c13152eae9b0681deb29ec857e32e3cb04eec55c03bd592ea9d42feeb27"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-six-noir.webp",
-        "bytes": 194328,
-        "sha256": "a5d93d5d2cb53e69508e4e5ed7a50cd1fe972e901cb625132437fbda959cc19d"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-ten-noir.webp",
-        "bytes": 200290,
-        "sha256": "246c131ad9b8bdd531cb3044ca129a674972bde7945adab13540e72874f27c0e"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-three-noir.webp",
-        "bytes": 196496,
-        "sha256": "a5d6ba9dcde3815224439c15bb6f4ca5bd6c58f89edd4cb6f714b7bcc9c9a933"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-two-noir.webp",
-        "bytes": 184900,
-        "sha256": "b1c291bb840c6d65924e75388b3199d1082cda25bda8b2ea90c0ed2ef8aaf185"
-      },
-      {
-        "url": "图片/四境塔罗/front-priestess-noir.webp",
-        "bytes": 200250,
-        "sha256": "bdd210a713e0c8e17c474701daaee11bf3c9f45feb3d75b9228870a6ba43f71c"
-      },
-      {
-        "url": "图片/四境塔罗/front-star-noir.webp",
-        "bytes": 169600,
-        "sha256": "e841a8d89121c85aaefda2af181264092dc5a856a23bdf03e1bb4a4a08717f64"
-      },
-      {
-        "url": "图片/四境塔罗/front-strength-noir.webp",
-        "bytes": 157400,
-        "sha256": "ad815470d76304fd78623a02d24d72585e598d220b7b72a22c6166c28d004c06"
-      },
-      {
-        "url": "图片/四境塔罗/front-sun-noir.webp",
-        "bytes": 194530,
-        "sha256": "e3db02c53486a3a7efc56a3904f1fadb81c9882bac4805bc576897726dfff904"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-ace-noir.webp",
-        "bytes": 109860,
-        "sha256": "603695587ddfcc09c715bfef03fe2d121b08977c26a87517cd42ad0d1e2d0760"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-eight-noir.webp",
-        "bytes": 163676,
-        "sha256": "1619fb00dbdbca33bb5a8355e8dd88d7da05de74297224a933d0c4e835ff40ae"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-five-noir.webp",
-        "bytes": 151708,
-        "sha256": "483f0a89bd289786de4824ee96fca25b0fa68d8d67707616c515c73ec73dbeac"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-four-noir.webp",
-        "bytes": 142950,
-        "sha256": "0dc0da5bd137ddef6aa2b6bea4781020d088b2bc91b02a4dd90bc96bd388bf66"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-king-noir.webp",
-        "bytes": 186102,
-        "sha256": "596d78645c39d427cd6db222ba2a4c3bb892f9f4f034e1d08a461d89e808b68a"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-nine-noir.webp",
-        "bytes": 151632,
-        "sha256": "07eca78b192b96d582c99365431f3791225ac95ba700de21dd27db95b3eefad4"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-prince-noir.webp",
-        "bytes": 133516,
-        "sha256": "319c49a8b2cff459de679484dd1f3c25478a8fc2ff827225470ca23f0e6948eb"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-princess-noir.webp",
-        "bytes": 180320,
-        "sha256": "6515bab327eb083aebe615691497cf5af2f2a9f38ad9b71771d33b95c4b71c92"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-queen-noir.webp",
-        "bytes": 171260,
-        "sha256": "8c6ad7369406255ba9ac78f27f8e2107b824b09a24c717efcc8e7fcc4ff9cb23"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-seven-noir.webp",
-        "bytes": 161246,
-        "sha256": "d0451e4358a118c3355c2fc8e0f3869c0af34f944bba4ea92362158e6e7c75f0"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-six-noir.webp",
-        "bytes": 153846,
-        "sha256": "924f015f5dfa9c716b4fbcaa99f5b944f84427f100b25263134ee51692a2d485"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-ten-noir.webp",
-        "bytes": 151968,
-        "sha256": "e964791cfb56157dd93fe5422935902d6b9f3b347cd78b3df42622fd43205ea2"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-three-noir.webp",
-        "bytes": 141122,
-        "sha256": "b9e4aff704f11a70d00365321982a9e11908f4e41f8e1e351bfff8debf6c643a"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-two-noir.webp",
-        "bytes": 124278,
-        "sha256": "4f2b659c17dad42512e9d1d6feb588f8e6ce6d90ee6a5fe5cc22b1d89496def8"
-      },
-      {
-        "url": "图片/四境塔罗/front-temperance-noir.webp",
-        "bytes": 179940,
-        "sha256": "af394e4ca5ec26dfdd3819ae28c6bf25d048a5b288bebf29bca78c1ab5f02b45"
-      },
-      {
-        "url": "图片/四境塔罗/front-tower-noir.webp",
-        "bytes": 167868,
-        "sha256": "39d12fb0087a57a2aa5b90d335d674234741a8838e7137577e14de03390445f1"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-ace-noir.webp",
-        "bytes": 104744,
-        "sha256": "3e784c6c236c46f8077dc3e996af8f547416ea04eb18ab7837b94183375099ac"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-eight-noir.webp",
-        "bytes": 183866,
-        "sha256": "b0b9a1f633db2cfd0efa09fc156d620052086b681bb8fd1609c8cf4cdd797382"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-five-noir.webp",
-        "bytes": 172366,
-        "sha256": "b093130099b2ad0aad6a7eb480437bd5869a884b73668ab96a098d9a43188398"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-four-noir.webp",
-        "bytes": 164810,
-        "sha256": "5866ffdc63c3997b38c2b62c4fff81eb740f445b870b7e0494869b8cb505bcd3"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-king-noir.webp",
-        "bytes": 148322,
-        "sha256": "b123ee996bd739dfe3745dd6c39249f6a16de92833b4e8e206ee33813015991a"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-nine-noir.webp",
-        "bytes": 184452,
-        "sha256": "19a58bdd4a5b08e613372ceaf527ed0392daebf9bf063741eb8b7a424efe135a"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-prince-noir.webp",
-        "bytes": 166192,
-        "sha256": "242b80934b2003c629ad82894b22a582e3aba2594367840d2fb7d55f8a858162"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-princess-noir.webp",
-        "bytes": 199854,
-        "sha256": "60df20a88d5c7a43e3a7ed17c9b47be43a9b830a5d7cab1fe4db81ca2c1aa40d"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-queen-noir.webp",
-        "bytes": 197056,
-        "sha256": "8a440cbb2592c37aac49a7ee8970e8081b69ae04054cae336d2c73b08d7d58d8"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-seven-noir.webp",
-        "bytes": 173894,
-        "sha256": "6fefb33d73f8873da9d5b0c47c46f9302ac0bda92c12c444b74a797f3fc8bedb"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-six-noir.webp",
-        "bytes": 181342,
-        "sha256": "5e7885040f8045fcbf6f6962ba7997bd221e5ef3d87e722a4c99bc94e487c00f"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-ten-noir.webp",
-        "bytes": 187434,
-        "sha256": "8e59520e483c7992feed1df8f6574f01c50d6e3425b88c27f7ff5b9488689268"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-three-noir.webp",
-        "bytes": 137682,
-        "sha256": "7b91977b39984ff714dbd26dd529bf6956383978ba1e2f1335f13f6d3ae8b13a"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-two-noir.webp",
-        "bytes": 140246,
-        "sha256": "60d9f67b8f808fe9aa2af798432daa59b2b747bc41edb281037f87cf63d648cf"
-      },
-      {
-        "url": "图片/四境塔罗/front-wheel-noir.webp",
-        "bytes": 181732,
-        "sha256": "4cb3b7758aa265510130bef2b1a4b395ac923ee91bf42c0739c845b09f826f04"
-      },
-      {
-        "url": "图片/四境塔罗/front-world-noir.webp",
-        "bytes": 197672,
-        "sha256": "fa84d4fa29d2ef638a7381fcc6302dc4dc900396f2ff9314b92ff8d01a9a5aa7"
-      }
-    ],
-    "bytes": 13890244
-  },
-  {
-    "id": "parchment",
-    "name": "四境塔罗 · 珐琅",
-    "files": [
-      {
-        "url": "图片/四境塔罗/back-parchment.webp",
-        "bytes": 129018,
-        "sha256": "79fb84668183f1ed6b528e96a6fd6e730dc194b23dcd8c73249ef174cb1384e5"
-      },
-      {
-        "url": "图片/四境塔罗/front-chariot-parchment.webp",
-        "bytes": 184260,
-        "sha256": "17f2585077e898c16192e48228b8d8c6eb51ec320e876dd52f807db75611b3b2"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-ace-parchment.webp",
-        "bytes": 150272,
-        "sha256": "af3cd19d99e850d27847d1f58344a7cfff5dab57dd32a3b8a471351b9732ebb3"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-eight-parchment.webp",
-        "bytes": 194420,
-        "sha256": "c5d9d31de89f4958f6f573c09f58849f257671bbdd3f2f9bd67b643b21398c26"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-five-parchment.webp",
-        "bytes": 189324,
-        "sha256": "8131f236249a98a7c0f8f579e8c2b8a9eca52b2c07c89b7df6cf4a4e799856bc"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-four-parchment.webp",
-        "bytes": 181984,
-        "sha256": "892d65b79482388330f0effd31a062ba8c21ccd585b5f6ee8a99da809d514104"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-king-parchment.webp",
-        "bytes": 189372,
-        "sha256": "1a1e41eaeb7cb8e982c6e23c013227876ac3c1fca8401810af357fb11839d932"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-nine-parchment.webp",
-        "bytes": 182102,
-        "sha256": "5fe357e82275b82f6aef859f1145d50182f9e258bb9b2f03391dec8cb015d897"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-prince-parchment.webp",
-        "bytes": 146290,
-        "sha256": "280f95f49d2b35a7d4399a60a7b9d550a9567ada8721a50613312e84e127dfa8"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-princess-parchment.webp",
-        "bytes": 185916,
-        "sha256": "5fdaa737f8d9db82dc56292ba85609d77483064b72dfb0e50e6761c90705980c"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-queen-parchment.webp",
-        "bytes": 199374,
-        "sha256": "f33c96c9342732267ef4e991e69392ca1d45723ecef4ac1b1462695f566932c6"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-seven-parchment.webp",
-        "bytes": 200730,
-        "sha256": "a07b8af363f9bc88f8839f35160f43fd5e4d2ebf59ce56b5896c18b555e7fca9"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-six-parchment.webp",
-        "bytes": 175204,
-        "sha256": "11c9c513feb0e3f6ee1b53bab01f38ab1b3b665ddb611735e94cb90c3e1421b9"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-ten-parchment.webp",
-        "bytes": 175876,
-        "sha256": "04ee141eab80655552eb0644feb1630f4456ce3aa1276ccc5dca026e94bd8a7c"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-three-parchment.webp",
-        "bytes": 182770,
-        "sha256": "254e7aff45aa4830281cb9a75b17c90f1d84276ba88259e1a1ebea6a2272ccdf"
-      },
-      {
-        "url": "图片/四境塔罗/front-cups-two-parchment.webp",
-        "bytes": 171556,
-        "sha256": "3e9645b1d10cb171ebfeb48763f749eb0d0ac65243dbc89c0465fd4b7cbb0703"
-      },
-      {
-        "url": "图片/四境塔罗/front-death-parchment.webp",
-        "bytes": 160386,
-        "sha256": "a8b12bef73f6070ec28872d111df8184d557f637b03ecb5cb25eea5bfe6ff2d8"
-      },
-      {
-        "url": "图片/四境塔罗/front-devil-parchment.webp",
-        "bytes": 156238,
-        "sha256": "847dda7568e51441ca3b98b3df72b1d9d187afd00a117404104f5749ef260579"
-      },
-      {
-        "url": "图片/四境塔罗/front-emperor-parchment.webp",
-        "bytes": 195704,
-        "sha256": "f7956a30088f766f00d2411874dda3e1964f42307d4acb1ed4197a2a5d68974b"
-      },
-      {
-        "url": "图片/四境塔罗/front-empress-parchment.webp",
-        "bytes": 192450,
-        "sha256": "a28ff28fac5ab8c23f391c55b6998ada121e6337199e1b23f4ec812a523d4ea2"
-      },
-      {
-        "url": "图片/四境塔罗/front-fool-parchment.webp",
-        "bytes": 196552,
-        "sha256": "984220a936b24f6549dcd0725772cace059c74a64a16fd779b7b5cf9c4c3b9f1"
-      },
-      {
-        "url": "图片/四境塔罗/front-hanged-parchment.webp",
-        "bytes": 176470,
-        "sha256": "71721cb722306e75fca023f7dc49e4b7edc7f7784a14b4c129a25df8c3445517"
-      },
-      {
-        "url": "图片/四境塔罗/front-hermit-parchment.webp",
-        "bytes": 149860,
-        "sha256": "fb7c7231ce7ac99a33a06207fb44b1af1e02859f78f1f097e86322694a309851"
-      },
-      {
-        "url": "图片/四境塔罗/front-hierophant-parchment.webp",
-        "bytes": 187124,
-        "sha256": "4c26923f1648b31c7778e863c6cdd6c830ab57fe602811ad6fc3241d58cb7296"
-      },
-      {
-        "url": "图片/四境塔罗/front-judgement-parchment.webp",
-        "bytes": 167150,
-        "sha256": "7caf7d69c57d9c3b5589e6c3cdc9c3f1bdf59435a54dd3d2acaf190dc00210c0"
-      },
-      {
-        "url": "图片/四境塔罗/front-justice-parchment.webp",
-        "bytes": 200512,
-        "sha256": "3202349e4224a4f1515b22fe1c7d6fe37e3f36e0fa9917315fd39f2893744726"
-      },
-      {
-        "url": "图片/四境塔罗/front-lovers-parchment.webp",
-        "bytes": 190486,
-        "sha256": "14a5c37ba9f11655759c06976a94286740961bf63646d47b82ce3b12c35652c8"
-      },
-      {
-        "url": "图片/四境塔罗/front-magician-parchment.webp",
-        "bytes": 153938,
-        "sha256": "0312aaaa3aea00c2b9bf3a803c3f7bc57f72306fb67b1d5a7062e214506c7c5c"
-      },
-      {
-        "url": "图片/四境塔罗/front-moon-parchment.webp",
-        "bytes": 181986,
-        "sha256": "a7763e97252c2711db735438932df1d766a8d212429628bbb5005cb2f3840891"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-ace-parchment.webp",
-        "bytes": 194112,
-        "sha256": "2b60800bb30fab55a0bdd029287c8c3c4f658b422487cf7a3d261e5df6a82c8f"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-eight-parchment.webp",
-        "bytes": 191780,
-        "sha256": "d79ebfb2deab82f604f9861deae6ac253c03b6887c49362f1abf23d7434da8eb"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-five-parchment.webp",
-        "bytes": 194354,
-        "sha256": "180820f9666e412fad3a73bf26e9e1f29be0ed3feb391a453849b97ef15ed232"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-four-parchment.webp",
-        "bytes": 197920,
-        "sha256": "9328f24b736bfd921e29d58088aadba6276b42ada467a22f007c002086e6a4ed"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-king-parchment.webp",
-        "bytes": 177230,
-        "sha256": "47480c77aa80c8ed3f30f6f6bd8f3227a3c798cd6b446244a7fcf2d97df40c1b"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-nine-parchment.webp",
-        "bytes": 204400,
-        "sha256": "755414c06f81f87c7986ffa1fb7b6d15fdff90742d7acea71d15ab64d3c00303"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-prince-parchment.webp",
-        "bytes": 185278,
-        "sha256": "879ffbc8306053a5ae51294f5c9aa296f741f8ec152d93628d663bfcf33de6be"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-princess-parchment.webp",
-        "bytes": 202552,
-        "sha256": "31f748a5ad12d392eecdf69502e1c9776ef5f41c7abd622fe8efb92abe832a2a"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-queen-parchment.webp",
-        "bytes": 195112,
-        "sha256": "6ed39ce22e0e473345ee3a451718cd499ed76b09aed281f181894d29e793c823"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-seven-parchment.webp",
-        "bytes": 197298,
-        "sha256": "3ab23069fbc05696c89704e4ce3a5e3ceb9f7c070e3c6f55ef7b700dc5b13215"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-six-parchment.webp",
-        "bytes": 204798,
-        "sha256": "f333fb26a1e123d0e2f1008c537bf3372006ae19191d45fad659d508b9763963"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-ten-parchment.webp",
-        "bytes": 204424,
-        "sha256": "b062ed7bd378ddd57cbd92a811a3632b8f933ae26ea0fe2f179b9a7dea9e9dbe"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-three-parchment.webp",
-        "bytes": 180180,
-        "sha256": "5037aacd5cb713dfea05aafcac47a253866865a718122e1e4a2908616b9ae9a8"
-      },
-      {
-        "url": "图片/四境塔罗/front-pentacles-two-parchment.webp",
-        "bytes": 190514,
-        "sha256": "da7978d060e01a06805dfca256ae75104ab9f4fa4646972496293033e7720d59"
-      },
-      {
-        "url": "图片/四境塔罗/front-priestess-parchment.webp",
-        "bytes": 174582,
-        "sha256": "ac059d45304a278350bf4a1bcf0418c72ca6e60580d314c1deb1582eb078b535"
-      },
-      {
-        "url": "图片/四境塔罗/front-star-parchment.webp",
-        "bytes": 198752,
-        "sha256": "8bd56808cd078a5c8c09e7b1fca86ca08d7058edaf20fa2a5b831a70046bec76"
-      },
-      {
-        "url": "图片/四境塔罗/front-strength-parchment.webp",
-        "bytes": 167542,
-        "sha256": "43cc1b7c6034f25f6dd77299f5f5d371cdd77ec1ed58cd308fa6d60fdccb8759"
-      },
-      {
-        "url": "图片/四境塔罗/front-sun-parchment.webp",
-        "bytes": 192044,
-        "sha256": "39dec7780f1a0ffa2d093c5f62b1ba7a131c3961f86dbe23be10a8ea8606b733"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-ace-parchment.webp",
-        "bytes": 119246,
-        "sha256": "df74c60d0554e77fcc21f11ea41faa3d51e25bed0d90f232ee6dbfda4baa6f31"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-eight-parchment.webp",
-        "bytes": 165512,
-        "sha256": "657edf6fa6ae4c801b57fb828ca6e29e4715f6b23b45e496932730c285b6a68b"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-five-parchment.webp",
-        "bytes": 168954,
-        "sha256": "db4cbcc1710fe8122ece957b43d8b26c88533b34de6ccd07ec0edafeefb62c25"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-four-parchment.webp",
-        "bytes": 155532,
-        "sha256": "71f5516c4139b83a453ec8c8e6635b4eba00bd88c4ae12eacd2bd2c6a692062b"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-king-parchment.webp",
-        "bytes": 192848,
-        "sha256": "29e378d575ba0caa427e3c92b2764ecbee1d3fb643ab6d4cee8e025d49254565"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-nine-parchment.webp",
-        "bytes": 158208,
-        "sha256": "3ff528a973ac1ad5411a564c07f1491aa3e44bfe6d4e4925f46a13f63b796fda"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-prince-parchment.webp",
-        "bytes": 140978,
-        "sha256": "267df3fc60abad02556206a0b805ba06dd34194fc90dead0d6b2181d3fde00f1"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-princess-parchment.webp",
-        "bytes": 191382,
-        "sha256": "c919f5fe32b45f7b0e1f0c87a1d75b10ddd1b1d81a4618550d3c566327d34e26"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-queen-parchment.webp",
-        "bytes": 169192,
-        "sha256": "48801f6d369d222f1879bff4665529f9b7052dde5fbff00955911035dc445342"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-seven-parchment.webp",
-        "bytes": 167586,
-        "sha256": "5fc514a80753c1083fce2d221e804ca38f9dc494201d4f2dbffc51b4ec77f137"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-six-parchment.webp",
-        "bytes": 168198,
-        "sha256": "33844332e9b2ba2812e3a7040a3150a3656b82a46076baa169bba0ce2424eca8"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-ten-parchment.webp",
-        "bytes": 176620,
-        "sha256": "17e88d9dc6af40a8316b16e6e48a82944e08460f161876b2cebab9965ab7d97e"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-three-parchment.webp",
-        "bytes": 165826,
-        "sha256": "63574d7beac2301f3ff1b16174dcad41a3dfaf486f76afa28803d685beeb71f7"
-      },
-      {
-        "url": "图片/四境塔罗/front-swords-two-parchment.webp",
-        "bytes": 139564,
-        "sha256": "e9479f381270383d64651e42fdbcc9bdea0c8368e2a5612ee0840f7bc6ac0bc5"
-      },
-      {
-        "url": "图片/四境塔罗/front-temperance-parchment.webp",
-        "bytes": 161596,
-        "sha256": "0b0c20aa1bec829c58a9f0092bff18dbbadaf03e6152cec005f222b2686203d7"
-      },
-      {
-        "url": "图片/四境塔罗/front-tower-parchment.webp",
-        "bytes": 202398,
-        "sha256": "1aa43697b31215391d26582346d38fdfd6fbb66acbcc787f1c6a2c3942593ee9"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-ace-parchment.webp",
-        "bytes": 145484,
-        "sha256": "2207d53361dd4f5910f88f014c143cfcb7a72938ac587f9a615c141f35aa8be0"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-eight-parchment.webp",
-        "bytes": 174058,
-        "sha256": "712195bc4f8f3de23677dee40c3b926d8629409ee7cdbdc3fd377b04c956cb6f"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-five-parchment.webp",
-        "bytes": 169030,
-        "sha256": "0a099f1f568a546f2f8885d75fae2f3dfa157456cf51c1d0e6e31eb88effa767"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-four-parchment.webp",
-        "bytes": 174686,
-        "sha256": "742c6bee1aa9d3c6caa4f8a48f65ae4daa26806b84f203b614ec9f6a01a7fe21"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-king-parchment.webp",
-        "bytes": 153130,
-        "sha256": "e4b00d3aed2c2a269229eab3a0ee7bb493984af28d7a7122f71dc16ce2fffe50"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-nine-parchment.webp",
-        "bytes": 174058,
-        "sha256": "e070aeb9ceebf0ed6283dd50ad9e1f871e32737454851a009e4179e1d2da2214"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-prince-parchment.webp",
-        "bytes": 158452,
-        "sha256": "c84994d95bf3a4e2146d97601ae02275f15a54351e3edf8906c5e3a1a8b95f91"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-princess-parchment.webp",
-        "bytes": 180076,
-        "sha256": "cca333eaf63211d37ab11a436ed63cc1a953f17bac10f5092e479b14357fd424"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-queen-parchment.webp",
-        "bytes": 193760,
-        "sha256": "84ab7b1eba4e0a505f7a15efe91fe47810e1c2fc4da6be82f031c676aed8be95"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-seven-parchment.webp",
-        "bytes": 171486,
-        "sha256": "28c8c16630a1b32a75465e0a79a7f0dccf28cd872a370bf7b3927463dc751329"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-six-parchment.webp",
-        "bytes": 197040,
-        "sha256": "d011d4e845fa8adf9d5a5790e4bd17ca697f59e148d512af70fbf94bc3e68e4a"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-ten-parchment.webp",
-        "bytes": 188200,
-        "sha256": "e1f402ae8f875e8e7c41c75bd67fde917de17e09f09936dbd17fec2ab502f19d"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-three-parchment.webp",
-        "bytes": 177436,
-        "sha256": "4ef58c67b49b03004776cb31d0851d3af85be23429b8fc1e3716f728ec0a0812"
-      },
-      {
-        "url": "图片/四境塔罗/front-wands-two-parchment.webp",
-        "bytes": 153198,
-        "sha256": "031db1cfe85bdd133e4f629d87c69ec16468481d8cf4a14af69e480f4d8c9bb7"
-      },
-      {
-        "url": "图片/四境塔罗/front-wheel-parchment.webp",
-        "bytes": 192474,
-        "sha256": "acb13f3c903f7914f642999c295e798837ffd1fafda8bbbc8dcb358d3f199fff"
-      },
-      {
-        "url": "图片/四境塔罗/front-world-parchment.webp",
-        "bytes": 199086,
-        "sha256": "728b615ff1a43cd49643f582a26e84030cf5948dd5ea25233430570b2908b827"
-      }
-    ],
-    "bytes": 14045490
-  },
-  {
-    "id": "dopamine",
-    "name": "四境塔罗 · 雾糖",
+    "id": "theme-tarot",
+    "name": "四境塔罗",
     "files": [
       {
         "url": "图片/四境塔罗/back-dopamine.webp",
@@ -2783,9 +1577,39 @@
         "sha256": "dcc8a51b138755b9371a4c4d2c02be66db13082634157da3afc3c85c56de9de2"
       },
       {
+        "url": "图片/四境塔罗/back-mystic.webp",
+        "bytes": 152636,
+        "sha256": "d0f52780f811bf9046f5ab27acfef6dbc27d7c69b3947a60ed7caed6fbbda7df"
+      },
+      {
+        "url": "图片/四境塔罗/back-noir.webp",
+        "bytes": 143774,
+        "sha256": "e02cd912bd874e61762e3ed98c057667bed311f76991f09697cd11df48a83a4f"
+      },
+      {
+        "url": "图片/四境塔罗/back-parchment.webp",
+        "bytes": 129018,
+        "sha256": "79fb84668183f1ed6b528e96a6fd6e730dc194b23dcd8c73249ef174cb1384e5"
+      },
+      {
         "url": "图片/四境塔罗/front-chariot-dopamine.webp",
         "bytes": 178968,
         "sha256": "c897a10004e36945cd7f417f96c2be834528d71f3da07243b0bc11030a65032b"
+      },
+      {
+        "url": "图片/四境塔罗/front-chariot-mystic.webp",
+        "bytes": 183018,
+        "sha256": "fb0686c3e8ac3ff3809b711023158c595e1a5bd879bb6ae1680bcaa7eea28550"
+      },
+      {
+        "url": "图片/四境塔罗/front-chariot-noir.webp",
+        "bytes": 152178,
+        "sha256": "072a869aeff5b9a0199a6094a9ce73f932ae436060c335e6ed8e673f7e990789"
+      },
+      {
+        "url": "图片/四境塔罗/front-chariot-parchment.webp",
+        "bytes": 184260,
+        "sha256": "17f2585077e898c16192e48228b8d8c6eb51ec320e876dd52f807db75611b3b2"
       },
       {
         "url": "图片/四境塔罗/front-cups-ace-dopamine.webp",
@@ -2793,9 +1617,39 @@
         "sha256": "a11822af86b118f8cb0834fd429bd7d54e817f2598b4925db2914d2b03e44135"
       },
       {
+        "url": "图片/四境塔罗/front-cups-ace-mystic.webp",
+        "bytes": 144034,
+        "sha256": "2e8f1da0dd7b49b711d6506d81685f17553d56b05ee8d896785426d2b642ee9d"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-ace-noir.webp",
+        "bytes": 154750,
+        "sha256": "b5691da5b1efd9956d34e20e5f14f684603003e13d2b9eca2fd7bc3c9ec512cc"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-ace-parchment.webp",
+        "bytes": 150272,
+        "sha256": "af3cd19d99e850d27847d1f58344a7cfff5dab57dd32a3b8a471351b9732ebb3"
+      },
+      {
         "url": "图片/四境塔罗/front-cups-eight-dopamine.webp",
         "bytes": 174922,
         "sha256": "c94c246bbe31e670020761b37d9067922f75ef83fdb8ac35195264697b1a2216"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-eight-mystic.webp",
+        "bytes": 191182,
+        "sha256": "03c3f5fd7afe775397afaa368242238cea62577f3edb3e558cc2e64cd104d31c"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-eight-noir.webp",
+        "bytes": 186454,
+        "sha256": "5154c5e87cb93affb02076ff566a59dbb043e4cde03e01c282d74c115009ecd4"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-eight-parchment.webp",
+        "bytes": 194420,
+        "sha256": "c5d9d31de89f4958f6f573c09f58849f257671bbdd3f2f9bd67b643b21398c26"
       },
       {
         "url": "图片/四境塔罗/front-cups-five-dopamine.webp",
@@ -2803,9 +1657,39 @@
         "sha256": "c3001a907f8e0f9ae9f75302c573fa5cd20885cc8d449a9c40eae311faf7f01b"
       },
       {
+        "url": "图片/四境塔罗/front-cups-five-mystic.webp",
+        "bytes": 180336,
+        "sha256": "f6c2db924c3cc1cce3fb92eb09fed49748421151b81a560d4fefb2eb5031bd48"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-five-noir.webp",
+        "bytes": 200286,
+        "sha256": "acc572044c291e5135418a9538a34459b50ee24d91cba1525639ef3d0748225a"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-five-parchment.webp",
+        "bytes": 189324,
+        "sha256": "8131f236249a98a7c0f8f579e8c2b8a9eca52b2c07c89b7df6cf4a4e799856bc"
+      },
+      {
         "url": "图片/四境塔罗/front-cups-four-dopamine.webp",
         "bytes": 182606,
         "sha256": "253cd8650be5dd62591d1ed84ecbf90b1f7b0972b1fafd15b663b195da72848a"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-four-mystic.webp",
+        "bytes": 180028,
+        "sha256": "b780b4d45d7b6b3692d1f010c208bbc0ed1a7b948003763c5319a77b627a5a1d"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-four-noir.webp",
+        "bytes": 195416,
+        "sha256": "76519b9ae359f2f76e6fdc5487d2fdb7d8c43bcd9f34c70ad6a6e4d8f3931f0d"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-four-parchment.webp",
+        "bytes": 181984,
+        "sha256": "892d65b79482388330f0effd31a062ba8c21ccd585b5f6ee8a99da809d514104"
       },
       {
         "url": "图片/四境塔罗/front-cups-king-dopamine.webp",
@@ -2813,9 +1697,39 @@
         "sha256": "e380b94d2bb7135b55df93682ac0d7456f63576e7fab7561e0d3eee1f8f10993"
       },
       {
+        "url": "图片/四境塔罗/front-cups-king-mystic.webp",
+        "bytes": 187716,
+        "sha256": "51ae6f9c2deed60b71621d519f70e6122e5055b475bdbbf35d7fcb9a49edf91b"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-king-noir.webp",
+        "bytes": 193156,
+        "sha256": "c05d686d0fb3006a6f7e8430080c84aecd8835f4a1dfd2bd3e8872d67096ee43"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-king-parchment.webp",
+        "bytes": 189372,
+        "sha256": "1a1e41eaeb7cb8e982c6e23c013227876ac3c1fca8401810af357fb11839d932"
+      },
+      {
         "url": "图片/四境塔罗/front-cups-nine-dopamine.webp",
         "bytes": 189868,
         "sha256": "d508bd2240f021e3d59804a78ded06de31df0503f8ae5061e3cc8ab74f366502"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-nine-mystic.webp",
+        "bytes": 176642,
+        "sha256": "a2e8a2b693163a08f51904667155abdf398532a5aedd4a89a9b80b5c233f6c75"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-nine-noir.webp",
+        "bytes": 190930,
+        "sha256": "e8b270075901578c35e6330515557382f693783a3de2ecad673174be9ba96242"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-nine-parchment.webp",
+        "bytes": 182102,
+        "sha256": "5fe357e82275b82f6aef859f1145d50182f9e258bb9b2f03391dec8cb015d897"
       },
       {
         "url": "图片/四境塔罗/front-cups-prince-dopamine.webp",
@@ -2823,9 +1737,39 @@
         "sha256": "fa07defa8713082965c7f8dd58f6df1fcd881a0412e0891ff7504d72fffa8b10"
       },
       {
+        "url": "图片/四境塔罗/front-cups-prince-mystic.webp",
+        "bytes": 137492,
+        "sha256": "8c39949720d46a413a60a7ba7fba3da2af23424cd969a99d5ad0ce7c60a6acb1"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-prince-noir.webp",
+        "bytes": 124396,
+        "sha256": "393cc6cd31013f58ebfca1cf972df81f54d3a831c9fa365b740a126479561c9a"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-prince-parchment.webp",
+        "bytes": 146290,
+        "sha256": "280f95f49d2b35a7d4399a60a7b9d550a9567ada8721a50613312e84e127dfa8"
+      },
+      {
         "url": "图片/四境塔罗/front-cups-princess-dopamine.webp",
         "bytes": 168738,
         "sha256": "6385d63490977425609d5ff12d47944928a255db0804c24195b35dd61fcc42dd"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-princess-mystic.webp",
+        "bytes": 179646,
+        "sha256": "36dfe28fc6e6c596ce83a52181f020748d945324656fc56fb229ad4846de852c"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-princess-noir.webp",
+        "bytes": 175642,
+        "sha256": "7445bad67913cf32301a98f6a1871b0a223ee410d9b605c5146b110cc58dddee"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-princess-parchment.webp",
+        "bytes": 185916,
+        "sha256": "5fdaa737f8d9db82dc56292ba85609d77483064b72dfb0e50e6761c90705980c"
       },
       {
         "url": "图片/四境塔罗/front-cups-queen-dopamine.webp",
@@ -2833,9 +1777,39 @@
         "sha256": "a22ad6430a706dc2d58cda1aad4a0f285e47095e8e291da88eedb05eeaacfe68"
       },
       {
+        "url": "图片/四境塔罗/front-cups-queen-mystic.webp",
+        "bytes": 176588,
+        "sha256": "601ed797aa0bd09cf280f1cb1a876736fb3601e218d70763ab11cd5a6c9428f1"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-queen-noir.webp",
+        "bytes": 199276,
+        "sha256": "96e8807eafdab366f3ac612c64aaa58a9148e75ea19840b8cd53a48db5d702e1"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-queen-parchment.webp",
+        "bytes": 199374,
+        "sha256": "f33c96c9342732267ef4e991e69392ca1d45723ecef4ac1b1462695f566932c6"
+      },
+      {
         "url": "图片/四境塔罗/front-cups-seven-dopamine.webp",
         "bytes": 177880,
         "sha256": "340b4721665435c925af526a08e563373109c419d6dc919ca465f1fa8ced7c25"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-seven-mystic.webp",
+        "bytes": 204600,
+        "sha256": "3f912c382feec64dd9762efc96bb2b3b81056c1c16f17600cb11173f7c9b3f5d"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-seven-noir.webp",
+        "bytes": 184850,
+        "sha256": "c7a13297175ef0f368bc4fb9e61128c9531996665a2f714d1bf83442059e0c40"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-seven-parchment.webp",
+        "bytes": 200730,
+        "sha256": "a07b8af363f9bc88f8839f35160f43fd5e4d2ebf59ce56b5896c18b555e7fca9"
       },
       {
         "url": "图片/四境塔罗/front-cups-six-dopamine.webp",
@@ -2843,9 +1817,39 @@
         "sha256": "402211a92b3fdc5869e00a05d019c8f8670341fce1db43897b981ab3f12025be"
       },
       {
+        "url": "图片/四境塔罗/front-cups-six-mystic.webp",
+        "bytes": 178480,
+        "sha256": "5881ffd5372e0f6bcc640e989d9d77dc488de7602a46779536dbe12114ddd721"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-six-noir.webp",
+        "bytes": 195086,
+        "sha256": "36f7926de9a2a25072c773cd5b81836c20d8c5c26c9711129a5314970d506ba0"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-six-parchment.webp",
+        "bytes": 175204,
+        "sha256": "11c9c513feb0e3f6ee1b53bab01f38ab1b3b665ddb611735e94cb90c3e1421b9"
+      },
+      {
         "url": "图片/四境塔罗/front-cups-ten-dopamine.webp",
         "bytes": 196436,
         "sha256": "b58eacb1d5b0eba669cd9a545243b29cfe77d63e294e91748d222c9ffddb39c6"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-ten-mystic.webp",
+        "bytes": 174984,
+        "sha256": "ff57296262ec0a98012bacb6dac016c8dd0570f40f31204218c5223a8cf61ea3"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-ten-noir.webp",
+        "bytes": 183466,
+        "sha256": "75c6b98a9ee498f9c6d1d125e63bcc2a20a94fe2f11b5c1c1e8161927e2003ca"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-ten-parchment.webp",
+        "bytes": 175876,
+        "sha256": "04ee141eab80655552eb0644feb1630f4456ce3aa1276ccc5dca026e94bd8a7c"
       },
       {
         "url": "图片/四境塔罗/front-cups-three-dopamine.webp",
@@ -2853,9 +1857,39 @@
         "sha256": "2dde686fea6ff939d746136b7bd3e2749ee18262be06a5e08f52620bc58f5233"
       },
       {
+        "url": "图片/四境塔罗/front-cups-three-mystic.webp",
+        "bytes": 188064,
+        "sha256": "cd355963815dceffe49a86a7a3fafc30e7c31837f028dfce8cc8be6b1276f19c"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-three-noir.webp",
+        "bytes": 195656,
+        "sha256": "7c80be793b3375fc41e02bc3db08710fc114131f7b066dad2c08f1a5bbce6934"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-three-parchment.webp",
+        "bytes": 182770,
+        "sha256": "254e7aff45aa4830281cb9a75b17c90f1d84276ba88259e1a1ebea6a2272ccdf"
+      },
+      {
         "url": "图片/四境塔罗/front-cups-two-dopamine.webp",
         "bytes": 174678,
         "sha256": "4c9cc7d60f02c52cb25875347b26d2a5c462e737e33194ec9d0a1aa480dc9302"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-two-mystic.webp",
+        "bytes": 169664,
+        "sha256": "17d8b6ddbe4d7dd1770f53275480ba02c12cb6bbb2288b5d4ecedae055f52707"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-two-noir.webp",
+        "bytes": 183594,
+        "sha256": "231f83f39c9b104ff8f4ac6a6932dee30e364c8d41597f1b2d40a35848860bcb"
+      },
+      {
+        "url": "图片/四境塔罗/front-cups-two-parchment.webp",
+        "bytes": 171556,
+        "sha256": "3e9645b1d10cb171ebfeb48763f749eb0d0ac65243dbc89c0465fd4b7cbb0703"
       },
       {
         "url": "图片/四境塔罗/front-death-dopamine.webp",
@@ -2863,9 +1897,39 @@
         "sha256": "c39e31c9d60fa5fff594d9c37bd92ed5cf252df748d5f894b052df73cadc1158"
       },
       {
+        "url": "图片/四境塔罗/front-death-mystic.webp",
+        "bytes": 195632,
+        "sha256": "0b144f64a6031034249ea4eb4198fce8d098e97f560b757edc8f88d8e89e8821"
+      },
+      {
+        "url": "图片/四境塔罗/front-death-noir.webp",
+        "bytes": 203840,
+        "sha256": "40335afde1d5e1ca934d795357b88d6a787ef7ea4bb16c99e79b5a57afcff499"
+      },
+      {
+        "url": "图片/四境塔罗/front-death-parchment.webp",
+        "bytes": 160386,
+        "sha256": "a8b12bef73f6070ec28872d111df8184d557f637b03ecb5cb25eea5bfe6ff2d8"
+      },
+      {
         "url": "图片/四境塔罗/front-devil-dopamine.webp",
         "bytes": 159566,
         "sha256": "03e8fe8473a3b549611710db4331cd9dab052dfe12d54dd83d25131c74407fcb"
+      },
+      {
+        "url": "图片/四境塔罗/front-devil-mystic.webp",
+        "bytes": 193894,
+        "sha256": "2d684315110b7b4d164d6d40e9b4b98edc7d44ce10271d5011b1dcf613c6847b"
+      },
+      {
+        "url": "图片/四境塔罗/front-devil-noir.webp",
+        "bytes": 192858,
+        "sha256": "a2d75102f96baa6ae0aeffae9959af72f5ea98def1703000363704dbf19c7036"
+      },
+      {
+        "url": "图片/四境塔罗/front-devil-parchment.webp",
+        "bytes": 156238,
+        "sha256": "847dda7568e51441ca3b98b3df72b1d9d187afd00a117404104f5749ef260579"
       },
       {
         "url": "图片/四境塔罗/front-emperor-dopamine.webp",
@@ -2873,9 +1937,39 @@
         "sha256": "73169533bc9e69ef6aa6047374f345b6862020c046be1c432b12b12e776c164a"
       },
       {
+        "url": "图片/四境塔罗/front-emperor-mystic.webp",
+        "bytes": 196232,
+        "sha256": "fc24205446adf08db8eddd0c2228fab39f6393c7a511eda16363070bca16af58"
+      },
+      {
+        "url": "图片/四境塔罗/front-emperor-noir.webp",
+        "bytes": 179976,
+        "sha256": "4b46e6a1d1eb2a323b9a5834058f9791008a885ecb02143ab2afe622213d6c78"
+      },
+      {
+        "url": "图片/四境塔罗/front-emperor-parchment.webp",
+        "bytes": 195704,
+        "sha256": "f7956a30088f766f00d2411874dda3e1964f42307d4acb1ed4197a2a5d68974b"
+      },
+      {
         "url": "图片/四境塔罗/front-empress-dopamine.webp",
         "bytes": 195950,
         "sha256": "7de245687a1dae942bcb3a4dbaccbbc20e8d110b31bf622179c03100168ac20c"
+      },
+      {
+        "url": "图片/四境塔罗/front-empress-mystic.webp",
+        "bytes": 185948,
+        "sha256": "0b98fc99204c811e5a7ba134e3a425ce353abc390cb11a23198ff3ced7159bad"
+      },
+      {
+        "url": "图片/四境塔罗/front-empress-noir.webp",
+        "bytes": 180352,
+        "sha256": "19704b0eb63cabd7ee8e6894a4c749ad76623e329040742167c1744b5d27c57d"
+      },
+      {
+        "url": "图片/四境塔罗/front-empress-parchment.webp",
+        "bytes": 192450,
+        "sha256": "a28ff28fac5ab8c23f391c55b6998ada121e6337199e1b23f4ec812a523d4ea2"
       },
       {
         "url": "图片/四境塔罗/front-fool-dopamine.webp",
@@ -2883,9 +1977,39 @@
         "sha256": "2f5551b7a4564e8bd4a4c5e4c91506f2eaadc8eee739a5c6ef22ddfe48bbf253"
       },
       {
+        "url": "图片/四境塔罗/front-fool-mystic.webp",
+        "bytes": 191026,
+        "sha256": "0a59d5f438f46d4524b5ec2b8d0786200fd397764bdde479a286ee92c15fa960"
+      },
+      {
+        "url": "图片/四境塔罗/front-fool-noir.webp",
+        "bytes": 190142,
+        "sha256": "165b9cae1c5e17cc2272676ab012fe39f52b0db3a0fc6bb18ad23a8524837e61"
+      },
+      {
+        "url": "图片/四境塔罗/front-fool-parchment.webp",
+        "bytes": 196552,
+        "sha256": "984220a936b24f6549dcd0725772cace059c74a64a16fd779b7b5cf9c4c3b9f1"
+      },
+      {
         "url": "图片/四境塔罗/front-hanged-dopamine.webp",
         "bytes": 159336,
         "sha256": "50a9c20db691b8abd6a37d74cc4e5e0c5b08d91415bb33f4b462c423cb477326"
+      },
+      {
+        "url": "图片/四境塔罗/front-hanged-mystic.webp",
+        "bytes": 149748,
+        "sha256": "883caee93f797f027af28e0fb39026a96bc7172f1e69aaa1f894dfe97b769962"
+      },
+      {
+        "url": "图片/四境塔罗/front-hanged-noir.webp",
+        "bytes": 143032,
+        "sha256": "9243800e7f7a05298fe56acece130685f40a607b839dcf6d0d40eb578de35308"
+      },
+      {
+        "url": "图片/四境塔罗/front-hanged-parchment.webp",
+        "bytes": 176470,
+        "sha256": "71721cb722306e75fca023f7dc49e4b7edc7f7784a14b4c129a25df8c3445517"
       },
       {
         "url": "图片/四境塔罗/front-hermit-dopamine.webp",
@@ -2893,9 +2017,39 @@
         "sha256": "90c9109d02dc8d0e354d2e2e880acef5d78c18fed9e61ce0f99852ab734ea7e8"
       },
       {
+        "url": "图片/四境塔罗/front-hermit-mystic.webp",
+        "bytes": 158984,
+        "sha256": "affc6c25568aac39607d093748c45de03234537015c3e5f8734048fbb0ca70c0"
+      },
+      {
+        "url": "图片/四境塔罗/front-hermit-noir.webp",
+        "bytes": 154662,
+        "sha256": "9d9fc5019b415de5061ea9da982626c4b17b2ab07e5bb95eebe5c0f46020e979"
+      },
+      {
+        "url": "图片/四境塔罗/front-hermit-parchment.webp",
+        "bytes": 149860,
+        "sha256": "fb7c7231ce7ac99a33a06207fb44b1af1e02859f78f1f097e86322694a309851"
+      },
+      {
         "url": "图片/四境塔罗/front-hierophant-dopamine.webp",
         "bytes": 188674,
         "sha256": "ee21abb6cef9ec3c8236ffbabc6196afd0a33a19a2634e621079a7ebebd36a62"
+      },
+      {
+        "url": "图片/四境塔罗/front-hierophant-mystic.webp",
+        "bytes": 184212,
+        "sha256": "a438e38fb54109d14355dd76d70d9a9449e1b0dca4a6696510697ac5114f9ea0"
+      },
+      {
+        "url": "图片/四境塔罗/front-hierophant-noir.webp",
+        "bytes": 200214,
+        "sha256": "9607ab1d1d837ab28446f578f47a5c1cfc05127b153388b1e124c91085e61935"
+      },
+      {
+        "url": "图片/四境塔罗/front-hierophant-parchment.webp",
+        "bytes": 187124,
+        "sha256": "4c26923f1648b31c7778e863c6cdd6c830ab57fe602811ad6fc3241d58cb7296"
       },
       {
         "url": "图片/四境塔罗/front-judgement-dopamine.webp",
@@ -2903,9 +2057,39 @@
         "sha256": "ebba33847721976fab4790b3e8621b666bf204831f464a62c92da466ea2d7729"
       },
       {
+        "url": "图片/四境塔罗/front-judgement-mystic.webp",
+        "bytes": 195368,
+        "sha256": "81699d09b43448e307086783e599856628bc87dcd60b20a74eb7e4aeb982185d"
+      },
+      {
+        "url": "图片/四境塔罗/front-judgement-noir.webp",
+        "bytes": 203136,
+        "sha256": "f499ca1cf13e4b2bfc9133a151e6a781a6fd2878c55a88a34df9acc7e8e65a81"
+      },
+      {
+        "url": "图片/四境塔罗/front-judgement-parchment.webp",
+        "bytes": 167150,
+        "sha256": "7caf7d69c57d9c3b5589e6c3cdc9c3f1bdf59435a54dd3d2acaf190dc00210c0"
+      },
+      {
         "url": "图片/四境塔罗/front-justice-dopamine.webp",
         "bytes": 200068,
         "sha256": "fc9084427b41f2dc7038c360b42ab42b9b3a1030922762cb0d5d75c6e0bc3ff4"
+      },
+      {
+        "url": "图片/四境塔罗/front-justice-mystic.webp",
+        "bytes": 191510,
+        "sha256": "5e9e17e968274e237552f9f9e2fd10d72edd8a6139b64f05af1c5336aaf53c26"
+      },
+      {
+        "url": "图片/四境塔罗/front-justice-noir.webp",
+        "bytes": 182690,
+        "sha256": "347a323f61cee7432a5cfc137526682e7420b1e602ecbfdd5c286fd79da7066c"
+      },
+      {
+        "url": "图片/四境塔罗/front-justice-parchment.webp",
+        "bytes": 200512,
+        "sha256": "3202349e4224a4f1515b22fe1c7d6fe37e3f36e0fa9917315fd39f2893744726"
       },
       {
         "url": "图片/四境塔罗/front-lovers-dopamine.webp",
@@ -2913,9 +2097,39 @@
         "sha256": "85978c4823035f91d9af18c0f5bd845da66a17e166b479bb0395947d56c48b8b"
       },
       {
+        "url": "图片/四境塔罗/front-lovers-mystic.webp",
+        "bytes": 195550,
+        "sha256": "8c2ec3a6bf75f8643a9bbd45ac0df9b5154e86263ba6bcd950b687e13560a8cb"
+      },
+      {
+        "url": "图片/四境塔罗/front-lovers-noir.webp",
+        "bytes": 188908,
+        "sha256": "1a8958e2183dee15872f76ea23216b74c3e5b5ddbce0ccb02fcb92360fb5374f"
+      },
+      {
+        "url": "图片/四境塔罗/front-lovers-parchment.webp",
+        "bytes": 190486,
+        "sha256": "14a5c37ba9f11655759c06976a94286740961bf63646d47b82ce3b12c35652c8"
+      },
+      {
         "url": "图片/四境塔罗/front-magician-dopamine.webp",
         "bytes": 128570,
         "sha256": "f0a410a232ac1662a58f346091bfd913016ff5bf806a08dd02fbaff414aa4d9a"
+      },
+      {
+        "url": "图片/四境塔罗/front-magician-mystic.webp",
+        "bytes": 153740,
+        "sha256": "618313f4ada04976faf6baca03633e8b7e02837972760b83322a066cb4d0fc3d"
+      },
+      {
+        "url": "图片/四境塔罗/front-magician-noir-v2.webp",
+        "bytes": 185840,
+        "sha256": "41d6f15f5391865d8f23044ddc55fe982737fbeb936ec2d9d1fff4366269c7f1"
+      },
+      {
+        "url": "图片/四境塔罗/front-magician-parchment.webp",
+        "bytes": 153938,
+        "sha256": "0312aaaa3aea00c2b9bf3a803c3f7bc57f72306fb67b1d5a7062e214506c7c5c"
       },
       {
         "url": "图片/四境塔罗/front-moon-dopamine.webp",
@@ -2923,9 +2137,39 @@
         "sha256": "6dd54778fbde355bbf3da3aab0f60ffbc3f53f7022d83ee5141167dc23513107"
       },
       {
+        "url": "图片/四境塔罗/front-moon-mystic.webp",
+        "bytes": 166526,
+        "sha256": "18c2108fd0147d0ca421cab283a62d3298d1d5615af0f702703cfc2691d17e1f"
+      },
+      {
+        "url": "图片/四境塔罗/front-moon-noir.webp",
+        "bytes": 180758,
+        "sha256": "02e52140adf725c15df2a93646ad776ab56449efa65a4332a6288c51ed9f6a78"
+      },
+      {
+        "url": "图片/四境塔罗/front-moon-parchment.webp",
+        "bytes": 181986,
+        "sha256": "a7763e97252c2711db735438932df1d766a8d212429628bbb5005cb2f3840891"
+      },
+      {
         "url": "图片/四境塔罗/front-pentacles-ace-dopamine.webp",
         "bytes": 201092,
         "sha256": "5efa097c0e082b55bfc376ce8bf14168e0c2f27499a01a52d5c91174486c8121"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-ace-mystic.webp",
+        "bytes": 203690,
+        "sha256": "5e11e3acb88c58fed73a89aa805af677cf2f45e52982883b45161026b96c9835"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-ace-noir.webp",
+        "bytes": 197122,
+        "sha256": "5f1f05be4cc6490809814b3dbb0c3cda0d50b1fde074a2db4612c00629f371f0"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-ace-parchment.webp",
+        "bytes": 194112,
+        "sha256": "2b60800bb30fab55a0bdd029287c8c3c4f658b422487cf7a3d261e5df6a82c8f"
       },
       {
         "url": "图片/四境塔罗/front-pentacles-eight-dopamine.webp",
@@ -2933,9 +2177,39 @@
         "sha256": "4ebde7351ff45fed9eed5f9520624ee1e1c1cc06e1efba3926678c83478a1c1b"
       },
       {
+        "url": "图片/四境塔罗/front-pentacles-eight-mystic.webp",
+        "bytes": 179246,
+        "sha256": "c9269b1da268743549078413f89db51b1e9a304257948e88867dcf7baf7d9711"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-eight-noir.webp",
+        "bytes": 191380,
+        "sha256": "f0baca15c83997ce54731c9d832770db6032df1d61453910e38dd9120e09b365"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-eight-parchment.webp",
+        "bytes": 191780,
+        "sha256": "d79ebfb2deab82f604f9861deae6ac253c03b6887c49362f1abf23d7434da8eb"
+      },
+      {
         "url": "图片/四境塔罗/front-pentacles-five-dopamine.webp",
         "bytes": 203970,
         "sha256": "2c7750732029fb9d3ad9d34d1613c41387ca6e2df817247330161b65028fb7c3"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-five-mystic.webp",
+        "bytes": 199528,
+        "sha256": "1f4adff2e43bb90703eeec590262997d1f326ef4a60f776ad32b42d4ef621adb"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-five-noir.webp",
+        "bytes": 200106,
+        "sha256": "e1def77fddb0e6db3d45516354af30d2a3966f072b12aadc46c43a04309781d1"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-five-parchment.webp",
+        "bytes": 194354,
+        "sha256": "180820f9666e412fad3a73bf26e9e1f29be0ed3feb391a453849b97ef15ed232"
       },
       {
         "url": "图片/四境塔罗/front-pentacles-four-dopamine.webp",
@@ -2943,9 +2217,39 @@
         "sha256": "23cdfaabc213a6fd61e5d9de601b6fbc45e51d546cbd65b028687ccdb74a7a94"
       },
       {
+        "url": "图片/四境塔罗/front-pentacles-four-mystic.webp",
+        "bytes": 200186,
+        "sha256": "b353b2832c0c16a883e99558e415ca8a2726b30b235bb7a05dacd3e22155fc9f"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-four-noir.webp",
+        "bytes": 197398,
+        "sha256": "f9cdbcc3c7e3f11dbabf990a3dc3bd7474acc256d889d4c056d9f6e62e26966c"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-four-parchment.webp",
+        "bytes": 197920,
+        "sha256": "9328f24b736bfd921e29d58088aadba6276b42ada467a22f007c002086e6a4ed"
+      },
+      {
         "url": "图片/四境塔罗/front-pentacles-king-dopamine.webp",
         "bytes": 176112,
         "sha256": "bd360cda85fc4332817aa0ffc43077a12a30c1b9f986fa36a37efe26920eae3d"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-king-mystic.webp",
+        "bytes": 200298,
+        "sha256": "78bc650dba8118523255727c490bdbb415bed6f9137a0925a6599917a6b0a51e"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-king-noir.webp",
+        "bytes": 194164,
+        "sha256": "42d895ee2ad576127180a5ccbdadc5b35942cf68bd44c576a7da367fc0fbbbe0"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-king-parchment.webp",
+        "bytes": 177230,
+        "sha256": "47480c77aa80c8ed3f30f6f6bd8f3227a3c798cd6b446244a7fcf2d97df40c1b"
       },
       {
         "url": "图片/四境塔罗/front-pentacles-nine-dopamine.webp",
@@ -2953,9 +2257,39 @@
         "sha256": "459a4e906619f52befa2511287a2cd295888019e1d96b13e07a7171264ee2122"
       },
       {
+        "url": "图片/四境塔罗/front-pentacles-nine-mystic.webp",
+        "bytes": 196610,
+        "sha256": "4ce52c83bc5140fe9375ebf1749765becfaa37b1bbfd4ec486f2baa35409bdc3"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-nine-noir.webp",
+        "bytes": 201898,
+        "sha256": "bca77fddea04b0ef18450dc312d6d90bb5cfc7ac11f8902f6708bc3d93f727c6"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-nine-parchment.webp",
+        "bytes": 204400,
+        "sha256": "755414c06f81f87c7986ffa1fb7b6d15fdff90742d7acea71d15ab64d3c00303"
+      },
+      {
         "url": "图片/四境塔罗/front-pentacles-prince-dopamine.webp",
         "bytes": 195430,
         "sha256": "5508d46697dcee819c357554aa059fc539893d15e65f3be5f55b8642e1206f17"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-prince-mystic.webp",
+        "bytes": 179146,
+        "sha256": "a2cc9423fa453d6b7f21bcd34d595712eeba187332e403471fb231ea540bddf2"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-prince-noir.webp",
+        "bytes": 197902,
+        "sha256": "e4f2b49788a6937357b5c0f24fd3a721e931439ef7cdf1143b6cd76dfb13fc71"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-prince-parchment.webp",
+        "bytes": 185278,
+        "sha256": "879ffbc8306053a5ae51294f5c9aa296f741f8ec152d93628d663bfcf33de6be"
       },
       {
         "url": "图片/四境塔罗/front-pentacles-princess-dopamine.webp",
@@ -2963,9 +2297,39 @@
         "sha256": "23ede1207afefd97bcfbcc79794f1a74890177fbdfeea3bbb8f11ace450d4f75"
       },
       {
+        "url": "图片/四境塔罗/front-pentacles-princess-mystic.webp",
+        "bytes": 177444,
+        "sha256": "0d7eea496ea0646c4a8ec69bfd0dea1272de4c835cc446b8c97d007e3f71300c"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-princess-noir.webp",
+        "bytes": 197848,
+        "sha256": "d779f3ac4defa69b35950fa8d424e0df033aa37030017e82d66c3bf849c49c3d"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-princess-parchment.webp",
+        "bytes": 202552,
+        "sha256": "31f748a5ad12d392eecdf69502e1c9776ef5f41c7abd622fe8efb92abe832a2a"
+      },
+      {
         "url": "图片/四境塔罗/front-pentacles-queen-dopamine.webp",
         "bytes": 204566,
         "sha256": "6ab98d396d88c612b5dc2f4ff79f417168bf006563290b324e7455b9ab084ffa"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-queen-mystic.webp",
+        "bytes": 198708,
+        "sha256": "ed3f19ef35c61d9a1cc07b7be724a25700c76359fb5c57d4df007b4219ce5d64"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-queen-noir.webp",
+        "bytes": 186834,
+        "sha256": "718412322e1e10655142f601678e5b50f4c05d9d00d869ef9c5e0e94658aa0c7"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-queen-parchment.webp",
+        "bytes": 195112,
+        "sha256": "6ed39ce22e0e473345ee3a451718cd499ed76b09aed281f181894d29e793c823"
       },
       {
         "url": "图片/四境塔罗/front-pentacles-seven-dopamine.webp",
@@ -2973,9 +2337,39 @@
         "sha256": "aafc6346afcdf0117a412be60f62be1544d74d704ec5ab58c06ab34844522695"
       },
       {
+        "url": "图片/四境塔罗/front-pentacles-seven-mystic.webp",
+        "bytes": 200034,
+        "sha256": "e2e22f5bbd2e11cb17095a1f5fb3e183fc8ba615847ecec2cde474d0c25dc6c5"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-seven-noir.webp",
+        "bytes": 189524,
+        "sha256": "257f1c13152eae9b0681deb29ec857e32e3cb04eec55c03bd592ea9d42feeb27"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-seven-parchment.webp",
+        "bytes": 197298,
+        "sha256": "3ab23069fbc05696c89704e4ce3a5e3ceb9f7c070e3c6f55ef7b700dc5b13215"
+      },
+      {
         "url": "图片/四境塔罗/front-pentacles-six-dopamine.webp",
         "bytes": 202916,
         "sha256": "286b894a0e775e69b5ce71069c46e3d903dfede0766ea6494ab612e5de20d481"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-six-mystic.webp",
+        "bytes": 197936,
+        "sha256": "5ef6e2f6db5d5bee289dc30cd41a9410fc1a3f6a13e2cfdb649324f5ebb01ca2"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-six-noir.webp",
+        "bytes": 194328,
+        "sha256": "a5d93d5d2cb53e69508e4e5ed7a50cd1fe972e901cb625132437fbda959cc19d"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-six-parchment.webp",
+        "bytes": 204798,
+        "sha256": "f333fb26a1e123d0e2f1008c537bf3372006ae19191d45fad659d508b9763963"
       },
       {
         "url": "图片/四境塔罗/front-pentacles-ten-dopamine.webp",
@@ -2983,9 +2377,39 @@
         "sha256": "9babc41e999bb0511ed64dd631a01fe8330aa07fc28fb170b4a7f36db8bead6d"
       },
       {
+        "url": "图片/四境塔罗/front-pentacles-ten-mystic.webp",
+        "bytes": 204492,
+        "sha256": "2634cb816ab385fc1951fdbe3df424104b466dd4a3014dbc031609fb7c576eda"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-ten-noir.webp",
+        "bytes": 200290,
+        "sha256": "246c131ad9b8bdd531cb3044ca129a674972bde7945adab13540e72874f27c0e"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-ten-parchment.webp",
+        "bytes": 204424,
+        "sha256": "b062ed7bd378ddd57cbd92a811a3632b8f933ae26ea0fe2f179b9a7dea9e9dbe"
+      },
+      {
         "url": "图片/四境塔罗/front-pentacles-three-dopamine.webp",
         "bytes": 188632,
         "sha256": "6b2a117fe3e1d4e0b179d2f58f3fdc04ed166b10995753f7d8da4c270adbc8db"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-three-mystic.webp",
+        "bytes": 199060,
+        "sha256": "75c34587ef84281d46deb58fa38aeab4276cd5187c855c51cceed500242fa6c7"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-three-noir.webp",
+        "bytes": 196496,
+        "sha256": "a5d6ba9dcde3815224439c15bb6f4ca5bd6c58f89edd4cb6f714b7bcc9c9a933"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-three-parchment.webp",
+        "bytes": 180180,
+        "sha256": "5037aacd5cb713dfea05aafcac47a253866865a718122e1e4a2908616b9ae9a8"
       },
       {
         "url": "图片/四境塔罗/front-pentacles-two-dopamine.webp",
@@ -2993,9 +2417,39 @@
         "sha256": "ffb03d8969840d255b5413001b80ced623e51d31a855b5b9d080f2f7bdb68897"
       },
       {
+        "url": "图片/四境塔罗/front-pentacles-two-mystic.webp",
+        "bytes": 201170,
+        "sha256": "0bbf82389c184d3c1224e8c24fd955178ebffe3f4b1bc1860788fbbd5aa37581"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-two-noir.webp",
+        "bytes": 184900,
+        "sha256": "b1c291bb840c6d65924e75388b3199d1082cda25bda8b2ea90c0ed2ef8aaf185"
+      },
+      {
+        "url": "图片/四境塔罗/front-pentacles-two-parchment.webp",
+        "bytes": 190514,
+        "sha256": "da7978d060e01a06805dfca256ae75104ab9f4fa4646972496293033e7720d59"
+      },
+      {
         "url": "图片/四境塔罗/front-priestess-dopamine.webp",
         "bytes": 145018,
         "sha256": "e03f4cea7b3951d5accb67577250a23ebf796f5de5506891d8a989a72610dd5b"
+      },
+      {
+        "url": "图片/四境塔罗/front-priestess-mystic.webp",
+        "bytes": 200198,
+        "sha256": "795e651be10153eee7b86855a880850b8cfc200c0d0bb1bbb742567868038aff"
+      },
+      {
+        "url": "图片/四境塔罗/front-priestess-noir.webp",
+        "bytes": 200250,
+        "sha256": "bdd210a713e0c8e17c474701daaee11bf3c9f45feb3d75b9228870a6ba43f71c"
+      },
+      {
+        "url": "图片/四境塔罗/front-priestess-parchment.webp",
+        "bytes": 174582,
+        "sha256": "ac059d45304a278350bf4a1bcf0418c72ca6e60580d314c1deb1582eb078b535"
       },
       {
         "url": "图片/四境塔罗/front-star-dopamine.webp",
@@ -3003,9 +2457,39 @@
         "sha256": "608c464d67551ef163a81ac58013b3d9f90c7fb1f79f26170d903e438b84bd2f"
       },
       {
+        "url": "图片/四境塔罗/front-star-mystic.webp",
+        "bytes": 185090,
+        "sha256": "061f187ce055ad5d61eeea1f2ae9414c529866d3ba9fd6ccfa6114d807a46189"
+      },
+      {
+        "url": "图片/四境塔罗/front-star-noir.webp",
+        "bytes": 169600,
+        "sha256": "e841a8d89121c85aaefda2af181264092dc5a856a23bdf03e1bb4a4a08717f64"
+      },
+      {
+        "url": "图片/四境塔罗/front-star-parchment.webp",
+        "bytes": 198752,
+        "sha256": "8bd56808cd078a5c8c09e7b1fca86ca08d7058edaf20fa2a5b831a70046bec76"
+      },
+      {
         "url": "图片/四境塔罗/front-strength-dopamine.webp",
         "bytes": 150536,
         "sha256": "606ba18109f55cdbf17d6327a869c84bade315ff1a6b122aa5b55147248baafc"
+      },
+      {
+        "url": "图片/四境塔罗/front-strength-mystic.webp",
+        "bytes": 160152,
+        "sha256": "11c7b82c773727fc2d9028552b4745479488dcb96ba9f6f24beb67b68bc6a0e2"
+      },
+      {
+        "url": "图片/四境塔罗/front-strength-noir.webp",
+        "bytes": 157400,
+        "sha256": "ad815470d76304fd78623a02d24d72585e598d220b7b72a22c6166c28d004c06"
+      },
+      {
+        "url": "图片/四境塔罗/front-strength-parchment.webp",
+        "bytes": 167542,
+        "sha256": "43cc1b7c6034f25f6dd77299f5f5d371cdd77ec1ed58cd308fa6d60fdccb8759"
       },
       {
         "url": "图片/四境塔罗/front-sun-dopamine.webp",
@@ -3013,9 +2497,39 @@
         "sha256": "7e57610ce761fcff3420aa3c157ab6aae4606242e90e5206b6bb6bf699c39a72"
       },
       {
+        "url": "图片/四境塔罗/front-sun-mystic.webp",
+        "bytes": 180346,
+        "sha256": "50ca817cd0f6745dfc45ffffe200c8ce656cdcc3a9fd74ad55d73b7540aa5268"
+      },
+      {
+        "url": "图片/四境塔罗/front-sun-noir.webp",
+        "bytes": 194530,
+        "sha256": "e3db02c53486a3a7efc56a3904f1fadb81c9882bac4805bc576897726dfff904"
+      },
+      {
+        "url": "图片/四境塔罗/front-sun-parchment.webp",
+        "bytes": 192044,
+        "sha256": "39dec7780f1a0ffa2d093c5f62b1ba7a131c3961f86dbe23be10a8ea8606b733"
+      },
+      {
         "url": "图片/四境塔罗/front-swords-ace-dopamine.webp",
         "bytes": 123532,
         "sha256": "2ec8db2ca836ae06cf693b2c8ed138e58a4804d529762f7aedbbc4ecbf9df85e"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-ace-mystic.webp",
+        "bytes": 119938,
+        "sha256": "5f726e55dc71b3451a948feff9f48a2cee9ae6e6e84302aa2eb1b5bf40dbc98f"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-ace-noir.webp",
+        "bytes": 109860,
+        "sha256": "603695587ddfcc09c715bfef03fe2d121b08977c26a87517cd42ad0d1e2d0760"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-ace-parchment.webp",
+        "bytes": 119246,
+        "sha256": "df74c60d0554e77fcc21f11ea41faa3d51e25bed0d90f232ee6dbfda4baa6f31"
       },
       {
         "url": "图片/四境塔罗/front-swords-eight-dopamine.webp",
@@ -3023,9 +2537,39 @@
         "sha256": "734991970a1893e7baa489c64a42db7c82187083fb6266a5cc908d9a57561c9d"
       },
       {
+        "url": "图片/四境塔罗/front-swords-eight-mystic.webp",
+        "bytes": 169550,
+        "sha256": "e4fbcb9c517e3673f5aa8657181fa17d4810293f2fb5040a62e404ed6a9ce726"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-eight-noir.webp",
+        "bytes": 163676,
+        "sha256": "1619fb00dbdbca33bb5a8355e8dd88d7da05de74297224a933d0c4e835ff40ae"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-eight-parchment.webp",
+        "bytes": 165512,
+        "sha256": "657edf6fa6ae4c801b57fb828ca6e29e4715f6b23b45e496932730c285b6a68b"
+      },
+      {
         "url": "图片/四境塔罗/front-swords-five-dopamine.webp",
         "bytes": 170870,
         "sha256": "1b33112bdbb134bc01ca4a9d115654e95174f4e6e2537717224e5f09487bd0b6"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-five-mystic.webp",
+        "bytes": 164850,
+        "sha256": "dcc55cf59d15e6ecd988d44622ff92424f2716f514802e1f186820387baf6e09"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-five-noir.webp",
+        "bytes": 151708,
+        "sha256": "483f0a89bd289786de4824ee96fca25b0fa68d8d67707616c515c73ec73dbeac"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-five-parchment.webp",
+        "bytes": 168954,
+        "sha256": "db4cbcc1710fe8122ece957b43d8b26c88533b34de6ccd07ec0edafeefb62c25"
       },
       {
         "url": "图片/四境塔罗/front-swords-four-dopamine.webp",
@@ -3033,9 +2577,39 @@
         "sha256": "ac74396c815d2b8b3cdfed7c0c3f55bb614cb2f84e7b1bee47323941f4160b19"
       },
       {
+        "url": "图片/四境塔罗/front-swords-four-mystic.webp",
+        "bytes": 159472,
+        "sha256": "39ae354f9d45121129abf8118639c10cd8e6d7d91d5564b7b56450254ce19b95"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-four-noir.webp",
+        "bytes": 142950,
+        "sha256": "0dc0da5bd137ddef6aa2b6bea4781020d088b2bc91b02a4dd90bc96bd388bf66"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-four-parchment.webp",
+        "bytes": 155532,
+        "sha256": "71f5516c4139b83a453ec8c8e6635b4eba00bd88c4ae12eacd2bd2c6a692062b"
+      },
+      {
         "url": "图片/四境塔罗/front-swords-king-dopamine.webp",
         "bytes": 184074,
         "sha256": "4ce71ff1a7c5a0678e0f21848c4e654d50fe3d69e2484dcc4841362bff6f32af"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-king-mystic.webp",
+        "bytes": 178224,
+        "sha256": "54442d283a118599d7c9759917829ace3ca62b406800795fcb685861b0258ec0"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-king-noir.webp",
+        "bytes": 186102,
+        "sha256": "596d78645c39d427cd6db222ba2a4c3bb892f9f4f034e1d08a461d89e808b68a"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-king-parchment.webp",
+        "bytes": 192848,
+        "sha256": "29e378d575ba0caa427e3c92b2764ecbee1d3fb643ab6d4cee8e025d49254565"
       },
       {
         "url": "图片/四境塔罗/front-swords-nine-dopamine.webp",
@@ -3043,9 +2617,39 @@
         "sha256": "d4d5437a7cc1fbb35cfacc930b4cf2ebd72381ccc6a1e90513bc4dbad735511b"
       },
       {
+        "url": "图片/四境塔罗/front-swords-nine-mystic.webp",
+        "bytes": 158988,
+        "sha256": "0304054413372df9b2f1cafa1489cc564cfc7b3a002506875950cbf808f3caa9"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-nine-noir.webp",
+        "bytes": 151632,
+        "sha256": "07eca78b192b96d582c99365431f3791225ac95ba700de21dd27db95b3eefad4"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-nine-parchment.webp",
+        "bytes": 158208,
+        "sha256": "3ff528a973ac1ad5411a564c07f1491aa3e44bfe6d4e4925f46a13f63b796fda"
+      },
+      {
         "url": "图片/四境塔罗/front-swords-prince-dopamine.webp",
         "bytes": 146880,
         "sha256": "99b5437317f1825b13e99d5664ae79c5944dcbb871f5080cf705206ea1c715a4"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-prince-mystic.webp",
+        "bytes": 157108,
+        "sha256": "e02b5ffa5fcabc6199082491c3f41f3e83adabc11a68024e072ccfd074701dc4"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-prince-noir.webp",
+        "bytes": 133516,
+        "sha256": "319c49a8b2cff459de679484dd1f3c25478a8fc2ff827225470ca23f0e6948eb"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-prince-parchment.webp",
+        "bytes": 140978,
+        "sha256": "267df3fc60abad02556206a0b805ba06dd34194fc90dead0d6b2181d3fde00f1"
       },
       {
         "url": "图片/四境塔罗/front-swords-princess-dopamine.webp",
@@ -3053,9 +2657,39 @@
         "sha256": "a428e186053d4fc8ab4594bf6b6512649757089830d21796e7279924501db896"
       },
       {
+        "url": "图片/四境塔罗/front-swords-princess-mystic.webp",
+        "bytes": 197180,
+        "sha256": "901034f84b956a6cb09334d9fc22bd80e8ea6eefacfc7dd8ab80a5fb2d5aa25b"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-princess-noir.webp",
+        "bytes": 180320,
+        "sha256": "6515bab327eb083aebe615691497cf5af2f2a9f38ad9b71771d33b95c4b71c92"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-princess-parchment.webp",
+        "bytes": 191382,
+        "sha256": "c919f5fe32b45f7b0e1f0c87a1d75b10ddd1b1d81a4618550d3c566327d34e26"
+      },
+      {
         "url": "图片/四境塔罗/front-swords-queen-dopamine.webp",
         "bytes": 146602,
         "sha256": "b36734afb5cc93f0bc98a8b7831f067ca96e9802c18f25ff5a7fe5fe202c7911"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-queen-mystic.webp",
+        "bytes": 172062,
+        "sha256": "e8f4f25cc640d28823a5007a511e04ad7b97705bccc27f4a4ae850fc192da3b6"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-queen-noir.webp",
+        "bytes": 171260,
+        "sha256": "8c6ad7369406255ba9ac78f27f8e2107b824b09a24c717efcc8e7fcc4ff9cb23"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-queen-parchment.webp",
+        "bytes": 169192,
+        "sha256": "48801f6d369d222f1879bff4665529f9b7052dde5fbff00955911035dc445342"
       },
       {
         "url": "图片/四境塔罗/front-swords-seven-dopamine.webp",
@@ -3063,9 +2697,39 @@
         "sha256": "599c6e233bde3c6f685d4a4da5292b31e1bd4e6113269605cea21966c20cbf2f"
       },
       {
+        "url": "图片/四境塔罗/front-swords-seven-mystic.webp",
+        "bytes": 161128,
+        "sha256": "effbb5076de9b6bd0623291955746578c41230192d263f2d044d4c0a570d35b9"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-seven-noir.webp",
+        "bytes": 161246,
+        "sha256": "d0451e4358a118c3355c2fc8e0f3869c0af34f944bba4ea92362158e6e7c75f0"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-seven-parchment.webp",
+        "bytes": 167586,
+        "sha256": "5fc514a80753c1083fce2d221e804ca38f9dc494201d4f2dbffc51b4ec77f137"
+      },
+      {
         "url": "图片/四境塔罗/front-swords-six-dopamine.webp",
         "bytes": 172906,
         "sha256": "ea986f6961ffbeee7811be55bd5fb2d191961ab8931cc99bb5361b3b4b168942"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-six-mystic.webp",
+        "bytes": 154696,
+        "sha256": "dbb4b7736d02944a24ca282fcaa7f0b42031e4ef57d0ececc3cd394a610ce7a2"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-six-noir.webp",
+        "bytes": 153846,
+        "sha256": "924f015f5dfa9c716b4fbcaa99f5b944f84427f100b25263134ee51692a2d485"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-six-parchment.webp",
+        "bytes": 168198,
+        "sha256": "33844332e9b2ba2812e3a7040a3150a3656b82a46076baa169bba0ce2424eca8"
       },
       {
         "url": "图片/四境塔罗/front-swords-ten-dopamine.webp",
@@ -3073,9 +2737,39 @@
         "sha256": "0ee5460cb701034c2938670351d7924e7a41f41c0ed04c7da43d589aa794b0da"
       },
       {
+        "url": "图片/四境塔罗/front-swords-ten-mystic.webp",
+        "bytes": 155194,
+        "sha256": "1035643053bd1bf03073652b885313aff4534464f20e5c8aa695532d0a2ac868"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-ten-noir.webp",
+        "bytes": 151968,
+        "sha256": "e964791cfb56157dd93fe5422935902d6b9f3b347cd78b3df42622fd43205ea2"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-ten-parchment.webp",
+        "bytes": 176620,
+        "sha256": "17e88d9dc6af40a8316b16e6e48a82944e08460f161876b2cebab9965ab7d97e"
+      },
+      {
         "url": "图片/四境塔罗/front-swords-three-dopamine.webp",
         "bytes": 170432,
         "sha256": "e8ec24371ddd1cfc60360375e01d743a69f86c2b7f0848a6e5bc06e7af70e33c"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-three-mystic.webp",
+        "bytes": 160972,
+        "sha256": "b8e86969229d98e3a8641b850c419d3777001da0d3336e0269471cf16ed05f56"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-three-noir.webp",
+        "bytes": 141122,
+        "sha256": "b9e4aff704f11a70d00365321982a9e11908f4e41f8e1e351bfff8debf6c643a"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-three-parchment.webp",
+        "bytes": 165826,
+        "sha256": "63574d7beac2301f3ff1b16174dcad41a3dfaf486f76afa28803d685beeb71f7"
       },
       {
         "url": "图片/四境塔罗/front-swords-two-dopamine.webp",
@@ -3083,9 +2777,39 @@
         "sha256": "fa4b93f2ad0af5a4f00873b93ecd887d63bc7c3cc7c2139797cbbffa0864bfb5"
       },
       {
+        "url": "图片/四境塔罗/front-swords-two-mystic.webp",
+        "bytes": 143884,
+        "sha256": "8085fce5e71a2518b9f17fef74aa828f8a15782efd7bcd142fada9952eac24fa"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-two-noir.webp",
+        "bytes": 124278,
+        "sha256": "4f2b659c17dad42512e9d1d6feb588f8e6ce6d90ee6a5fe5cc22b1d89496def8"
+      },
+      {
+        "url": "图片/四境塔罗/front-swords-two-parchment.webp",
+        "bytes": 139564,
+        "sha256": "e9479f381270383d64651e42fdbcc9bdea0c8368e2a5612ee0840f7bc6ac0bc5"
+      },
+      {
         "url": "图片/四境塔罗/front-temperance-dopamine.webp",
         "bytes": 191030,
         "sha256": "df0401dc699a5f6b8de930c7d7d0e7ac3ec75aa42f9436ae5e4cd2f4b85d720f"
+      },
+      {
+        "url": "图片/四境塔罗/front-temperance-mystic.webp",
+        "bytes": 198200,
+        "sha256": "a5d3fd0539833d0ce6dcc850e50330e1e3cca1ff6ac7da2e4eaeba0228abea4f"
+      },
+      {
+        "url": "图片/四境塔罗/front-temperance-noir.webp",
+        "bytes": 179940,
+        "sha256": "af394e4ca5ec26dfdd3819ae28c6bf25d048a5b288bebf29bca78c1ab5f02b45"
+      },
+      {
+        "url": "图片/四境塔罗/front-temperance-parchment.webp",
+        "bytes": 161596,
+        "sha256": "0b0c20aa1bec829c58a9f0092bff18dbbadaf03e6152cec005f222b2686203d7"
       },
       {
         "url": "图片/四境塔罗/front-tower-dopamine.webp",
@@ -3093,9 +2817,39 @@
         "sha256": "e46baf188f31012a43330594cec5815ef6f5ad455985600f038e8e5721264961"
       },
       {
+        "url": "图片/四境塔罗/front-tower-mystic.webp",
+        "bytes": 189920,
+        "sha256": "338bfb71328c2d29f64cd0fa7cc5f76c4c6737d3ea6398fdbfdb3c1e24742d87"
+      },
+      {
+        "url": "图片/四境塔罗/front-tower-noir.webp",
+        "bytes": 167868,
+        "sha256": "39d12fb0087a57a2aa5b90d335d674234741a8838e7137577e14de03390445f1"
+      },
+      {
+        "url": "图片/四境塔罗/front-tower-parchment.webp",
+        "bytes": 202398,
+        "sha256": "1aa43697b31215391d26582346d38fdfd6fbb66acbcc787f1c6a2c3942593ee9"
+      },
+      {
         "url": "图片/四境塔罗/front-wands-ace-dopamine.webp",
         "bytes": 124818,
         "sha256": "4e49cb74804f8dddc9a95fb86eb12139d78a1f418b84ecdd1fe7e1a29afc896e"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-ace-mystic.webp",
+        "bytes": 126790,
+        "sha256": "3d653c355d5c2422bab08333450b85cd0ad4c68fc92ec005090e56a7cbbb8619"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-ace-noir.webp",
+        "bytes": 104744,
+        "sha256": "3e784c6c236c46f8077dc3e996af8f547416ea04eb18ab7837b94183375099ac"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-ace-parchment.webp",
+        "bytes": 145484,
+        "sha256": "2207d53361dd4f5910f88f014c143cfcb7a72938ac587f9a615c141f35aa8be0"
       },
       {
         "url": "图片/四境塔罗/front-wands-eight-dopamine.webp",
@@ -3103,9 +2857,39 @@
         "sha256": "952d7068d4d589755754414ce9604644e99a6d163cb1817e547b2672592b57eb"
       },
       {
+        "url": "图片/四境塔罗/front-wands-eight-mystic.webp",
+        "bytes": 175534,
+        "sha256": "5f71afee86dceeb0620ed61e1132417b02159f0fe460de70ee8d5bd221be5b61"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-eight-noir.webp",
+        "bytes": 183866,
+        "sha256": "b0b9a1f633db2cfd0efa09fc156d620052086b681bb8fd1609c8cf4cdd797382"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-eight-parchment.webp",
+        "bytes": 174058,
+        "sha256": "712195bc4f8f3de23677dee40c3b926d8629409ee7cdbdc3fd377b04c956cb6f"
+      },
+      {
         "url": "图片/四境塔罗/front-wands-five-dopamine.webp",
         "bytes": 160024,
         "sha256": "a5e0a862f6a2f7650d7d4affd54e537d217d2b0e001122b0eb6c179e85ff4446"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-five-mystic.webp",
+        "bytes": 186342,
+        "sha256": "c7b76c4882c7c0892f8717ca57d450b3824d76099cc338d05d1569ed1eda0941"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-five-noir.webp",
+        "bytes": 172366,
+        "sha256": "b093130099b2ad0aad6a7eb480437bd5869a884b73668ab96a098d9a43188398"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-five-parchment.webp",
+        "bytes": 169030,
+        "sha256": "0a099f1f568a546f2f8885d75fae2f3dfa157456cf51c1d0e6e31eb88effa767"
       },
       {
         "url": "图片/四境塔罗/front-wands-four-dopamine.webp",
@@ -3113,9 +2897,39 @@
         "sha256": "4d095726a4c102ac602b53ec8a118eef9ca66ca0f13192a6217a38cbb892a9b9"
       },
       {
+        "url": "图片/四境塔罗/front-wands-four-mystic.webp",
+        "bytes": 164552,
+        "sha256": "2356a0d4a3cc0de8ecdabe6667dca8471c2e0def21addc502d0545e4784ead7c"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-four-noir.webp",
+        "bytes": 164810,
+        "sha256": "5866ffdc63c3997b38c2b62c4fff81eb740f445b870b7e0494869b8cb505bcd3"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-four-parchment.webp",
+        "bytes": 174686,
+        "sha256": "742c6bee1aa9d3c6caa4f8a48f65ae4daa26806b84f203b614ec9f6a01a7fe21"
+      },
+      {
         "url": "图片/四境塔罗/front-wands-king-dopamine.webp",
         "bytes": 134894,
         "sha256": "72c5a8b4008c64bbaf5bbba35a842583a410f9ca99a0233e54104de1ad46038e"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-king-mystic.webp",
+        "bytes": 149558,
+        "sha256": "b7f8f795d5e02607e4d470faa97020455f8f6a3ae1347ca6b66f8c2cd7b5fb2b"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-king-noir.webp",
+        "bytes": 148322,
+        "sha256": "b123ee996bd739dfe3745dd6c39249f6a16de92833b4e8e206ee33813015991a"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-king-parchment.webp",
+        "bytes": 153130,
+        "sha256": "e4b00d3aed2c2a269229eab3a0ee7bb493984af28d7a7122f71dc16ce2fffe50"
       },
       {
         "url": "图片/四境塔罗/front-wands-nine-dopamine.webp",
@@ -3123,9 +2937,39 @@
         "sha256": "b584cf28eb6cf0de20b12b3125116c6d157aa7b7544dee8f864d81d7d1f7cdaf"
       },
       {
+        "url": "图片/四境塔罗/front-wands-nine-mystic.webp",
+        "bytes": 180278,
+        "sha256": "cea80b3cab6da7707a0dd4b7e01bd43dfdaa7fae04b863543543a9061ea0e378"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-nine-noir.webp",
+        "bytes": 184452,
+        "sha256": "19a58bdd4a5b08e613372ceaf527ed0392daebf9bf063741eb8b7a424efe135a"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-nine-parchment.webp",
+        "bytes": 174058,
+        "sha256": "e070aeb9ceebf0ed6283dd50ad9e1f871e32737454851a009e4179e1d2da2214"
+      },
+      {
         "url": "图片/四境塔罗/front-wands-prince-dopamine.webp",
         "bytes": 175668,
         "sha256": "aab2b0d3e2b0428d1b6bbaed70f936b7d95fa5d7db70b409e735a0427a2e8279"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-prince-mystic.webp",
+        "bytes": 148756,
+        "sha256": "642d28721e513d3c11dfc8015d116e217892983f5df062694c97ea601e972618"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-prince-noir.webp",
+        "bytes": 166192,
+        "sha256": "242b80934b2003c629ad82894b22a582e3aba2594367840d2fb7d55f8a858162"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-prince-parchment.webp",
+        "bytes": 158452,
+        "sha256": "c84994d95bf3a4e2146d97601ae02275f15a54351e3edf8906c5e3a1a8b95f91"
       },
       {
         "url": "图片/四境塔罗/front-wands-princess-dopamine.webp",
@@ -3133,9 +2977,39 @@
         "sha256": "9580c083449d6f39e1e7d8ae3a77c393bc8d428646f1413f43e6fcb7d5ca8e7a"
       },
       {
+        "url": "图片/四境塔罗/front-wands-princess-mystic.webp",
+        "bytes": 161048,
+        "sha256": "3f5b558f1b88273c6d9a864a92ef08d30aae8da38845d80d24a5e66088f6c3a5"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-princess-noir.webp",
+        "bytes": 199854,
+        "sha256": "60df20a88d5c7a43e3a7ed17c9b47be43a9b830a5d7cab1fe4db81ca2c1aa40d"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-princess-parchment.webp",
+        "bytes": 180076,
+        "sha256": "cca333eaf63211d37ab11a436ed63cc1a953f17bac10f5092e479b14357fd424"
+      },
+      {
         "url": "图片/四境塔罗/front-wands-queen-dopamine.webp",
         "bytes": 197784,
         "sha256": "926081e59c1ebb20650ddf152588debcaf87659539b9b7f7528aa1a84206d92e"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-queen-mystic.webp",
+        "bytes": 177692,
+        "sha256": "315b6198c24ed599e598e8af589940932809023467a94133bdef8606c4d35a97"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-queen-noir.webp",
+        "bytes": 197056,
+        "sha256": "8a440cbb2592c37aac49a7ee8970e8081b69ae04054cae336d2c73b08d7d58d8"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-queen-parchment.webp",
+        "bytes": 193760,
+        "sha256": "84ab7b1eba4e0a505f7a15efe91fe47810e1c2fc4da6be82f031c676aed8be95"
       },
       {
         "url": "图片/四境塔罗/front-wands-seven-dopamine.webp",
@@ -3143,9 +3017,39 @@
         "sha256": "97065a26b555bcc1d188e5ceeaeff34aa615b09868c58dbe120d37c7733eb0d4"
       },
       {
+        "url": "图片/四境塔罗/front-wands-seven-mystic.webp",
+        "bytes": 181500,
+        "sha256": "67bafbe4793ac93edc6a28d3c4c820810e0423bdab81eccbdf865ec02a985358"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-seven-noir.webp",
+        "bytes": 173894,
+        "sha256": "6fefb33d73f8873da9d5b0c47c46f9302ac0bda92c12c444b74a797f3fc8bedb"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-seven-parchment.webp",
+        "bytes": 171486,
+        "sha256": "28c8c16630a1b32a75465e0a79a7f0dccf28cd872a370bf7b3927463dc751329"
+      },
+      {
         "url": "图片/四境塔罗/front-wands-six-dopamine.webp",
         "bytes": 189190,
         "sha256": "1b5f6ebf2601a60885df55ba2f37feea266a515d67ce0289791b7c57cd5e3bc7"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-six-mystic.webp",
+        "bytes": 190172,
+        "sha256": "30d41eaeaf3632a36bc5758526c280a1752ece34a8411294c0e47342bf4c7f89"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-six-noir.webp",
+        "bytes": 181342,
+        "sha256": "5e7885040f8045fcbf6f6962ba7997bd221e5ef3d87e722a4c99bc94e487c00f"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-six-parchment.webp",
+        "bytes": 197040,
+        "sha256": "d011d4e845fa8adf9d5a5790e4bd17ca697f59e148d512af70fbf94bc3e68e4a"
       },
       {
         "url": "图片/四境塔罗/front-wands-ten-dopamine.webp",
@@ -3153,9 +3057,39 @@
         "sha256": "d3abfd890fef322e1d9c4a2182ba102c25e84c9a5ae3cd6cf320abc399c74600"
       },
       {
+        "url": "图片/四境塔罗/front-wands-ten-mystic.webp",
+        "bytes": 187066,
+        "sha256": "8e083b3907d2b9043edde3b44eb96ce0f2380e4a5f3f4d61066ae0c60e140545"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-ten-noir.webp",
+        "bytes": 187434,
+        "sha256": "8e59520e483c7992feed1df8f6574f01c50d6e3425b88c27f7ff5b9488689268"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-ten-parchment.webp",
+        "bytes": 188200,
+        "sha256": "e1f402ae8f875e8e7c41c75bd67fde917de17e09f09936dbd17fec2ab502f19d"
+      },
+      {
         "url": "图片/四境塔罗/front-wands-three-dopamine.webp",
         "bytes": 169600,
         "sha256": "3d50ee230855204fce2e3a0d16fdeff39b08135bbe8f99d578ef679dde705365"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-three-mystic.webp",
+        "bytes": 170144,
+        "sha256": "70855ccbf8d370470b9c6dec18bcaa422e69282496bdabddf78616ebf1f0bfb8"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-three-noir.webp",
+        "bytes": 137682,
+        "sha256": "7b91977b39984ff714dbd26dd529bf6956383978ba1e2f1335f13f6d3ae8b13a"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-three-parchment.webp",
+        "bytes": 177436,
+        "sha256": "4ef58c67b49b03004776cb31d0851d3af85be23429b8fc1e3716f728ec0a0812"
       },
       {
         "url": "图片/四境塔罗/front-wands-two-dopamine.webp",
@@ -3163,16 +3097,61 @@
         "sha256": "8ea19f72f813324c8b41c1534a1d3adf8c0c0c56fbc8480218e19fd044fea368"
       },
       {
+        "url": "图片/四境塔罗/front-wands-two-mystic.webp",
+        "bytes": 174620,
+        "sha256": "a17d6e75272a97c912d151a047eea36f8c8faba4cfa2f540be6e78d9c4078eab"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-two-noir.webp",
+        "bytes": 140246,
+        "sha256": "60d9f67b8f808fe9aa2af798432daa59b2b747bc41edb281037f87cf63d648cf"
+      },
+      {
+        "url": "图片/四境塔罗/front-wands-two-parchment.webp",
+        "bytes": 153198,
+        "sha256": "031db1cfe85bdd133e4f629d87c69ec16468481d8cf4a14af69e480f4d8c9bb7"
+      },
+      {
         "url": "图片/四境塔罗/front-wheel-dopamine.webp",
         "bytes": 194412,
         "sha256": "b93137fc80c7d3e5151b1f59ce5535fe15f039d41b4e557b472e2cd9d0439dde"
       },
       {
+        "url": "图片/四境塔罗/front-wheel-mystic.webp",
+        "bytes": 165908,
+        "sha256": "6017076e68986fe8c86de91324dd741e6e6c4906bf50f036d02dcfa82a13f11b"
+      },
+      {
+        "url": "图片/四境塔罗/front-wheel-noir.webp",
+        "bytes": 181732,
+        "sha256": "4cb3b7758aa265510130bef2b1a4b395ac923ee91bf42c0739c845b09f826f04"
+      },
+      {
+        "url": "图片/四境塔罗/front-wheel-parchment.webp",
+        "bytes": 192474,
+        "sha256": "acb13f3c903f7914f642999c295e798837ffd1fafda8bbbc8dcb358d3f199fff"
+      },
+      {
         "url": "图片/四境塔罗/front-world-dopamine.webp",
         "bytes": 169410,
         "sha256": "5afb7a3249f9e4aa17d8a6f8cffeb93a1ea12e962816bf0b1a3dde1d7b6c09f2"
+      },
+      {
+        "url": "图片/四境塔罗/front-world-mystic.webp",
+        "bytes": 184252,
+        "sha256": "dea332b0040cd8bb57aefe84f725231366a5831be3e447849b52b512cef6a9b1"
+      },
+      {
+        "url": "图片/四境塔罗/front-world-noir.webp",
+        "bytes": 197672,
+        "sha256": "fa84d4fa29d2ef638a7381fcc6302dc4dc900396f2ff9314b92ff8d01a9a5aa7"
+      },
+      {
+        "url": "图片/四境塔罗/front-world-parchment.webp",
+        "bytes": 199086,
+        "sha256": "728b615ff1a43cd49643f582a26e84030cf5948dd5ea25233430570b2908b827"
       }
     ],
-    "bytes": 13817660
+    "bytes": 55745786
   }
 ]
