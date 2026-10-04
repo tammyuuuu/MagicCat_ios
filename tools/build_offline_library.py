@@ -22,7 +22,8 @@ def build():
         groups.append({'id': str(len(groups)), 'name': name, 'files': files})
     text = (ROOT / 'reading_ios.html').read_text('utf-8')
     urls = set(re.findall(r"图片/四境塔罗/[^\s\"'<>)]*\.webp", text))
-    groups.append({'id': 'theme-tarot', 'name': '四境塔罗', 'files': sorted(urls)})
+    waite_index = next((i for i, group in enumerate(groups) if group['name'] == '维特塔罗'), -1)
+    groups.insert(waite_index + 1, {'id': 'theme-tarot', 'name': '四境塔罗', 'files': sorted(urls)})
     for group in groups:
         entries = []
         for url in group['files']:

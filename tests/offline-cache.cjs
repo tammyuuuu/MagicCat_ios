@@ -29,7 +29,7 @@ class MemoryCache {
     ['图片/四境塔罗/front-cups-ace-dopamine.webp','new compressed image'],
   ];
   const files = await Promise.all(entries.map(async([url,text])=>({url,sha256:await digest(text)})));
-  const core = await context.caches.open('magiccat-/project/core-v4');
+  const core = await context.caches.open(vm.runInContext('CORE_CACHE', context));
   const art = await context.caches.open('magiccat-/project/art-v1');
   const revisions = await context.caches.open('magiccat-/project/art-revisions-v1');
   await core.put(base+'offline-library.json',new Response(JSON.stringify([{files}])));
