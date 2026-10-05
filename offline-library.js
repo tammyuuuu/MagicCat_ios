@@ -4,8 +4,13 @@
   const entry = document.createElement('button');
   entry.type = 'button';
   entry.textContent = '↓ 离线牌库';
-  entry.style.cssText = 'display:block;margin:8px auto 16px;padding:10px 18px;border:1px solid currentColor;border-radius:20px;background:transparent;color:inherit;font:inherit;cursor:pointer;';
-  drawer.querySelector('.drawer-title').after(entry);
+  entry.className = 'offline-library-entry';
+  const footer = document.createElement('div');
+  footer.className = 'offline-library-footer';
+  const explanation = document.createElement('p');
+  explanation.textContent = '下载常用牌组，断网或飞行模式下也能抽牌、查看牌面与牌义。';
+  footer.append(entry, explanation);
+  drawer.append(footer);
   const dialog = document.createElement('dialog');
   dialog.className = 'offline-dialog';
   dialog.setAttribute('aria-labelledby', 'offline-title');

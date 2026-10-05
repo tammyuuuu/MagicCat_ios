@@ -1,3 +1,8 @@
+.offline-library-footer { margin-top: 16px; padding: 14px 2px 4px; border-top: 1px solid rgba(var(--library-rgb, 195,155,241),.22); text-align: center; color: var(--library-text, inherit); }
+.offline-library-entry { padding: 7px 13px; border: 1px solid rgba(var(--library-rgb, 195,155,241),.5); border-radius: 18px; background: rgba(var(--library-rgb, 195,155,241),.06); color: inherit; font: inherit; font-size: 11px; cursor: pointer; }
+.offline-library-entry:hover { background: rgba(var(--library-rgb, 195,155,241),.13); border-color: var(--library-border, currentColor); }
+.offline-library-entry:focus-visible { outline: 2px solid var(--library-border, currentColor); outline-offset: 3px; }
+.offline-library-footer p { margin: 8px auto 0; max-width: 190px; font-size: 10px; line-height: 1.7; opacity: .65; }
 .offline-dialog {
   position: fixed;
   inset: calc(env(safe-area-inset-top, 0px) + 24px) calc(env(safe-area-inset-right, 0px) + 18px) calc(env(safe-area-inset-bottom, 0px) + 24px) calc(env(safe-area-inset-left, 0px) + 18px);

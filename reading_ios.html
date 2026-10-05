@@ -2466,6 +2466,7 @@ body #themeToggle:focus-visible { outline: 2px solid var(--paw-rim); outline-off
 </style>
 <script src="pwa.js" defer></script>
 <script src="offline-library.js" defer></script>
+<link rel="stylesheet" href="spread.css">
 </head>
 <body data-world="west">
 <script>
@@ -2549,7 +2550,7 @@ body #themeToggle:focus-visible { outline: 2px solid var(--paw-rim); outline-off
       <path d="M19.5 3.8v4.7H15"/>
     </svg>
   </button>
-  <button class="fan-arrow clear" id="recordBtn" title="截图并记录本次解读" aria-label="截图并记录">
+  <button class="fan-arrow clear" id="recordBtn" title="记录本次解读" aria-label="记录">
     <span class="clear-rune r1">✦</span>
     <span class="clear-rune r2">✦</span>
     <span class="clear-rune r3">✦</span>
@@ -7045,6 +7046,11 @@ function renderDecks() {
 renderDecks();
 
 function selectDeckAndOpen(deck) {
+  if (typeof activeSpread !== 'undefined' && activeSpread === 'seasons' &&
+      !SEASON_GROUPS.every(group => (deck._cards || []).some(c => tarotGroup(c) === group))) {
+    alert('四季牌阵需要完整塔罗牌组，请选择维特塔罗或主题塔罗。');
+    return;
+  }
   closeFan();
   if (deck._cards) {
     currentDeck = [...deck._cards];
@@ -7058,6 +7064,7 @@ function selectDeckAndOpen(deck) {
     currentDeck._images = { back: deck._backImg, fronts: deck._frontImgs || [], noReverse: deck.noReverse || false, layout: deck.layout || 'portrait', aspectRatio: deck.aspectRatio || 2 / 3 };
   }
   currentDeck._themeTarot = !!deck._themeTarot;
+  if (typeof activeSpread !== 'undefined' && activeSpread === 'seasons') seasonDeckChosen();
   openFan();
 }
 
@@ -7499,6 +7506,11 @@ function startFanCardDrag(e, globalIdx) {
 
 // --- 放置牌到桌面 ---
 function placeCardAt(card, globalIdx, posX, posY, sizeW, sizeH) {
+  if (typeof activeSpread !== 'undefined' && activeSpread === 'seasons' &&
+      placedCards.some(p => p.isConnected && p.dataset.spreadSlot === String(SEASON_GROUPS.indexOf(tarotGroup(card))))) {
+    showSpreadNotice('这个牌位已有卡牌，点击其他空的虚线框，切换分组后继续抽牌。');
+    return;
+  }
   const fanEl = fanCardEls.find(el => parseInt(el.dataset.globalIdx) === globalIdx);
   const isRev = fanEl?.dataset.reversed === 'true' || card.isReversed || false;
   if (fanEl) { fanEl.remove(); fanCardEls = fanCardEls.filter(el => el !== fanEl); }
@@ -7694,6 +7706,7 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed, sizeW, sizeH
   // 挂到 body 顶层：避免被 #desktop(z-index:1) 层叠上下文困住，盖在扇形区之下
   document.body.appendChild(placed);
   placedCards.push(placed);
+  if (typeof snapToSpread === "function") { renderSpread(); snapToSpread(placed, true); }
 }
 
 // --- 箭头翻页 ---
@@ -8169,11 +8182,20 @@ function loadRecords() {
   try { return JSON.parse(localStorage.getItem(RECORDS_KEY)) || []; } catch (e) { return []; }
 }
 function persistRecords(records) {
-  try { localStorage.setItem(RECORDS_KEY, JSON.stringify(records)); } catch (e) { alert('保存失败：存储空间不足'); }
+  try { localStorage.setItem(RECORDS_KEY, JSON.stringify(records)); return true; } catch (e) { alert('保存失败：存储空间不足'); return false; }
 }
 
 // —— 记录按钮 → 打开选区截图 ——
-recordBtn.addEventListener('click', () => {
+function beginTarotRecord() {
+  pendingDice = null;
+  pendingSpread = null;
+  if (activeSpread) {
+    if (!placedCards.length) { alert('请先放入卡牌'); return; }
+    pendingSpread = captureSpread();
+    _captureDataUrl = null;
+    openRecordPage(null);
+    return;
+  }
   _captureDataUrl = null;
   captureRect.style.display = 'none';
   captureTip.textContent = '拖拽选择要保存的区域';
@@ -8181,7 +8203,8 @@ recordBtn.addEventListener('click', () => {
   captureCancel.classList.remove('show');
   _selStart = null;
   captureOverlay.classList.add('active');
-});
+}
+recordBtn.addEventListener('click', () => chooseRecordKind());
 
 captureOverlay.addEventListener('pointerdown', (e) => {
   if (e.target !== captureOverlay) return;
@@ -8285,6 +8308,8 @@ function openRecordPage(record) {
     rpInterp.value = '';
     rpSave.textContent = '保存';
   }
+  if (record?.spread || (!record && pendingSpread)) showSpreadRecord(record?.spread || pendingSpread);
+  if (record?.dice || (!record && pendingDice)) showDiceRecord(record?.dice || pendingDice);
   recordPage.classList.add('active');
 }
 
@@ -8292,6 +8317,8 @@ function closeRecordPage() {
   recordPage.classList.remove('active');
   _captureDataUrl = null;
   _viewingRecordId = null;
+  pendingSpread = null;
+  pendingDice = null;
 }
 
 rpSave.addEventListener('click', () => {
@@ -8306,14 +8333,18 @@ rpSave.addEventListener('click', () => {
       records[idx].ts = Date.now();
     }
   } else {
-    if (!_captureDataUrl) { alert('请先截图再保存'); return; }
+    if (!_captureDataUrl && !pendingSpread && !pendingDice) { alert('请先截图或放入卡牌再保存'); return; }
     records.unshift({
       id: 'rec_' + Date.now(),
       img: _captureDataUrl,
+      spread: pendingSpread,
+      dice: pendingDice,
       question, interp, ts: Date.now(),
     });
   }
-  persistRecords(records);
+  if (!persistRecords(records)) return;
+  if (pendingDice) recordCategory = 'dice';
+  else if (!_viewingRecordId) recordCategory = 'tarot';
   renderRecords();
   closeRecordPage();
 });
@@ -8321,18 +8352,22 @@ rpSave.addEventListener('click', () => {
 rpCancel.addEventListener('click', closeRecordPage);
 
 // —— 记录抽屉渲染 ——
+function escapeRecordText(value) {
+  return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;', "'":'&#39;'}[ch]));
+}
 function renderRecords() {
   const grid = document.getElementById('recGrid');
-  const records = loadRecords();
+  const records = loadRecords().filter(r => recordCategory === 'dice' ? !!r.dice : !r.dice);
+  updateRecordTabs();
   if (!records.length) {
-    grid.innerHTML = '<div class="record-empty">暂无记录<br>点底部相机按钮截图并记录解读</div>';
+    grid.innerHTML = '<div class="record-empty">暂无记录<br>点底部记录按钮保存本次解读</div>';
     return;
   }
   grid.innerHTML = records.map(r => `
     <div class="record-item" data-id="${r.id}">
-      <img src="${r.img}" alt="记录">
+      ${r.dice ? '<div class="spread-record-thumbnail">占星骰子</div>' : r.spread ? `<div class="spread-record-thumbnail">${SPREADS[r.spread.type]?.name || "牌阵"}<br>${r.spread.cards.length} 张牌</div>` : `<img src="${r.img}" alt="记录">`}
       <div class="ri-info">
-        <div class="ri-q">${r.question || '（无问题）'}</div>
+        <div class="ri-q">${escapeRecordText(r.question || '（无问题）')}</div>
         <div class="ri-date">${new Date(r.ts).toLocaleString()}</div>
       </div>
       <button type="button" class="ri-delete" aria-label="删除这条记录" title="删除">✕</button>
@@ -8386,7 +8421,7 @@ const ASTRO_ICON_PATHS = {
   gemini:'<path d="M14 9c6 3 14 3 20 0M14 39c6-3 14-3 20 0M17 12v24M31 12v24"/>', cancer:'<circle cx="17" cy="18" r="5"/><circle cx="31" cy="30" r="5"/><path d="M10 29c4 8 17 10 25 4M38 19c-4-8-17-10-25-4"/>',
   leo:'<circle cx="17" cy="27" r="6"/><path d="M20 22c1-10 15-12 15-2 0 8-8 9-5 18 1 3 5 3 7 0"/>', virgo:'<path d="M7 12v28M7 18c4-8 10-5 10 3v19M17 19c4-8 10-5 10 3v16c0 3 2 5 5 5M27 22c4-8 10-5 10 3v6c0 7-4 11-10 12"/>',
   libra:'<path d="M10 37h28M10 29h9c-3-2-4-5-3-8 3-9 13-9 16 0 1 3 0 6-3 8h9"/>', scorpio:'<path d="M8 13v25M8 18c4-8 10-5 10 3v17M18 19c4-8 10-5 10 3v10c0 5 4 8 9 8M33 36l4 4-4 4"/>',
-  sagittarius:'<path d="M11 37 38 10M26 10h12v12M12 18l18 18"/>', capricorn:'<path d="M7 12c7 0 10 6 10 15v11M17 27c0-18 16-20 16-4v10c0 8-4 14-11 14 7 0 9-18 18-18 10 0 10 14 1 14-6 0-9-5-8-10"/>',
+  sagittarius:'<path d="M11 37 38 10M26 10h12v12M12 18l18 18"/>', capricorn:'<path d="M7 10c7 0 10 6 10 15v10M17 25c0-17 14-19 14-4v10c0 6-3 11-8 13M23 44c7-1 9-12 14-15 5-3 10 0 10 5 0 7-10 9-14 2-1-2-2-4-2-7" transform="translate(-1 0)"/>',
   aquarius:'<path d="M6 18l6-7 6 7 6-7 6 7 6-7 6 7M6 35l6-7 6 7 6-7 6 7 6-7 6 7"/>', pisces:'<path d="M13 9c8 8 8 22 0 30M35 9c-8 8-8 22 0 30M10 24h28"/>',
   sun:'<circle cx="24" cy="24" r="13"/><circle cx="24" cy="24" r="2.5" fill="currentColor" stroke="none"/>', moon:'<path d="M36 8C11 9 8 39 34 41 18 33 17 16 36 8Z"/>',
   mercury:'<path d="M14 8c0 7 4 10 10 10S34 15 34 8"/><circle cx="24" cy="26" r="8"/><path d="M24 34v10M18 39h12"/>', venus:'<circle cx="24" cy="18" r="9"/><path d="M24 27v16M17 36h14"/>',
@@ -8484,6 +8519,7 @@ async function rollAstroDice() {
   const dice = [...astroDicePanel.querySelectorAll('.astro-die')];
   const results = astroDiceSets.map(values => values[astroRandomIndex(values.length)]);
   await Promise.all(dice.map((die, index) => animateAstroDie(die, astroDiceSets[index], results[index], index)));
+  lastDiceResult = results.map(value => ({ ...value }));
   astroDiceRolling = false;
 }
 
@@ -8634,5 +8670,6 @@ if (deckList.length > 0) {
 </script>
 
 <script src="card_images.js"></script>
+<script src="spread.js"></script>
 </body>
 </html>

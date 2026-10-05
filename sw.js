@@ -3,12 +3,12 @@
 importScripts('./pwa-art.js');
 const BASE = new URL('./', self.location.href);
 const PREFIX = 'magiccat-' + BASE.pathname;
-const CORE_CACHE = PREFIX + 'core-v5';
+const CORE_CACHE = PREFIX + 'core-v6';
 // Kept across application releases. No user data lives in these caches.
 const ART_CACHE = PREFIX + 'art-v1';
 const ART_REVISIONS = PREFIX + 'art-revisions-v1';
 const CORE = [
-  'reading_ios.html', 'manifest_ios.html', 'bird_ios.html', 'wish_ios.html',
+  'spread.js', 'spread.css', 'reading_ios.html', 'manifest_ios.html', 'bird_ios.html', 'wish_ios.html',
   'manifest.json', 'pwa.js', 'offline-library.js', 'offline-library.css', 'offline-library.json', 'world_switch.js', 'world_switch.css',
   'card_images.js', 'decks.js', 'waite_meanings.js', 'lenormand_meanings.js',
   'html2canvas.min.js', 'abundance_core.js', 'love_v01.js', 'liuyao_core.js',
