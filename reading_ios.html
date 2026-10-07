@@ -7063,6 +7063,7 @@ function selectDeckAndOpen(deck) {
   if (deck._backImg) {
     currentDeck._images = { back: deck._backImg, fronts: deck._frontImgs || [], noReverse: deck.noReverse || false, layout: deck.layout || 'portrait', aspectRatio: deck.aspectRatio || 2 / 3 };
   }
+  currentDeck._aspectRatio = deck.aspectRatio || 2 / 3;
   currentDeck._themeTarot = !!deck._themeTarot;
   if (typeof activeSpread !== 'undefined' && activeSpread === 'seasons') seasonDeckChosen();
   openFan();
@@ -7524,7 +7525,7 @@ function placeCardAt(card, globalIdx, posX, posY, sizeW, sizeH) {
 function placeCardWithFlip(card, globalIdx, posX, posY, isReversed, sizeW, sizeH) {
   // 布局尺寸：优先用拖拽源的实测尺寸（含图片真实比例），否则按横/竖版自适应
   const isLandscape = currentDeck._images?.layout === 'landscape';
-  const cardAspectRatio = currentDeck._images?.aspectRatio || (isLandscape ? 3 / 2 : 2 / 3);
+  const cardAspectRatio = currentDeck._aspectRatio || currentDeck._images?.aspectRatio || (isLandscape ? 3 / 2 : 2 / 3);
   const refW = sizeW || (IS_MOBILE
     ? Math.round(Math.min(window.innerWidth * (isLandscape ? 0.38 : 0.18), isLandscape ? 180 : 84))
     : Math.round(window.innerWidth * (isLandscape ? 0.18 : 0.1)));

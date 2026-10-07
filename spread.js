@@ -3,7 +3,7 @@ const SPREADS = {
   three: { name: '三张牌', slots: [['过去', .18, .48], ['现在', .5, .48], ['未来', .82, .48]] },
   choice: { name: '二选一', slots: [['当前处境', .5, .79], ['A 的发展', .25, .47], ['A 的结果', .25, .15], ['B 的发展', .75, .47], ['B 的结果', .75, .15]] },
   inspiration: { name: '灵感对应', slots: [['我对对方的看法', .18, .28], ['我眼中的关系现状', .5, .28], ['我期待的未来', .82, .28], ['对方对我的看法', .18, .7], ['对方眼中的关系现状', .5, .7], ['对方期待的未来', .82, .7]] },
-  seasons: { name: '四季牌阵', slots: [['本季主题 · 大牌', .5, .47], ['行动 · 权杖', .5, .12], ['情感 · 圣杯', .82, .47], ['思考 · 宝剑', .5, .82], ['物质 · 星币', .18, .47]] },
+  seasons: { name: '四季牌阵', slots: [['本季主题 大牌', .5, .47], ['行动 权杖', .5, .12], ['情感 圣杯', .82, .47], ['思考 宝剑', .5, .82], ['物质 星币', .18, .47]] },
   pyramid: { name: '恋爱金字塔', slots: [['你', .18, .7], ['对方', .82, .7], ['感情现状', .5, .7], ['未来发展', .5, .25]] },
   hexagram: { name: '六芒星', slots: [['过去', .5, .12], ['现在', .18, .69], ['未来', .82, .69], ['对策建议', .5, .88], ['外部影响', .18, .31], ['态度与愿望', .82, .31], ['综合结果', .5, .5]] },
   venus: { name: '维纳斯', slots: [['我的心态', .18, .28], ['对方的心态', .82, .28], ['我对对方的影响', .5, .1], ['对方对我的影响', .5, .46], ['关系障碍', .5, .64], ['发展结果', .5, .84], ['我之后的感受', .18, .84], ['对方之后的感受', .82, .84]] }
@@ -41,6 +41,7 @@ function filterSeasonDeck() {
   const cards = seasonSource.filter(c => tarotGroup(c) === SEASON_GROUPS[seasonSlot]);
   cards._images = seasonSource._images;
   cards._themeTarot = seasonSource._themeTarot;
+  cards._aspectRatio = seasonSource._aspectRatio;
   currentDeck = cards;
 }
 function selectSeasonSlot(index) {
@@ -187,10 +188,20 @@ function spreadGeometry() {
   const bottom = fanArea.classList.contains('active') ? fanArea.getBoundingClientRect().top - 28 : innerHeight - 105;
   const width = Math.max(220, innerWidth - 90);
   const availableHeight = Math.max(200, bottom - safeTop);
-  const height = Math.min(availableHeight, width * 1.35);
-  const top = safeTop + (availableHeight - height) / 2;
+  let height = Math.min(availableHeight, width * 1.35);
   const cardWidth = Math.min(112, width * .22, height / (activeSpread === 'venus' ? 10 : ['inspiration', 'pyramid'].includes(activeSpread) ? 3.8 : SPREADS[activeSpread]?.slots.length > 3 ? 5.6 : 2.1));
-  return { left: (innerWidth - width) / 2, top, width, height, cardWidth };
+  const ratio = currentDeck._aspectRatio || currentDeck._images?.aspectRatio || (currentDeck._themeTarot ? .618034 : 2 / 3);
+  const cardHeight = cardWidth / ratio;
+  const slots = SPREADS[activeSpread]?.slots || [];
+  slots.forEach(([, x, y], i) => slots.slice(i + 1).forEach(([, otherX, otherY]) => {
+    if (x === otherX && y !== otherY) {
+      height = Math.max(height, (cardHeight + 30) / Math.abs(y - otherY));
+    }
+  }));
+  const top = safeTop + Math.max(0, (availableHeight - height) / 2)
+    + (activeSpread === 'hexagram' ? Math.min(44, availableHeight * .08)
+      : activeSpread === 'seasons' ? 20 : 0);
+  return { left: (innerWidth - width) / 2, top, width, height, cardWidth, cardHeight };
 }
 function renderSpread() {
   spreadLayer.replaceChildren();
@@ -200,7 +211,7 @@ function renderSpread() {
   spreadSlots().forEach(([label, x, y], index) => {
     const slot = document.createElement('div');
     slot.className = 'spread-slot'; slot.dataset.slot = index;
-    Object.assign(slot.style, { left: `${g.left + x * g.width - g.cardWidth / 2}px`, top: `${g.top + y * g.height - g.cardWidth * .75}px`, width: `${g.cardWidth}px`, height: `${g.cardWidth * 1.5}px` });
+    Object.assign(slot.style, { left: `${g.left + x * g.width - g.cardWidth / 2}px`, top: `${g.top + y * g.height - g.cardHeight / 2}px`, width: `${g.cardWidth}px`, height: `${g.cardHeight}px` });
     const caption = document.createElement('span'); caption.textContent = label; slot.append(caption);
     if (activeSpread === 'seasons') {
       slot.classList.add('season-slot');
@@ -262,9 +273,15 @@ window.addEventListener('resize', () => {
 
 function captureSpread() {
   const g = spreadGeometry();
-  return { type: activeSpread, slots: spreadSlots(), slotWidth: g.cardWidth / g.width, slotHeight: g.cardWidth * 1.5 / g.height, swapped: activeSpread === 'inspiration' && inspirationSwapped, aspect: g.width / g.height, cards: placedCards.filter(c => c.isConnected).map(c => {
+  return { type: activeSpread, slots: spreadSlots(), slotWidth: g.cardWidth / g.width, slotHeight: g.cardHeight / g.height, swapped: activeSpread === 'inspiration' && inspirationSwapped, aspect: g.width / g.height, cards: placedCards.filter(c => c.isConnected).map(c => {
     const r = c.getBoundingClientRect();
-    return { data: c._cardData, reversed: c.dataset.reversed === 'true', revealed: c.classList.contains('revealed'), slot: c.dataset.spreadSlot, html: c.innerHTML, className: c.className, ratio: c.style.getPropertyValue('--card-image-ratio'), x: (r.x - g.left) / g.width, y: (r.y - g.top) / g.height, w: r.width / g.width };
+    const ratio = Number(c.style.getPropertyValue('--card-image-ratio')) || 2 / 3;
+    const slot = c.dataset.spreadSlot === undefined ? null : spreadSlots()[Number(c.dataset.spreadSlot)];
+    const width = slot ? Math.min(g.cardWidth, g.cardHeight * ratio) : r.width / (fanScale || 1);
+    const height = width / ratio;
+    const centerX = slot ? g.left + slot[1] * g.width : r.x + r.width / 2;
+    const centerY = slot ? g.top + slot[2] * g.height : r.y + r.height / 2;
+    return { data: c._cardData, reversed: c.dataset.reversed === 'true', revealed: c.classList.contains('revealed'), slot: c.dataset.spreadSlot, html: c.innerHTML, className: c.className, ratio: c.style.getPropertyValue('--card-image-ratio'), x: (centerX - width / 2 - g.left) / g.width, y: (centerY - height / 2 - g.top) / g.height, w: width / g.width };
   }) };
 }
 function showSpreadRecord(spread) {
@@ -273,12 +290,26 @@ function showSpreadRecord(spread) {
   tip.textContent = `${SPREADS[spread.type].name} · 点击卡牌放大查看`;
   const board = document.createElement('div'); board.className = 'spread-record-board';
   board.dataset.spread = spread.type;
-  board.style.aspectRatio = String(spread.aspect || 1);
+  const aspect = spread.aspect || 1;
   const slotWidth = spread.slotWidth || Math.min(.22, (spread.cards.find(c => c.slot !== undefined)?.w || .2));
   const slotHeight = spread.slotHeight || slotWidth * 1.5 * (spread.aspect || 1);
-  (spread.slots || SPREADS[spread.type].slots).forEach(([label, x, y], index) => {
+  const slots = spread.slots || SPREADS[spread.type].slots;
+  // Use width-based units for both axes so cropping preserves card proportions.
+  const bounds = slots.map(([, x, y]) => ({
+    left: x - slotWidth * .7, right: x + slotWidth * .7,
+    top: (y - slotHeight / 2) / aspect,
+    bottom: (y + slotHeight / 2) / aspect + .075
+  }));
+  spread.cards.forEach(c => bounds.push({ left:c.x, right:c.x + c.w,
+    top:c.y / aspect, bottom:c.y / aspect + c.w / (Number(c.ratio) || 2 / 3) }));
+  const left = Math.min(...bounds.map(b => b.left)) - .025;
+  const top = Math.min(...bounds.map(b => b.top)) - .025;
+  const width = Math.max(...bounds.map(b => b.right)) + .025 - left;
+  const height = Math.max(...bounds.map(b => b.bottom)) + .025 - top;
+  board.style.aspectRatio = String(width / height);
+  slots.forEach(([label, x, y], index) => {
     const slot = document.createElement('div'); slot.className = 'spread-record-slot';
-    Object.assign(slot.style, { left: `${x * 100}%`, top: `${y * 100}%`, width: `${slotWidth * 100}%`, height: `${slotHeight * 100}%` });
+    Object.assign(slot.style, { left: `${(x - left) / width * 100}%`, top: `${(y / aspect - top) / height * 100}%`, width: `${slotWidth / width * 100}%`, height: `${slotHeight / aspect / height * 100}%` });
     if (spread.cards.some(c => String(c.slot) === String(index))) slot.classList.add('occupied');
     const caption = document.createElement('span'); caption.textContent = label; slot.append(caption);
     board.append(slot);
@@ -288,7 +319,7 @@ function showSpreadRecord(spread) {
     card.innerHTML = saved.html; card._cardData = saved.data;
     card.dataset.cardId = saved.data.id; card.dataset.reversed = String(saved.reversed);
     card.style.setProperty('--card-image-ratio', saved.ratio);
-    Object.assign(card.style, { position: 'absolute', left: `${saved.x * 100}%`, top: `${saved.y * 100}%`, width: `${saved.w * 100}%`, transform: 'none', margin: '0' });
+    Object.assign(card.style, { position: 'absolute', left: `${(saved.x - left) / width * 100}%`, top: `${(saved.y / aspect - top) / height * 100}%`, width: `${saved.w / width * 100}%`, transform: 'none', margin: '0' });
     card.onclick = () => openCardZoom(card, saved.data.name);
     board.append(card);
   });
