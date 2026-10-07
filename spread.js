@@ -183,12 +183,14 @@ spreadTab.onclick = () => {
 desktop.addEventListener('click', () => spreadDrawer.classList.remove('open'));
 
 function spreadGeometry() {
-  const top = 76;
+  const safeTop = 76;
   const bottom = fanArea.classList.contains('active') ? fanArea.getBoundingClientRect().top - 28 : innerHeight - 105;
   const width = Math.max(220, innerWidth - 90);
-  const height = Math.max(200, bottom - top);
+  const availableHeight = Math.max(200, bottom - safeTop);
+  const height = Math.min(availableHeight, width * 1.35);
+  const top = safeTop + (availableHeight - height) / 2;
   const cardWidth = Math.min(112, width * .22, height / (activeSpread === 'venus' ? 10 : ['inspiration', 'pyramid'].includes(activeSpread) ? 3.8 : SPREADS[activeSpread]?.slots.length > 3 ? 5.6 : 2.1));
-  return { left: 55, top, width, height, cardWidth };
+  return { left: (innerWidth - width) / 2, top, width, height, cardWidth };
 }
 function renderSpread() {
   spreadLayer.replaceChildren();
@@ -255,12 +257,12 @@ for (const event of ['pointerup', 'mouseup']) document.addEventListener(event, e
 });
 window.addEventListener('resize', () => {
   renderSpread();
-  placedCards.filter(c => c.dataset.spreadSlot !== undefined).forEach(c => snapToSpread(c, true));
+  placedCards.filter(c => c.dataset.spreadSlot !== undefined).forEach(c => snapToSpread(c, true, c.dataset.spreadSlot));
 });
 
 function captureSpread() {
   const g = spreadGeometry();
-  return { type: activeSpread, slots: spreadSlots(), swapped: activeSpread === 'inspiration' && inspirationSwapped, aspect: g.width / g.height, cards: placedCards.filter(c => c.isConnected).map(c => {
+  return { type: activeSpread, slots: spreadSlots(), slotWidth: g.cardWidth / g.width, slotHeight: g.cardWidth * 1.5 / g.height, swapped: activeSpread === 'inspiration' && inspirationSwapped, aspect: g.width / g.height, cards: placedCards.filter(c => c.isConnected).map(c => {
     const r = c.getBoundingClientRect();
     return { data: c._cardData, reversed: c.dataset.reversed === 'true', revealed: c.classList.contains('revealed'), slot: c.dataset.spreadSlot, html: c.innerHTML, className: c.className, ratio: c.style.getPropertyValue('--card-image-ratio'), x: (r.x - g.left) / g.width, y: (r.y - g.top) / g.height, w: r.width / g.width };
   }) };
@@ -272,9 +274,13 @@ function showSpreadRecord(spread) {
   const board = document.createElement('div'); board.className = 'spread-record-board';
   board.dataset.spread = spread.type;
   board.style.aspectRatio = String(spread.aspect || 1);
-  (spread.slots || SPREADS[spread.type].slots).forEach(([label, x, y]) => {
+  const slotWidth = spread.slotWidth || Math.min(.22, (spread.cards.find(c => c.slot !== undefined)?.w || .2));
+  const slotHeight = spread.slotHeight || slotWidth * 1.5 * (spread.aspect || 1);
+  (spread.slots || SPREADS[spread.type].slots).forEach(([label, x, y], index) => {
     const slot = document.createElement('div'); slot.className = 'spread-record-slot';
-    slot.style.left = `${x * 100}%`; slot.style.top = `${y * 100}%`; slot.textContent = label;
+    Object.assign(slot.style, { left: `${x * 100}%`, top: `${y * 100}%`, width: `${slotWidth * 100}%`, height: `${slotHeight * 100}%` });
+    if (spread.cards.some(c => String(c.slot) === String(index))) slot.classList.add('occupied');
+    const caption = document.createElement('span'); caption.textContent = label; slot.append(caption);
     board.append(slot);
   });
   spread.cards.forEach(saved => {
@@ -294,5 +300,5 @@ new MutationObserver(() => {
 }).observe(document.body, { childList: true });
 new MutationObserver(() => {
   renderSpread();
-  placedCards.filter(c => c.dataset.spreadSlot !== undefined).forEach(c => snapToSpread(c, true));
+  placedCards.filter(c => c.dataset.spreadSlot !== undefined).forEach(c => snapToSpread(c, true, c.dataset.spreadSlot));
 }).observe(fanArea, { attributes: true, attributeFilter: ['class'] });

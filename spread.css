@@ -120,6 +120,8 @@ body #drawerSpread .drawer-title { color: var(--spread-text); border-color: rgba
 .spread-record-board .placed-card img { max-height: none; border-radius: 0; }
 .spread-record-slot { position: absolute; transform: translate(-50%, -50%); width: 20%; height: 27%; border: 1px dashed var(--spread-gold); border-radius: 8px; color: var(--spread-text); display: flex; align-items: end; justify-content: center; font-size: 10px; padding-bottom: 3px; box-sizing: border-box; }
 .spread-record-thumbnail { min-height: 110px; display: grid; place-content: center; color: var(--spread-text); background: var(--spread-surface); text-align: center; line-height: 2; }
+.spread-record-slot.occupied { border-color: transparent; }
+.spread-record-slot span { position:absolute;top:calc(100% + 5px);width:140%;left:-20%;text-align:center; }
 #recordPage .spread-record-board img { border: none; border-radius: 0; box-shadow: none; }
 #cardZoom { z-index: 16000; }
 #spreadNotice {
