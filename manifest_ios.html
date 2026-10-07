@@ -1976,6 +1976,7 @@ body.mode-abundance #ritualStage {
               linear-gradient(158deg,#0a0710 0%,#170c15 48%,#1c1016 76%,#0a0709 100%);
 }
 body.mode-love #ritualStage {
+  bottom:0 !important;
   background: radial-gradient(ellipse at 18% 8%, rgba(154,76,126,.22), transparent 48%),
               radial-gradient(ellipse at 90% 94%, rgba(142,66,118,.18), transparent 46%),
               linear-gradient(162deg,#090611 0%,#180b1c 48%,#130a17 76%,#07060d 100%);
@@ -2012,11 +2013,18 @@ body.ritual-special #divinationDrawer,
 body.ritual-special #recordDrawer { opacity:0; pointer-events:none; }
 body.ritual-special #activateBtn { width:118px; letter-spacing:0; }
 /* 丰盛接管整页；离开按钮浮在丰盛背景上，内容预留底部操作区。 */
-body.mode-abundance #activateBtn {
+body.mode-abundance #activateBtn,
+body.mode-love #activateBtn {
   z-index:12001;
   bottom:calc(24px + env(safe-area-inset-bottom));
 }
 body.mode-abundance #ritualStage .abundance-screen {
+  height:100%;
+  box-sizing:border-box;
+  padding-bottom:calc(96px + env(safe-area-inset-bottom));
+  overflow-y:auto;
+}
+body.mode-love #ritualStage .love-screen {
   height:100%;
   box-sizing:border-box;
   padding-bottom:calc(96px + env(safe-area-inset-bottom));
@@ -2379,7 +2387,8 @@ body.mode-love .love-portals { padding:4px 10px 96px; row-gap:10px; }
     body[data-theme="noir"] #divinationDrawer .divination-item,body[data-theme="noir"] #divinationDrawer .potion-item,body[data-theme="noir"] #recordDrawer .record-item { background:rgba(255,253,249,.72);border-color:rgba(37,37,41,.62);color:#252529;box-shadow:none; }
     body[data-theme="noir"] #divinationDrawer .divination-item:hover,body[data-theme="noir"] #divinationDrawer .potion-item:hover,body[data-theme="noir"] #recordDrawer .record-item:hover { background:#fff;border-color:#111;color:#111;box-shadow:0 5px 13px rgba(0,0,0,.1); }
     body[data-theme="noir"] #divinationDrawer .di-label,body[data-theme="noir"] #divinationDrawer .potion-sec-title,body[data-theme="noir"] #recordDrawer .record-item .ri-q,body[data-theme="noir"] #recordDrawer .ri-count,body[data-theme="noir"] #recordDrawer .record-empty { color:#252529;border-color:rgba(37,37,41,.34); }
-    body[data-theme="noir"] #recordDrawer .layout-delete,body[data-theme="noir"] #divinationDrawer .potion-delete { color:#252529;background:#fffdf9;border-color:rgba(37,37,41,.55); }
+    body[data-theme="noir"] #recordDrawer .record-item .ri-date { color:#505057; }
+    body[data-theme="noir"] #recordDrawer .ri-delete,body[data-theme="noir"] #recordDrawer .layout-delete,body[data-theme="noir"] #divinationDrawer .potion-delete { color:#252529;background:#fffdf9;border-color:rgba(37,37,41,.55); }
     body[data-theme="noir"] #intentionInput,body[data-theme="noir"] #wishGenerateBtn,body[data-theme="noir"] #layoutSaveDialog input,body[data-theme="noir"] #layoutSaveDialog button,body[data-theme="noir"] #recordPage input,body[data-theme="noir"] #recordPage textarea,body[data-theme="noir"] #recordPage .rp-btn { background:rgba(255,255,255,.7);border-color:#252529;color:#252529; }
     body[data-theme="parchment"] { --ui-bg:rgba(43,17,23,.94);--ui-purple-text:#f0d990;color:#f0d990;background:#160b0d; }
     body[data-theme="parchment"] #starfield { background:radial-gradient(ellipse at 50% 35%,#55242d,#271117 68%,#12090b); }
@@ -2413,7 +2422,8 @@ body.mode-love .love-portals { padding:4px 10px 96px; row-gap:10px; }
     body[data-theme="parchment"] #recTab.drawer-bookmark { --bookmark-rgb:112,151,148;background:linear-gradient(145deg,#173b35,#4a1a26);border-color:#9fbdad;color:#d8e6d9; }
     body[data-theme="parchment"] #divinationDrawer .divination-item,body[data-theme="parchment"] #divinationDrawer .potion-item,body[data-theme="parchment"] #recordDrawer .record-item { background:linear-gradient(145deg,rgba(73,25,35,.82),rgba(22,55,48,.78));border-color:rgba(203,167,92,.58);color:#efd596;box-shadow:inset 0 0 10px rgba(215,175,91,.04); }
     body[data-theme="parchment"] #divinationDrawer .di-label,body[data-theme="parchment"] #divinationDrawer .potion-sec-title,body[data-theme="parchment"] #recordDrawer .record-item .ri-q,body[data-theme="parchment"] #recordDrawer .ri-count { color:#efd596;border-color:rgba(203,167,92,.45); }
-    body[data-theme="parchment"] #recordDrawer .layout-delete,body[data-theme="parchment"] #divinationDrawer .potion-delete { color:#efd596;background:#29141a;border-color:#b89049; }
+    body[data-theme="parchment"] #recordDrawer .record-item .ri-date { color:#efd596; }
+    body[data-theme="parchment"] #recordDrawer .ri-delete,body[data-theme="parchment"] #recordDrawer .layout-delete,body[data-theme="parchment"] #divinationDrawer .potion-delete { color:#efd596;background:#29141a;border-color:#b89049; }
     body[data-theme="parchment"] #intentionInput,body[data-theme="parchment"] #wishGenerateBtn,body[data-theme="parchment"] #layoutSaveDialog input,body[data-theme="parchment"] #layoutSaveDialog button,body[data-theme="parchment"] #recordPage input,body[data-theme="parchment"] #recordPage textarea,body[data-theme="parchment"] #recordPage .rp-btn { background:rgba(28,22,21,.58);border-color:#b89049;color:#efd596; }
     body[data-theme="dopamine"] { --ui-bg:rgba(255,255,255,.78);--ui-purple-text:#68758a;color:#68758a;background:#f8f7f4; }
     body[data-theme="dopamine"] #starfield { background-color:#fbfbfa;background-image:radial-gradient(circle at 24% 22%,rgba(242,168,197,.24),transparent 34%),radial-gradient(circle at 78% 72%,rgba(169,216,238,.28),transparent 37%),radial-gradient(circle at 62% 18%,rgba(191,228,210,.2),transparent 28%),radial-gradient(circle,rgba(255,255,255,.88) 0 1px,transparent 1.5px);background-size:auto,auto,auto,20px 20px; }
@@ -2465,8 +2475,18 @@ body.mode-love .love-portals { padding:4px 10px 96px; row-gap:10px; }
     body[data-theme="dopamine"] #divinationDrawer .divination-item:nth-child(3n+1) { border-color:rgba(229,152,184,.62); }
     body[data-theme="dopamine"] #divinationDrawer .divination-item:nth-child(3n+2) { border-color:rgba(191,228,210,.75); }
     body[data-theme="dopamine"] #divinationDrawer .di-label,body[data-theme="dopamine"] #divinationDrawer .potion-sec-title,body[data-theme="dopamine"] #recordDrawer .record-item .ri-q,body[data-theme="dopamine"] #recordDrawer .ri-count,body[data-theme="dopamine"] #recordDrawer .record-empty { color:#68758a;border-color:rgba(145,203,230,.42); }
-    body[data-theme="dopamine"] #recordDrawer .layout-delete,body[data-theme="dopamine"] #divinationDrawer .potion-delete { color:#68758a;background:rgba(255,255,255,.78);border-color:#91cbe6; }
+    body[data-theme="dopamine"] #recordDrawer .record-item .ri-date { color:#52677c; }
+    body[data-theme="dopamine"] #recordDrawer .ri-delete,body[data-theme="dopamine"] #recordDrawer .layout-delete,body[data-theme="dopamine"] #divinationDrawer .potion-delete { color:#52677c;background:rgba(255,255,255,.78);border-color:#739bb5; }
     body[data-theme="dopamine"] #intentionInput,body[data-theme="dopamine"] #wishGenerateBtn,body[data-theme="dopamine"] #layoutSaveDialog input,body[data-theme="dopamine"] #layoutSaveDialog button,body[data-theme="dopamine"] #recordPage input,body[data-theme="dopamine"] #recordPage textarea,body[data-theme="dopamine"] #recordPage .rp-btn { background:rgba(255,255,255,.72);border-color:#a9cfe3;color:#68758a; }
+    body[data-theme="noir"] #layoutSaveDialog .m-head,
+    body[data-theme="noir"] #layoutSaveDialog .confirm-acts button { color:#252529; }
+    body[data-theme="noir"] #layoutSaveDialog .confirm-acts .primary { background:#252529;border-color:#252529;color:#fffdf9; }
+    body[data-theme="parchment"] #layoutSaveDialog .m-head { color:#efd596; }
+    body[data-theme="dopamine"] #layoutSaveDialog .m-head,
+    body[data-theme="dopamine"] #layoutSaveDialog .confirm-acts button { color:#52677c; }
+    body[data-theme="dopamine"] #layoutSaveDialog .confirm-acts .primary { background:#dcecf5;border-color:#739bb5;color:#354e65; }
+    body[data-theme="noir"] #layoutSaveDialog input,
+    body[data-theme="dopamine"] #layoutSaveDialog input { color-scheme:light; }
     body[data-theme="noir"] #intentionPanel { --wish-accent:#29292d;--wish-accent-soft:rgba(41,41,45,.17);--wish-ink:#29292d;--wish-surface:linear-gradient(155deg,rgba(255,255,255,.98),rgba(247,246,242,.96));--wish-input:rgba(255,255,255,.7);--wish-shadow:rgba(20,20,24,.15); }
     body[data-theme="parchment"] #intentionPanel { --wish-accent:#c09a50;--wish-accent-soft:rgba(203,167,92,.23);--wish-ink:#f1d994;--wish-surface:linear-gradient(155deg,rgba(74,26,38,.98),rgba(22,55,48,.97));--wish-input:rgba(19,19,19,.28);--wish-shadow:rgba(0,0,0,.42); }
     body[data-theme="dopamine"] #intentionPanel { --wish-accent:#91cbe6;--wish-accent-soft:rgba(145,203,230,.24);--wish-ink:#607c91;--wish-surface:linear-gradient(155deg,rgba(255,255,255,.96),rgba(247,251,252,.9));--wish-input:rgba(255,255,255,.62);--wish-shadow:rgba(112,129,151,.18); }
@@ -2512,6 +2532,36 @@ body.mode-love .love-portals { padding:4px 10px 96px; row-gap:10px; }
     body[data-theme="dopamine"] .ritual-mode-btn::after { background:rgba(255,255,255,.97); }
 
 /* 猫爪配色入口：沿用操作按钮的主题材质与交互。 */
+/* 丰盛空间的离开按钮始终使用金色配色。 */
+body.mode-abundance #activateBtn {
+  background:linear-gradient(155deg,#352018,#1c1118) !important;
+  border-color:#c49b52 !important;
+  color:#f1d99a !important;
+  box-shadow:0 0 18px rgba(213,165,83,.2),inset 0 0 12px rgba(238,198,105,.07) !important;
+}
+body.mode-abundance #activateBtn::before { border-color:rgba(213,165,83,.5) !important; }
+body.mode-abundance #activateBtn:hover,
+body.mode-abundance #activateBtn:active {
+  background:linear-gradient(155deg,#493022,#2b1920) !important;
+  border-color:#e0bd75 !important;
+  color:#fff0bd !important;
+  box-shadow:0 0 24px rgba(213,165,83,.3) !important;
+}
+/* 爱空间的离开按钮始终使用玫瑰配色。 */
+body.mode-love #activateBtn {
+  background:linear-gradient(155deg,#402039,#211326) !important;
+  border-color:#c78ba9 !important;
+  color:#f2d6e1 !important;
+  box-shadow:0 0 18px rgba(213,132,169,.2),inset 0 0 12px rgba(232,174,201,.07) !important;
+}
+body.mode-love #activateBtn::before { border-color:rgba(218,151,181,.5) !important; }
+body.mode-love #activateBtn:hover,
+body.mode-love #activateBtn:active {
+  background:linear-gradient(155deg,#542b48,#301a35) !important;
+  border-color:#e5aac5 !important;
+  color:#ffe5ef !important;
+  box-shadow:0 0 24px rgba(213,132,169,.3) !important;
+}
 body #themeToggle, body[data-theme] #themeToggle {
   --paw-fill: #19191c;
   --paw-rim: #8a4dff;
@@ -2581,9 +2631,6 @@ body #themeToggle::after {
   content: ''; position: absolute; inset: 1px;
   border: 1px solid var(--paw-inner); border-radius: 50%; pointer-events: none;
 }
-body[data-theme="parchment"] #themeToggle::before,
-body[data-theme="dopamine"] #themeToggle::before { border-style: solid; animation: none; }
-body[data-theme="dopamine"] #themeToggle::before { opacity: .55; }
 @keyframes themePawOrbit { to { transform: rotate(360deg); } }
 body #themeToggle:is([aria-expanded="true"], :focus-visible, :active) {
   --paw-rim: var(--paw-hover-rim);
@@ -2630,7 +2677,7 @@ body #themeToggle:focus-visible { outline: 2px solid var(--paw-rim); outline-off
 <div id="starfield"></div>
 
 <!-- 显化计数器 -->
-<div id="manifestCount">✦ 圆阵中的物品：0 ✦</div>
+<div id="manifestCount" style="display:none" aria-hidden="true"></div>
 
 <!-- 桌面 -->
 <div id="desktop"></div>
@@ -2925,7 +2972,7 @@ body #themeToggle:focus-visible { outline: 2px solid var(--paw-rim); outline-off
 </button>
 
 <!-- 引导文字 -->
-<div id="guidance">将水晶与许愿瓶放入圆阵 · 点击显化</div>
+<div id="guidance" style="display:none" aria-hidden="true"></div>
 
 <!-- 状态提示 -->
 <div class="status-toast" id="statusToast"></div>
@@ -3225,7 +3272,6 @@ wishGenerateBtn.addEventListener('click', () => {
   const el = document.createElement('div');
   el.className = 'altar-item wish-bottle';
   el.dataset.type = 'bottle';
-  const shortWish = wish.length > 8 ? wish.substring(0, 8) + '…' : wish;
   el.innerHTML = `
     <div class="bottle-aura"></div>
     <div class="bottle-cork"></div>
@@ -3252,7 +3298,6 @@ wishGenerateBtn.addEventListener('click', () => {
         <span style="--x:79%;--y:79%;--dx:39px;--dy:-88px;--s:6px;--delay:.22s">✧</span>
       </div>
     </div>
-    <span class="altar-item-label">${shortWish}</span>
   `;
   el.title = wish;
   // 愿望文字预渲染为图片作为纸条背景，保证 html2canvas 截图正确
