@@ -3137,7 +3137,7 @@ let wishBottleEl = null;
 
 // 把愿望文字用浏览器原生 canvas 预渲染成图片（避免 html2canvas 截图时中文宽度测量错误、
 // 只显示最后一个字的问题——截图时直接复制像素，不再测量文字）
-function renderWishNoteDataURL(wish) {
+function renderWishNoteDataURL(wish, ink = '#f3e7c8') {
   const W = 120, H = 42;          // 打开的纸条内尺寸
   const scale = 3;                // 高清倍数
   const canvas = document.createElement('canvas');
@@ -3147,7 +3147,7 @@ function renderWishNoteDataURL(wish) {
   ctx.scale(scale, scale);
   ctx.font = '9px "PingFang SC","Microsoft YaHei","Noto Sans CJK SC","Hiragino Sans GB",sans-serif';
   ctx.textBaseline = 'middle';
-  ctx.fillStyle = '#f3e7c8';
+  ctx.fillStyle = ink;
   // 按字符宽度换行
   const lines = [];
   let cur = '';
@@ -3166,11 +3166,22 @@ function renderWishNoteDataURL(wish) {
   return canvas.toDataURL('image/webp');
 }
 
+function refreshWishBottleText() {
+  document.querySelectorAll('.wish-bottle').forEach(bottle => {
+    const ink = getComputedStyle(bottle).getPropertyValue('--note-ink').trim() || '#f3e7c8';
+    const note = bottle.querySelector('.note-wish');
+    if (note) note.style.backgroundImage = `url(${renderWishNoteDataURL(bottle.title, ink)})`;
+    rasterizeAltarLabel(bottle);
+  });
+}
+
 // 把圆阵物品底下的文字标签预渲染成图片（同样规避 html2canvas 中文截图只显最后一个字的问题）
 function rasterizeAltarLabel(el) {
   const label = el.querySelector('.altar-item-label');
-  if (!label || !label.textContent) return;
-  const text = label.textContent;
+  if (!label) return;
+  const text = label.textContent || label.dataset.labelText;
+  if (!text) return;
+  label.dataset.labelText = text;
   const scale = 3;
   const fontPx = 8, ls = 1;   // 与 .altar-item-label CSS 一致
   const font = `${fontPx}px "PingFang SC","Microsoft YaHei","Noto Sans CJK SC","Hiragino Sans GB",sans-serif`;
@@ -3187,7 +3198,9 @@ function rasterizeAltarLabel(el) {
   ctx.scale(scale, scale);
   ctx.font = font;
   ctx.textBaseline = 'middle';
-  ctx.fillStyle = 'rgba(200,160,255,0.5)';
+  ctx.fillStyle = el.classList.contains('wish-bottle')
+    ? getComputedStyle(el).getPropertyValue('--note-ink').trim() || '#f3e7c8'
+    : 'rgba(200,160,255,0.5)';
   let x = 0;
   for (const ch of text) { ctx.fillText(ch, x, h / 2); x += ctx.measureText(ch).width + ls; }
   label.textContent = '';
@@ -3253,7 +3266,7 @@ wishGenerateBtn.addEventListener('click', () => {
   el.style.left = (hw - 36) + 'px';
   el.style.top  = (hh - 55) + 'px';
   altar.appendChild(el);
-  rasterizeAltarLabel(el);
+  refreshWishBottleText();
   setupBottleInteractions(el);
 
   altarItems.push({ id: 'wish', type: 'bottle', cls: '', el });
@@ -4146,6 +4159,7 @@ exitOverlaysForRitual();
     var next = THEMES.indexOf(theme) >= 0 ? theme : 'mystic';
     if (next === 'mystic') document.body.removeAttribute('data-theme');
     else document.body.setAttribute('data-theme', next);
+    refreshWishBottleText();
     document.documentElement.style.backgroundColor = PAGE_BG[next];
     if (metaColor) metaColor.setAttribute('content', PAGE_BG[next]);
     cards.forEach(function (card) {
