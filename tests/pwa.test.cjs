@@ -12,6 +12,7 @@ function setup() {
     if (!stores.has(name)) stores.set(name, new Map());
     const store = stores.get(name);
     return { async match(key) { return store.get(String(key))?.clone(); },
+      async keys() { return [...store.keys()].map(url => new Request(url)); },
       async put(key, value) { store.set(String(key), value); },
       async addAll(list) {
         for (const request of list) {
@@ -122,8 +123,14 @@ test('optional pack rejects invalid paths and mismatched deployed artwork', asyn
 });
 test('offline inventory matches current image hashes and includes every deck', () => {
   const groups = JSON.parse(fs.readFileSync('offline-library.json','utf8'));
-  assert.equal(groups.length,8);
-  assert.deepEqual(groups.slice(0,4).map(group => group.files.length),[79,37,141,51]);
+  const decks = vm.runInNewContext(fs.readFileSync('decks.js','utf8') + '\nDECKS');
+  assert.equal(groups.length,decks.length + 1);
+  for (const deck of decks) {
+    const group = groups.find(group => group.name === deck.name);
+    assert.ok(group,deck.name);
+    assert.equal(group.files.length,deck.cardCount + 1);
+  }
+  assert.equal(groups.find(group => group.id === 'theme-tarot').files.length,316);
   for (const group of groups) {
     assert.equal(group.bytes,group.files.reduce((total,file)=>total+file.bytes,0));
     for (const file of group.files) {
