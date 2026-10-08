@@ -8310,24 +8310,14 @@ function persistRecords(records) {
   try { localStorage.setItem(RECORDS_KEY, JSON.stringify(records)); return true; } catch (e) { alert('保存失败：存储空间不足'); return false; }
 }
 
-// —— 记录按钮 → 打开选区截图 ——
+// —— 记录按钮 → 自动保存桌面卡牌位置 ——
 function beginTarotRecord() {
   pendingDice = null;
   pendingSpread = null;
-  if (activeSpread) {
-    if (!placedCards.length) { alert('请先放入卡牌'); return; }
-    pendingSpread = captureSpread();
-    _captureDataUrl = null;
-    openRecordPage(null);
-    return;
-  }
   _captureDataUrl = null;
-  captureRect.style.display = 'none';
-  captureTip.textContent = '拖拽选择要保存的区域';
-  captureConfirm.classList.remove('show');
-  captureCancel.classList.remove('show');
-  _selStart = null;
-  captureOverlay.classList.add('active');
+  if (!placedCards.some(c => c.isConnected)) { alert('请先放入卡牌'); return; }
+  pendingSpread = captureSpread();
+  openRecordPage(null);
 }
 recordBtn.addEventListener('click', () => chooseRecordKind());
 
@@ -8490,7 +8480,7 @@ function renderRecords() {
   }
   grid.innerHTML = records.map(r => `
     <div class="record-item" data-id="${r.id}">
-      ${r.dice ? '<div class="spread-record-thumbnail">占星骰子</div>' : r.spread ? `<div class="spread-record-thumbnail">${SPREADS[r.spread.type]?.name || "牌阵"}<br>${r.spread.cards.length} 张牌</div>` : `<img src="${r.img}" alt="记录">`}
+      ${r.dice ? '<div class="spread-record-thumbnail">占星骰子</div>' : r.spread ? `<div class="spread-record-thumbnail">${SPREADS[r.spread.type]?.name || "自由抽牌"}<br>${r.spread.cards.length} 张牌</div>` : `<img src="${r.img}" alt="记录">`}
       <div class="ri-info">
         <div class="ri-q">${escapeRecordText(r.question || '（无问题）')}</div>
         <div class="ri-date">${new Date(r.ts).toLocaleString()}</div>

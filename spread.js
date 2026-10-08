@@ -151,7 +151,7 @@ for (const [key, name] of [['', '自由摆牌'], ...Object.entries(SPREADS).filt
   const title = document.createElement('span'); title.className = 'spread-option-name'; title.textContent = name;
   const desc = document.createElement('span'); desc.className = 'spread-option-description'; desc.textContent = description;
   const note = document.createElement('span'); note.className = 'spread-option-note';
-  note.textContent = key ? `${SPREADS[key].slots.length} 个牌位 · 保存牌阵` : '不限牌位 · 框选截图';
+  note.textContent = key ? `${SPREADS[key].slots.length} 个牌位 · 保存牌阵` : '不限牌位 · 自动保存';
   text.append(title, desc, note);
   button.append(preview, text);
   button.dataset.spread = key;
@@ -198,7 +198,9 @@ function spreadGeometry() {
       height = Math.max(height, (cardHeight + 30) / Math.abs(y - otherY));
     }
   }));
-  const top = safeTop + Math.max(0, (availableHeight - height) / 2)
+  // Shift phone layouts down together with their snapped cards.
+  const mobileOffset = innerWidth <= 600 ? Math.min(42, innerHeight * .05) : 0;
+  const top = safeTop + Math.max(0, (availableHeight - height) / 2) + mobileOffset
     + (activeSpread === 'hexagram' ? Math.min(44, availableHeight * .08)
       : activeSpread === 'seasons' ? 20 : 0);
   return { left: (innerWidth - width) / 2, top, width, height, cardWidth, cardHeight };
@@ -273,10 +275,11 @@ window.addEventListener('resize', () => {
 
 function captureSpread() {
   const g = spreadGeometry();
-  return { type: activeSpread, slots: spreadSlots(), slotWidth: g.cardWidth / g.width, slotHeight: g.cardHeight / g.height, swapped: activeSpread === 'inspiration' && inspirationSwapped, aspect: g.width / g.height, cards: placedCards.filter(c => c.isConnected).map(c => {
+  const slots = activeSpread ? spreadSlots() : [];
+  return { type: activeSpread, slots, slotWidth: g.cardWidth / g.width, slotHeight: g.cardHeight / g.height, swapped: activeSpread === 'inspiration' && inspirationSwapped, aspect: g.width / g.height, cards: placedCards.filter(c => c.isConnected).map(c => {
     const r = c.getBoundingClientRect();
     const ratio = Number(c.style.getPropertyValue('--card-image-ratio')) || 2 / 3;
-    const slot = c.dataset.spreadSlot === undefined ? null : spreadSlots()[Number(c.dataset.spreadSlot)];
+    const slot = c.dataset.spreadSlot === undefined ? null : slots[Number(c.dataset.spreadSlot)];
     const width = slot ? Math.min(g.cardWidth, g.cardHeight * ratio) : r.width / (fanScale || 1);
     const height = width / ratio;
     const centerX = slot ? g.left + slot[1] * g.width : r.x + r.width / 2;
@@ -287,13 +290,13 @@ function captureSpread() {
 function showSpreadRecord(spread) {
   rpPhoto.replaceChildren();
   const tip = document.createElement('div'); tip.className = 'spread-record-tip';
-  tip.textContent = `${SPREADS[spread.type].name} · 点击卡牌放大查看`;
+  tip.textContent = `${SPREADS[spread.type]?.name || '自由抽牌'} · 点击卡牌放大查看`;
   const board = document.createElement('div'); board.className = 'spread-record-board';
   board.dataset.spread = spread.type;
   const aspect = spread.aspect || 1;
   const slotWidth = spread.slotWidth || Math.min(.22, (spread.cards.find(c => c.slot !== undefined)?.w || .2));
   const slotHeight = spread.slotHeight || slotWidth * 1.5 * (spread.aspect || 1);
-  const slots = spread.slots || SPREADS[spread.type].slots;
+  const slots = spread.slots || SPREADS[spread.type]?.slots || [];
   // Use width-based units for both axes so cropping preserves card proportions.
   const bounds = slots.map(([, x, y]) => ({
     left: x - slotWidth * .7, right: x + slotWidth * .7,

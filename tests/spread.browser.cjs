@@ -58,10 +58,31 @@ const assert = require('node:assert/strict');
       assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('magiccat_records'))[0].spread.cards.length), 5);
       await page.click('#tabSpread'); await page.click('[data-spread=""]');
       assert.equal(await page.evaluate(() => currentDeck.length), 78);
+      await page.evaluate(() => {
+        for (let i = 0; i < 5; i++) {
+          placeCardAt(currentDeck[i], i, 30 + i * 55, 110 + i * 25);
+          placedCards.at(-1).classList.add('revealed');
+        }
+      });
       await page.click('#recordBtn');
-      assert.equal(await page.locator('#captureOverlay.active').count(), 1);
+      assert.equal(await page.locator('#captureOverlay.active').count(), 0);
+      assert.equal(await page.locator('#recordPage .placed-card').count(), 5);
+      assert.equal(await page.locator('#recordPage .spread-record-slot').count(), 0);
+      await page.fill('#rpQuestion', '自由抽牌自动保存');
+      await page.click('#rpSave');
+      const free = await page.evaluate(() => JSON.parse(localStorage.getItem('magiccat_records'))[0]);
+      assert.equal(free.spread.type, null);
+      assert.equal(free.spread.cards.length, 5);
+      assert.equal(free.img, null);
+      await page.reload();
+      await page.click('#tabRec');
+      await page.locator('.record-item').first().click();
+      assert.equal(await page.locator('#recordPage .placed-card').count(), 5);
+      assert.equal(await page.inputValue('#rpQuestion'), '自由抽牌自动保存');
+      await page.locator('#recordPage .placed-card').first().click();
+      assert.equal(await page.locator('#cardZoom.active').count(), 1);
       assert.deepEqual(errors, []);
-      console.log(`PASS ${viewport.width}: layouts, snapping, save/reload, reversal, zoom, free screenshot`);
+      console.log(`PASS ${viewport.width}: layouts, snapping, save/reload, reversal, zoom, free automatic records`);
       await page.close();
     }
   } finally { await browser.close(); }
