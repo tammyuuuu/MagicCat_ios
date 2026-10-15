@@ -2655,6 +2655,8 @@ body #themeToggle:focus-visible { outline: 2px solid var(--paw-rim); outline-off
 }
 </style>
 <script src="pwa.js" defer></script>
+<link rel="stylesheet" href="love_library.css">
+<link rel="stylesheet" href="altar_mind.css">
 </head>
 <body data-world="west">
 <script>
@@ -2884,7 +2886,7 @@ body #themeToggle:focus-visible { outline: 2px solid var(--paw-rim); outline-off
 <!-- 意图面板（星愿笺） -->
 <div id="intentionPanel">
   <button id="intentionCloseBtn" type="button" title="关闭星愿笺" aria-label="关闭星愿笺"></button>
-  <div class="intention-emblem" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16.8 3.8A8.4 8.4 0 1 0 20.2 16 7.2 7.2 0 0 1 16.8 3.8Z"/><path d="m8 6 .35.85.85.35-.85.35L8 8.4l-.35-.85-.85-.35.85-.35L8 6Zm9.4 9.2.3.72.72.3-.72.3-.3.72-.3-.72-.72-.3.72-.3.3-.72Z"/></svg></div>
+  <div class="intention-emblem" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9.5" y="2" width="5" height="4" rx=".8"/><path d="M8.5 6h7M9 6v3C9 10.5 5.5 11.3 5.5 14v5a2.5 2.5 0 0 0 2.5 2.5h8a2.5 2.5 0 0 0 2.5-2.5v-5C18.5 11.3 15 10.5 15 9V6"/><g transform="rotate(-13 12 16)"><rect x="9.5" y="12.5" width="5" height="7" rx=".6"/><path d="M11 15h2M11 17h2"/></g></svg></div>
   <div class="panel-title">星 愿 笺</div>
   <textarea id="intentionInput" placeholder="写下你的愿望，投入许愿瓶...
 
@@ -2897,9 +2899,9 @@ body #themeToggle:focus-visible { outline: 2px solid var(--paw-rim); outline-off
 </div>
 <div id="intentionBackdrop"></div>
 
-<!-- 意图面板呼出按钮（信封图标，对齐 web） -->
-<button id="intentionTab" type="button" title="打开星愿笺" aria-label="打开星愿笺" aria-expanded="false">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h10.5A1.5 1.5 0 0 1 18 6v13H7.5A1.5 1.5 0 0 1 6 17.5z"/><path d="M6 17.5A1.5 1.5 0 0 1 7.5 16H18M9 8h6M9 11h4.5"/><path d="m15.5 3 .45 1.05L17 4.5l-1.05.45L15.5 6l-.45-1.05L14 4.5l1.05-.45z"/></svg>
+<!-- 许愿瓶入口 -->
+<button id="intentionTab" type="button" title="许愿瓶 · 写下心愿" aria-label="许愿瓶 · 写下心愿" aria-expanded="false">
+  <svg viewBox="0 0 24 24" aria-hidden="true" class="mind-entry-icon"><rect x="9.5" y="2" width="5" height="4" rx=".8"/><path d="M8.5 6h7M9 6v3C9 10.5 5.5 11.3 5.5 14v5a2.5 2.5 0 0 0 2.5 2.5h8a2.5 2.5 0 0 0 2.5-2.5v-5C18.5 11.3 15 10.5 15 9V6"/><g transform="rotate(-13 12 16)"><rect x="9.5" y="12.5" width="5" height="7" rx=".6"/><path d="M11 15h2M11 17h2"/></g></svg>
 </button>
 
 <!-- 左侧标签（固定常显，不随抽屉移动） -->
@@ -2924,18 +2926,11 @@ body #themeToggle:focus-visible { outline: 2px solid var(--paw-rim); outline-off
 
 
 <!-- 仪式模式入口：丰盛（下）/ 爱（上），位于星愿笺上下方 -->
-<button class="ritual-mode-btn" id="abundanceModeBtn" type="button" aria-label="丰盛 · 金钱练习" title="丰盛 · 金钱练习" data-tooltip="丰盛">
-  <svg viewBox="0 0 32 32" aria-hidden="true">
-    <circle cx="16" cy="16" r="11.2" fill="rgba(91,61,23,.28)"/>
-    <circle cx="16" cy="16" r="9" opacity=".38"/>
-    <path d="m11.7 9.8 4.3 5.1 4.3-5.1M16 14.9v8M11.6 16.5h8.8M11.6 19.5h8.8" stroke-width="1.75"/>
-  </svg>
+<button class="ritual-mode-btn" id="abundanceModeBtn" type="button" aria-label="心念 · 肯定语收藏馆" title="心念 · 肯定语收藏馆" data-tooltip="心念">
+  <svg viewBox="0 0 24 24" aria-hidden="true" class="mind-entry-icon"><path d="M10.5 3.5C11.8 10.1 12.9 11.2 19.5 12.5C12.9 13.8 11.8 14.9 10.5 21.5C9.2 14.9 8.1 13.8 1.5 12.5C8.1 11.2 9.2 10.1 10.5 3.5Z"/><path d="M19 2.5 20 5 22.5 6 20 7 19 9.5 18 7 15.5 6 18 5Z"/></svg>
 </button>
-<button class="ritual-mode-btn" id="loveModeBtn" type="button" aria-label="爱 · 爱之空间" title="爱 · 爱之空间" data-tooltip="爱">
-  <svg viewBox="0 0 32 32" aria-hidden="true">
-    <path d="M16 24.6S6.7 19.4 6.7 12.9c0-3.4 2.3-5.5 5.2-5.5 1.8 0 3.3.9 4.1 2.4.8-1.5 2.3-2.4 4.1-2.4 2.9 0 5.2 2.1 5.2 5.5 0 6.5-9.3 11.7-9.3 11.7Z" fill="rgba(111,49,78,.18)" stroke-width="1.35"/>
-    <path d="M10.4 11.8c.35-1.25 1.25-1.9 2.35-1.9" opacity=".52"/>
-  </svg>
+<button class="ritual-mode-btn" id="loveModeBtn" type="button" aria-label="心境 · SATS 沉浸式想象" title="心境 · SATS 沉浸式想象" data-tooltip="心境">
+  <svg viewBox="0 0 24 24" aria-hidden="true" class="mind-entry-icon"><path d="M21 12.8A9 9 0 1 1 11.2 3A7 7 0 0 0 21 12.8Z"/><path d="M18.5 2 19.5 4.5 22 5.5 19.5 6.5 18.5 9 17.5 6.5 15 5.5 17.5 4.5Z"/></svg>
 </button>
 
 <!-- 激活按钮 -->
@@ -2990,8 +2985,8 @@ body #themeToggle:focus-visible { outline: 2px solid var(--paw-rim); outline-off
 <!-- 布局保存对话框 -->
 <div id="layoutSaveDialog" aria-hidden="true">
   <div class="layout-save-card">
-    <div class="m-head">保 存 布 置</div>
-    <input id="layoutNameInput" type="text" maxlength="24" placeholder="给这次布置起一个名字">
+    <div class="m-head">保 存 愿 望</div>
+    <label for="layoutNameInput">选择主题</label><div class="wish-topic-choices"><button type="button" data-wish-topic="自我实现">自我实现</button><button type="button" data-wish-topic="爱">爱</button><button type="button" data-wish-topic="财富">财富</button><button type="button" data-wish-topic="健康">健康</button><button type="button" data-wish-topic="成长">成长</button><button type="button" data-wish-topic="生活">生活</button></div><input id="layoutNameInput" type="text" maxlength="24" placeholder="也可以输入自定义主题">
     <div class="confirm-acts">
       <button id="layoutSaveCancel">取 消</button>
       <button class="primary" id="layoutSaveConfirm">保 存</button>
@@ -3074,6 +3069,7 @@ body #themeToggle:focus-visible { outline: 2px solid var(--paw-rim); outline-off
 </section>
 
 <script src="abundance_core.js"></script>
+<script src="love_presets.js"></script>
 <script src="love_v01.js"></script>
 <script src="html2canvas.min.js"></script>
 <script>
@@ -3318,7 +3314,7 @@ wishGenerateBtn.addEventListener('click', () => {
   wishBottleEl = el;
   updateCount();
   if (isActivated) el.classList.add('activated');
-  showToast('✦ 许愿瓶已投入圆阵');
+  showToast('愿望已经写下。现在，去享受你的生活。');
   setIntentionPanel(false);   // 生成后收起面板
 });
 
@@ -3487,7 +3483,7 @@ function setupAltarItemDrag(el, onTap) {
 function removeFromAltar(el) {
   const idx = altarItems.findIndex(a => a.el === el);
   if (idx >= 0) {
-    if (wishBottleEl === el) wishBottleEl = null;
+    if (wishBottleEl === el) { wishBottleEl = null; window.AltarMind?.remove('wish'); }
     const name = el.dataset.type === 'bottle'
       ? '许愿瓶'
       : (DIVINATION_ITEMS.find(d => d.id === altarItems[idx].id)?.name || '物品');
@@ -3510,12 +3506,14 @@ function updateCount() {
 // ============================================================
 const altarClearBtn = document.getElementById('altarClearBtn');
 altarClearBtn.addEventListener('click', () => {
-  if (altarItems.length === 0) { showToast('✦ 圆阵空空如也'); return; }
+  if (altarItems.length === 0 && !window.AltarMind?.hasContent()) { showToast('✦ 圆阵空空如也'); return; }
   const n = altarItems.length;
   altarItems.forEach(a => a.el.remove());
   altarItems = [];
+  wishBottleEl = null;
+  window.AltarMind?.clear();
   updateCount();
-  showToast(`✦ 已清空圆阵（${n} 件物品）`);
+  showToast('✦ 已清空圆阵');
 });
 
 // ============================================================
@@ -3660,10 +3658,7 @@ function closeLayoutSaveDialog() {
   layoutSaveDialog.setAttribute('aria-hidden', 'true');
 }
 
-function defaultLayoutName() {
-  const d = new Date();
-  return `星愿布置 ${d.getMonth() + 1}月${d.getDate()}日`;
-}
+
 
 function serializeCurrentLayout(name) {
   const aw = Math.max(1, altar.offsetWidth);
@@ -3673,6 +3668,7 @@ function serializeCurrentLayout(name) {
     name,
     ts: Date.now(),
     activated: isActivated,
+    mind: window.AltarMind?.snapshot(),
     items: altarItems.map(item => ({
       id: item.id,
       type: item.type,
@@ -3724,6 +3720,7 @@ function restoreLayout(layout) {
       restoredEl.style.top = (saved.top * ah) + 'px';
     }
   });
+  window.AltarMind?.restore(layout.mind || {});
   isActivated = !!layout.activated;
   activateBtn.classList.toggle('active', isActivated);
   activateBtn.querySelector('.btn-text').textContent = isActivated ? '显 化 中' : '显 化';
@@ -3737,23 +3734,26 @@ function restoreLayout(layout) {
 }
 
 manifestRecordBtn.addEventListener('click', () => {
-  if (!altarItems.length) { showToast('✦ 圆阵空空如也，请先放入物品'); return; }
-  layoutNameInput.value = defaultLayoutName();
+  if (!altarItems.length && !window.AltarMind?.hasContent()) { showToast('✦ 圆阵空空如也，请先放入物品'); return; }
+  layoutNameInput.value = window.AltarMind?.get().topic || '自我实现';
   layoutSaveDialog.classList.add('open');
   layoutSaveDialog.setAttribute('aria-hidden', 'false');
   setTimeout(() => { layoutNameInput.focus(); layoutNameInput.select(); }, 0);
 });
 
 layoutSaveConfirm.addEventListener('click', () => {
-  const name = layoutNameInput.value.trim();
-  if (!name) { layoutNameInput.focus(); return; }
+  const topic = layoutNameInput.value.trim();
+  const name = '我的愿望 · ' + topic;
+  if (!topic) { layoutNameInput.focus(); return; }
+  window.AltarMind?.setTheme(topic);
   const records = loadRecords();
   records.unshift(serializeCurrentLayout(name));
   persistRecords(records);
   closeLayoutSaveDialog();
   renderRecords();
-  showToast(`✦ 已保存布置「${name}」`);
+  showToast(`✦ 已保存「${name}」`);
 });
+document.querySelectorAll('[data-wish-topic]').forEach(button=>button.addEventListener('click',()=>{layoutNameInput.value=button.dataset.wishTopic;document.querySelectorAll('[data-wish-topic]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));}));
 layoutSaveCancel.addEventListener('click', closeLayoutSaveDialog);
 layoutSaveDialog.addEventListener('click', e => { if (e.target === layoutSaveDialog) closeLayoutSaveDialog(); });
 layoutNameInput.addEventListener('keydown', e => {
@@ -3925,19 +3925,16 @@ function renderRecords() {
   const grid = document.getElementById('recGrid');
   const records = loadRecords();
   if (!records.length) {
-    grid.innerHTML = '<div class="record-empty">暂无布置<br>点右下角按钮保存当前布置</div>';
+    grid.innerHTML = '<div class="record-empty">暂无记录<br>点下方记录按钮保存我的愿望</div>';
     return;
   }
   grid.innerHTML = records.map(r => {
-    const count = (r.items || []).length;
+    const count = (r.items || []).length + (r.mind?.affirmations?.length || 0) + (r.mind?.sats?.length || 0);
     const activated = r.activated ? ' · 显化中' : '';
     const date = r.ts ? new Date(r.ts).toLocaleString() : '';
     return `
-    <div class="record-item" data-id="${r.id}">
-      <div class="ri-info">
-        <div class="ri-q">${r.name || '未命名布置'}${activated}</div>
-        <div class="ri-date">${count} 件物品 · ${date}</div>
-      </div>
+    <div class="record-item mind-record-card" data-id="${r.id}">
+      <button type="button" class="mind-record-main" aria-label="查看并恢复记录">${window.AltarMind.card(r.mind,r.name||'未命名布置',date, count+' 件圆阵元素'+activated)}</button>
       <button type="button" class="ri-delete" aria-label="删除这条记录" title="删除">✕</button>
     </div>
   `;
@@ -4156,8 +4153,8 @@ updateCount();
 function setRitualMode(mode) {
   currentRitualMode = mode;
   document.body.classList.toggle('ritual-special', mode !== 'free');
-  document.body.classList.toggle('mode-abundance', mode === 'abundance');
-  document.body.classList.toggle('mode-love', mode === 'love');
+  document.body.classList.remove('mode-abundance');
+  document.body.classList.toggle('mode-love', mode === 'love' || mode === 'abundance');
   abundanceModeBtn.classList.toggle('active', mode === 'abundance');
   loveModeBtn.classList.toggle('active', mode === 'love');
   abundanceModeBtn.setAttribute('aria-pressed', String(mode === 'abundance'));
@@ -4167,10 +4164,10 @@ function setRitualMode(mode) {
   if (typeof recDrawer !== 'undefined') { recDrawer.classList.remove('open'); recDrawer.classList.add('closed'); }
   var btnText = activateBtn.querySelector('.btn-text');
   if (mode === 'free') { btnText.textContent = isActivated ? '显 化 中' : '显 化'; }
-  else { btnText.textContent = mode === 'abundance' ? '离开丰盛' : '离开爱'; }
-  if (mode === 'abundance') { setActiveRitualView(abundanceWorkspace); openAbundanceScreen('home'); }
-  else if (mode === 'love') { renderLove(); }
-  else { setActiveRitualView(null); }
+  else { btnText.textContent = mode === 'abundance' ? '离开心念' : '离开心境'; }
+  if (mode === 'abundance') { setActiveRitualView(lovePreview); window.LoveV01.enter('affirmations'); }
+  else if (mode === 'love') { setActiveRitualView(lovePreview); window.LoveV01.enter('sats'); }
+  else { window.LoveV01.leave(); setActiveRitualView(null); }
   updateCount();
 }
 /* 进入仪式模式时关闭可能开启的全屏/弹层 */
@@ -4243,5 +4240,6 @@ exitOverlaysForRitual();
 })();
 </script>
 
+<script src="altar_mind.js"></script>
 </body>
 </html>
