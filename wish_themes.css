@@ -1,0 +1,229 @@
+/* M288 四象祝祷：共用愿望流程，玄武投币池。 */
+html[data-wish-theme="rouge"]{--bg0:#310b08;--bg1:#39150f;--bg2:#54251a;--ink:#ead9b8;--ink-dim:#c5ad94;--jade:#d6b780;--jade-dim:#c5ad94;--gold:#dec28b;--gold-hi:#f2ddad;--bronze:#b48f59;--line:#b48f5966;--line-soft:#b48f5933;--wash:#310b08b3;--cloth:url('图片/已批准/zhuque_brocade_tile_master_v01.png');}
+html[data-wish-theme="paper"]{--bg0:#fffdf7;--bg1:#fffdf6;--bg2:#f7efd9;--ink:#292720;--ink-dim:#716554;--jade:#806b45;--jade-dim:#716554;--gold:#806337;--gold-hi:#6b502b;--bronze:#bba06a;--line:#bba06a88;--line-soft:#bba06a44;--wash:#fffdf7aa;--cloth:url('图片/已批准/baihu_brocade_tile_master_v01.png');}
+html[data-wish-theme="jade"]{--bg0:#0b1929;--bg1:#12273b;--bg2:#1d3850;--ink:#e9e0cf;--ink-dim:#b1c2ce;--jade:#8daec7;--jade-dim:#b1c2ce;--gold:#d1b77f;--gold-hi:#eed6a4;--bronze:#b49a65;--line:#b49a6566;--line-soft:#b49a6533;--wash:#0b1929bb;--cloth:url('图片/已批准/xuanwu_brocade_tile_master_v01.png');}
+html[data-wish-theme="apricot"]{--bg0:#edf4e9;--bg1:#f7faf0;--bg2:#e3efd9;--ink:#242d26;--ink-dim:#55715e;--jade:#386b52;--jade-dim:#55715e;--gold:#71552b;--gold-hi:#66502d;--bronze:#a99b6d;--line:#a99b6d88;--line-soft:#a99b6d44;--wash:#edf4e9cc;--cloth:url('图片/已批准/qinglong_brocade_tile_master_v01.png');}
+html[data-wish-theme] .desk{background:linear-gradient(var(--wash),var(--wash)),var(--cloth) repeat;background-size:auto,640px 640px;}
+html[data-wish-theme] .desk::before{display:none;}
+html[data-wish-theme] :is(.modal,.detail,.traces-drawer,.confirm,.toast){background:var(--bg1);color:var(--ink);box-shadow:none;}
+html[data-wish-theme] :is(.east-nav-link,.traces-prop,.wish-name){background:var(--bg1);color:var(--ink);backdrop-filter:none;}
+html[data-wish-theme] :is(.field input,.field textarea,.trace-text){background:var(--bg0);color:var(--ink);border-color:var(--line);}
+html[data-wish-theme] :is(.altar-body,.m-submit){background:var(--bg2);color:var(--gold-hi);box-shadow:none;}
+html[data-wish-theme] .wish{filter:none;}
+.wish-palette{position:fixed;top:12px;left:50%;transform:translateX(-50%);display:flex;gap:10px;padding:7px 10px;border:1px solid var(--line);border-radius:24px;background:var(--bg1);z-index:2700;}
+.wish-palette button{width:19px;height:19px;padding:0;border:1px solid #a8926b;border-radius:50%;cursor:pointer;}
+.wish-palette button[aria-pressed="true"]{outline:1px solid var(--bronze);outline-offset:4px;}
+.pond-stage{display:none;position:fixed;inset:0;z-index:3;pointer-events:none;}
+html[data-wish-theme="jade"] .pond-stage{display:block;}
+html[data-wish-theme="jade"] .tree-svg,html[data-wish-theme="jade"] .tree-bg::before{visibility:hidden;}
+.pond-scene{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:min(76vw,820px);height:min(65vh,640px);}
+.pond-scene svg{width:100%;height:100%;overflow:visible;}
+.pond-caption{position:absolute;top:72px;left:0;right:0;text-align:center;color:var(--gold-hi);font-size:22px;letter-spacing:8px;}
+.pond-caption small{display:block;margin-top:14px;font-size:12px;letter-spacing:3px;color:var(--ink-dim);}
+.pond-coin{position:absolute;left:50%;top:15%;width:44px;height:44px;background:url('图片/已批准/xuanwu_coin_front_master_v02.png') center/contain no-repeat;opacity:0;}
+.pond-stage.toss .pond-coin{animation:pondToss 1.2s ease-in forwards;}
+.pond-ripple{position:absolute;left:50%;top:56%;width:20px;height:10px;border:1px solid #c7dce6;border-radius:50%;opacity:0;transform:translate(-50%,-50%);}
+.pond-stage.toss .pond-ripple{animation:pondRipple 1.5s .9s ease-out forwards;}
+@keyframes pondToss{0%{opacity:1;transform:translate(-50%,-100px) rotateY(0) scale(1.2)}75%{opacity:1}100%{opacity:0;top:56%;transform:translate(-50%,0) rotateY(720deg) scale(.45)}}
+@keyframes pondRipple{0%{opacity:.9}100%{opacity:0;width:260px;height:100px}}
+html[data-wish-theme="jade"] .wish .wish-obj{width:38px;height:38px;animation:none;background:url('图片/已批准/xuanwu_coin_front_master_v02.png') center/contain no-repeat;}
+html[data-wish-theme="jade"] .wish .wish-obj svg{display:none;}
+html[data-wish-theme="jade"] .wish{width:64px;}
+html[data-wish-theme="jade"] #carrierGrid{display:none;}
+
+@media(max-width:700px){.wish-palette{top:58px}.pond-caption{top:110px;font-size:18px}.pond-scene{width:94vw;height:50vh;top:51%;}.pond-caption small{font-size:10px;letter-spacing:1px;}.altar{bottom:70px}.tree-bg{width:min(90vw,80vh)}.wish-name{max-width:60px;}.wish{width:48px}.wish-obj{width:35px;height:52px}}
+@media(prefers-reduced-motion:reduce){.pond-stage.toss .pond-coin{animation-duration:.1s}.pond-stage.toss .pond-ripple{animation-delay:0s;animation-duration:.2s}}
+html[data-wish-theme="jade"] .tree-bg{top:48%;transform:translate(-50%,-50%);width:min(76vw,820px);height:min(65vh,640px);aspect-ratio:auto;}
+@media(max-width:700px){html[data-wish-theme="jade"] .tree-bg{width:94vw;height:50vh;top:51%;}}
+html[data-wish-theme="jade"] .tree-stage{z-index:4;pointer-events:none;}
+html[data-wish-theme="jade"] .tree-stage .wish{pointer-events:auto;}
+
+/* M289 配色切换器与玄鸟占卜桌同尺寸。 */
+.wish-palette{height:30px;margin:0;padding:0 10px;border-radius:16px;align-items:center;gap:9px;}
+.wish-palette button{position:relative;display:grid;place-items:center;width:14px;height:14px;border:1px solid #8885;}
+.wish-palette button[aria-pressed="true"]{outline:none;}
+.wish-palette button[aria-pressed="true"]::after{content:'';position:absolute;inset:-4px;border:1px solid var(--gold-hi);border-radius:50%;pointer-events:none;}
+.wish-palette button:focus-visible{outline:2px solid var(--bronze);outline-offset:3px;}
+@media(max-width:700px){.wish-palette{gap:7px;padding:0 8px}.wish-palette button{width:12px;height:12px}}
+
+/* M290 安静的仪式场景，前景入口与底景共处一个层级。 */
+html[data-wish-theme] .tree-svg,html[data-wish-theme] .tree-bg::before{display:none;}
+html[data-wish-theme] .tree-stage{z-index:4;pointer-events:none;}
+html[data-wish-theme] .tree-stage .wish{pointer-events:auto;}
+html[data-wish-theme] .tree-bg{top:48%;transform:translate(-50%,-50%);width:min(76vw,820px);height:min(65vh,640px);aspect-ratio:auto;}
+.ritual-stage{position:fixed;inset:0;z-index:3;pointer-events:none;}
+.ritual-caption{position:absolute;top:100px;width:100%;text-align:center;padding:0 24px;box-sizing:border-box;}
+.ritual-caption h1{font-size:25px;font-weight:400;letter-spacing:6px;color:var(--gold-hi);margin:0 0 20px;}
+.ritual-caption p{font-size:13px;letter-spacing:2px;color:var(--ink-dim);line-height:1.8;}
+.ritual-scene{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:min(70vw,680px);height:340px;}
+.ritual-fire,.ritual-guard,.ritual-garden{display:none;position:absolute;inset:0;}
+[data-wish-theme=rouge] .ritual-fire,[data-wish-theme=paper] .ritual-guard,[data-wish-theme=apricot] .ritual-garden{display:block;}
+[data-wish-theme=jade] .ritual-stage{display:none;}
+.ritual-fire>span{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);font-size:86px;color:#d5a762;opacity:.8;}
+.fire-bowl{position:absolute;bottom:12%;left:15%;width:70%;height:110px;border:2px solid #b68a4f;border-radius:8px 8px 45% 45%;background:linear-gradient(#5c241b,#34170f);}
+.fire-bowl::before{content:'';position:absolute;left:-2px;right:-2px;top:-13px;height:25px;border:2px solid #c49b61;border-radius:50%;background:#28120d;}
+.guard-disc{position:absolute;left:50%;top:15%;transform:translateX(-50%);width:180px;height:180px;border:1px solid #bca77b;border-radius:50%;background:#f7f1de;color:#7e6841;display:grid;place-items:center;font-size:60px;outline:1px solid #d7c79e;outline-offset:-12px;}
+.guard-base{position:absolute;left:20%;right:20%;bottom:20%;height:42px;background:#e4d8b9;border:1px solid #b7a582;border-radius:50% 50% 5px 5px;}
+.garden-ring{position:absolute;left:8%;right:8%;bottom:5%;height:120px;border:1px solid #83916a;border-radius:50%;background:#bac8a34d;}
+.garden-sprout{position:absolute;left:50%;top:15%;transform:translateX(-50%);font-size:180px;color:#426b47;}
+.garden-sprout svg{display:block;width:160px;height:180px;}
+.ritual-token{display:grid;place-items:center;height:48px;width:34px;font-size:20px;border:1px solid #baa071;}
+.sealed-letter{background:#b38b54;color:#391b12;}
+.jade-vow{background:#faf5e6;color:#7b663e;border-radius:8px;}
+html[data-wish-theme] .wish-obj{animation:none;}
+.burning-sheet{opacity:0;position:absolute;left:50%;top:0;width:48px;height:70px;background:#e3cfa8;color:#6b3024;font-style:normal;text-align:center;line-height:70px;}
+.ritual-play .burning-sheet{animation:burnLetter 2.2s ease-in forwards;}
+@keyframes burnLetter{0%{opacity:1;transform:translate(-50%,-30px)}55%{opacity:1;transform:translate(-50%,170px);background:#c4793a}100%{opacity:0;transform:translate(-50%,120px) scale(.2)}}
+.ritual-play .guard-disc{animation:vowSeal 1.5s ease-out;}
+@keyframes vowSeal{50%{outline-offset:0;outline-color:#9e763f}100%{outline-offset:-12px}}
+.ritual-play .garden-sprout{animation:seedGrow 1.8s ease-out;}
+@keyframes seedGrow{0%{transform:translateX(-50%) scale(.3)}100%{transform:translateX(-50%) scale(1)}}
+@media(max-width:700px){html[data-wish-theme] .tree-bg{width:94vw;height:50vh;top:51%;}.ritual-caption{top:110px}.ritual-caption h1{font-size:20px;letter-spacing:3px}.ritual-caption p{font-size:12px;letter-spacing:1px}.ritual-scene{width:90vw;height:270px;top:53%}.guard-disc{width:140px;height:140px;font-size:45px}.garden-sprout{font-size:145px}}
+@media(prefers-reduced-motion:reduce){.ritual-play *{animation:none!important;}}
+
+/* M292 焚笺过程、守约台与分散种植。 */
+.ritual-fire{isolation:isolate;}
+.burning-sheet{z-index:7;width:82px;height:116px;left:50%;top:15%;line-height:2;padding-top:26px;box-sizing:border-box;font-size:13px;letter-spacing:3px;border:1px solid #b99862;background:#e3cfa8;}
+.fire-flames{position:absolute;left:29%;right:29%;bottom:38%;height:125px;z-index:8;opacity:.18;}
+.fire-flames i{position:absolute;bottom:0;width:30%;height:85%;border-radius:80% 15% 60% 35%;background:linear-gradient(0deg,#cf4a21,#e7a44b 65%,#f2d48b);transform:rotate(-12deg);transform-origin:50% 100%;}
+.fire-flames i{border-radius:0;clip-path:polygon(50% 0,62% 28%,80% 12%,78% 45%,100% 70%,85% 93%,55% 100%,20% 92%,0 70%,22% 40%,30% 15%,38% 40%);}
+.fire-flames i::after{content:'';position:absolute;inset:40% 25% 0;background:#f1d384;clip-path:polygon(50% 0,100% 75%,75% 100%,25% 100%,0 75%);}
+.fire-flames i:nth-child(2){left:20%;height:65%;transform:rotate(12deg)}.fire-flames i:nth-child(3){left:40%;height:100%;}.fire-flames i:nth-child(4){left:60%;height:70%;transform:rotate(15deg)}.fire-flames i:nth-child(5){left:75%;height:55%;}
+.fire-status{position:absolute;top:104%;width:100%;text-align:center;font-size:13px;letter-spacing:3px;color:var(--ink);}
+.ritual-play .burning-sheet{animation:burnPaper 4.8s .4s ease-in both;}
+.ritual-play .fire-flames{animation:fireRise 4.8s .4s both;}
+.ritual-play .fire-flames i{animation:flameDance .45s infinite alternate;}
+.fire-ashes{position:absolute;left:35%;right:35%;top:45%;height:120px;z-index:9;opacity:0;}
+.fire-ashes i{position:absolute;width:5px;height:7px;background:#d8ac65;left:10%;top:50%;}
+.fire-ashes i:nth-child(2){left:30%;top:60%}.fire-ashes i:nth-child(3){left:50%;top:40%}.fire-ashes i:nth-child(4){left:70%;top:70%}.fire-ashes i:nth-child(5){left:85%;top:20%}
+.ritual-play .fire-ashes{animation:ashRise 2s 3s both;}
+[data-wish-theme=rouge] .desk:has(.ritual-play) .wish{opacity:0;pointer-events:none;}
+@keyframes burnPaper{0%{opacity:1;transform:translate(-50%,-70px);clip-path:inset(0)}25%{opacity:1;transform:translate(-50%,55px);background:#e3cfa8}50%{opacity:1;transform:translate(-50%,55px);background:#8b4327;clip-path:polygon(0 0,100% 0,100% 75%,88% 83%,74% 69%,54% 90%,38% 77%,20% 95%,0 83%)}80%{opacity:.8;transform:translate(-50%,75px);background:#33211a;clip-path:inset(0 0 85%)}100%{opacity:0;transform:translate(-50%,60px) scale(.3);clip-path:inset(0 0 100%)}}
+@keyframes fireRise{0%{opacity:.2;transform:scaleY(.4)}25%,65%{opacity:1;transform:scaleY(1)}100%{opacity:.18;transform:scaleY(.45)}}
+@keyframes flameDance{to{transform:rotate(8deg) scaleX(.8) scaleY(.85)}}
+@keyframes ashRise{0%{opacity:0;transform:translateY(0)}20%{opacity:1}100%{opacity:0;transform:translateY(-160px) translateX(30px)}}
+.ritual-guard .guard-disc{left:25%;top:5%;width:150px;height:240px;border:0;outline:0;border-radius:0;background: url('图片/已批准/baihu_records_whitejade_web_v03.svg') center/contain no-repeat;}
+.vow-scroll{position:absolute;left:43%;top:5%;width:43%;height:230px;border-top:5px solid #baa57a;border-bottom:5px solid #baa57a;background:#f7f0de;color:#443a2d;padding:24px 20px;box-sizing:border-box;text-align:center;}
+.vow-scroll small{font-size:11px;letter-spacing:4px;color:#7d6540;}.vow-scroll h2{font-size:18px;letter-spacing:2px;font-weight:400;margin:20px 0 16px}.vow-scroll p{font-size:12px;line-height:2;color:#675d4c;}.vow-seal{position:absolute;right:16px;bottom:14px;width:28px;height:28px;display:grid;place-items:center;border:1px solid #a99a74;color:#87734e;font-size:16px;}
+.ritual-guard .guard-base{bottom:20%;left:12%;right:12%;height:25px;border-radius:3px;background:#e1d5b7;}
+.vow-steps{position:absolute;top:88%;left:10%;right:10%;display:flex;justify-content:space-around;color:#68583f;font-size:13px;letter-spacing:2px;}
+html[data-wish-theme=paper] .tree-bg{top:76%;height:160px;}
+[data-wish-theme=paper] .wish-name{background:#f7f0de;border-bottom:1px solid #bbaa7a;}
+[data-wish-theme=apricot] .wish{width:130px;}
+[data-wish-theme=apricot] .wish .wish-obj{width:120px;height:155px;}
+[data-wish-theme=apricot] .wish-name{max-width:125px;font-size:12px;background:#f7faf0d9;}
+[data-wish-theme=apricot] .desk:has(.wish) .garden-sprout{display:none;}
+[data-wish-theme=apricot] .garden-ring{left:0;right:0;height:70%;bottom:-25%;background:#bac8a324;border-color:#a2ac85;}
+@media(max-width:700px){.ritual-guard .guard-disc{left:23%;width:90px;height:180px;top:0}.vow-scroll{left:40%;width:56%;height:190px;padding:18px 10px;top:0}.vow-scroll h2{font-size:14px;letter-spacing:0;margin:18px 0 12px}.vow-scroll p{font-size:11px}.vow-steps{font-size:11px;letter-spacing:1px;top:85%}html[data-wish-theme=paper] .tree-bg{top:76%;height:125px;}[data-wish-theme=apricot] .wish{width:95px;}[data-wish-theme=apricot] .wish .wish-obj{width:90px;height:120px;}[data-wish-theme=apricot] .wish-name{max-width:95px;font-size:10px;}.fire-flames{left:25%;right:25%;height:105px;}.fire-status{font-size:11px;letter-spacing:1px;}}
+@media(prefers-reduced-motion:reduce){.ritual-play .fire-flames{opacity:1}.ritual-play .burning-sheet{opacity:1;transform:translate(-50%,55px)}}
+html[data-wish-theme="rouge"] .traces-prop,html[data-wish-theme="rouge"] .traces-drawer,html[data-wish-theme="rouge"] #hangers{display:none!important;}
+html[data-wish-theme=paper] .ritual-guard .vow-scroll{left:50%;transform:translateX(-50%);}
+html[data-wish-theme=paper] #tracesProp,html[data-wish-theme=paper] #tracesDrawer,html[data-wish-theme=paper] #tracesMask{display:none!important;}
+html[data-wish-theme=paper] :is(.ritual-stage,.tree-bg,#hangers,.altar-prop){display:none!important;}
+.tiger-scrolls{display:none;position:relative;width:min(920px,90vw);margin:150px auto 80px;gap:42px;align-items:start;z-index:10;}
+html[data-wish-theme=paper] .tiger-scrolls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}
+.tiger-scroll{color:#302e28;border:0;min-width:0;}
+.tiger-scroll>summary{list-style:none;cursor:pointer;text-align:center;padding:14px 20px;background:linear-gradient(#c9bfa0,#eee5ca,#c9bfa0);border-radius:5px;font:18px/1.6 'Noto Serif SC','Songti SC',serif;letter-spacing:3px;box-shadow:none;}
+.tiger-scroll>summary::-webkit-details-marker{display:none;}
+.tiger-scroll>summary::after{content:'⌄';float:right;letter-spacing:0;}
+.tiger-scroll[open]>summary::after{content:'⌃';}
+.task-count{font-size:12px;letter-spacing:0;}
+.scroll-paper{padding:24px 26px 32px;background:#fffdf4;border-left:1px solid #dcd3bc;border-right:1px solid #dcd3bc;border-bottom:9px solid #c9bfa0;transform-origin:top;animation:scrollUnroll .3s ease-out;}
+.tiger-task{padding:16px 0;border-bottom:1px solid #ded7c4;}
+.tiger-task>span{font-size:17px;line-height:1.7;}
+.tiger-task p{font-size:13px;line-height:1.9;color:#625d50;white-space:pre-wrap;margin:8px 0;}
+.tiger-task small{font-size:11px;color:#85795f;}
+.tiger-task-actions{display:flex;gap:18px;margin-top:12px;}
+.tiger-scroll button{border:0;background:transparent;color:#806337;padding:6px 0;font:13px/1.7 inherit;cursor:pointer;}
+.tiger-task-actions button:last-child{color:#888176;font-size:11px;}
+.tiger-add{margin-top:18px;}
+.scroll-empty{font-size:13px;color:#8a8374;line-height:1.9;}
+@keyframes scrollUnroll{from{opacity:0;transform:scaleY(.95)}to{opacity:1;transform:scaleY(1)}}
+@media(max-width:700px){html[data-wish-theme=paper] .tiger-scrolls{grid-template-columns:1fr;gap:26px;margin-top:120px;}.scroll-paper{padding:16px 20px 26px;}}
+html[data-wish-theme=paper] #altarBtn{display:none!important;}
+.tiger-task{position:relative;}
+.tiger-task:has(.tiger-paw-stamp){padding-right:58px;}
+.tiger-paw-stamp{position:absolute;right:0;bottom:16px;width:46px;height:46px;color:#a04c3c;transform:rotate(-12deg);opacity:.85;animation:tigerStamp .45s ease-out;}
+.tiger-paw-stamp svg{width:100%;height:100%;}
+@keyframes tigerStamp{from{opacity:0;transform:rotate(-12deg) scale(1.5)}60%{opacity:.9;transform:rotate(-12deg) scale(.95)}to{opacity:.85;transform:rotate(-12deg) scale(1)}}
+@media(prefers-reduced-motion:reduce){.tiger-paw-stamp{animation:none;}}
+html[data-wish-theme=apricot] :is(#tracesProp,#tracesDrawer,#tracesMask){display:none!important;}
+html[data-wish-theme=apricot] .desk .garden-sprout{display:block!important;transform:translateX(-50%) scale(var(--grass-growth,1));transform-origin:bottom center;transition:transform 1s ease;top:5%;}
+.garden-watering-can{position:absolute;right:3%;bottom:0;width:130px;border:0;background:transparent;color:#426b47;cursor:pointer;z-index:10;font:14px/1.8 'Noto Serif SC','Songti SC',serif;}
+.garden-watering-can svg{display:block;width:100%;height:100px;}
+.garden-watering-can span{letter-spacing:4px;}
+.garden-watering-can:disabled{opacity:.8;}
+.watering .garden-watering-can svg{transform:rotate(-20deg);transition:transform .4s;}
+.garden-water-drops{position:absolute;right:23%;top:48%;width:80px;height:90px;pointer-events:none;display:none;}
+.watering .garden-water-drops{display:block;}
+.garden-water-drops i{position:absolute;width:4px;height:10px;border-radius:50%;background:#7caaa3;animation:waterFall .8s infinite;}
+.garden-water-drops i:nth-child(2){left:20px;animation-delay:.2s;}.garden-water-drops i:nth-child(3){left:40px;animation-delay:.4s;}.garden-water-drops i:nth-child(4){left:60px;animation-delay:.1s;}
+.garden-water-status{position:absolute;bottom:-36px;left:0;right:0;text-align:center;font-size:12px;color:#426b47;}
+@keyframes waterFall{from{transform:translate(30px,-10px);opacity:0}40%{opacity:1}to{transform:translate(-25px,70px);opacity:0}}
+@media(max-width:700px){.garden-watering-can{right:0;width:90px;bottom:5%;}.garden-watering-can svg{height:70px;}.garden-water-status{font-size:11px;}}
+.garden-watering-can{pointer-events:auto;}
+html[data-wish-theme=apricot] #hangers{display:none!important;}.garden-watering-can{touch-action:none;user-select:none;cursor:grab;}.garden-watering-can.dragging{cursor:grabbing;}
+.garden-watering-can .garden-water-drops{left:76%;right:auto;top:35%;width:50px;height:90px;}.garden-watering-can .garden-water-drops i:nth-child(2){left:10px;}.garden-watering-can .garden-water-drops i:nth-child(3){left:20px;}.garden-watering-can .garden-water-drops i:nth-child(4){left:30px;}
+html[data-wish-theme=apricot] .desk .garden-sprout{top:auto;bottom:calc(10% - 10px);transform-origin:50% calc(100% - 10px);}
+html[data-wish-theme=apricot] #altarBtn{display:none!important;}
+.garden-cycle{position:absolute;left:50%;bottom:-4%;transform:translateX(-50%);border:0;background:transparent;color:#426b47;font:14px/1.8 'Noto Serif SC','Songti SC',serif;cursor:pointer;pointer-events:auto;z-index:10;padding:8px 12px;}
+.garden-cycle[hidden],.garden-watering-can[hidden],html[data-wish-theme=apricot] .desk .garden-sprout[hidden]{display:none!important;}
+.garden-flower-basket{display:none;position:absolute;left:5%;bottom:7%;z-index:20;width:220px;color:#426b47;}
+html[data-wish-theme=apricot] .garden-flower-basket{display:block;}
+.garden-flower-basket summary{cursor:pointer;font:15px/1.8 'Noto Serif SC','Songti SC',serif;}
+.garden-harvest-list{max-height:160px;overflow:auto;padding:8px 12px;background:#f3f7edee;}
+.garden-harvest-list p{font-size:12px;line-height:1.9;margin:6px 0;}
+@media(max-width:700px){.garden-flower-basket{left:5%;bottom:4%;width:180px;}.garden-cycle{font-size:12px;}}
+
+/* M360：编织花篮，收获花朵直接呈现在篮中。 */
+.garden-flower-basket{width:160px;bottom:6%;}
+.garden-flower-basket summary{list-style:none;text-align:center;}
+.garden-flower-basket summary::-webkit-details-marker{display:none;}
+.garden-basket-art{display:block;width:160px;height:138px;transition:transform .2s;}
+.garden-flower-basket summary:hover .garden-basket-art{transform:translateY(-3px);}
+.garden-basket-caption{display:block;font-size:12px;letter-spacing:2px;}
+.garden-flower-basket .garden-harvest-list{position:absolute;bottom:100%;left:0;width:200px;box-sizing:border-box;border-radius:6px;}
+@media(max-width:700px){.garden-flower-basket{width:100px;bottom:7%;}.garden-basket-art{width:100px;height:86px;}.garden-basket-caption{font-size:11px;}}
+
+
+.garden-seed-library{position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);width:min(520px,90vw);padding:18px;box-sizing:border-box;background:#eff3e6f5;border:1px solid #98aa8b;border-radius:12px;z-index:30;pointer-events:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;box-shadow:0 8px 30px #39513720;}
+.garden-seed-library[hidden]{display:none;}.garden-seed-library p{grid-column:1/-1;text-align:center;color:#426b47;margin:0 0 8px;font-size:15px;}.garden-seed-library button{border:0;background:transparent;padding:4px;cursor:pointer;color:#426b47;font-family:serif;}.garden-seed-library button:hover{background:#dce5d2;border-radius:6px;}.garden-seed-library svg{display:block;width:100%;height:76px;}.garden-seed-library span,.garden-seed-library small{display:block;font-size:12px;line-height:1.8;}.garden-seed-library small{font-size:10px;opacity:.75;}.garden-seed-cancel{grid-column:1/-1;font-size:12px;}
+@media(max-width:700px){.garden-seed-library{padding:12px;gap:2px;}.garden-seed-library svg{height:60px;}}
+
+
+/* M362：世界入口随四象主题配色。 */
+html[data-wish-theme] .world-switch--east{--ws-ink:var(--gold);--ws-ink-hi:var(--gold-hi);--ws-border:var(--line);--ws-border-hi:var(--bronze);--ws-halo:var(--line-soft);--ws-glow:var(--line);background:var(--bg1);box-shadow:0 0 0 4px var(--line-soft);}
+html[data-wish-theme] .world-switch--east:hover{background:var(--bg2);box-shadow:0 0 0 4px var(--line-soft);}
+html[data-wish-theme] .world-switch .ws-tip{background:var(--bg1);color:var(--ink);border-color:var(--line);}
+
+
+/* M363：空地播种主按钮。 */
+.garden-cycle.garden-sow-button{display:flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:10px 22px;border:1px solid #39664a;border-radius:28px;background:#426b47;color:#f4f5e9;box-shadow:0 3px 10px #35563b26,inset 0 0 0 3px #ffffff12;font-size:15px;letter-spacing:1px;white-space:nowrap;transition:background .2s,box-shadow .2s;}
+.garden-sow-button svg{width:28px;height:28px;flex:none;}
+.garden-cycle.garden-sow-button:hover{background:#345a3e;box-shadow:0 5px 16px #35563b35;}
+.garden-cycle.garden-sow-button:focus-visible{outline:2px solid #426b47;outline-offset:4px;}
+.garden-cycle.garden-sow-button[hidden]{display:none;}
+@media(max-width:700px){.garden-cycle.garden-sow-button{min-height:44px;padding:8px 18px;font-size:13px;}.garden-sow-button svg{width:25px;height:25px;}}
+
+
+/* M365：篮下不显示名称或数量。 */
+.garden-basket-caption{display:none!important;}
+
+
+/* M366：向壶嘴倾倒，水流保持竖直。 */
+.garden-can-body{position:relative;height:100px;transform-origin:50% 50%;transition:transform .25s;}
+.watering .garden-can-body{transform:rotate(50deg);}
+.watering .garden-watering-can svg{transform:none;}
+.garden-watering-can .garden-water-drops{left:83%;top:29%;width:22px;height:90px;transform:rotate(-50deg);transform-origin:0 0;}
+.garden-watering-can .garden-water-drops i:nth-child(2){left:3px;}.garden-watering-can .garden-water-drops i:nth-child(3){left:6px;}.garden-watering-can .garden-water-drops i:nth-child(4){left:9px;}
+.watering .garden-water-drops{animation:waterStart .25s both;}
+@keyframes waterStart{0%,90%{visibility:hidden}100%{visibility:visible}}
+@keyframes waterFall{from{transform:translate(0,0);opacity:0}20%{opacity:1}to{transform:translate(2px,75px);opacity:0}}
+@media(max-width:700px){.garden-can-body{height:70px;}}
+
+
+#wishThemeToggle{position:fixed;top:calc(12px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);width:46px;height:46px;padding:2px;border:1px solid var(--line);border-radius:50%;background:var(--bg1);color:var(--gold);z-index:2700;cursor:pointer;touch-action:manipulation}
+#wishThemeToggle svg{display:block;width:100%;height:100%}
+#wishThemeToggle:active{transform:translateX(-50%) scale(.94)}
+.wish-palette[hidden]{display:none!important}
+.wish-palette{top:calc(70px + env(safe-area-inset-top));gap:18px;padding:14px 18px;box-shadow:0 8px 24px #0003}

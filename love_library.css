@@ -141,5 +141,13 @@ body.mode-love #lovePreview.xinjing-view .love-library{overflow-y:scroll;scrollb
 #lovePreview.xinjing-view :is(.love-library-head,.xn-search-row,.xn-categories,.xn-summary,#loveResults){box-sizing:border-box;width:100%;max-width:850px;min-width:0;margin-left:auto;margin-right:auto}
 #lovePreview.xinjing-view .xj-card{box-sizing:border-box;width:100%;min-width:0;max-width:100%}
 #lovePreview.xinjing-view :is(.xj-card-preview,.xj-excerpt,.xj-card-footer){min-width:0;max-width:100%;box-sizing:border-box}
+/* Apply the iPhone top safe area once, on the content rather than both layers. */
+body.mode-love #ritualStage #lovePreview{padding-top:0!important}
+body.mode-love #ritualStage #lovePreview .love-library{padding-top:calc(env(safe-area-inset-top,0px) + 6px)}
+body.mode-love #lovePreview .love-library-head{padding-top:2px}
+/* Center focused text in the complete viewport, independent of the toolbar. */
+body #loveImmersion.sats-focus-mode .sats-session-shell{padding:0}
+body #loveImmersion.sats-focus-mode .sats-session-top{position:absolute;z-index:2;top:env(safe-area-inset-top,0px);left:50%;transform:translateX(-50%);width:calc(100% - 36px);margin:0}
+body #loveImmersion.sats-focus-mode .sats-focus-stage{position:absolute;inset:0;box-sizing:border-box;padding:80px max(20px,env(safe-area-inset-right)) 80px max(20px,env(safe-area-inset-left))}
 .sats-sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 body #loveImmersion .sats-speed-label{margin:0;flex:none}body #loveImmersion #satsSpeed{width:86px;max-width:none;min-height:44px;margin:0;padding:8px 10px;border:1px solid var(--mind-line);border-radius:20px;font-family:inherit;font-size:14px;line-height:1.5;color-scheme:dark}body #loveImmersion #satsSpeed option{background:var(--mind-input);color:var(--mind-ink)}body:is([data-theme="noir"],[data-theme="dopamine"]) #loveImmersion #satsSpeed{color-scheme:light}

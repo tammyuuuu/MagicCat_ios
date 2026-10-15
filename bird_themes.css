@@ -1,0 +1,52 @@
+/* 配色与锦缎沿用 web，布局适配 iPhone。 */
+html[data-bird-theme="rouge"] {
+  --bg0:#2b1413;--bg1:#43201d;--bg2:#64302b;--ink:#eee0ca;--ink-dim:#c4a396;--motif:#c57565;
+  --jade:#d39b9f;--jade-dim:#b78b92;--bronze:#b3986e;--gold:#d8be92;--gold-hi:#f0dcc0;--cinnabar:#efa88b;
+  --line:#b3986e66;--line-soft:#b3986e33;--accent-rgb:179,152,110;--wash:#713b35;color-scheme:dark;
+}
+html[data-bird-theme="paper"] {
+  --bg0:#eee8f0;--bg1:#faf6f8;--bg2:#dcd0e2;--ink:#453650;--ink-dim:#7c6984;--motif:#654177;
+  --jade:#79618d;--jade-dim:#8b749a;--bronze:#7b5c8d;--gold:#644575;--gold-hi:#493055;--cinnabar:#a44b3d;
+  --line:#7b5c8d66;--line-soft:#7b5c8d33;--accent-rgb:123,92,141;--wash:#d7c6de;color-scheme:light;
+}
+html[data-bird-theme="jade"] {
+  --bg0:#171919;--bg1:#272c2b;--bg2:#3a413e;--ink:#e6dfca;--ink-dim:#adb3a5;--motif:#b1b6a7;
+  --jade:#a7b4a6;--jade-dim:#8f9b8f;--bronze:#a49d81;--gold:#c9c0a1;--gold-hi:#e9e0c7;--cinnabar:#e4a084;
+  --line:#a49d8166;--line-soft:#a49d8133;--accent-rgb:164,157,129;--wash:#434a43;color-scheme:dark;
+}
+html[data-bird-theme="apricot"] {
+  --bg0:#e9ecd6;--bg1:#f6f5e9;--bg2:#d2dbb3;--ink:#3e482c;--ink-dim:#6e7952;--motif:#7e963b;
+  --jade:#6d853e;--jade-dim:#809257;--bronze:#7f8b47;--gold:#627434;--gold-hi:#435521;--cinnabar:#a64736;
+  --line:#7f8b4766;--line-soft:#7f8b4733;--accent-rgb:127,139,71;--wash:#cbd4a6;color-scheme:light;
+}
+html[data-bird-theme="paper"]{--bg0:#1f1e1c;--bg1:#302f2d;--bg2:#454442;--ink:#f2eee2;--ink-dim:#c9c8c6;--motif:#a7a6a4;--jade:#ded8bd;--jade-dim:#c5c4c2;--bronze:#c2b18b;--gold:#e1d1aa;--gold-hi:#fff2cf;--cinnabar:#d7c1a4;--line:#c2b18b66;--line-soft:#c2b18b33;--accent-rgb:194,177,139;--wash:#51504e;color-scheme:dark;}
+html[data-bird-theme="paper"]{--bg0:#f5f3ee;--bg1:#fcfaf5;--bg2:#e9e5db;--ink:#373530;--ink-dim:#736e63;--motif:#b9b5ad;--jade:#857c67;--jade-dim:#8e8677;--bronze:#aa9369;--gold:#8c7349;--gold-hi:#695330;--cinnabar:#9a7954;--line:#aa936966;--line-soft:#aa936933;--accent-rgb:170,147,105;--wash:#e8e4dc;color-scheme:light;}
+html[data-bird-theme="jade"]{--bg0:#081321;--bg1:#102339;--bg2:#1a3651;--ink:#ede4cf;--ink-dim:#b6c1cb;--motif:#7798b6;--jade:#c5b584;--jade-dim:#8eabc0;--bronze:#b79a61;--gold:#debf81;--gold-hi:#ffe4ae;--cinnabar:#cfad79;--line:#b79a6166;--line-soft:#b79a6133;--accent-rgb:183,154,97;--wash:#263d55;color-scheme:dark;}
+html[data-bird-theme="apricot"]{--bg0:#1f1e1c;--bg1:#302f2d;--bg2:#454442;--ink:#f2eee2;--ink-dim:#c9c8c6;--motif:#a7a6a4;--jade:#ded8bd;--jade-dim:#c5c4c2;--bronze:#c2b18b;--gold:#e1d1aa;--gold-hi:#fff2cf;--cinnabar:#d7c1a4;--line:#c2b18b66;--line-soft:#c2b18b33;--accent-rgb:194,177,139;--wash:#51504e;color-scheme:dark;}
+html[data-bird-theme="apricot"]{--bg0:#f5f3ee;--bg1:#fcfaf5;--bg2:#e9e5db;--ink:#373530;--ink-dim:#736e63;--motif:#b9b5ad;--jade:#857c67;--jade-dim:#8e8677;--bronze:#aa9369;--gold:#8c7349;--gold-hi:#695330;--cinnabar:#9a7954;--line:#aa936966;--line-soft:#aa936933;--accent-rgb:170,147,105;--wash:#e8e4dc;color-scheme:light;}
+html[data-bird-theme="apricot"]{--bg0:#f1f7ef;--bg1:#e7efe3;--bg2:#dbe8d7;--ink:#294a3e;--ink-dim:#687d6b;--motif:#75947a;--jade:#39836b;--jade-dim:#709c84;--bronze:#a68b55;--gold:#b29965;--gold-hi:#d5bd82;--line:#99ac8766;--line-soft:#99ac8733;color-scheme:light;}
+html[data-bird-theme="paper"] {--records-cord:#a99066;}
+html[data-bird-theme="jade"] {--records-cord:#71859b;}
+html[data-bird-theme="apricot"] {--records-cord:#618775;}
+html[data-bird-theme="rouge"] {--cloth:url('图片/已批准/zhuque_brocade_tile_master_v01.png');--cloth-wash:#310b08db;--surface:#39150f;--surface-hi:#54251a;--surface-soft:#2d100d;--surface-ink:#ead9b8;--surface-muted:#bea58b;--surface-edge:#a980526e;--surface-accent:#d3ae72;}
+html[data-bird-theme="paper"] {--cloth:url('图片/已批准/baihu_brocade_tile_master_v01.png');--cloth-wash:#fffdf7d9;--surface:#fffdf6;--surface-hi:#f7efd9;--surface-soft:#f4f0e6;--surface-ink:#514735;--surface-muted:#887e6d;--surface-edge:#bba78188;--surface-accent:#a3874f;}
+html[data-bird-theme="jade"] {--cloth:url('图片/已批准/xuanwu_brocade_tile_master_v01.png');--cloth-wash:#0b1929db;--surface:#12273b;--surface-hi:#1d3850;--surface-soft:#0e2032;--surface-ink:#e6dbc2;--surface-muted:#a8b4bc;--surface-edge:#a68e626e;--surface-accent:#cfb27a;}
+html[data-bird-theme="apricot"] {--cloth:url('图片/已批准/qinglong_brocade_tile_master_v01.png');--cloth-wash:#edf4e9e6;--surface:#f7faf0;--surface-hi:#e3efd9;--surface-soft:#eaf1e3;--surface-ink:#365b48;--surface-muted:#758775;--surface-edge:#9cab7e88;--surface-accent:#8a9862;}
+html[data-bird-theme] body{background:var(--bg0);color:var(--ink)}
+html[data-bird-theme] .desk{background:linear-gradient(var(--cloth-wash),var(--cloth-wash)),var(--cloth) repeat;background-size:auto,440px 440px}
+html[data-bird-theme] .desk::before{display:none}
+html[data-bird-theme] .aux{background:transparent}
+html[data-bird-theme] :is(.boshi,.yarrow,.rec-drawer){background:var(--surface);color:var(--surface-ink);border-color:var(--surface-edge)}
+html[data-bird-theme] :is(.question-input,.time-fields input,.sj-btn,.mini-btn,.act-btn,.method-options label,.y-modes label,.rec-item){background:var(--surface);color:var(--surface-ink);border-color:var(--surface-edge);color-scheme:inherit}
+html[data-bird-theme] :is(.question-input::placeholder,.cast-note,.y-note){color:var(--surface-muted)}
+html[data-bird-theme] :is(.sj-btn.active,.cast-btn,.method-options label:has(input:checked),.y-modes label:has(input:checked)){background:var(--surface-hi);border-color:var(--surface-accent);color:var(--surface-ink)}
+html[data-bird-theme] .world-switch--east{--ws-ink:var(--gold);--ws-ink-hi:var(--gold-hi);--ws-border:var(--line);--ws-border-hi:var(--bronze);background:var(--bg1)}
+html[data-bird-theme] .east-nav-link{background:var(--bg1);color:var(--gold);border-color:var(--line)}
+html[data-bird-theme] .yao-bar.yao-yang{background:linear-gradient(90deg,var(--bronze),var(--gold),var(--bronze))}
+html[data-bird-theme] .yao-bar.yao-yin::before,html[data-bird-theme] .yao-bar.yao-yin::after{background:var(--jade)}
+.bird-palette{position:fixed;top:calc(14px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:2600;display:flex;align-items:center;gap:12px;padding:8px 12px;background:var(--bg1);border:1px solid var(--line);border-radius:22px}
+.bird-palette button{display:grid;place-items:center;width:24px;height:24px;padding:0;border:0;border-radius:50%;background:transparent}
+.bird-palette button[aria-pressed=true]{outline:1px solid var(--gold-hi);outline-offset:2px}
+.bird-palette button:focus-visible{outline:2px solid var(--gold-hi)}
+.palette-swatch{width:18px;height:18px;border-radius:50%;border:1px solid #8885}
+.swatch-rouge{background:#943f35}.swatch-paper{background:#fffdf6}.swatch-jade{background:#12273b}.swatch-apricot{background:#709c84}

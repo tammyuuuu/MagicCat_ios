@@ -1,0 +1,85 @@
+.dice-flying{--flying-ink:#cfb8e7;--flying-bg:#21172ded;--flying-line:#a78abe70;pointer-events:auto;margin:22px auto 0;color:var(--flying-ink);font-family:serif;border-radius:14px;background:var(--flying-bg);border:1px solid var(--flying-line);padding:12px 18px;max-width:600px;box-sizing:border-box;}
+.dice-flying summary{cursor:pointer;font-size:14px;line-height:1.8;}
+.dice-flying-content{display:flex;align-items:center;gap:16px;padding-top:12px;}
+.dice-flying-wheel{width:58%;max-width:330px;flex:none;fill:none;stroke:currentColor;stroke-width:1;}
+.dice-flying-wheel svg{stroke-width:2;stroke-linejoin:round;stroke-linecap:round;}
+.dice-flying-wheel text{fill:currentColor;stroke:none;text-anchor:middle;font:12px serif;}
+.dice-flying-wheel .flying-center{font-size:11px;}
+.dice-flying-wheel .flying-sector{fill:currentColor;fill-opacity:.12;stroke:none;}
+.dice-flying-wheel .flying-planet{stroke-width:2.5;}
+.dice-flying-copy{font-size:13px;line-height:1.9;min-width:0;}.dice-flying-copy p{margin:8px 0;}.dice-flying-copy .flying-note{font-size:11px;opacity:.75;}
+body[data-theme=noir] .dice-flying{--flying-ink:#343237;--flying-bg:#faf8f2f5;--flying-line:#34323755;}
+body[data-theme=parchment] .dice-flying{--flying-ink:#eed09c;--flying-bg:#40291ded;--flying-line:#c8945070;}
+body[data-theme=dopamine] .dice-flying{--flying-ink:#6d5882;--flying-bg:#fff9f5f5;--flying-line:#91cbe699;}
+#astroDicePanel:has(.dice-flying[open]){top:46%;max-height:75vh;overflow-y:auto;}
+@media(max-width:700px){.dice-flying{padding:10px 12px;}.dice-flying-content{flex-direction:column;gap:0;}.dice-flying-wheel{width:100%;max-width:260px;}.dice-flying-copy{width:100%;text-align:center;font-size:12px;}.dice-flying-copy p{margin:3px 0;}.dice-flying summary{font-size:12px;}#astroDicePanel:has(.dice-flying[open]){top:46%;max-height:72vh;}}
+
+/* M368：桌面直接呈现飞宫盘，上盘下骰。 */
+#astroDicePanel .dice-flying{margin:0 auto 22px;}
+#astroDicePanel .dice-flying>summary{display:none;}
+#astroDicePanel .dice-flying-content{padding-top:0;}
+#astroDicePanel:has(.dice-flying[open]){top:46%;max-height:78vh;overflow-y:auto;padding:4px 0;}
+@media(max-width:700px){#astroDicePanel .dice-flying{margin-bottom:18px;}#astroDicePanel .dice-flying-wheel{max-width:230px;}#astroDicePanel .dice-flying-copy .flying-note{font-size:10px;}#astroDicePanel:has(.dice-flying[open]){top:47%;max-height:74vh;}}
+
+
+/* M369：飞宫圆盘直接置于桌面。 */
+#astroDicePanel .dice-flying{background:transparent;border:0;box-shadow:none;padding:0;margin:0 auto 24px;width:250px;max-width:100%;}
+#astroDicePanel .dice-flying-content{display:block;padding:0;}
+#astroDicePanel .dice-flying-copy,#astroDicePanel .flying-center{display:none;}
+#astroDicePanel .dice-flying-wheel{display:block;width:100%;max-width:none;}
+#astroDicePanel:has(.dice-flying[open]){overflow:visible;max-height:none;top:43%;}
+@media(max-width:700px){#astroDicePanel .dice-flying{width:200px;margin-bottom:24px;}#astroDicePanel:has(.dice-flying[open]){top:44%;max-height:none;}}
+
+
+/* M372：盘面预留位置，骰子投掷前后保持稳定。 */
+#astroDicePanel{top:43%;padding-top:274px!important;box-sizing:content-box;}
+#astroDicePanel .dice-flying{position:absolute;top:0;left:50%;transform:translateX(-50%);margin:0;width:250px;}
+#astroDicePanel:has(.dice-flying[open]){top:43%;padding-top:274px;}
+@media(max-width:700px){#astroDicePanel{top:44%;padding-top:224px!important;}#astroDicePanel .dice-flying{width:200px;margin:0;}#astroDicePanel:has(.dice-flying[open]){top:44%;padding-top:224px;}}
+
+
+#astroDicePanel,#astroDicePanel:has(.dice-flying[open]){padding:274px 0 0!important;}
+@media(max-width:700px){#astroDicePanel,#astroDicePanel:has(.dice-flying[open]){padding:224px 0 0!important;}}
+
+
+/* M373：雾糖背景使用柔蓝线稿与玫瑰粉星体。 */
+body[data-theme=dopamine] .dice-flying{--flying-ink:#607f99;--flying-bg:#fff9f5f5;--flying-line:#91cbe699;}
+body[data-theme=dopamine] .dice-flying-wheel .flying-planet{color:#bd819f;}
+body[data-theme=dopamine] .dice-flying-wheel .flying-sector{fill:#91b9cf;fill-opacity:.2;}
+
+
+/* M374：飞宫盘与骰子整体上移。 */
+#astroDicePanel,#astroDicePanel:has(.dice-flying[open]){top:39%;}
+@media(max-width:700px){#astroDicePanel,#astroDicePanel:has(.dice-flying[open]){top:40%;}}
+
+
+/* M375：记录盘面直接展开，底色继承记录主题。 */
+#recordPage .rp-photo{background:var(--record-surface);}
+#recordPage .dice-flying{background:transparent;box-shadow:none;border:0;}
+#recordPage .dice-flying>summary{display:none;}
+#recordPage .dice-flying-content{padding-top:0;}
+#recordPage .dice-flying-wheel .flying-center{display:none;}
+
+
+/* M381：桌面盘面更清楚，骰子位置保持。 */
+#astroDicePanel .dice-flying{width:300px;top:-40px;}
+#astroDicePanel .dice-flying-wheel{stroke-width:1.8;}
+#astroDicePanel .dice-flying-wheel svg{stroke-width:2.6;}
+#astroDicePanel .dice-flying-wheel .flying-planet{stroke-width:3;}
+#astroDicePanel .dice-flying-wheel text{font-size:13px;font-weight:600;}
+@media(max-width:700px){#astroDicePanel .dice-flying{width:220px;top:-24px;}}
+
+
+/* M384：沿用雾糖骰子既有色板。 */
+body[data-theme=dopamine] .dice-flying{--flying-ink:#53657d;}
+body[data-theme=dopamine] .dice-flying-wheel{color:#53657d;}
+body[data-theme=dopamine] .dice-flying-wheel .flying-planet{color:#b77996;}
+body[data-theme=dopamine] .dice-flying-wheel .flying-sector{fill:#bfded3;fill-opacity:.45;}
+
+
+/* M385：背景4使用按钮蓝边、粉色填充。 */
+body[data-theme=dopamine] .dice-flying-wheel{stroke:#91cbe6;}
+body[data-theme=dopamine] .dice-flying-wheel svg{stroke:#607c91;}
+body[data-theme=dopamine] .dice-flying-wheel .flying-planet{stroke:#c16b93;color:#c16b93;}
+body[data-theme=dopamine] .dice-flying-wheel .flying-sector{fill:#e998bd;fill-opacity:.28;}
+

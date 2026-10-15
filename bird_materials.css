@@ -1,0 +1,268 @@
+html[data-bird-theme="rouge"] :is(.boshi,.yarrow,.rec-drawer){background:linear-gradient(150deg,#382019fa,#21120ffa);}
+html[data-bird-theme] :is(.boshi,.yarrow,.rec-drawer){background:linear-gradient(155deg,var(--bg1),var(--bg0));box-shadow:0 14px 40px #0002;}
+html[data-bird-theme] :is(.sj-btn,.mini-btn,.act-btn,.rec-item,.east-nav-link,.method-options label:has(input:checked),.y-modes label:has(input:checked)){background:rgba(var(--accent-rgb),.06);border-color:var(--line);}
+html[data-bird-theme] :is(.act-btn,.mini-btn,.sj-btn,.east-nav-link,.rec-item):hover{background:rgba(var(--accent-rgb),.17);}
+html[data-bird-theme] :is(.aux,.main-stage,.rec-drawer){scrollbar-color:var(--bronze) transparent;}
+html[data-bird-theme="rouge"] body .stage-wrap .aux .coins-stage{padding-top:22px;padding-bottom:16px;gap:12px;}
+html[data-bird-theme="rouge"] .coin .face{border:0;background-color:transparent;box-shadow:none;background-repeat:no-repeat;background-position:center;border-radius:50%;}
+html[data-bird-theme="rouge"] .coin .face.front{background-image:url('图片/已批准/zhuque_coin_front_master_v01.png');background-size:108.5% 108.5%;}
+html[data-bird-theme="rouge"] .coin .face.back{background-image:url('图片/已批准/zhuque_coin_back_master_v03.png');background-size:105.4% 105.4%;}
+html[data-bird-theme="rouge"] .coin .face .coin-mark{visibility:hidden;}
+html[data-bird-theme="rouge"] .coin .face::after{display:none;}
+html[data-bird-theme="rouge"] :is(.y-pile,.y-hung) i{background:transparent url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;box-shadow:none;}
+.yarrow-art{display:none;}
+html[data-bird-theme="rouge"] #sjYarrow > svg{display:none;}
+html[data-bird-theme="rouge"] #sjYarrow .yarrow-art{display:flex;justify-content:center;align-items:center;gap:4px;width:40px;height:40px;}
+html[data-bird-theme="rouge"] #sjYarrow .yarrow-art i{display:block;width:3px;height:36px;background:url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;}
+html[data-bird-theme="rouge"] #sjYarrow .yarrow-art i:nth-child(even){height:30px;}
+.records-pendant{display:none;}
+html[data-bird-theme="rouge"] .records-pendant{display:block;width:110px;height:300px;object-fit:contain;pointer-events:none;}
+html[data-bird-theme="rouge"] .records-pendant{width:66px;height:180px;}
+html[data-bird-theme="rouge"] .rec-drawer{background:linear-gradient(155deg,#68160f 0%,#3b0808 45%,#230507 100%);border-right:1px solid #d29b57;padding:28px 20px;box-shadow:16px 0 50px #13020399,inset -1px 0 #ffdb9625;}
+html[data-bird-theme="rouge"] .rec-drawer::before{content:'';position:absolute;inset:0;pointer-events:none;background:url('图片/已批准/zhuque_sidebar_master_v02.png') center/100% 100% no-repeat;opacity:.24;z-index:-1;}
+html[data-bird-theme="rouge"] .rec-title{font-size:21px;letter-spacing:12px;color:#ffdfa4;padding:9px 30px 22px;margin-bottom:22px;border-bottom:1px solid #deab6460;text-shadow:0 2px 8px #e473342e;}
+html[data-bird-theme="rouge"] .rec-title::after{content:'卦象留存 · 回观所问';display:block;font-size:10px;letter-spacing:3px;color:#d7b58e;margin-top:9px;}
+html[data-bird-theme="rouge"] .rec-close{top:7px;right:0;width:30px;height:30px;border-color:#dca36d;background:#53100b;color:#ffe3ad;}
+html[data-bird-theme="rouge"] .rec-item{position:relative;padding:16px 14px;margin-bottom:14px;border:1px solid #c28a50;border-radius:12px;background:linear-gradient(120deg,#78281ee8,#47100ef5);box-shadow:inset 0 1px #ffe6b526,0 4px 12px #19030335;}
+html[data-bird-theme="rouge"] .rec-item::before{content:'';position:absolute;left:0;top:18px;bottom:18px;width:2px;background:linear-gradient(transparent,#f6cc81,transparent);pointer-events:none;}
+html[data-bird-theme="rouge"] .rec-item:hover{border-color:#ffda8f;background:linear-gradient(120deg,#8b3224,#57140e);box-shadow:0 0 12px #e48b3325;}
+html[data-bird-theme="rouge"] .rec-item .rec-head{flex-wrap:wrap;gap:8px;color:#fff0cf;font-size:14px;line-height:1.6;}
+html[data-bird-theme="rouge"] .rec-item .rec-head span{flex:1 1 calc(100% - 24px);order:0;}
+html[data-bird-theme="rouge"] .rec-item .rec-head i{order:2;width:100%;font-size:10px;color:#d9ad87;letter-spacing:1px;}
+html[data-bird-theme="rouge"] .rec-item .rec-meta{color:#ecd6b7;line-height:1.9;font-size:11px;}
+html[data-bird-theme="rouge"] .rec-clear{border:1px solid #b77a50;border-radius:18px;padding:8px 20px;color:#efc99a;background:#3c0b08;margin:24px auto;}
+html[data-bird-theme="rouge"] .rec-clear:hover{border-color:#ffdb99;color:#fff0cf;}
+html[data-bird-theme="rouge"] .rec-empty{color:#ead6b8;border:1px solid #b57f4e70;border-radius:12px;background:#4d120c80;margin-top:24px;padding:32px 12px;}
+html[data-bird-theme="rouge"] .rec-item .rec-head{position:relative;padding-right:22px;}
+html[data-bird-theme="rouge"] .rec-item .rec-head span{flex-basis:100%;}
+html[data-bird-theme="rouge"] .rec-item{position:relative;}
+html[data-bird-theme="rouge"] .rec-item .rec-head{position:static;padding-right:28px;}
+html[data-bird-theme="rouge"] .rec-item .rec-del{position:absolute;left:auto;right:10px;top:13px;width:24px;height:24px;padding:0;display:grid;place-items:center;}
+html[data-bird-theme="paper"] body .stage-wrap .aux .coins-stage{padding-top:22px;padding-bottom:16px;gap:12px;}
+html[data-bird-theme="paper"] .coin .face{border:0;background-color:transparent;box-shadow:none;background-repeat:no-repeat;background-position:center;border-radius:50%;}
+html[data-bird-theme="paper"] .coin .face.front{background-image:url('图片/已批准/baihu_coin_front_master_v02.png');background-size:108.5% 108.5%;}
+html[data-bird-theme="paper"] .coin .face.back{background-image:url('图片/已批准/baihu_coin_back_master_v02.png');background-size:105.4% 105.4%;}
+html[data-bird-theme="paper"] .coin .face .coin-mark{visibility:hidden;}
+html[data-bird-theme="paper"] .coin .face::after{display:none;}
+html[data-bird-theme="paper"] :is(.y-pile,.y-hung) i{background:transparent url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;box-shadow:none;}
+.yarrow-art{display:none;}
+html[data-bird-theme="paper"] #sjYarrow > svg{display:none;}
+html[data-bird-theme="paper"] #sjYarrow .yarrow-art{display:flex;justify-content:center;align-items:center;gap:4px;width:40px;height:40px;}
+html[data-bird-theme="paper"] #sjYarrow .yarrow-art i{display:block;width:3px;height:36px;background:url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;}
+html[data-bird-theme="paper"] #sjYarrow .yarrow-art i:nth-child(even){height:30px;}
+.records-pendant{display:none;}
+html[data-bird-theme="paper"] .records-pendant{display:block;width:110px;height:300px;object-fit:contain;pointer-events:none;}
+html[data-bird-theme="paper"] .records-pendant{width:66px;height:180px;}
+html[data-bird-theme="paper"] .rec-drawer{background:linear-gradient(155deg,#2d2c2a 0%,#171614 45%,#0e0d0b 100%);border-right:1px solid #9e9d9b;padding:28px 20px;box-shadow:16px 0 50px #08070599,inset -1px 0 #d8d7d525;}
+html[data-bird-theme="paper"] .rec-drawer::before{content:'';position:absolute;inset:0;pointer-events:none;background:url('图片/已批准/zhuque_sidebar_master_v02.png') center/100% 100% no-repeat;opacity:.24;z-index:-1;}
+html[data-bird-theme="paper"] .rec-title{font-size:21px;letter-spacing:12px;color:#dddcda;padding:9px 30px 22px;margin-bottom:22px;border-bottom:1px solid #acaba960;text-shadow:0 2px 8px #8887852e;}
+html[data-bird-theme="paper"] .rec-title::after{content:'卦象留存 · 回观所问';display:block;font-size:10px;letter-spacing:3px;color:#b7b6b4;margin-top:9px;}
+html[data-bird-theme="paper"] .rec-close{top:7px;right:0;width:30px;height:30px;border-color:#a9a8a6;background:#232220;color:#e1e0de;}
+html[data-bird-theme="paper"] .rec-item{position:relative;padding:16px 14px;margin-bottom:14px;border:1px solid #8f8e8c;border-radius:12px;background:linear-gradient(120deg,#3e3d3be8,#201f1df5);box-shadow:inset 0 1px #e4e3e126,0 4px 12px #0a090735;}
+html[data-bird-theme="paper"] .rec-item::before{content:'';position:absolute;left:0;top:18px;bottom:18px;width:2px;background:linear-gradient(transparent,#cac9c7,transparent);pointer-events:none;}
+html[data-bird-theme="paper"] .rec-item:hover{border-color:#d6d5d3;background:linear-gradient(120deg,#4a4947,#272624);box-shadow:0 0 12px #94939125;}
+html[data-bird-theme="paper"] .rec-item .rec-head{flex-wrap:wrap;gap:8px;color:#eeedeb;font-size:14px;line-height:1.6;}
+html[data-bird-theme="paper"] .rec-item .rec-head span{flex:1 1 calc(100% - 24px);order:0;}
+html[data-bird-theme="paper"] .rec-item .rec-head i{order:2;width:100%;font-size:10px;color:#b3b2b0;letter-spacing:1px;}
+html[data-bird-theme="paper"] .rec-item .rec-meta{color:#d6d5d3;line-height:1.9;font-size:11px;}
+html[data-bird-theme="paper"] .rec-clear{border:1px solid #848381;border-radius:18px;padding:8px 20px;color:#cbcac8;background:#191816;margin:24px auto;}
+html[data-bird-theme="paper"] .rec-clear:hover{border-color:#d9d8d6;color:#eeedeb;}
+html[data-bird-theme="paper"] .rec-empty{color:#d6d5d3;border:1px solid #85848270;border-radius:12px;background:#22211f80;margin-top:24px;padding:32px 12px;}
+html[data-bird-theme="paper"] .rec-item .rec-head{position:relative;padding-right:22px;}
+html[data-bird-theme="paper"] .rec-item .rec-head span{flex-basis:100%;}
+html[data-bird-theme="paper"] .rec-item{position:relative;}
+html[data-bird-theme="paper"] .rec-item .rec-head{position:static;padding-right:28px;}
+html[data-bird-theme="paper"] .rec-item .rec-del{position:absolute;left:auto;right:10px;top:13px;width:24px;height:24px;padding:0;display:grid;place-items:center;}
+html[data-bird-theme="paper"] .coin .face.front,html[data-bird-theme="paper"] .coin .face.back{background-size:100% 100%;}
+html[data-bird-theme="paper"] .records-pendant{display:none;}
+html[data-bird-theme="paper"] .records-pendant-baihu{display:block;width:110px;height:300px;object-fit:contain;pointer-events:none;}
+.records-pendant-baihu{display:none;}
+html[data-bird-theme="paper"] .rec-drawer::before{filter:grayscale(1);}
+html[data-bird-theme="paper"] .records-pendant-baihu{width:66px;height:180px;}
+html[data-bird-theme="paper"] #sjYarrow>svg{display:block;}
+html[data-bird-theme="paper"] #sjYarrow .yarrow-art{display:none;}
+html[data-bird-theme="paper"] :is(.boshi,.yarrow,.rec-drawer){background:linear-gradient(145deg,#fffdf7,#eee9df);color:#454038;}
+html[data-bird-theme="paper"] .rec-drawer{border-color:#b59c71;box-shadow:12px 0 35px #71655024;}
+html[data-bird-theme="paper"] .rec-drawer::before{filter:grayscale(1) invert(1);opacity:.12;}
+html[data-bird-theme="paper"] .rec-title{color:#775d35;border-color:#bcaa88;text-shadow:none;}
+html[data-bird-theme="paper"] .rec-title::after,html[data-bird-theme="paper"] .rec-item .rec-meta,html[data-bird-theme="paper"] .rec-item .rec-head i{color:#7d7362;}
+html[data-bird-theme="paper"] :is(.rec-close,.rec-clear,.rec-empty){background:#f4eedf;color:#75603e;border-color:#b9a17a;}
+html[data-bird-theme="paper"] .rec-item{background:linear-gradient(135deg,#fffdf6,#f0e8d8);border-color:#b8a27f;box-shadow:inset 0 1px #fff,0 3px 9px #75674413;}
+html[data-bird-theme="paper"] .rec-item:hover{background:#f7edda;border-color:#9e7f4e;}
+html[data-bird-theme="paper"] .rec-item .rec-head{color:#4b4030;}
+html[data-bird-theme="jade"] body .stage-wrap .aux .coins-stage{padding-top:22px;padding-bottom:16px;gap:12px;}
+html[data-bird-theme="jade"] .coin .face{border:0;background-color:transparent;box-shadow:none;background-repeat:no-repeat;background-position:center;border-radius:50%;}
+html[data-bird-theme="jade"] .coin .face.front{background-image:url('图片/已批准/xuanwu_coin_front_master_v02.png');background-size:108.5% 108.5%;}
+html[data-bird-theme="jade"] .coin .face.back{background-image:url('图片/已批准/xuanwu_coin_back_master_v02.png');background-size:105.4% 105.4%;}
+html[data-bird-theme="jade"] .coin .face .coin-mark{visibility:hidden;}
+html[data-bird-theme="jade"] .coin .face::after{display:none;}
+html[data-bird-theme="jade"] :is(.y-pile,.y-hung) i{background:transparent url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;box-shadow:none;}
+.yarrow-art{display:none;}
+html[data-bird-theme="jade"] #sjYarrow > svg{display:none;}
+html[data-bird-theme="jade"] #sjYarrow .yarrow-art{display:flex;justify-content:center;align-items:center;gap:4px;width:40px;height:40px;}
+html[data-bird-theme="jade"] #sjYarrow .yarrow-art i{display:block;width:3px;height:36px;background:url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;}
+html[data-bird-theme="jade"] #sjYarrow .yarrow-art i:nth-child(even){height:30px;}
+.records-pendant{display:none;}
+html[data-bird-theme="jade"] .records-pendant{display:block;width:110px;height:300px;object-fit:contain;pointer-events:none;}
+html[data-bird-theme="jade"] .records-pendant{width:66px;height:180px;}
+html[data-bird-theme="jade"] .rec-drawer{background:linear-gradient(155deg,#14243b 0%,#0a121e 45%,#060b12 100%);border-right:1px solid #d29b57;padding:28px 20px;box-shadow:16px 0 50px #03060999,inset -1px 0 #ffdb9625;}
+html[data-bird-theme="jade"] .rec-drawer::before{content:'';position:absolute;inset:0;pointer-events:none;background:url('图片/已批准/zhuque_sidebar_master_v02.png') center/100% 100% no-repeat;opacity:.24;z-index:-1;}
+html[data-bird-theme="jade"] .rec-title{font-size:21px;letter-spacing:12px;color:#ffdfa4;padding:9px 30px 22px;margin-bottom:22px;border-bottom:1px solid #deab6460;text-shadow:0 2px 8px #e473342e;}
+html[data-bird-theme="jade"] .rec-title::after{content:'卦象留存 · 回观所问';display:block;font-size:10px;letter-spacing:3px;color:#d7b58e;margin-top:9px;}
+html[data-bird-theme="jade"] .rec-close{top:7px;right:0;width:30px;height:30px;border-color:#dca36d;background:#101c2e;color:#ffe3ad;}
+html[data-bird-theme="jade"] .rec-item{position:relative;padding:16px 14px;margin-bottom:14px;border:1px solid #c28a50;border-radius:12px;background:linear-gradient(120deg,#1c3251e8,#0e1a2af5);box-shadow:inset 0 1px #ffe6b526,0 4px 12px #05080d35;}
+html[data-bird-theme="jade"] .rec-item::before{content:'';position:absolute;left:0;top:18px;bottom:18px;width:2px;background:linear-gradient(transparent,#f6cc81,transparent);pointer-events:none;}
+html[data-bird-theme="jade"] .rec-item:hover{border-color:#ffda8f;background:linear-gradient(120deg,#213b60,#121f33);box-shadow:0 0 12px #e48b3325;}
+html[data-bird-theme="jade"] .rec-item .rec-head{flex-wrap:wrap;gap:8px;color:#fff0cf;font-size:14px;line-height:1.6;}
+html[data-bird-theme="jade"] .rec-item .rec-head span{flex:1 1 calc(100% - 24px);order:0;}
+html[data-bird-theme="jade"] .rec-item .rec-head i{order:2;width:100%;font-size:10px;color:#d9ad87;letter-spacing:1px;}
+html[data-bird-theme="jade"] .rec-item .rec-meta{color:#ecd6b7;line-height:1.9;font-size:11px;}
+html[data-bird-theme="jade"] .rec-clear{border:1px solid #b77a50;border-radius:18px;padding:8px 20px;color:#efc99a;background:#0b1421;margin:24px auto;}
+html[data-bird-theme="jade"] .rec-clear:hover{border-color:#ffdb99;color:#fff0cf;}
+html[data-bird-theme="jade"] .rec-empty{color:#ead6b8;border:1px solid #b57f4e70;border-radius:12px;background:#0f1b2c80;margin-top:24px;padding:32px 12px;}
+html[data-bird-theme="jade"] .rec-item .rec-head{position:relative;padding-right:22px;}
+html[data-bird-theme="jade"] .rec-item .rec-head span{flex-basis:100%;}
+html[data-bird-theme="jade"] .rec-item{position:relative;}
+html[data-bird-theme="jade"] .rec-item .rec-head{position:static;padding-right:28px;}
+html[data-bird-theme="jade"] .rec-item .rec-del{position:absolute;left:auto;right:10px;top:13px;width:24px;height:24px;padding:0;display:grid;place-items:center;}
+html[data-bird-theme="jade"] .coin .face.front,html[data-bird-theme="jade"] .coin .face.back{background-size:100% 100%;}
+.records-pendant-xuanwu{display:none;}
+html[data-bird-theme="jade"] .records-pendant{display:none;}
+html[data-bird-theme="jade"] .records-pendant-xuanwu{display:block;width:110px;height:300px;object-fit:contain;pointer-events:none;}
+html[data-bird-theme="jade"] .rec-drawer::before{filter:grayscale(1) sepia(.5) hue-rotate(165deg);}
+html[data-bird-theme="jade"] #sjYarrow>svg{display:block;}
+html[data-bird-theme="jade"] #sjYarrow .yarrow-art{display:none;}
+html[data-bird-theme="jade"] .records-pendant-xuanwu{width:66px;height:180px;}
+.records-pendant-qinglong{display:none;}
+html[data-bird-theme="apricot"] body .stage-wrap .aux .coins-stage{padding-top:22px;padding-bottom:16px;gap:12px;}
+html[data-bird-theme="apricot"] .coin .face{border:0;background-color:transparent;box-shadow:none;background-repeat:no-repeat;background-position:center;border-radius:50%;}
+html[data-bird-theme="apricot"] .coin .face.front{background-image:url('图片/已批准/qinglong_coin_front_master_v02.png');background-size:108.5% 108.5%;}
+html[data-bird-theme="apricot"] .coin .face.back{background-image:url('图片/已批准/qinglong_coin_back_master_v02.png');background-size:105.4% 105.4%;}
+html[data-bird-theme="apricot"] .coin .face .coin-mark{visibility:hidden;}
+html[data-bird-theme="apricot"] .coin .face::after{display:none;}
+html[data-bird-theme="apricot"] :is(.y-pile,.y-hung) i{background:transparent url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;box-shadow:none;}
+html[data-bird-theme="apricot"] #sjYarrow > svg{display:none;}
+html[data-bird-theme="apricot"] #sjYarrow .yarrow-art{display:flex;justify-content:center;align-items:center;gap:4px;width:40px;height:40px;}
+html[data-bird-theme="apricot"] #sjYarrow .yarrow-art i{display:block;width:3px;height:36px;background:url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;}
+html[data-bird-theme="apricot"] #sjYarrow .yarrow-art i:nth-child(even){height:30px;}
+html[data-bird-theme="apricot"] .records-pendant{display:block;width:110px;height:300px;object-fit:contain;pointer-events:none;}
+html[data-bird-theme="apricot"] .records-pendant{width:66px;height:180px;}
+html[data-bird-theme="apricot"] .rec-drawer{background:linear-gradient(155deg,#2d2c2a 0%,#171614 45%,#0e0d0b 100%);border-right:1px solid #9e9d9b;padding:28px 20px;box-shadow:16px 0 50px #08070599,inset -1px 0 #d8d7d525;}
+html[data-bird-theme="apricot"] .rec-drawer::before{content:'';position:absolute;inset:0;pointer-events:none;background:url('图片/已批准/zhuque_sidebar_master_v02.png') center/100% 100% no-repeat;opacity:.24;z-index:-1;}
+html[data-bird-theme="apricot"] .rec-title{font-size:21px;letter-spacing:12px;color:#dddcda;padding:9px 30px 22px;margin-bottom:22px;border-bottom:1px solid #acaba960;text-shadow:0 2px 8px #8887852e;}
+html[data-bird-theme="apricot"] .rec-title::after{content:'卦象留存 · 回观所问';display:block;font-size:10px;letter-spacing:3px;color:#b7b6b4;margin-top:9px;}
+html[data-bird-theme="apricot"] .rec-close{top:7px;right:0;width:30px;height:30px;border-color:#a9a8a6;background:#232220;color:#e1e0de;}
+html[data-bird-theme="apricot"] .rec-item{position:relative;padding:16px 14px;margin-bottom:14px;border:1px solid #8f8e8c;border-radius:12px;background:linear-gradient(120deg,#3e3d3be8,#201f1df5);box-shadow:inset 0 1px #e4e3e126,0 4px 12px #0a090735;}
+html[data-bird-theme="apricot"] .rec-item::before{content:'';position:absolute;left:0;top:18px;bottom:18px;width:2px;background:linear-gradient(transparent,#cac9c7,transparent);pointer-events:none;}
+html[data-bird-theme="apricot"] .rec-item:hover{border-color:#d6d5d3;background:linear-gradient(120deg,#4a4947,#272624);box-shadow:0 0 12px #94939125;}
+html[data-bird-theme="apricot"] .rec-item .rec-head{flex-wrap:wrap;gap:8px;color:#eeedeb;font-size:14px;line-height:1.6;}
+html[data-bird-theme="apricot"] .rec-item .rec-head span{flex:1 1 calc(100% - 24px);order:0;}
+html[data-bird-theme="apricot"] .rec-item .rec-head i{order:2;width:100%;font-size:10px;color:#b3b2b0;letter-spacing:1px;}
+html[data-bird-theme="apricot"] .rec-item .rec-meta{color:#d6d5d3;line-height:1.9;font-size:11px;}
+html[data-bird-theme="apricot"] .rec-clear{border:1px solid #848381;border-radius:18px;padding:8px 20px;color:#cbcac8;background:#191816;margin:24px auto;}
+html[data-bird-theme="apricot"] .rec-clear:hover{border-color:#d9d8d6;color:#eeedeb;}
+html[data-bird-theme="apricot"] .rec-empty{color:#d6d5d3;border:1px solid #85848270;border-radius:12px;background:#22211f80;margin-top:24px;padding:32px 12px;}
+html[data-bird-theme="apricot"] .rec-item .rec-head{position:relative;padding-right:22px;}
+html[data-bird-theme="apricot"] .rec-item .rec-head span{flex-basis:100%;}
+html[data-bird-theme="apricot"] .rec-item{position:relative;}
+html[data-bird-theme="apricot"] .rec-item .rec-head{position:static;padding-right:28px;}
+html[data-bird-theme="apricot"] .rec-item .rec-del{position:absolute;left:auto;right:10px;top:13px;width:24px;height:24px;padding:0;display:grid;place-items:center;}
+html[data-bird-theme="apricot"] .coin .face.front,html[data-bird-theme="apricot"] .coin .face.back{background-size:100% 100%;}
+html[data-bird-theme="apricot"] .records-pendant{display:none;}
+html[data-bird-theme="apricot"] .records-pendant-qinglong{display:block;width:110px;height:300px;object-fit:contain;pointer-events:none;}
+html[data-bird-theme="apricot"] .rec-drawer::before{filter:grayscale(1);}
+html[data-bird-theme="apricot"] .records-pendant-qinglong{width:66px;height:180px;}
+html[data-bird-theme="apricot"] #sjYarrow>svg{display:block;}
+html[data-bird-theme="apricot"] #sjYarrow .yarrow-art{display:none;}
+html[data-bird-theme="apricot"] :is(.boshi,.yarrow,.rec-drawer){background:linear-gradient(145deg,#fffdf7,#eee9df);color:#454038;}
+html[data-bird-theme="apricot"] .rec-drawer{border-color:#b59c71;box-shadow:12px 0 35px #71655024;}
+html[data-bird-theme="apricot"] .rec-drawer::before{filter:grayscale(1) invert(1);opacity:.12;}
+html[data-bird-theme="apricot"] .rec-title{color:#775d35;border-color:#bcaa88;text-shadow:none;}
+html[data-bird-theme="apricot"] .rec-title::after,html[data-bird-theme="apricot"] .rec-item .rec-meta,html[data-bird-theme="apricot"] .rec-item .rec-head i{color:#7d7362;}
+html[data-bird-theme="apricot"] :is(.rec-close,.rec-clear,.rec-empty){background:#f4eedf;color:#75603e;border-color:#b9a17a;}
+html[data-bird-theme="apricot"] .rec-item{background:linear-gradient(135deg,#fffdf6,#f0e8d8);border-color:#b8a27f;box-shadow:inset 0 1px #fff,0 3px 9px #75674413;}
+html[data-bird-theme="apricot"] .rec-item:hover{background:#f7edda;border-color:#9e7f4e;}
+html[data-bird-theme="apricot"] .rec-item .rec-head{color:#4b4030;}
+html[data-bird-theme="apricot"] .coin .face.front,html[data-bird-theme="apricot"] .coin .face.back{background-size:100% 100%;}
+html[data-bird-theme="apricot"] .records-pendant{display:none;}
+html[data-bird-theme="apricot"] .records-pendant-qinglong{display:block;width:130px;height:300px;object-fit:contain;pointer-events:none;}
+html[data-bird-theme="apricot"] #sjYarrow>svg{display:block;}
+html[data-bird-theme="apricot"] #sjYarrow .yarrow-art{display:none;}
+html[data-bird-theme="apricot"] .records-pendant-qinglong{width:78px;height:180px;}
+html[data-bird-theme="paper"]{--yarrow-art:url('图片/已批准/baihu_yarrow_web_v01.svg');}
+html[data-bird-theme="jade"]{--yarrow-art:url('图片/已批准/xuanwu_yarrow_web_v01.svg');}
+html[data-bird-theme="apricot"]{--yarrow-art:url('图片/已批准/qinglong_yarrow_web_v01.svg');}
+html:is([data-bird-theme="paper"],[data-bird-theme="jade"],[data-bird-theme="apricot"]) :is(.y-pile,.y-hung) i{background:var(--yarrow-art) center/100% 100% no-repeat;box-shadow:none;}
+html:is([data-bird-theme="paper"],[data-bird-theme="jade"],[data-bird-theme="apricot"]) #sjYarrow>svg{display:none;}
+html:is([data-bird-theme="paper"],[data-bird-theme="jade"],[data-bird-theme="apricot"]) #sjYarrow .yarrow-art{display:flex;justify-content:center;align-items:center;gap:4px;width:40px;height:40px;}
+html:is([data-bird-theme="paper"],[data-bird-theme="jade"],[data-bird-theme="apricot"]) #sjYarrow .yarrow-art i{display:block;width:3px;height:36px;background:var(--yarrow-art) center/100% 100% no-repeat;}
+html:is([data-bird-theme="paper"],[data-bird-theme="jade"],[data-bird-theme="apricot"]) #sjYarrow .yarrow-art i:nth-child(even){height:30px;}
+html[data-bird-theme] body .rec-drawer{isolation:isolate;background:linear-gradient(var(--cloth-wash),var(--cloth-wash)),var(--cloth) repeat;background-size:auto,440px 440px;border-right:1px solid var(--surface-accent);box-shadow:12px 0 36px #00000025;padding:28px 20px;}
+html[data-bird-theme] body .rec-drawer::before{display:none;}
+html[data-bird-theme] body .rec-title{color:var(--surface-ink);text-shadow:none;border-bottom:1px solid var(--surface-edge);font-size:22px;letter-spacing:10px;padding:8px 34px 22px;}
+html[data-bird-theme] body .rec-title::after{content:'卦象留存 · 回观所问';color:var(--surface-muted);font-size:10px;letter-spacing:3px;}
+html[data-bird-theme] body .rec-item{background:var(--surface);border:1px solid var(--surface-edge);border-radius:10px;padding:18px 16px;margin-bottom:14px;box-shadow:0 3px 10px #0000000a;}
+html[data-bird-theme] body .rec-item::before{display:none;}
+html[data-bird-theme] body .rec-item:hover{background:var(--surface-hi);border-color:var(--surface-accent);box-shadow:0 3px 12px #00000012;}
+html[data-bird-theme] body .rec-item .rec-head{color:var(--surface-ink);font-size:14px;line-height:1.7;}
+html[data-bird-theme] body .rec-item :is(.rec-meta,.rec-head i){color:var(--surface-muted);}
+html[data-bird-theme] body :is(.rec-close,.rec-clear,.rec-empty){background:var(--surface);color:var(--surface-ink);border:1px solid var(--surface-edge);box-shadow:none;}
+html[data-bird-theme] body .rec-drawer .rec-item{background:var(--surface) !important;color:var(--surface-ink);}
+html[data-bird-theme] body .rec-drawer .rec-item:hover{background:var(--surface-hi) !important;}
+html[data-bird-theme="rouge"] .records-pendant{width:140px;height:230px;object-fit:contain;}
+html[data-bird-theme="rouge"] .records-pendant{width:88px;height:145px;}
+html[data-bird-theme="rouge"] body .rec-drawer{
+ background:linear-gradient(#310b08b3,#310b08b3),var(--cloth) repeat;background-size:auto,640px 640px;border:0;box-shadow:none;
+}
+html[data-bird-theme="rouge"] body .rec-drawer .rec-item,
+html[data-bird-theme="rouge"] body .rec-drawer .rec-item:hover{background:transparent !important;border:0;border-bottom:1px solid #c5a16b33;border-radius:0;box-shadow:none;}
+html[data-bird-theme="rouge"] body :is(.rec-close,.rec-clear,.rec-empty,.fc-close){background:transparent;border:0;border-radius:0;box-shadow:none;}
+html[data-bird-theme="rouge"] body .rec-mask{background:#310b0833;backdrop-filter:none;-webkit-backdrop-filter:none;}
+html[data-bird-theme="paper"] body .rec-drawer{background:linear-gradient(#fffdf4ce,#fffdf4ce),var(--cloth) repeat;background-size:auto,440px 440px;border:0;box-shadow:none;}
+html[data-bird-theme="paper"] body .rec-drawer .rec-item,
+html[data-bird-theme="paper"] body .rec-drawer .rec-item:hover{background:transparent !important;border:0;border-bottom:1px solid #ab946644;border-radius:0;box-shadow:none;}
+html[data-bird-theme="paper"] body :is(.boshi,.rec-close,.rec-clear,.rec-empty,.fc-close){background:transparent;border:0;border-radius:0;box-shadow:none;}
+html[data-bird-theme="paper"] body .rec-mask{background:#6c60451a;backdrop-filter:none;-webkit-backdrop-filter:none;}
+html[data-bird-theme="paper"] .records-pendant-baihu{width:130px;height:250px;}
+html[data-bird-theme="paper"] .records-pendant-baihu{width:78px;height:150px;}
+html[data-bird-theme="paper"] body .coin{filter:none;box-shadow:none;}
+html[data-bird-theme="paper"] body .coin .face{filter:brightness(1.1);box-shadow:none;}
+html[data-bird-theme="paper"] body .rec-prop,
+html[data-bird-theme="paper"] body .records-pendant-baihu{filter:none;box-shadow:none;}
+html[data-bird-theme="jade"] body .records-pendant-xuanwu{width:150px;height:260px;filter:none;box-shadow:none;}
+html[data-bird-theme="jade"] body .records-pendant-xuanwu{width:90px;height:156px;}
+html[data-bird-theme="jade"] body .records-pendant-xuanwu{object-position:center top;}
+html[data-bird-theme="jade"] body .coin{filter:none;box-shadow:none;}
+html[data-bird-theme="jade"] body .coin .face{filter:brightness(1.08);box-shadow:none;}
+html[data-bird-theme="jade"] body .rec-drawer{background:linear-gradient(#0b1929b3,#0b1929b3),var(--cloth) repeat;background-size:auto,440px 440px;border:0;box-shadow:none;}
+html[data-bird-theme="jade"] body .rec-drawer .rec-item,
+html[data-bird-theme="jade"] body .rec-drawer .rec-item:hover{background:transparent !important;border:0;border-bottom:1px solid #cfb27a44;border-radius:0;box-shadow:none;}
+html[data-bird-theme="jade"] body :is(.boshi,.rec-close,.rec-clear,.rec-empty,.fc-close){background:transparent;border:0;border-radius:0;box-shadow:none;}
+html[data-bird-theme="jade"] body .rec-mask{background:#0b192933;backdrop-filter:none;-webkit-backdrop-filter:none;}
+html[data-bird-theme="apricot"] body .rec-drawer{background:linear-gradient(#edf4e9ce,#edf4e9ce),var(--cloth) repeat;background-size:auto,440px 440px;border:0;box-shadow:none;}
+html[data-bird-theme="apricot"] body .rec-drawer .rec-item,
+html[data-bird-theme="apricot"] body .rec-drawer .rec-item:hover{background:transparent !important;border:0;border-bottom:1px solid #8a986244;border-radius:0;box-shadow:none;}
+html[data-bird-theme="apricot"] body :is(.boshi,.rec-close,.rec-clear,.rec-empty,.fc-close){background:transparent;border:0;border-radius:0;box-shadow:none;}
+html[data-bird-theme="apricot"] body .rec-mask{background:#365b481a;backdrop-filter:none;-webkit-backdrop-filter:none;}
+html[data-bird-theme="apricot"] body :is(.coin,.rec-prop,.records-pendant-qinglong){filter:none;box-shadow:none;}
+html[data-bird-theme="apricot"] body .coin .face{filter:brightness(1.08);box-shadow:none;}
+html[data-bird-theme="apricot"] body .records-pendant-qinglong{object-position:center top;}
+html[data-bird-theme="apricot"] body .records-pendant-qinglong{width:150px;height:230px;object-position:center top;}
+html[data-bird-theme="apricot"] body .records-pendant-qinglong{width:90px;height:138px;}
+html:is([data-bird-theme="paper"],[data-bird-theme="jade"],[data-bird-theme="apricot"]) body :is(.desk,.rec-drawer){background-size:auto,640px 640px;background-position:0 0,0 0;background-origin:border-box;}
+/* 手机卦录沿用原入口和点击范围，四象挂件替换竹册。 */
+html[data-bird-theme] .rec-prop .bamboo,html[data-bird-theme] .rec-prop .prop-tag{display:none}
+html[data-bird-theme] .rec-prop{left:16px;right:auto;top:auto;bottom:16px;transform:none;z-index:40}
+html[data-bird-theme] .rec-prop img{object-fit:contain;pointer-events:none}
+html[data-bird-theme=rouge] .records-pendant{width:88px;height:145px}
+html[data-bird-theme=paper] .records-pendant-baihu{width:78px;height:150px}
+html[data-bird-theme=jade] body .records-pendant-xuanwu{width:90px;height:156px}
+html[data-bird-theme=apricot] body .records-pendant-qinglong{width:90px;height:138px}
+#birdThemeToggle{position:fixed;top:calc(12px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);width:46px;height:46px;padding:2px;border:1px solid var(--line);border-radius:50%;background:var(--bg1);color:var(--gold);z-index:2700;cursor:pointer;touch-action:manipulation}
+#birdThemeToggle svg{display:block;width:100%;height:100%}
+#birdThemeToggle:active{transform:translateX(-50%) scale(.94)}
+.bird-palette[hidden]{display:none!important}
+.bird-palette{top:calc(70px + env(safe-area-inset-top));gap:18px;padding:14px 18px;box-shadow:0 8px 24px #0003}
+html[data-bird-theme] body #recProp{position:fixed;top:calc(8px + env(safe-area-inset-top));left:10px;right:auto;bottom:auto;width:52px;height:62px;transform:none;z-index:2700;filter:none}
+html[data-bird-theme] body #recProp img{width:52px;height:62px;object-fit:contain}
+.aux,.main-stage{padding-top:calc(84px + env(safe-area-inset-top))}

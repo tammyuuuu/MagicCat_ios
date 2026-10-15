@@ -36,14 +36,20 @@ body.ritual-special #altarMind{visibility:hidden}
 #recordDrawer .mind-record-date{width:100%;font-size:10px;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:4px}
 #recordDrawer .mind-record-card .ri-delete{position:static;transform:none;display:flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;min-height:44px;margin-left:8px;border:1px solid var(--mind-line)!important;border-radius:50%;font-size:15px;line-height:1}
 /* Record rows use the record bookmark palette, independent of practice pages. */
-#recordDrawer{--record-line:#5ba4cd;--record-ink:#b9def1;--record-surface:rgba(18,31,48,.76)}
-body[data-theme="noir"] #recordDrawer{--record-line:#252529;--record-ink:#252529;--record-surface:rgba(255,253,249,.82)}
-body[data-theme="parchment"] #recordDrawer{--record-line:#9fbdad;--record-ink:#d8e6d9;--record-surface:linear-gradient(145deg,#173b35,#4a1a26)}
-body[data-theme="dopamine"] #recordDrawer{--record-line:#91cbe6;--record-ink:#607c91;--record-surface:rgba(255,255,255,.72)}
+:is(#recordDrawer,#layoutSaveDialog){--record-line:#5ba4cd;--record-ink:#b9def1;--record-surface:rgba(18,31,48,.76)}
+body[data-theme="noir"] :is(#recordDrawer,#layoutSaveDialog){--record-line:#252529;--record-ink:#252529;--record-surface:rgba(255,253,249,.82)}
+body[data-theme="parchment"] :is(#recordDrawer,#layoutSaveDialog){--record-line:#9fbdad;--record-ink:#d8e6d9;--record-surface:linear-gradient(145deg,#173b35,#4a1a26)}
+body[data-theme="dopamine"] :is(#recordDrawer,#layoutSaveDialog){--record-line:#91cbe6;--record-ink:#607c91;--record-surface:rgba(255,255,255,.72)}
 body #recordDrawer .mind-record-card{border-color:var(--record-line)!important;background:var(--record-surface)!important;color:var(--record-ink)!important}
 body #recordDrawer .mind-record-date{color:var(--record-ink);opacity:.75}body #recordDrawer .mind-record-card .ri-delete{border-color:var(--record-line)!important;color:var(--record-ink)!important}
 body:is(:not([data-theme]),[data-theme="mystic"]) #altarMind .altar-practice-token{color:#dbc1f3;filter:drop-shadow(0 0 5px #aa7bd178)}
 body[data-theme="dopamine"] #altarMind .altar-practice-token{color:#ad5d83;filter:drop-shadow(0 0 5px #e598b855)}
 #intentionPanel .wish-picker-row{display:flex;align-items:center;gap:6px}#intentionPanel .wish-picker-row>[data-wish-action="select-wish"]{flex:1;min-width:0}#intentionPanel .wish-picker-row .wish-picker-delete{flex:none;display:grid;place-items:center;width:36px;min-height:44px;padding:0;margin:0;border:0;font-size:20px;text-align:center}
-body #intentionPanel .intention-emblem{color:#607c91;border-color:#91cbe6;box-shadow:0 8px 20px #70819724,0 0 16px #91cbe633}body #intentionPanel .intention-emblem::after{border-color:#91cbe655}body #intentionPanel .intention-emblem svg{filter:none}
-body[data-theme="dopamine"] #intentionPanel .intention-emblem{color:#607c91;border-color:#91cbe6;box-shadow:0 8px 20px #70819724,0 0 16px #91cbe633}
+body #intentionPanel .intention-emblem{color:var(--wish-ink);border-color:var(--wish-accent);box-shadow:0 8px 20px var(--wish-shadow),0 0 16px var(--wish-accent-soft)}body #intentionPanel .intention-emblem::after{border-color:var(--wish-accent-soft)}body #intentionPanel .intention-emblem svg{filter:none}
+body[data-theme="dopamine"] #intentionPanel .intention-emblem{color:var(--wish-ink);border-color:var(--wish-accent);box-shadow:0 8px 20px var(--wish-shadow),0 0 16px var(--wish-accent-soft)}
+body #layoutSaveDialog .layout-save-card{color:var(--record-ink)!important;border-color:var(--record-line)!important;background:var(--record-surface)!important;backdrop-filter:blur(18px)}
+body #layoutSaveDialog :is(.m-head,label){color:var(--record-ink)!important}
+body #layoutSaveDialog :is(.wish-topic-choices button,.confirm-acts button,#layoutNameInput){color:var(--record-ink)!important;border-color:var(--record-line)!important;background:transparent!important}
+body #layoutSaveDialog .wish-topic-choices button[aria-pressed=true],body #layoutSaveDialog .confirm-acts .primary{background:color-mix(in srgb,var(--record-line) 18%,transparent)!important}
+body #layoutSaveDialog :is(button,input):focus-visible{outline:2px solid var(--record-line);outline-offset:3px;box-shadow:none}
+body #layoutSaveDialog #layoutNameInput:focus{border-color:var(--record-line);box-shadow:0 0 0 2px color-mix(in srgb,var(--record-line) 15%,transparent)}

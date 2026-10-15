@@ -3,7 +3,7 @@
 importScripts('./pwa-art.js');
 const BASE = new URL('./', self.location.href);
 const PREFIX = 'magiccat-' + BASE.pathname;
-const CORE_CACHE = PREFIX + 'core-v59';
+const CORE_CACHE = PREFIX + 'core-v66';
 // Kept across application releases. No user data lives in these caches.
 const ART_CACHE = PREFIX + 'art-v1';
 const ART_REVISIONS = PREFIX + 'art-revisions-v1';
@@ -59,6 +59,7 @@ async function migrateArtwork() {
 // Optional packs use the same artwork cache as ordinary drawing. Each completed
 // image is durable independently, so closing or pausing does not discard it.
 self.addEventListener('message', event => {
+  if(event.data?.type==='ACTIVATE_UPDATE'){event.waitUntil(self.skipWaiting());return;}
   if (event.data?.type !== 'CACHE_ART' || !event.ports[0]) return;
   const port = event.ports[0];
   event.waitUntil((async () => {
