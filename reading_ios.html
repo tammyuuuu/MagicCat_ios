@@ -8635,6 +8635,7 @@ async function rollAstroDice() {
   const results = astroDiceSets.map(values => values[astroRandomIndex(values.length)]);
   await Promise.all(dice.map((die, index) => animateAstroDie(die, astroDiceSets[index], results[index], index)));
   lastDiceResult = results.map(value => ({ ...value }));
+  updateDiceFlying(lastDiceResult);
   astroDiceRolling = false;
 }
 
@@ -8647,21 +8648,21 @@ clearBtn.addEventListener('click', () => {
 // ============================================================
 //  4.5 配色默认牌组（对齐 web）
 //  第四个配色「雾糖奇遇」(dopamine) 默认使用小小奇遇雷诺曼
-//  其余配色未配置，保持原行为（默认第一个牌组）
+//  其余配色默认使用维特塔罗
 // ============================================================
 const THEME_DEFAULT_DECK = { dopamine: '小小奇遇雷诺曼' };
 
 function deckForTheme(theme) {
   const key = theme || document.body.dataset.theme || 'mystic';
-  const deckName = THEME_DEFAULT_DECK[key];
+  const deckName = THEME_DEFAULT_DECK[key] || '维特塔罗';
   return deckName ? deckList.find(d => d.name === deckName) || null : null;
 }
 
-// 默认显示第一个牌组；当前配色若配了专属牌组则优先使用
+// 默认显示维特塔罗；第四个配色使用小小奇遇雷诺曼
 let _bootTheme = 'mystic';
 try { _bootTheme = localStorage.getItem('magiccat_reading_theme') || 'mystic'; } catch (_) {}
 if (deckList.length > 0) {
-  selectDeckAndOpen(deckList.find(d => d.id === 'theme-tarot-prototype') || deckForTheme(_bootTheme) || deckList[0]);
+  selectDeckAndOpen(deckForTheme(_bootTheme) || deckList[0]);
 }
 </script>
 
@@ -8767,10 +8768,10 @@ if (deckList.length > 0) {
   cards.forEach(function (card) {
     card.addEventListener('click', function () {
       applyReadingTheme(card.getAttribute('data-theme'));
-      /* 该配色若配了专属牌组（雾糖奇遇 → 小小奇遇雷诺曼），跟着换过去 */
+      /* 切换到配色的默认牌组（雾糖奇遇 → 雷诺曼，其余 → 维特） */
       try {
         var deck = typeof deckForTheme === 'function' ? deckForTheme(card.getAttribute('data-theme')) : null;
-        if (!(currentDeck && currentDeck._themeTarot) && deck && typeof selectDeckAndOpen === 'function') selectDeckAndOpen(deck);
+        if (deck && typeof selectDeckAndOpen === 'function') selectDeckAndOpen(deck);
       } catch (e) {}
     });
   });
@@ -8785,6 +8786,8 @@ if (deckList.length > 0) {
 </script>
 
 <script src="card_images.js"></script>
+<link rel="stylesheet" href="dice_flying.css">
+<script src="dice_flying.js"></script>
 <script src="spread.js"></script>
 </body>
 </html>
