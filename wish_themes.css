@@ -1,8 +1,8 @@
 /* M288 四象祝祷：共用愿望流程，玄武投币池。 */
-html[data-wish-theme="rouge"]{--bg0:#310b08;--bg1:#39150f;--bg2:#54251a;--ink:#ead9b8;--ink-dim:#c5ad94;--jade:#d6b780;--jade-dim:#c5ad94;--gold:#dec28b;--gold-hi:#f2ddad;--bronze:#b48f59;--line:#b48f5966;--line-soft:#b48f5933;--wash:#310b08b3;--cloth:url('图片/已批准/zhuque_brocade_tile_master_v01.png');}
-html[data-wish-theme="paper"]{--bg0:#fffdf7;--bg1:#fffdf6;--bg2:#f7efd9;--ink:#292720;--ink-dim:#716554;--jade:#806b45;--jade-dim:#716554;--gold:#806337;--gold-hi:#6b502b;--bronze:#bba06a;--line:#bba06a88;--line-soft:#bba06a44;--wash:#fffdf7aa;--cloth:url('图片/已批准/baihu_brocade_tile_master_v01.png');}
-html[data-wish-theme="jade"]{--bg0:#0b1929;--bg1:#12273b;--bg2:#1d3850;--ink:#e9e0cf;--ink-dim:#b1c2ce;--jade:#8daec7;--jade-dim:#b1c2ce;--gold:#d1b77f;--gold-hi:#eed6a4;--bronze:#b49a65;--line:#b49a6566;--line-soft:#b49a6533;--wash:#0b1929bb;--cloth:url('图片/已批准/xuanwu_brocade_tile_master_v01.png');}
-html[data-wish-theme="apricot"]{--bg0:#edf4e9;--bg1:#f7faf0;--bg2:#e3efd9;--ink:#242d26;--ink-dim:#55715e;--jade:#386b52;--jade-dim:#55715e;--gold:#71552b;--gold-hi:#66502d;--bronze:#a99b6d;--line:#a99b6d88;--line-soft:#a99b6d44;--wash:#edf4e9cc;--cloth:url('图片/已批准/qinglong_brocade_tile_master_v01.png');}
+html[data-wish-theme="rouge"]{--bg0:#310b08;--bg1:#39150f;--bg2:#54251a;--ink:#ead9b8;--ink-dim:#c5ad94;--jade:#d6b780;--jade-dim:#c5ad94;--gold:#dec28b;--gold-hi:#f2ddad;--bronze:#b48f59;--line:#b48f5966;--line-soft:#b48f5933;--wash:#310b08b3;--cloth:url('图片/玄鸟/zhuque_brocade_tile_master_v01.webp');}
+html[data-wish-theme="paper"]{--bg0:#fffdf7;--bg1:#fffdf6;--bg2:#f7efd9;--ink:#292720;--ink-dim:#716554;--jade:#806b45;--jade-dim:#716554;--gold:#806337;--gold-hi:#6b502b;--bronze:#bba06a;--line:#bba06a88;--line-soft:#bba06a44;--wash:#fffdf7aa;--cloth:url('图片/玄鸟/baihu_brocade_tile_master_v01.webp');}
+html[data-wish-theme="jade"]{--bg0:#0b1929;--bg1:#12273b;--bg2:#1d3850;--ink:#e9e0cf;--ink-dim:#b1c2ce;--jade:#8daec7;--jade-dim:#b1c2ce;--gold:#d1b77f;--gold-hi:#eed6a4;--bronze:#b49a65;--line:#b49a6566;--line-soft:#b49a6533;--wash:#0b1929bb;--cloth:url('图片/玄鸟/xuanwu_brocade_tile_master_v01.webp');}
+html[data-wish-theme="apricot"]{--bg0:#edf4e9;--bg1:#f7faf0;--bg2:#e3efd9;--ink:#242d26;--ink-dim:#55715e;--jade:#386b52;--jade-dim:#55715e;--gold:#71552b;--gold-hi:#66502d;--bronze:#a99b6d;--line:#a99b6d88;--line-soft:#a99b6d44;--wash:#edf4e9cc;--cloth:url('图片/玄鸟/qinglong_brocade_tile_master_v01.webp');}
 html[data-wish-theme] .desk{background:linear-gradient(var(--wash),var(--wash)),var(--cloth) repeat;background-size:auto,640px 640px;}
 html[data-wish-theme] .desk::before{display:none;}
 html[data-wish-theme] :is(.modal,.detail,.traces-drawer,.confirm,.toast){background:var(--bg1);color:var(--ink);box-shadow:none;}
@@ -20,13 +20,13 @@ html[data-wish-theme="jade"] .tree-svg,html[data-wish-theme="jade"] .tree-bg::be
 .pond-scene svg{width:100%;height:100%;overflow:visible;}
 .pond-caption{position:absolute;top:72px;left:0;right:0;text-align:center;color:var(--gold-hi);font-size:22px;letter-spacing:8px;}
 .pond-caption small{display:block;margin-top:14px;font-size:12px;letter-spacing:3px;color:var(--ink-dim);}
-.pond-coin{position:absolute;left:50%;top:15%;width:44px;height:44px;background:url('图片/已批准/xuanwu_coin_front_master_v02.png') center/contain no-repeat;opacity:0;}
+.pond-coin{position:absolute;left:50%;top:15%;width:44px;height:44px;background:url('图片/玄鸟/xuanwu_coin_front_master_v02.webp') center/contain no-repeat;opacity:0;}
 .pond-stage.toss .pond-coin{animation:pondToss 1.2s ease-in forwards;}
 .pond-ripple{position:absolute;left:50%;top:56%;width:20px;height:10px;border:1px solid #c7dce6;border-radius:50%;opacity:0;transform:translate(-50%,-50%);}
 .pond-stage.toss .pond-ripple{animation:pondRipple 1.5s .9s ease-out forwards;}
 @keyframes pondToss{0%{opacity:1;transform:translate(-50%,-100px) rotateY(0) scale(1.2)}75%{opacity:1}100%{opacity:0;top:56%;transform:translate(-50%,0) rotateY(720deg) scale(.45)}}
 @keyframes pondRipple{0%{opacity:.9}100%{opacity:0;width:260px;height:100px}}
-html[data-wish-theme="jade"] .wish .wish-obj{width:38px;height:38px;animation:none;background:url('图片/已批准/xuanwu_coin_front_master_v02.png') center/contain no-repeat;}
+html[data-wish-theme="jade"] .wish .wish-obj{width:38px;height:38px;animation:none;background:url('图片/玄鸟/xuanwu_coin_front_master_v02.webp') center/contain no-repeat;}
 html[data-wish-theme="jade"] .wish .wish-obj svg{display:none;}
 html[data-wish-theme="jade"] .wish{width:64px;}
 html[data-wish-theme="jade"] #carrierGrid{display:none;}
@@ -102,7 +102,7 @@ html[data-wish-theme] .wish-obj{animation:none;}
 @keyframes fireRise{0%{opacity:.2;transform:scaleY(.4)}25%,65%{opacity:1;transform:scaleY(1)}100%{opacity:.18;transform:scaleY(.45)}}
 @keyframes flameDance{to{transform:rotate(8deg) scaleX(.8) scaleY(.85)}}
 @keyframes ashRise{0%{opacity:0;transform:translateY(0)}20%{opacity:1}100%{opacity:0;transform:translateY(-160px) translateX(30px)}}
-.ritual-guard .guard-disc{left:25%;top:5%;width:150px;height:240px;border:0;outline:0;border-radius:0;background: url('图片/已批准/baihu_records_whitejade_web_v03.svg') center/contain no-repeat;}
+.ritual-guard .guard-disc{left:25%;top:5%;width:150px;height:240px;border:0;outline:0;border-radius:0;background: url('图片/玄鸟/baihu_records_whitejade_web_v03.svg') center/contain no-repeat;}
 .vow-scroll{position:absolute;left:43%;top:5%;width:43%;height:230px;border-top:5px solid #baa57a;border-bottom:5px solid #baa57a;background:#f7f0de;color:#443a2d;padding:24px 20px;box-sizing:border-box;text-align:center;}
 .vow-scroll small{font-size:11px;letter-spacing:4px;color:#7d6540;}.vow-scroll h2{font-size:18px;letter-spacing:2px;font-weight:400;margin:20px 0 16px}.vow-scroll p{font-size:12px;line-height:2;color:#675d4c;}.vow-seal{position:absolute;right:16px;bottom:14px;width:28px;height:28px;display:grid;place-items:center;border:1px solid #a99a74;color:#87734e;font-size:16px;}
 .ritual-guard .guard-base{bottom:20%;left:12%;right:12%;height:25px;border-radius:3px;background:#e1d5b7;}

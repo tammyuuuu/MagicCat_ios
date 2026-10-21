@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -12,8 +12,11 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.webp?v=icon1">
 <meta name="apple-mobile-web-app-title" content="魔法猫">
 <meta name="theme-color" content="#050f0d">
-<title>魔法猫</title>
+
+<title>祝祷之庭 · 承愿树</title>
 <link rel="stylesheet" href="world_switch.css">
+<link rel="stylesheet" href="wish_themes.css?v=m292">
+<script src="wish_themes.js?v=m292"></script>
 <style>
 /* ============================================================
    祝祷之庭 · wish_ios.html
@@ -30,32 +33,12 @@
   --line:rgba(178,151,88,.28); --line-soft:rgba(178,151,88,.14);
 }
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;overflow:hidden}
-html{height:100vh;background-color:var(--bg0);}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
 body{
-  height:100vh;
   font-family:"Noto Serif SC","Songti SC",serif;color:var(--ink);
-  background:var(--bg0);user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;
+  background:var(--bg0);user-select:none;
 }
 [hidden]{display:none !important}
-
-/* ===== 移动端全局：禁长按放大镜 / 菜单 / 图片拖拽（原生手感） ===== */
-input, textarea, [contenteditable="true"], [contenteditable=""] {
-  -webkit-touch-callout: default;
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  user-select: text;
-}
-img {
-  -webkit-user-drag: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  user-select: none;
-}
-button {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
 
 /* ---- 场景背景：墨黑·黛青 + 月晕 + 极淡云雷纹 ---- */
 .desk{position:fixed;inset:0;overflow:hidden;
@@ -73,7 +56,7 @@ button {
 
 /* ---- 东玄顶部导航（三页共用结构） ---- */
 .east-nav{
-  position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;z-index:2600;
+  position:fixed;top:12px;right:12px;z-index:2600;
   display:flex;gap:10px;align-items:center;
 }
 .east-nav-link{
@@ -98,7 +81,7 @@ button {
 }
 /* 月晕 */
 .tree-bg::before{
-  content:"";position:absolute;left:50%;top:50%;width:210px;height:210px;
+  content:"";position:absolute;left:50%;top:22%;width:210px;height:210px;
   transform:translate(-50%,-50%);border-radius:50%;
   background:radial-gradient(circle, rgba(223,205,161,.16), rgba(127,208,176,.05) 55%, transparent 72%);
   filter:blur(6px);
@@ -120,7 +103,7 @@ button {
 .hangers{position:absolute;inset:0;pointer-events:none;}
 .wish-anchors{position:absolute;inset:0;z-index:6;pointer-events:none;display:none}.wish-anchors.show{display:block}.wish-anchor{position:absolute;width:14px;height:14px;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(231,195,116,.72);background:rgba(12,31,26,.88);box-shadow:0 0 0 4px rgba(211,170,90,.08),0 0 12px rgba(231,195,116,.28)}.wish-anchor::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#d9b66d}.wish-anchor.near{transform:translate(-50%,-50%) scale(1.3);border-color:#ffe1a0;box-shadow:0 0 0 6px rgba(242,198,108,.14),0 0 22px rgba(255,218,137,.75)}
 .wish{
-  position:absolute;transform:translate(-50%,4px);
+  position:absolute;transform:translate(-50%,-8%);
   display:flex;flex-direction:column;align-items:center;gap:2px;
   background:none;border:none;padding:0;margin:0;cursor:pointer;
   font-family:inherit;pointer-events:auto;
@@ -132,9 +115,8 @@ button {
 .wish.dragging{z-index:12;transition:none;cursor:grabbing;filter:drop-shadow(0 0 15px rgba(242,198,108,.55))}.wish.dragging .wish-obj{animation:none!important}
 .wish-obj{display:block;width:48px;height:70px;transform-origin:50% 4%;animation:carrierSway 5.6s ease-in-out infinite alternate}
 .wish-obj svg{width:100%;height:100%;display:block;}
-@keyframes carrierSway{from{transform:rotate(-1.1deg)}to{transform:rotate(1.1deg)}}
-.wish--lantern{width:76px;filter:drop-shadow(0 0 12px rgba(231,161,69,.28)) drop-shadow(0 6px 10px rgba(0,0,0,.35))}.wish--lantern .wish-obj{width:58px;height:78px;transform-origin:50% 50%}@keyframes lanternDrift{0%,100%{transform:translate(-1px,1px) rotate(-.6deg)}45%{transform:translate(2px,-3px) rotate(.7deg)}70%{transform:translate(.5px,-1.5px) rotate(.2deg)}}
-.wish--knot{transform:translate(-50%,-3px);}
+@keyframes carrierSway{from{transform:rotate(-1.7deg)}to{transform:rotate(1.7deg)}}
+.wish--lantern{width:76px;filter:drop-shadow(0 0 12px rgba(231,161,69,.28)) drop-shadow(0 6px 10px rgba(0,0,0,.35))}.wish--lantern .wish-obj{width:58px;height:78px;transform-origin:50% 50%}@keyframes lanternDrift{0%,100%{transform:translate(-2px,2px) rotate(-1deg)}45%{transform:translate(3px,-7px) rotate(1.2deg)}70%{transform:translate(1px,-3px) rotate(.3deg)}}
 .wish-name{
   font-size:10px;color:var(--ink);letter-spacing:1px;line-height:1.3;
   max-width:76px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
@@ -145,7 +127,7 @@ button {
 /* 状态：行愿中 */
 .wish--active .wish-obj{animation:floatY 4.5s ease-in-out infinite;}
 .wish--lantern.wish--active .wish-obj{animation:lanternDrift 5.8s ease-in-out infinite}
-@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 .wish--active:hover{transform:translate(-50%,-14%) scale(1.12);}
 .wish--active:hover .wish-name{color:var(--gold-hi);border-color:var(--bronze);box-shadow:0 0 12px rgba(178,151,88,.25);}
 /* 状态：愿已成 */
@@ -164,13 +146,13 @@ button {
   background:none;border:none;cursor:pointer;font-family:inherit;padding:0;
 }
 .altar-body{
-  width:148px;height:50px;border-radius:25px;
+  width:210px;height:58px;border-radius:22px;
   border:1px solid var(--bronze);
   background:
     radial-gradient(circle at 50% 30%, rgba(224,179,106,.16), transparent 60%),
     linear-gradient(160deg, rgba(66,42,25,.5), rgba(20,14,9,.6));
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  color:var(--gold-hi);letter-spacing:6px;font-size:13px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  color:var(--gold-hi);letter-spacing:8px;font-size:15px;
   box-shadow:0 0 26px rgba(185,145,77,.18), inset 0 0 18px rgba(185,145,77,.08);
   transition:.3s;
 }
@@ -178,6 +160,8 @@ button {
   box-shadow:0 0 38px rgba(212,168,85,.38), inset 0 0 22px rgba(212,168,85,.14);
   transform:translateY(-2px);
 }
+.altar-flame{width:20px;height:26px;color:#e8a64c;animation:flame .9s ease-in-out infinite alternate;}
+@keyframes flame{from{transform:scaleY(.92)}to{transform:scaleY(1.08)}}
 .altar-tip{font-size:10px;color:var(--ink-dim);letter-spacing:5px;}
 
 /* ---- 愿迹摆件 ---- */
@@ -338,20 +322,20 @@ button {
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
 @media (max-width:760px){
-  .tree-bg{width:min(94vw,86vh);transform:translate(-50%,-62%);}
-  /* 愿望载体相对缩小后的树按比例调小 */
-  .wish{width:50px;}
-  .wish-obj{width:38px;height:55px;}
-  .wish--lantern{width:60px;}
-  .wish--lantern .wish-obj{width:46px;height:62px;}
-  .wish-name{max-width:64px;font-size:9px;}
-  .altar{transform:translateX(-50%);bottom:calc(95px + env(safe-area-inset-bottom));}
-  .traces-prop{bottom:calc(16px + env(safe-area-inset-bottom));}
+  .east-nav{top:auto;bottom:10px;right:10px;left:10px;justify-content:center;flex-wrap:wrap;}
+  .east-nav-link{padding:5px 10px;font-size:11px;}
+  .altar{transform:translateX(-50%) scale(.82);bottom:56px;}
+  .traces-prop{bottom:112px;}
   .detail{right:8px;left:8px;width:auto;}
 }
 </style>
 <script src="pwa.js" defer></script>
-</head>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/webp" sizes="192x192" href="icons/icon-192.webp?v=icon1">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.webp?v=icon1">
+<meta name="theme-color" content="#0d001a">
+<style>input,textarea{user-select:text;-webkit-user-select:text}button{touch-action:manipulation}img{-webkit-user-drag:none}@media(max-width:760px){.detail{right:8px;left:8px;width:auto}.altar{bottom:calc(95px + env(safe-area-inset-bottom))}.traces-prop{bottom:calc(16px + env(safe-area-inset-bottom))}}</style>
+<style>.east-nav{position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;bottom:auto;left:auto;flex-wrap:nowrap;z-index:2800}.east-nav-link{padding:6px 10px;font-size:11px;letter-spacing:1px}</style></head>
 <body data-world="east">
 <script src="world_switch.js"></script>
 
@@ -362,6 +346,7 @@ button {
       <!-- 承愿树：盘根、回枝与玉叶组成的东方愿树 -->
       <svg class="tree-svg" viewBox="0 0 700 640" fill="none" aria-hidden="true">
         <defs><linearGradient id="trunkGold" x1="270" y1="260" x2="430" y2="640"><stop stop-color="#6d5531"/><stop offset=".42" stop-color="#b18a4d"/><stop offset=".68" stop-color="#705331"/><stop offset="1" stop-color="#3a3423"/></linearGradient><linearGradient id="branchGold" x1="120" y1="200" x2="560" y2="450"><stop stop-color="#80663d"/><stop offset=".5" stop-color="#c19a58"/><stop offset="1" stop-color="#745936"/></linearGradient><radialGradient id="leafJade" cx="35%" cy="28%" r="80%"><stop stop-color="#bad8c4"/><stop offset=".35" stop-color="#699d83"/><stop offset="1" stop-color="#274f43"/></radialGradient></defs>
+        <g class="glow"><circle cx="350" cy="180" r="105"/><circle cx="350" cy="180" r="82" opacity=".45"/></g>
         <path class="trunk-fill" d="M285 635c29-28 42-61 46-102 5-52-7-91 9-137 12-36 34-65 39-102 5-34-1-67-14-98 27 23 39 57 33 94-6 42-31 73-39 110-10 47 10 96 3 148-5 39-18 67-31 87Z"/>
         <path class="trunk-fill" d="M320 636c-35-5-72 0-100 14 16-25 48-42 92-45M351 638c39-10 77-6 109 8-22-25-56-38-95-36"/>
         <g class="branch" stroke-width="8"><path d="M349 510C305 474 250 452 179 448"/><path d="M350 470C396 445 451 424 529 430"/><path d="M350 414C303 383 257 352 206 300"/><path d="M373 376C424 343 475 302 526 241"/><path d="M369 337C340 292 323 247 326 191"/><path d="M382 319C417 275 442 228 447 174"/></g>
@@ -402,6 +387,10 @@ button {
   <!-- 祝祷台 -->
   <button class="altar" id="altarBtn" type="button" aria-label="祝祷台 · 立愿">
     <span class="altar-body">
+      <svg class="altar-flame" viewBox="0 0 24 30" fill="none" aria-hidden="true">
+        <path d="M12 3C14 8 20 11 20 18a8 8 0 1 1-16 0c0-7 6-10 8-15Z" fill="currentColor" opacity=".9"/>
+        <path d="M12 10c1.6 3.4 5 5.6 5 9.4a5 5 0 1 1-10 0c0-3.8 3.4-6 5-9.4Z" fill="#f8e7bd" opacity=".85"/>
+      </svg>
       祝 祷 台
     </span>
     <span class="altar-tip">点击此处 · 立下一愿</span>
@@ -638,7 +627,7 @@ button {
   }
   function beginWishDrag(e) {
     var node=e.target.closest('.wish');
-    if (!node || e.button!==0) return;
+    if (!node || e.button!==0 || document.documentElement.dataset.wishTheme) return;
     var w=getById(node.getAttribute('data-id'));
     if (!w) return;
     var p=localPoint(e);
@@ -685,16 +674,22 @@ button {
   }
 
   /* ---- 承愿物挂载 ---- */
+  document.addEventListener('wish-theme-change',function(){if(els.hangers){renderTree();renderDrawer();closeDetail();}});
+  window.addEventListener('resize',function(){if(els.hangers){renderTree();renderDrawer();closeDetail();}});
+  window.whiteTigerTasks={list:function(){return wishes.filter(function(w){return w.ritual==='paper'&&w.status!=='released';});},add:openWishModal,set:function(id,status){var w=getById(id);if(!w||w.ritual!=='paper')return;w.status=status;w.doneAt=status==='done'?Date.now():null;save();renderTree();renderDrawer();}};
   function renderTree() {
+    document.dispatchEvent(new Event('white-tiger-tasks-change')); 
     var h = els.hangers;
     var branchIndex=0, lanternIndex=0;
-    h.innerHTML = wishes.filter(function (w) { return w.status !== 'released'; }).map(function (w, i) {
+    h.innerHTML = wishes.filter(function (w) { return w.ritual !== 'rouge' && w.status !== 'released' && (!w.ritual || w.ritual === document.documentElement.dataset.wishTheme); }).slice(document.documentElement.dataset.wishTheme==='jade' ? -32 : (document.documentElement.dataset.wishTheme==='paper' ? (innerWidth<701 ? -4 : -8) : (innerWidth<701 ? -6 : -12))).map(function (w, i) {
       var spot = defaultSpotFor(w, branchIndex, lanternIndex);
+      if(document.documentElement.dataset.wishTheme){var angle=i*2.399;var radius=Math.sqrt((i%32)+1)/6;spot={x:50+Math.cos(angle)*radius*23,y:49+Math.sin(angle)*radius*16};}
+      if(document.documentElement.dataset.wishTheme==='apricot'||document.documentElement.dataset.wishTheme==='paper'){var cols=innerWidth<701?2:4;spot={x:(cols===2?20:12)+(i%cols)*((cols===2?60:76)/(cols-1)),y:12+Math.floor(i/cols)*(document.documentElement.dataset.wishTheme==='paper'?55:34)};}
       if (w.carrier==='lantern') lanternIndex++; else branchIndex++;
       var name = w.name || '未名之愿';
       return '<button type="button" class="wish wish--' + w.carrier + ' wish--' + w.status +
-        '" style="left:' + spot.x + '%;top:' + spot.y + '%" data-id="' + w.id + '" title="拖动调整位置 · 点击查看愿望">' +
-        '<span class="wish-obj">' + CARRIER_SVG[w.carrier] + '</span>' +
+        '" style="left:' + spot.x + '%;top:' + spot.y + '%" data-id="' + w.id + '" title="点击回看 · 记录行动">' +
+        '<span class="wish-obj">' + (window.wishRitualObject ? window.wishRitualObject(w) : CARRIER_SVG[w.carrier]) + '</span>' +
         '<span class="wish-name">' + escapeHtml(name) + '</span>' +
         '<span class="wish-mark">✦</span>' +
         '</button>';
@@ -703,12 +698,13 @@ button {
 
   /* ---- 愿迹抽屉 ---- */
   function renderDrawer() {
-    els.tracesCount.textContent = String(wishes.length);
-    if (!wishes.length) {
+    var recorded = wishes.filter(function(w){return w.ritual !== 'rouge';});
+    els.tracesCount.textContent = String(recorded.length);
+    if (!recorded.length) {
       els.tracesList.innerHTML = '<div class="tr-empty">尚无愿迹 · 愿树空悬。<br>可在「祝祷台」立下第一愿。</div>';
       return;
     }
-    els.tracesList.innerHTML = wishes.map(function (w) {
+    els.tracesList.innerHTML = recorded.map(function (w) {
       var trs = w.traces || [];
       var trHtml = trs.length
         ? '<div class="tr-traces">' + trs.map(function (t) {
@@ -729,7 +725,9 @@ button {
     var w = getById(openId);
     if (!w) { els.detail.classList.remove('open'); return; }
     els.dName.textContent = w.name || '未名之愿';
-    els.dStatus.textContent = STATUS_TEXT[w.status];
+    els.dStatus.textContent = w.ritual==='rouge' ? '已焚笺 · 已放下' : STATUS_TEXT[w.status];
+    els.dTraceBtn.textContent = w.ritual==='paper' ? '记 录 践 行' : w.ritual==='apricot' ? '添 一 片 叶' : '今 日 行 愿';
+    els.dDoneBtn.textContent = w.ritual==='paper' ? '封 印 成 约' : '愿 已 成';
     els.dStatus.className = 'd-badge ' + w.status;
     els.dContent.textContent = w.content || '（未填写内容）';
     els.dCreated.textContent = todayStr(w.createdAt);
@@ -742,7 +740,7 @@ button {
     els.detail.classList.add('open');
   }
 
-  function openDetail(id) { openId = id; renderDetail(); }
+  function openDetail(id) { if(document.documentElement.dataset.wishTheme==='rouge' || getById(id)?.ritual==='rouge')return; openId = id; renderDetail(); }
   function closeDetail() { openId = null; els.detail.classList.remove('open'); }
 
   /* ---- 弹窗 ---- */
@@ -776,17 +774,24 @@ button {
   function submitWish() {
     var name = els.wName.value.trim();
     if (!name) { toast('请先给此愿一个名字'); els.wName.focus(); return; }
+    if(document.documentElement.dataset.wishTheme==='rouge'){
+      els.wName.value='';els.wContent.value='';els.wTarget.value='';
+      closeModal(els.wishMask,els.wishModal);
+      document.dispatchEvent(new Event('wish-ritual-submit'));
+      toast('笺已焚化 · 此事已放下');return;
+    }
     var content = els.wContent.value.trim();
     var target = els.wTarget.value || null;
     var w = {
       id: uid(), name: name, content: content, targetDate: target,
-      carrier: carrierSel, status: 'active',
-      createdAt: Date.now(), doneAt: null, releasedAt: null, traces: []
+      carrier: carrierSel, ritual: document.documentElement.dataset.wishTheme, status: document.documentElement.dataset.wishTheme==='rouge' ? 'done' : 'active',
+      createdAt: Date.now(), doneAt: document.documentElement.dataset.wishTheme==='rouge' ? Date.now() : null, releasedAt: null, traces: []
     };
     wishes.push(w);
     save(); renderTree(); renderDrawer();
     closeModal(els.wishMask, els.wishModal);
-    toast('「' + name + '」已挂上枝头');
+    document.dispatchEvent(new Event('wish-ritual-submit'));
+    toast(({rouge:'笺已焚化 · 烦恼留在愿迹中',paper:'已立下守护之约',jade:'一枚铜钱 · 一愿入池',apricot:'愿种已种下 · 行动使它生长'})[w.ritual]);
   }
 
   /* ---- 今日行愿 ---- */
@@ -923,7 +928,15 @@ button {
 <!-- 东玄顶部导航 -->
 <div class="east-nav">
   <a class="east-nav-link" href="bird_ios.html">玄鸟占卜桌</a>
+
+
 </div>
 
-</body>
+<script src="white_tiger_scrolls.js?v=m351"></script><script src="qinglong_watering.js?v=m354"></script></body>
 </html>
+
+
+
+
+
+

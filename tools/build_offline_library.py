@@ -24,6 +24,10 @@ def build():
     urls = set(re.findall(r"图片/四境塔罗/[^\s\"'<>)]*\.webp", text))
     waite_index = next((i for i, group in enumerate(groups) if group['name'] == '维特塔罗'), -1)
     groups.insert(waite_index + 1, {'id': 'theme-tarot', 'name': '四境塔罗', 'files': sorted(urls)})
+    for theme, name in [('mystic', '星夜紫晶'), ('noir', '霜白墨羽'), ('parchment', '琥珀秘卷'), ('dopamine', '雾糖奇遇')]:
+        files = sorted(path.relative_to(ROOT).as_posix() for path in (ROOT / '图片/壁纸').glob(f'{theme}-*.webp'))
+        if files:
+            groups.append({'id': f'wallpapers-{theme}', 'name': f'{name} · 壁纸', 'files': files})
     for group in groups:
         entries = []
         for url in group['files']:

@@ -3,14 +3,14 @@
 importScripts('./pwa-art.js');
 const BASE = new URL('./', self.location.href);
 const PREFIX = 'magiccat-' + BASE.pathname;
-const CORE_CACHE = PREFIX + 'core-v67';
+const CORE_CACHE = PREFIX + 'core-v82';
 // Kept across application releases. No user data lives in these caches.
 const ART_CACHE = PREFIX + 'art-v1';
 const ART_REVISIONS = PREFIX + 'art-revisions-v1';
 const CORE = [
   'wish_themes.js', 'wish_themes.css', 'white_tiger_scrolls.js', 'qinglong_watering.js', 'bird_themes.js', 'bird_themes.css', 'bird_materials.css', 'dice_flying.js', 'dice_flying.css', 'spread.js', 'spread.css', 'reading_ios.html', 'manifest_ios.html', 'bird_ios.html', 'wish_ios.html',
   'manifest.json', 'pwa.js', 'offline-library.js', 'offline-library.css', 'offline-library.json', 'world_switch.js', 'world_switch.css',
-  'card_images.js', 'decks.js', 'waite_meanings.js', 'lenormand_meanings.js',
+  'card_images.js', 'decks.js', 'deck_browser.js', 'deck_browser.css', 'reading_wallpapers.js', 'reading_wallpapers.css', 'waite_meanings.js', 'lenormand_meanings.js',
   'html2canvas.min.js', 'abundance_core.js', 'love_v01.js', 'love_presets.js', 'love_library.css', 'altar_mind.js', 'altar_mind.css', 'liuyao_core.js',
   'yao_ui.js', 'yao_ui.css', 'yijing_data.js',
   'icons/icon-192.webp?v=icon1', 'icons/icon-512.webp?v=icon1',

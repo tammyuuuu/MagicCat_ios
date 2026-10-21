@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>牌组库 · 手机预览</title>
+  <style>
+    html,body{margin:0;min-height:100%;background:#17131e;color:#ede6f7;font-family:system-ui}
+    body{display:flex;flex-direction:column;align-items:center;padding:16px 6px;box-sizing:border-box}
+    p{margin:0 0 14px;font-size:13px}
+    iframe{display:block;width:393px;height:852px;border:0;border-radius:24px;background:#180a2d;box-shadow:0 0 0 4px #39333f;flex:none}
+  </style>
+</head>
+<body>
+  <p>iPhone 15 · 393 × 852 · 牌组库</p>
+  <iframe src="reading_ios.html" title="牌组库手机交互预览"></iframe>
+  <script>
+    document.querySelector('iframe').addEventListener('load', function () {
+      const doc = this.contentDocument;
+      if (new URLSearchParams(location.search).get('panel') === 'wallpapers') {
+        doc?.getElementById('themeToggle')?.click();
+      } else {
+        doc?.getElementById('drawerDeck')?.classList.add('open');
+      }
+    });
+  </script>
+</body>
+</html>

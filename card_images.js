@@ -4,6 +4,9 @@
   const selector = '.placed-card .card-front img, .theme-tarot-front-art';
 
   function watch(target) {
+    // Library thumbnails open the reader even while their artwork is loading.
+    // Avoid inserting a retry button inside the thumbnail's own button.
+    if (target.closest('#deckBrowser')) return;
     const background = target.matches('.theme-tarot-front-art');
     const host = target.parentElement;
     const css = background ? getComputedStyle(target).backgroundImage : '';

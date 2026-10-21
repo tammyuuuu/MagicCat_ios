@@ -5,21 +5,21 @@ html[data-bird-theme] :is(.act-btn,.mini-btn,.sj-btn,.east-nav-link,.rec-item):h
 html[data-bird-theme] :is(.aux,.main-stage,.rec-drawer){scrollbar-color:var(--bronze) transparent;}
 html[data-bird-theme="rouge"] body .stage-wrap .aux .coins-stage{padding-top:22px;padding-bottom:16px;gap:12px;}
 html[data-bird-theme="rouge"] .coin .face{border:0;background-color:transparent;box-shadow:none;background-repeat:no-repeat;background-position:center;border-radius:50%;}
-html[data-bird-theme="rouge"] .coin .face.front{background-image:url('图片/已批准/zhuque_coin_front_master_v01.png');background-size:108.5% 108.5%;}
-html[data-bird-theme="rouge"] .coin .face.back{background-image:url('图片/已批准/zhuque_coin_back_master_v03.png');background-size:105.4% 105.4%;}
+html[data-bird-theme="rouge"] .coin .face.front{background-image:url('图片/玄鸟/zhuque_coin_front_master_v01.webp');background-size:108.5% 108.5%;}
+html[data-bird-theme="rouge"] .coin .face.back{background-image:url('图片/玄鸟/zhuque_coin_back_master_v03.webp');background-size:105.4% 105.4%;}
 html[data-bird-theme="rouge"] .coin .face .coin-mark{visibility:hidden;}
 html[data-bird-theme="rouge"] .coin .face::after{display:none;}
-html[data-bird-theme="rouge"] :is(.y-pile,.y-hung) i{background:transparent url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;box-shadow:none;}
+html[data-bird-theme="rouge"] :is(.y-pile,.y-hung) i{background:transparent url('图片/玄鸟/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;box-shadow:none;}
 .yarrow-art{display:none;}
 html[data-bird-theme="rouge"] #sjYarrow > svg{display:none;}
 html[data-bird-theme="rouge"] #sjYarrow .yarrow-art{display:flex;justify-content:center;align-items:center;gap:4px;width:40px;height:40px;}
-html[data-bird-theme="rouge"] #sjYarrow .yarrow-art i{display:block;width:3px;height:36px;background:url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;}
+html[data-bird-theme="rouge"] #sjYarrow .yarrow-art i{display:block;width:3px;height:36px;background:url('图片/玄鸟/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;}
 html[data-bird-theme="rouge"] #sjYarrow .yarrow-art i:nth-child(even){height:30px;}
 .records-pendant{display:none;}
 html[data-bird-theme="rouge"] .records-pendant{display:block;width:110px;height:300px;object-fit:contain;pointer-events:none;}
 html[data-bird-theme="rouge"] .records-pendant{width:66px;height:180px;}
 html[data-bird-theme="rouge"] .rec-drawer{background:linear-gradient(155deg,#68160f 0%,#3b0808 45%,#230507 100%);border-right:1px solid #d29b57;padding:28px 20px;box-shadow:16px 0 50px #13020399,inset -1px 0 #ffdb9625;}
-html[data-bird-theme="rouge"] .rec-drawer::before{content:'';position:absolute;inset:0;pointer-events:none;background:url('图片/已批准/zhuque_sidebar_master_v02.png') center/100% 100% no-repeat;opacity:.24;z-index:-1;}
+html[data-bird-theme="rouge"] .rec-drawer::before{content:'';position:absolute;inset:0;pointer-events:none;background:url('图片/玄鸟/zhuque_sidebar_master_v02.webp') center/100% 100% no-repeat;opacity:.24;z-index:-1;}
 html[data-bird-theme="rouge"] .rec-title{font-size:21px;letter-spacing:12px;color:#ffdfa4;padding:9px 30px 22px;margin-bottom:22px;border-bottom:1px solid #deab6460;text-shadow:0 2px 8px #e473342e;}
 html[data-bird-theme="rouge"] .rec-title::after{content:'卦象留存 · 回观所问';display:block;font-size:10px;letter-spacing:3px;color:#d7b58e;margin-top:9px;}
 html[data-bird-theme="rouge"] .rec-close{top:7px;right:0;width:30px;height:30px;border-color:#dca36d;background:#53100b;color:#ffe3ad;}
@@ -40,21 +40,21 @@ html[data-bird-theme="rouge"] .rec-item .rec-head{position:static;padding-right:
 html[data-bird-theme="rouge"] .rec-item .rec-del{position:absolute;left:auto;right:10px;top:13px;width:24px;height:24px;padding:0;display:grid;place-items:center;}
 html[data-bird-theme="paper"] body .stage-wrap .aux .coins-stage{padding-top:22px;padding-bottom:16px;gap:12px;}
 html[data-bird-theme="paper"] .coin .face{border:0;background-color:transparent;box-shadow:none;background-repeat:no-repeat;background-position:center;border-radius:50%;}
-html[data-bird-theme="paper"] .coin .face.front{background-image:url('图片/已批准/baihu_coin_front_master_v02.png');background-size:108.5% 108.5%;}
-html[data-bird-theme="paper"] .coin .face.back{background-image:url('图片/已批准/baihu_coin_back_master_v02.png');background-size:105.4% 105.4%;}
+html[data-bird-theme="paper"] .coin .face.front{background-image:url('图片/玄鸟/baihu_coin_front_master_v02.webp');background-size:108.5% 108.5%;}
+html[data-bird-theme="paper"] .coin .face.back{background-image:url('图片/玄鸟/baihu_coin_back_master_v02.webp');background-size:105.4% 105.4%;}
 html[data-bird-theme="paper"] .coin .face .coin-mark{visibility:hidden;}
 html[data-bird-theme="paper"] .coin .face::after{display:none;}
-html[data-bird-theme="paper"] :is(.y-pile,.y-hung) i{background:transparent url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;box-shadow:none;}
+html[data-bird-theme="paper"] :is(.y-pile,.y-hung) i{background:transparent url('图片/玄鸟/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;box-shadow:none;}
 .yarrow-art{display:none;}
 html[data-bird-theme="paper"] #sjYarrow > svg{display:none;}
 html[data-bird-theme="paper"] #sjYarrow .yarrow-art{display:flex;justify-content:center;align-items:center;gap:4px;width:40px;height:40px;}
-html[data-bird-theme="paper"] #sjYarrow .yarrow-art i{display:block;width:3px;height:36px;background:url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;}
+html[data-bird-theme="paper"] #sjYarrow .yarrow-art i{display:block;width:3px;height:36px;background:url('图片/玄鸟/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;}
 html[data-bird-theme="paper"] #sjYarrow .yarrow-art i:nth-child(even){height:30px;}
 .records-pendant{display:none;}
 html[data-bird-theme="paper"] .records-pendant{display:block;width:110px;height:300px;object-fit:contain;pointer-events:none;}
 html[data-bird-theme="paper"] .records-pendant{width:66px;height:180px;}
 html[data-bird-theme="paper"] .rec-drawer{background:linear-gradient(155deg,#2d2c2a 0%,#171614 45%,#0e0d0b 100%);border-right:1px solid #9e9d9b;padding:28px 20px;box-shadow:16px 0 50px #08070599,inset -1px 0 #d8d7d525;}
-html[data-bird-theme="paper"] .rec-drawer::before{content:'';position:absolute;inset:0;pointer-events:none;background:url('图片/已批准/zhuque_sidebar_master_v02.png') center/100% 100% no-repeat;opacity:.24;z-index:-1;}
+html[data-bird-theme="paper"] .rec-drawer::before{content:'';position:absolute;inset:0;pointer-events:none;background:url('图片/玄鸟/zhuque_sidebar_master_v02.webp') center/100% 100% no-repeat;opacity:.24;z-index:-1;}
 html[data-bird-theme="paper"] .rec-title{font-size:21px;letter-spacing:12px;color:#dddcda;padding:9px 30px 22px;margin-bottom:22px;border-bottom:1px solid #acaba960;text-shadow:0 2px 8px #8887852e;}
 html[data-bird-theme="paper"] .rec-title::after{content:'卦象留存 · 回观所问';display:block;font-size:10px;letter-spacing:3px;color:#b7b6b4;margin-top:9px;}
 html[data-bird-theme="paper"] .rec-close{top:7px;right:0;width:30px;height:30px;border-color:#a9a8a6;background:#232220;color:#e1e0de;}
@@ -92,21 +92,21 @@ html[data-bird-theme="paper"] .rec-item:hover{background:#f7edda;border-color:#9
 html[data-bird-theme="paper"] .rec-item .rec-head{color:#4b4030;}
 html[data-bird-theme="jade"] body .stage-wrap .aux .coins-stage{padding-top:22px;padding-bottom:16px;gap:12px;}
 html[data-bird-theme="jade"] .coin .face{border:0;background-color:transparent;box-shadow:none;background-repeat:no-repeat;background-position:center;border-radius:50%;}
-html[data-bird-theme="jade"] .coin .face.front{background-image:url('图片/已批准/xuanwu_coin_front_master_v02.png');background-size:108.5% 108.5%;}
-html[data-bird-theme="jade"] .coin .face.back{background-image:url('图片/已批准/xuanwu_coin_back_master_v02.png');background-size:105.4% 105.4%;}
+html[data-bird-theme="jade"] .coin .face.front{background-image:url('图片/玄鸟/xuanwu_coin_front_master_v02.webp');background-size:108.5% 108.5%;}
+html[data-bird-theme="jade"] .coin .face.back{background-image:url('图片/玄鸟/xuanwu_coin_back_master_v02.webp');background-size:105.4% 105.4%;}
 html[data-bird-theme="jade"] .coin .face .coin-mark{visibility:hidden;}
 html[data-bird-theme="jade"] .coin .face::after{display:none;}
-html[data-bird-theme="jade"] :is(.y-pile,.y-hung) i{background:transparent url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;box-shadow:none;}
+html[data-bird-theme="jade"] :is(.y-pile,.y-hung) i{background:transparent url('图片/玄鸟/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;box-shadow:none;}
 .yarrow-art{display:none;}
 html[data-bird-theme="jade"] #sjYarrow > svg{display:none;}
 html[data-bird-theme="jade"] #sjYarrow .yarrow-art{display:flex;justify-content:center;align-items:center;gap:4px;width:40px;height:40px;}
-html[data-bird-theme="jade"] #sjYarrow .yarrow-art i{display:block;width:3px;height:36px;background:url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;}
+html[data-bird-theme="jade"] #sjYarrow .yarrow-art i{display:block;width:3px;height:36px;background:url('图片/玄鸟/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;}
 html[data-bird-theme="jade"] #sjYarrow .yarrow-art i:nth-child(even){height:30px;}
 .records-pendant{display:none;}
 html[data-bird-theme="jade"] .records-pendant{display:block;width:110px;height:300px;object-fit:contain;pointer-events:none;}
 html[data-bird-theme="jade"] .records-pendant{width:66px;height:180px;}
 html[data-bird-theme="jade"] .rec-drawer{background:linear-gradient(155deg,#14243b 0%,#0a121e 45%,#060b12 100%);border-right:1px solid #d29b57;padding:28px 20px;box-shadow:16px 0 50px #03060999,inset -1px 0 #ffdb9625;}
-html[data-bird-theme="jade"] .rec-drawer::before{content:'';position:absolute;inset:0;pointer-events:none;background:url('图片/已批准/zhuque_sidebar_master_v02.png') center/100% 100% no-repeat;opacity:.24;z-index:-1;}
+html[data-bird-theme="jade"] .rec-drawer::before{content:'';position:absolute;inset:0;pointer-events:none;background:url('图片/玄鸟/zhuque_sidebar_master_v02.webp') center/100% 100% no-repeat;opacity:.24;z-index:-1;}
 html[data-bird-theme="jade"] .rec-title{font-size:21px;letter-spacing:12px;color:#ffdfa4;padding:9px 30px 22px;margin-bottom:22px;border-bottom:1px solid #deab6460;text-shadow:0 2px 8px #e473342e;}
 html[data-bird-theme="jade"] .rec-title::after{content:'卦象留存 · 回观所问';display:block;font-size:10px;letter-spacing:3px;color:#d7b58e;margin-top:9px;}
 html[data-bird-theme="jade"] .rec-close{top:7px;right:0;width:30px;height:30px;border-color:#dca36d;background:#101c2e;color:#ffe3ad;}
@@ -136,19 +136,19 @@ html[data-bird-theme="jade"] .records-pendant-xuanwu{width:66px;height:180px;}
 .records-pendant-qinglong{display:none;}
 html[data-bird-theme="apricot"] body .stage-wrap .aux .coins-stage{padding-top:22px;padding-bottom:16px;gap:12px;}
 html[data-bird-theme="apricot"] .coin .face{border:0;background-color:transparent;box-shadow:none;background-repeat:no-repeat;background-position:center;border-radius:50%;}
-html[data-bird-theme="apricot"] .coin .face.front{background-image:url('图片/已批准/qinglong_coin_front_master_v02.png');background-size:108.5% 108.5%;}
-html[data-bird-theme="apricot"] .coin .face.back{background-image:url('图片/已批准/qinglong_coin_back_master_v02.png');background-size:105.4% 105.4%;}
+html[data-bird-theme="apricot"] .coin .face.front{background-image:url('图片/玄鸟/qinglong_coin_front_master_v02.webp');background-size:108.5% 108.5%;}
+html[data-bird-theme="apricot"] .coin .face.back{background-image:url('图片/玄鸟/qinglong_coin_back_master_v02.webp');background-size:105.4% 105.4%;}
 html[data-bird-theme="apricot"] .coin .face .coin-mark{visibility:hidden;}
 html[data-bird-theme="apricot"] .coin .face::after{display:none;}
-html[data-bird-theme="apricot"] :is(.y-pile,.y-hung) i{background:transparent url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;box-shadow:none;}
+html[data-bird-theme="apricot"] :is(.y-pile,.y-hung) i{background:transparent url('图片/玄鸟/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;box-shadow:none;}
 html[data-bird-theme="apricot"] #sjYarrow > svg{display:none;}
 html[data-bird-theme="apricot"] #sjYarrow .yarrow-art{display:flex;justify-content:center;align-items:center;gap:4px;width:40px;height:40px;}
-html[data-bird-theme="apricot"] #sjYarrow .yarrow-art i{display:block;width:3px;height:36px;background:url('图片/已批准/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;}
+html[data-bird-theme="apricot"] #sjYarrow .yarrow-art i{display:block;width:3px;height:36px;background:url('图片/玄鸟/zhuque_yarrow_web_v02.svg') center/100% 100% no-repeat;}
 html[data-bird-theme="apricot"] #sjYarrow .yarrow-art i:nth-child(even){height:30px;}
 html[data-bird-theme="apricot"] .records-pendant{display:block;width:110px;height:300px;object-fit:contain;pointer-events:none;}
 html[data-bird-theme="apricot"] .records-pendant{width:66px;height:180px;}
 html[data-bird-theme="apricot"] .rec-drawer{background:linear-gradient(155deg,#2d2c2a 0%,#171614 45%,#0e0d0b 100%);border-right:1px solid #9e9d9b;padding:28px 20px;box-shadow:16px 0 50px #08070599,inset -1px 0 #d8d7d525;}
-html[data-bird-theme="apricot"] .rec-drawer::before{content:'';position:absolute;inset:0;pointer-events:none;background:url('图片/已批准/zhuque_sidebar_master_v02.png') center/100% 100% no-repeat;opacity:.24;z-index:-1;}
+html[data-bird-theme="apricot"] .rec-drawer::before{content:'';position:absolute;inset:0;pointer-events:none;background:url('图片/玄鸟/zhuque_sidebar_master_v02.webp') center/100% 100% no-repeat;opacity:.24;z-index:-1;}
 html[data-bird-theme="apricot"] .rec-title{font-size:21px;letter-spacing:12px;color:#dddcda;padding:9px 30px 22px;margin-bottom:22px;border-bottom:1px solid #acaba960;text-shadow:0 2px 8px #8887852e;}
 html[data-bird-theme="apricot"] .rec-title::after{content:'卦象留存 · 回观所问';display:block;font-size:10px;letter-spacing:3px;color:#b7b6b4;margin-top:9px;}
 html[data-bird-theme="apricot"] .rec-close{top:7px;right:0;width:30px;height:30px;border-color:#a9a8a6;background:#232220;color:#e1e0de;}
@@ -189,9 +189,9 @@ html[data-bird-theme="apricot"] .records-pendant-qinglong{display:block;width:13
 html[data-bird-theme="apricot"] #sjYarrow>svg{display:block;}
 html[data-bird-theme="apricot"] #sjYarrow .yarrow-art{display:none;}
 html[data-bird-theme="apricot"] .records-pendant-qinglong{width:78px;height:180px;}
-html[data-bird-theme="paper"]{--yarrow-art:url('图片/已批准/baihu_yarrow_web_v01.svg');}
-html[data-bird-theme="jade"]{--yarrow-art:url('图片/已批准/xuanwu_yarrow_web_v01.svg');}
-html[data-bird-theme="apricot"]{--yarrow-art:url('图片/已批准/qinglong_yarrow_web_v01.svg');}
+html[data-bird-theme="paper"]{--yarrow-art:url('图片/玄鸟/baihu_yarrow_web_v01.svg');}
+html[data-bird-theme="jade"]{--yarrow-art:url('图片/玄鸟/xuanwu_yarrow_web_v01.svg');}
+html[data-bird-theme="apricot"]{--yarrow-art:url('图片/玄鸟/qinglong_yarrow_web_v01.svg');}
 html:is([data-bird-theme="paper"],[data-bird-theme="jade"],[data-bird-theme="apricot"]) :is(.y-pile,.y-hung) i{background:var(--yarrow-art) center/100% 100% no-repeat;box-shadow:none;}
 html:is([data-bird-theme="paper"],[data-bird-theme="jade"],[data-bird-theme="apricot"]) #sjYarrow>svg{display:none;}
 html:is([data-bird-theme="paper"],[data-bird-theme="jade"],[data-bird-theme="apricot"]) #sjYarrow .yarrow-art{display:flex;justify-content:center;align-items:center;gap:4px;width:40px;height:40px;}

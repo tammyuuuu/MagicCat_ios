@@ -106,7 +106,8 @@ function showDiceRecord(values) {
     const kind = document.createElement('small'); kind.textContent = ['行星', '星座', '宫位'][index];
     tile.append(kind, symbol, label); row.append(tile);
   });
-  rpPhoto.append(title, row);
+  const chart = buildDiceFlying(values, true); chart.open = true;
+  rpPhoto.append(title, row, chart);
 }
 function spreadSlots(type = activeSpread) {
   return SPREADS[type].slots.map(([label, x, y]) => [label, x, type === 'inspiration' && inspirationSwapped ? (y === .28 ? .7 : .28) : y]);

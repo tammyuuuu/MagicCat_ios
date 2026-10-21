@@ -28,10 +28,10 @@ html[data-bird-theme="apricot"]{--bg0:#f1f7ef;--bg1:#e7efe3;--bg2:#dbe8d7;--ink:
 html[data-bird-theme="paper"] {--records-cord:#a99066;}
 html[data-bird-theme="jade"] {--records-cord:#71859b;}
 html[data-bird-theme="apricot"] {--records-cord:#618775;}
-html[data-bird-theme="rouge"] {--cloth:url('图片/已批准/zhuque_brocade_tile_master_v01.png');--cloth-wash:#310b08db;--surface:#39150f;--surface-hi:#54251a;--surface-soft:#2d100d;--surface-ink:#ead9b8;--surface-muted:#bea58b;--surface-edge:#a980526e;--surface-accent:#d3ae72;}
-html[data-bird-theme="paper"] {--cloth:url('图片/已批准/baihu_brocade_tile_master_v01.png');--cloth-wash:#fffdf7d9;--surface:#fffdf6;--surface-hi:#f7efd9;--surface-soft:#f4f0e6;--surface-ink:#514735;--surface-muted:#887e6d;--surface-edge:#bba78188;--surface-accent:#a3874f;}
-html[data-bird-theme="jade"] {--cloth:url('图片/已批准/xuanwu_brocade_tile_master_v01.png');--cloth-wash:#0b1929db;--surface:#12273b;--surface-hi:#1d3850;--surface-soft:#0e2032;--surface-ink:#e6dbc2;--surface-muted:#a8b4bc;--surface-edge:#a68e626e;--surface-accent:#cfb27a;}
-html[data-bird-theme="apricot"] {--cloth:url('图片/已批准/qinglong_brocade_tile_master_v01.png');--cloth-wash:#edf4e9e6;--surface:#f7faf0;--surface-hi:#e3efd9;--surface-soft:#eaf1e3;--surface-ink:#365b48;--surface-muted:#758775;--surface-edge:#9cab7e88;--surface-accent:#8a9862;}
+html[data-bird-theme="rouge"] {--cloth:url('图片/玄鸟/zhuque_brocade_tile_master_v01.webp');--cloth-wash:#310b08db;--surface:#39150f;--surface-hi:#54251a;--surface-soft:#2d100d;--surface-ink:#ead9b8;--surface-muted:#bea58b;--surface-edge:#a980526e;--surface-accent:#d3ae72;}
+html[data-bird-theme="paper"] {--cloth:url('图片/玄鸟/baihu_brocade_tile_master_v01.webp');--cloth-wash:#fffdf7d9;--surface:#fffdf6;--surface-hi:#f7efd9;--surface-soft:#f4f0e6;--surface-ink:#514735;--surface-muted:#887e6d;--surface-edge:#bba78188;--surface-accent:#a3874f;}
+html[data-bird-theme="jade"] {--cloth:url('图片/玄鸟/xuanwu_brocade_tile_master_v01.webp');--cloth-wash:#0b1929db;--surface:#12273b;--surface-hi:#1d3850;--surface-soft:#0e2032;--surface-ink:#e6dbc2;--surface-muted:#a8b4bc;--surface-edge:#a68e626e;--surface-accent:#cfb27a;}
+html[data-bird-theme="apricot"] {--cloth:url('图片/玄鸟/qinglong_brocade_tile_master_v01.webp');--cloth-wash:#edf4e9e6;--surface:#f7faf0;--surface-hi:#e3efd9;--surface-soft:#eaf1e3;--surface-ink:#365b48;--surface-muted:#758775;--surface-edge:#9cab7e88;--surface-accent:#8a9862;}
 html[data-bird-theme] body{background:var(--bg0);color:var(--ink)}
 html[data-bird-theme] .desk{background:linear-gradient(var(--cloth-wash),var(--cloth-wash)),var(--cloth) repeat;background-size:auto,440px 440px}
 html[data-bird-theme] .desk::before{display:none}

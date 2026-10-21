@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>显化 · 手机交互预览</title>
+<style>
+html,body{margin:0;min-height:100%;background:#17131e;color:#eddae7;font-family:system-ui}
+body{display:flex;flex-direction:column;align-items:center;padding:18px 8px;box-sizing:border-box}
+p{font-size:13px;text-align:center;margin:0 0 16px;line-height:1.7}
+iframe{display:block;width:393px;height:852px;border:0;border-radius:26px;background:#180a2d;box-shadow:0 0 0 5px #493347;flex:none}
+</style>
+</head>
+<body>
+<p>手机交互预览 · 393 × 852<br>点击右侧星芒进入「心念」，月亮进入「心境」</p>
+<iframe src="./manifest_ios.html" title="显化网站手机交互预览"></iframe>
+<script>
+const previewParams=new URLSearchParams(location.search);
+document.querySelector('iframe').addEventListener('load',event=>{
+  const win=event.target.contentWindow;
+  if(previewParams.get('theme')==='light')win.document.body.dataset.theme='dopamine';
+  if(previewParams.get('view')==='xinnian')win.setRitualMode('abundance');
+  if(previewParams.get('view')==='xinjing')win.setRitualMode('love');
+  if(previewParams.get('filters')==='1')win.document.querySelector('[data-l-action="filters"]')?.click();
+});
+</script>
+</body>
+</html>

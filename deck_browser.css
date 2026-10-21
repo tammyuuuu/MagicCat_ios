@@ -1,0 +1,40 @@
+/* Shared theme tokens update immediately with the page's data-theme. */
+body { --db-panel: rgba(8,3,18,.97); --db-muted: #b69bcf; --db-shadow: #0005; }
+body[data-theme="noir"] { --db-panel: #faf8f3; --db-muted: #68686d; --db-shadow: #0002; }
+body[data-theme="parchment"] { --db-panel: linear-gradient(145deg, #2a1116, #101e1c); --db-muted: #c5b17a; }
+body[data-theme="dopamine"] { --db-panel: linear-gradient(145deg, #fffafc, #eef7fc); --db-muted: #68758a; --db-shadow: #70819726; }
+#deckGrid .drawer-item { aspect-ratio: auto; padding: 14px 4px; }
+#deckGrid .deck-cover { display: flex; align-items: center; justify-content: center; height: 74px; width: 100%; flex-shrink: 0; }
+#deckGrid .gem-label { display: flex; align-items: center; justify-content: center; min-height: 26px; line-height: 13px; text-align: center; }
+.db-browse { margin-top: 6px; padding: 7px 12px; border: 1px solid var(--ui-purple); border-radius: 12px; color: var(--ui-purple-text); background: var(--ui-bg); font: inherit; font-size: 11px; cursor: pointer; }
+#deckBrowser[hidden], .db-detail-nav[hidden], #dbReverse[hidden] { display: none; }
+#deckBrowser { position: fixed; inset: 0; z-index: 9800; overflow-y: auto; overscroll-behavior: contain; background: var(--db-panel); color: var(--ui-purple-text); -webkit-overflow-scrolling: touch; }
+.db-shell { max-width: 940px; margin: auto; padding: max(20px, env(safe-area-inset-top)) 20px max(36px, env(safe-area-inset-bottom)); }
+.db-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.db-header h2 { font-size: 21px; letter-spacing: 3px; margin: 6px 0 10px; }
+.db-header p, .db-hint { color: var(--db-muted); font-size: 12px; line-height: 1.6; }
+#dbClose { width: 44px; height: 44px; flex-shrink: 0; border: 1px solid var(--ui-purple); border-radius: 50%; background: var(--ui-bg); color: var(--ui-purple-text); font-size: 25px; cursor: pointer; }
+.db-label { display: block; font-size: 12px; color: var(--ui-purple-text); margin-top: 15px; }
+.db-label input, .db-label select { box-sizing: border-box; display: block; width: 100%; margin-top: 7px; border: 1px solid var(--ui-purple); border-radius: 10px; padding: 12px; background: var(--ui-bg); color: var(--ui-purple-text); font-size: 16px; }
+.db-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); gap: 18px 12px; margin-top: 22px; }
+.db-card { min-width: 0; padding: 0; border: 0; background: transparent; color: var(--ui-purple-text); cursor: pointer; font: inherit; text-align: center; }
+.db-art { display: block; width: 100%; aspect-ratio: var(--db-ratio); border-radius: 7px; overflow: hidden; background: var(--ui-bg); box-shadow: 0 4px 16px var(--db-shadow); }
+.db-art img { display: block; width: 100%; height: 100%; object-fit: contain; }
+#deckBrowser .db-art .theme-tarot-card { width: 100%; height: 100%; border: 0; box-sizing: border-box; }
+.db-card-name { display: block; margin-top: 9px; font-size: 12px; line-height: 1.5; }
+.db-card-number { font-size: 10px; color: var(--db-muted); }
+.db-empty { grid-column: 1 / -1; text-align: center; padding: 45px 0; color: var(--db-muted); font-size: 13px; }
+.db-detail-nav { max-width: min(80vw, 520px); margin: 18px auto 0; cursor: default; color: var(--ui-purple-text); }
+.db-detail-title { font-size: 13px; margin-bottom: 12px; }
+.db-detail-actions { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.db-detail-actions button { min-height: 40px; padding: 8px 13px; border: 1px solid var(--ui-purple); border-radius: 12px; background: var(--ui-bg); color: var(--ui-purple-text); font: inherit; font-size: 12px; cursor: pointer; }
+.db-detail-actions button:disabled { opacity: .35; cursor: default; }
+.db-detail-hint { font-size: 12px; color: var(--db-muted); line-height: 1.6; }
+#deckBrowser button:focus-visible, #deckBrowser input:focus-visible, #deckBrowser select:focus-visible, .db-detail-actions button:focus-visible { outline: 2px solid var(--ui-gold); outline-offset: 3px; }
+@media (max-width: 480px) { .db-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 10px; } .db-shell { padding-left: 14px; padding-right: 14px; } }
+
+#deckBrowser input::placeholder { color: var(--db-muted); opacity: 1; }
+#deckBrowser { scrollbar-color: var(--ui-purple) var(--ui-bg); }
+#deckGrid .deck-cover > img { border-color: var(--ui-purple) !important; }
+#deckGrid .gem-label + span { color: var(--db-muted) !important; }
+.db-browse:hover, #dbClose:hover, .db-detail-actions button:not(:disabled):hover { border-color: var(--ui-gold); color: var(--ui-gold-text); }

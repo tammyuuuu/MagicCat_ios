@@ -3153,5 +3153,83 @@
       }
     ],
     "bytes": 5665078
+  },
+  {
+    "id": "wallpapers-mystic",
+    "name": "星夜紫晶 · 壁纸",
+    "files": [
+      {
+        "url": "图片/壁纸/mystic-moon.webp",
+        "bytes": 386220,
+        "sha256": "ea9e9ec0025562de5925281ee04ca4a7b1438022f75b906829fed04e77b63dc5"
+      },
+      {
+        "url": "图片/壁纸/mystic-sun.webp",
+        "bytes": 312716,
+        "sha256": "fcc295c2f5eec4d2d97bee102f624f24bb0a249241e34a37966d0c84854ab6e3"
+      }
+    ],
+    "bytes": 698936
+  },
+  {
+    "id": "wallpapers-noir",
+    "name": "霜白墨羽 · 壁纸",
+    "files": [
+      {
+        "url": "图片/壁纸/noir-affirmations.webp",
+        "bytes": 199196,
+        "sha256": "dab14c14b0e72c02a34b821fbdd6aa4793b6dca5940d1feb3189d52c11437ac3"
+      },
+      {
+        "url": "图片/壁纸/noir-moon-cat.webp",
+        "bytes": 188936,
+        "sha256": "1a8b2b492a4869c7084aab95be404bdbd7056410dfca531bf4d8c69e28fb06c9"
+      }
+    ],
+    "bytes": 388132
+  },
+  {
+    "id": "wallpapers-parchment",
+    "name": "琥珀秘卷 · 壁纸",
+    "files": [
+      {
+        "url": "图片/壁纸/parchment-golden-cat.webp",
+        "bytes": 282590,
+        "sha256": "4c41f64b4f59a5e048134c0f754a9909d205df31584c0441f4c2a04c38d1d1ff"
+      },
+      {
+        "url": "图片/壁纸/parchment-moon-palace.webp",
+        "bytes": 375384,
+        "sha256": "80fb9de1f195b3564561ce0b9759e2d639153504a321e6b7840df6325968deae"
+      }
+    ],
+    "bytes": 657974
+  },
+  {
+    "id": "wallpapers-dopamine",
+    "name": "雾糖奇遇 · 壁纸",
+    "files": [
+      {
+        "url": "图片/壁纸/dopamine-clock.webp",
+        "bytes": 331056,
+        "sha256": "355c4bf3c6cf28decb450ff37aa52be7879858fadbaf2958b8e7eeea98cf8e18"
+      },
+      {
+        "url": "图片/壁纸/dopamine-cranes.webp",
+        "bytes": 288948,
+        "sha256": "821cb1edf0515f2836b58bb6c3713fd8b2ec4fcec56cb892973ea41165f41de9"
+      },
+      {
+        "url": "图片/壁纸/dopamine-moon.webp",
+        "bytes": 451000,
+        "sha256": "7a74648235e6362764d75eba94869771117abe382c7e57bfe2d1be6e6b08bc40"
+      },
+      {
+        "url": "图片/壁纸/dopamine-roses.webp",
+        "bytes": 374018,
+        "sha256": "dee1c59bb64c61ac40ae40abeb29f83f23a9dd93b38415520885bad2083df4c7"
+      }
+    ],
+    "bytes": 1445022
   }
 ]

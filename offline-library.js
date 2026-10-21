@@ -1,5 +1,5 @@
 (() => {
-  const drawer = document.querySelector('#drawerDeck');
+  const drawer = document.querySelector('#drawerDeck') || document.querySelector('#themeSheet');
   if (!drawer) return;
   const entry = document.createElement('button');
   entry.type = 'button';
@@ -11,10 +11,23 @@
   explanation.textContent = '下载常用牌组，断网或飞行模式下也能抽牌、查看牌面与牌义。';
   footer.append(entry, explanation);
   drawer.append(footer);
+  const themeSheet = document.querySelector('#themeSheet');
+  if (themeSheet && themeSheet !== drawer) {
+    const wallpapers = document.createElement('button');
+    wallpapers.type = 'button';
+    wallpapers.className = 'offline-library-entry';
+    wallpapers.textContent = '↓ 离线下载壁纸';
+    wallpapers.onclick = () => entry.click();
+    themeSheet.append(wallpapers);
+  }
+  if (drawer === themeSheet) {
+    entry.textContent = '↓ 离线下载壁纸';
+    explanation.textContent = '下载壁纸包，断网后也能切换使用。';
+  }
   const dialog = document.createElement('dialog');
   dialog.className = 'offline-dialog';
   dialog.setAttribute('aria-labelledby', 'offline-title');
-  dialog.innerHTML = '<header class="offline-header"><div><span class="offline-eyebrow">随身牌库</span><h2 id="offline-title">离线牌库</h2></div><button type="button" class="offline-close" aria-label="关闭离线牌库">✕</button></header><div class="offline-layout"><section class="offline-guide"><h3>如何使用</h3><ol><li>连接 Wi-Fi，选择想带走的牌组。</li><li>点击下载，保持页面打开至完成。</li><li>断网后照常抽牌、查看牌面与牌义。</li></ol><p>可随时暂停，已下载部分会保留；再次点击即可补齐。</p><small>更新无需重新添加主屏幕图标。请从原主屏幕应用打开牌库；清理网站数据或移除应用可能影响本地缓存。</small></section><section class="offline-downloads"><h3>下载牌组</h3><div class="offline-decks">正在检查…</div></section></div>';
+  dialog.innerHTML = '<header class="offline-header"><div><span class="offline-eyebrow">随身图库</span><h2 id="offline-title">离线图库</h2></div><button type="button" class="offline-close" aria-label="关闭离线牌库">✕</button></header><div class="offline-layout"><section class="offline-guide"><h3>如何使用</h3><ol><li>连接 Wi-Fi，选择想带走的牌组或壁纸。</li><li>点击下载，保持页面打开至完成。</li><li>断网后照常使用已下载的牌图和壁纸。</li></ol><p>可随时暂停，已下载部分会保留；再次点击即可补齐。</p><small>更新无需重新添加主屏幕图标。请从原主屏幕应用打开牌库；清理网站数据或移除应用可能影响本地缓存。</small></section><section class="offline-downloads"><h3>下载牌组与壁纸</h3><div class="offline-decks">正在检查…</div></section></div>';
   document.body.append(dialog);
   const rows = dialog.querySelector('.offline-decks');
   let running = false, paused = false, groups = [];
@@ -64,7 +77,7 @@
     groups=await bounded(response.json(),5000,'牌库清单读取超时，请重试');
     const checks=[];
     rows.replaceChildren(); buttons.length = 0;
-    for (const group of groups) {
+    for (const group of groups.filter(group => drawer !== themeSheet || group.id.startsWith('wallpapers-'))) {
       const row = document.createElement('section');
       row.className = 'offline-deck';
       const title = document.createElement('strong'); title.textContent = group.name;
