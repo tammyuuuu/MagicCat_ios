@@ -1,9 +1,14 @@
 from pathlib import Path
 from PIL import Image
-import re,base64,io,json
-root=Path('.');out=root/'图片/玄鸟';out.mkdir(exist_ok=True)
+import re,base64,io,json,argparse
+root=Path(__file__).resolve().parents[1]
+parser=argparse.ArgumentParser(description='Compress archived original bird assets into current web assets.')
+parser.add_argument('--source',type=Path,required=True,help='External directory containing original approved assets')
+args=parser.parse_args()
+if not args.source.is_dir():parser.error('Original source directory does not exist')
+out=root/'图片/玄鸟';out.mkdir(exist_ok=True)
 refs={};stats=[]
-for p in (root/'output/原图备份/图片/已批准').iterdir():
+for p in args.source.iterdir():
  if p.suffix=='.png':
   im=Image.open(p);im.thumbnail((768,768) if 'coin' not in p.name else (384,384),Image.Resampling.LANCZOS)
   dst=out/(p.stem+'.webp');im.save(dst,'WEBP',quality=85,method=6)

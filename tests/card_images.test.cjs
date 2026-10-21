@@ -8,7 +8,7 @@ function setup(background = false, cached = false) {
   let nextTimer = 0;
   const host = { appendChild(button) { buttons.push(button); } };
   const target = {
-    parentElement: host, isConnected: true, style: {},
+    parentElement: host, isConnected: true, style: {}, closest() { return null; },
     src: 'https://example.test/card.png', complete: cached, naturalWidth: cached ? 600 : 0,
     matches: () => background, getAttribute() { return this.src; }
   };

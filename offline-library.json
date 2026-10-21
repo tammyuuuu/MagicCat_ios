@@ -3231,5 +3231,27 @@
       }
     ],
     "bytes": 1445022
+  },
+  {
+    "id": "reading-meanings",
+    "name": "占卜桌文字解读（全部牌组）",
+    "files": [
+      {
+        "url": "reading-data/waite.json",
+        "bytes": 134504,
+        "sha256": "bff8e45ece3515dc56346a6214da69a99921cc9d1ff96c8954ca5592426af9f0"
+      },
+      {
+        "url": "reading-data/lenormand.json",
+        "bytes": 97739,
+        "sha256": "329d2bb3ce81a65c487ff2ca6b44ad711742157bca5290948663d2028324b7ac"
+      },
+      {
+        "url": "reading-data/theme.json",
+        "bytes": 169444,
+        "sha256": "9586d2749883736c13222280271428806e2b605bb90728b07fdb6f219aa83d3b"
+      }
+    ],
+    "bytes": 401687
   }
 ]

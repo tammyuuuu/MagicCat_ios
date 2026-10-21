@@ -3,3 +3,7 @@
 
 # 本机生成记录、预览与导出副本
 /output/
+
+# Python 本机缓存
+__pycache__/
+*.pyc

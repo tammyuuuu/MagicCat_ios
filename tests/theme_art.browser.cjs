@@ -8,7 +8,7 @@ const fs = require('node:fs');
     const page = await context.newPage();
     const errors=[];
     page.on('pageerror', error=>errors.push(error.message));
-    await page.goto('http://127.0.0.1:8879/reading_ios.html');
+    await page.goto((process.env.PREVIEW_URL || 'http://127.0.0.1:8878') + '/reading_ios.html');
     await page.waitForSelector('#themeToggle');
     await page.evaluate(async()=>{
       await navigator.serviceWorker.register('./sw.js');
@@ -39,7 +39,7 @@ const fs = require('node:fs');
       assert.ok(styles.front.includes(`front-fool-${theme}.webp`));
     }
     await page.click('#themeToggle');
-    await page.screenshot({path:'output/theme-color/browser-mobile.png'});
+    if (process.env.TEST_SCREENSHOT) await page.screenshot({path:process.env.TEST_SCREENSHOT});
     await context.setOffline(true);
     const offline=await page.evaluate(async files=>{
       for(const file of files){

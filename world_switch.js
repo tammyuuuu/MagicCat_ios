@@ -10,6 +10,20 @@
   'use strict';
   if (window.__worldSwitchLoaded) return;
   window.__worldSwitchLoaded = true;
+  // Warm only the page the user is about to open; never preload whole worlds.
+  var warmed = new Map();
+  function warmLink(event) {
+    var link = event.target.closest && event.target.closest('a[href]');
+    if (!link || navigator.connection?.saveData) return;
+    var url = new URL(link.href, location.href);
+    if (url.origin !== location.origin || !/(reading|manifest|bird|wish)_ios\.html$/.test(url.pathname)) return;
+    if (url.pathname === location.pathname || Date.now() - (warmed.get(url.href) || 0) < 60000) return;
+    warmed.set(url.href, Date.now());
+    fetch(url.href, { priority: 'low' }).catch(function () {});
+  }
+  document.addEventListener('pointerover', warmLink, { passive: true });
+  document.addEventListener('pointerdown', warmLink, { passive: true });
+  document.addEventListener('focusin', warmLink);
 
   /* 飞鸟徽章：简洁展翼轮廓、三束长尾、双环与星芒；四境共用透明线稿。 */
   var XUANNIAO_SVG =

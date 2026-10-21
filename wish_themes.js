@@ -3,13 +3,19 @@
   const themes=[['rouge','朱雀','#933d32'],['paper','白虎','#fffdf7'],['jade','玄武','#12273b'],['apricot','青龙','#729451']];
   let selected='rouge';try{selected=localStorage.getItem('magicbird_theme')||selected}catch(_){}
   if(!themes.some(t=>t[0]===selected))selected='rouge';
+  function syncThemeChrome(id) {
+    const colors={rouge:'#310b08',paper:'#fffdf7',jade:'#0b1929',apricot:'#edf4e9'};
+    const meta=document.querySelector('meta[name="theme-color"]');
+    if(meta)meta.content=colors[id]||colors.rouge;
+  }
   document.documentElement.dataset.wishTheme=selected;
+  syncThemeChrome(selected);
   document.addEventListener('DOMContentLoaded',()=>{
     const palette=document.createElement('div');palette.className='wish-palette';palette.setAttribute('role','group');palette.setAttribute('aria-label','四象配色');
     palette.innerHTML=themes.map(([id,name,color])=>`<button type="button" data-wish-palette="${id}" aria-label="${name}" style="background:${color}"></button>`).join('');document.body.append(palette);
     const pond=document.createElement('div');pond.className='pond-stage';pond.id='pondStage';
     pond.innerHTML=`<div class="pond-caption">玄 武 承 愿 池<small>一枚铜钱，寄托一愿 · 点击池中钱币查看愿望</small></div><div class="pond-scene"><svg viewBox="0 0 800 560" aria-hidden="true"><defs><linearGradient id="pondStone" x2="0" y2="1"><stop stop-color="#8b9da5"/><stop offset="1" stop-color="#344e61"/></linearGradient><radialGradient id="pondWater"><stop stop-color="#24546c"/><stop offset="1" stop-color="#102b43"/></radialGradient></defs><g fill="url(#pondStone)" stroke="#b3bdaf" stroke-width="2"><ellipse cx="400" cy="93" rx="45" ry="56"/><path d="M225 180Q110 130 116 207Q128 244 220 240M575 180Q690 130 684 207Q672 244 580 240M225 375Q110 426 150 452Q182 469 256 411M575 375Q690 426 650 452Q618 469 544 411M387 448l13 69 13-69Z"/><ellipse cx="400" cy="288" rx="247" ry="183"/></g><ellipse cx="400" cy="278" rx="218" ry="154" fill="url(#pondWater)" stroke="#c6b184" stroke-width="3"/><ellipse cx="400" cy="278" rx="205" ry="141" fill="none" stroke="#618598" opacity=".6"/><g fill="none" stroke="#80a9bb" opacity=".22"><path d="M230 235q80-20 160 0t180 0M205 284q90-20 180 0t200 0M235 337q80-20 160 0t160 0"/></g><circle cx="383" cy="82" r="3" fill="#192e3a"/><circle cx="417" cy="82" r="3" fill="#192e3a"/></svg><i class="pond-coin"></i><i class="pond-ripple"></i></div>`;document.body.append(pond);
-    function apply(id){document.documentElement.dataset.wishTheme=id;palette.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.wishPalette===id)));const blue=id==='jade';document.querySelector('.altar-body').innerHTML=blue?'投 币 许 愿':'祝 祷 台';document.querySelector('.altar-tip').textContent=blue?'写下一愿 · 投一枚铜钱':'点击此处 · 立下一愿';document.getElementById('wishSubmit').textContent=blue?'投 币 许 愿':'立 愿';document.querySelector('#carrierGrid').closest('.field').hidden=blue;document.getElementById('altarBtn').setAttribute('aria-label',blue?'投币许愿':'祝祷台 · 立愿');document.dispatchEvent(new Event('wish-theme-change'));}
+    function apply(id){document.documentElement.dataset.wishTheme=id;syncThemeChrome(id);palette.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.wishPalette===id)));const blue=id==='jade';document.querySelector('.altar-body').innerHTML=blue?'投 币 许 愿':'祝 祷 台';document.querySelector('.altar-tip').textContent=blue?'写下一愿 · 投一枚铜钱':'点击此处 · 立下一愿';document.getElementById('wishSubmit').textContent=blue?'投 币 许 愿':'立 愿';document.querySelector('#carrierGrid').closest('.field').hidden=blue;document.getElementById('altarBtn').setAttribute('aria-label',blue?'投币许愿':'祝祷台 · 立愿');document.dispatchEvent(new Event('wish-theme-change'));}
     palette.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;apply(b.dataset.wishPalette);try{localStorage.setItem('magicbird_theme',b.dataset.wishPalette)}catch(_){}});apply(selected);
     document.addEventListener('wish-coin-toss',()=>{pond.classList.remove('toss');void pond.offsetWidth;pond.classList.add('toss');setTimeout(()=>pond.classList.remove('toss'),2800)});
   });

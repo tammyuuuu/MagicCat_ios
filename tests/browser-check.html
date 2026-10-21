@@ -9,13 +9,14 @@ if (!['127.0.0.1','localhost','[::1]'].includes(location.hostname)) {
  return;
 }
 const resources = ['reading_ios.html','manifest_ios.html','bird_ios.html','wish_ios.html',
-'waite_meanings.js','lenormand_meanings.js','图片/维特塔罗/0.webp',
+'reading_catalog.js','reading_meanings.js','reading-data/waite.json','reading-data/lenormand.json','reading-data/theme.json','图片/维特塔罗/0.webp',
 '图片/四境塔罗/front-world-mystic.webp','图片/水晶/crystal1.webp'];
 const markerKey = '__pwa_review_test';
+const artCacheName = 'magiccat-' + new URL('../',location.href).pathname + 'art-v1';
 document.querySelector('#updated').onclick = async () => {
  const registration = await navigator.serviceWorker.getRegistration('../');
  await registration.update();
- const art = await caches.open('magiccat-/ios/art-v1');
+ const art = await caches.open(artCacheName);
  output.textContent = '更新结果\n本地数据 '+localStorage.getItem(markerKey)+'\n图片缓存数 '+(await art.keys()).length+'\n运行 Worker '+registration.active.scriptURL+'\n等待更新 '+!!registration.waiting;
 };
 document.querySelector('#online').onclick = async () => {
@@ -32,7 +33,7 @@ document.querySelector('#online').onclick = async () => {
   }
   localStorage.setItem(markerKey,'keep-after-update');
   const names = await caches.keys();
-  const art = await caches.open('magiccat-/ios/art-v1');
+  const art = await caches.open(artCacheName);
   const requests = await art.keys();
   output.textContent='在线通过\n'+results.join('\n')+'\nSW scope '+registration.scope+'\n图片缓存数 '+requests.length+'\n缓存 '+names.join(',');
  } catch(error) { output.textContent='失败 '+String(error); }

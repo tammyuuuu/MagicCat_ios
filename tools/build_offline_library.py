@@ -28,6 +28,7 @@ def build():
         files = sorted(path.relative_to(ROOT).as_posix() for path in (ROOT / '图片/壁纸').glob(f'{theme}-*.webp'))
         if files:
             groups.append({'id': f'wallpapers-{theme}', 'name': f'{name} · 壁纸', 'files': files})
+    groups.append({'id': 'reading-meanings', 'name': '占卜桌文字解读（全部牌组）', 'files': [f'reading-data/{pack}.json' for pack in ['waite', 'lenormand', 'theme']]})
     for group in groups:
         entries = []
         for url in group['files']:
@@ -38,6 +39,13 @@ def build():
         group['files'] = entries
         group['bytes'] = sum(entry['bytes'] for entry in entries)
     (ROOT / 'offline-library.json').write_text(json.dumps(groups, ensure_ascii=False, indent=2) + '\n', 'utf-8')
+    # Keep background integrity checks in sync with the explicit offline pack.
+    meanings = next(group for group in groups if group['id'] == 'reading-meanings')
+    catalog = ROOT / 'reading_catalog.js'
+    text = catalog.read_text('utf-8')
+    entries = [{'url': entry['url'], 'sha256': entry['sha256']} for entry in meanings['files']]
+    text = re.sub(r'const READING_MEANING_FILES = .*?;', lambda _: 'const READING_MEANING_FILES = ' + json.dumps(entries) + ';', text)
+    catalog.write_text(text, 'utf-8')
     print(f'{len(groups)} offline decks, {sum(len(g["files"]) for g in groups)} images')
 
 if __name__ == '__main__':

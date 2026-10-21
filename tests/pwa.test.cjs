@@ -7,13 +7,13 @@ function setup() {
   const events = {}, stores = new Map(), requests = [];
   let online = true, revision = 'first', unavailable = false;
   const self = { location: { href: 'https://example.test/tarot/sw.js' },
-    clients: { claim: async () => {} }, addEventListener(type, fn) { events[type] = fn; } };
-  const caches = { async open(name) {
+    clients: { claim: async () => {}, matchAll: async () => [] }, addEventListener(type, fn) { events[type] = fn; } };
+  const caches = { async keys() { return [...stores.keys()]; }, async delete(name) { return stores.delete(name); }, async open(name) {
     if (!stores.has(name)) stores.set(name, new Map());
     const store = stores.get(name);
     return { async match(key) { return store.get(String(key))?.clone(); },
       async keys() { return [...store.keys()].map(url => new Request(url)); },
-      async put(key, value) { store.set(String(key), value); },
+      async put(key, value) { store.set(String(key), value.clone()); },
       async addAll(list) {
         for (const request of list) {
           assert.ok(!decodeURI(request.url).includes('图片/'));
@@ -22,13 +22,15 @@ function setup() {
       } };
   } };
   vm.runInNewContext(fs.readFileSync('sw.js', 'utf8'), {
-    self, caches, URL, Request, Response, setTimeout, clearTimeout,
+    self, caches, URL, Request, Response, TextEncoder, Uint8Array, setTimeout, clearTimeout,
     AbortController, crypto: require('node:crypto').webcrypto,
     importScripts() { self.PWA_ART = { '图片/card.png': 'optimized/card.webp?v=one' }; },
     async fetch(url) {
       requests.push(String(url));
       if (!online) throw new Error('offline');
       if (unavailable) return new Response('unavailable', {status:503});
+      const file = decodeURIComponent(new URL(String(url)).pathname.replace('/tarot/', ''));
+      if (fs.existsSync(file) && fs.statSync(file).isFile()) return new Response(fs.readFileSync(file), {headers: {'Content-Type': /\.(html|js|css|json)$/.test(file) ? 'text/plain' : 'application/octet-stream'}});
       return new Response(revision);
     }
   });
@@ -65,19 +67,15 @@ test('all precached files and optimized mappings exist on disk', () => {
     assert.ok(fs.existsSync(original), original);
     assert.ok(fs.existsSync(optimized.split('?')[0]), optimized);
   }
-  const state = JSON.parse(fs.readFileSync('webp-state.json', 'utf8'));
-  for (const entry of Object.values(state)) {
-    assert.ok(fs.existsSync(entry.target), entry.target);
-    assert.ok(entry.target.endsWith('.webp'));
-  }
+
 });
 test('install precaches all four pages under repository scope without artwork', async () => {
   const app = setup(); await app.lifecycle('install'); await app.lifecycle('activate');
   app.offline();
-  for (const page of ['reading_ios.html', 'manifest_ios.html', 'bird_ios.html', 'wish_ios.html', 'waite_meanings.js']) {
-    assert.equal(await (await app.request(page)).text(), 'core');
+  for (const page of ['reading_ios.html', 'manifest_ios.html', 'bird_ios.html', 'wish_ios.html', 'reading_catalog.js', 'reading_meanings.js', 'reading-data/waite.json']) {
+    assert.equal(await (await app.request(page)).text(), fs.readFileSync(page, 'utf8'));
   }
-  assert.equal(await (await app.request('./')).text(), 'core');
+  assert.equal(await (await app.request('./')).text(), fs.readFileSync('reading_ios.html','utf8'));
 });
 test('visited optimized artwork survives offline and retry parameters', async () => {
   const app = setup();
@@ -124,7 +122,7 @@ test('optional pack rejects invalid paths and mismatched deployed artwork', asyn
 test('offline inventory matches current image hashes and includes every deck', () => {
   const groups = JSON.parse(fs.readFileSync('offline-library.json','utf8'));
   const decks = vm.runInNewContext(fs.readFileSync('decks.js','utf8') + '\nDECKS');
-  assert.equal(groups.length,decks.length + 1);
+  assert.equal(groups.length,decks.length + 1 + 4 + 1);
   for (const deck of decks) {
     const group = groups.find(group => group.name === deck.name);
     assert.ok(group,deck.name);

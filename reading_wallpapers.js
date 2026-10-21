@@ -62,10 +62,19 @@
     section.querySelector('.wallpaper-options').innerHTML = [
       { id: '', name: '默认底纹' }, ...options
     ].map(item => `<button type="button" class="wallpaper-option" data-wallpaper="${item.id}" aria-pressed="${selected ? selected.id === item.id : !item.id}">
-      ${item.src ? `<img src="${item.src}" alt="" loading="lazy">` : '<span class="wallpaper-default" aria-hidden="true"></span>'}
+      ${item.src ? `<img data-wallpaper-src="${item.src}" alt="" loading="lazy">` : '<span class="wallpaper-default" aria-hidden="true"></span>'}
       <span>${item.name}</span></button>`).join('');
     section.querySelector('.wallpaper-default').style.background = defaultBackground;
+    loadVisibleThumbnails();
   }
+  function loadVisibleThumbnails() {
+    if (!document.getElementById('themeSheet').classList.contains('open')) return;
+    section.querySelectorAll('img[data-wallpaper-src]').forEach(img => {
+      img.src = img.dataset.wallpaperSrc;
+      img.removeAttribute('data-wallpaper-src');
+    });
+  }
+  new MutationObserver(loadVisibleThumbnails).observe(document.getElementById('themeSheet'), { attributes: true, attributeFilter: ['class'] });
   section.addEventListener('click', event => {
     const button = event.target.closest('[data-wallpaper]');
     if (!button) return;

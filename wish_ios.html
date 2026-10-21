@@ -15,8 +15,8 @@
 
 <title>祝祷之庭 · 承愿树</title>
 <link rel="stylesheet" href="world_switch.css">
-<link rel="stylesheet" href="wish_themes.css?v=m292">
-<script src="wish_themes.js?v=m292"></script>
+<link rel="stylesheet" href="wish_themes.css">
+<script src="wish_themes.js"></script>
 <style>
 /* ============================================================
    祝祷之庭 · wish_ios.html
@@ -33,7 +33,7 @@
   --line:rgba(178,151,88,.28); --line-soft:rgba(178,151,88,.14);
 }
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden}
+html,body{margin:0;padding:0;width:100%;height:100vh;min-height:100vh;overflow:hidden;background-color:var(--bg0);overscroll-behavior:none}
 body{
   font-family:"Noto Serif SC","Songti SC",serif;color:var(--ink);
   background:var(--bg0);user-select:none;
@@ -41,7 +41,7 @@ body{
 [hidden]{display:none !important}
 
 /* ---- 场景背景：墨黑·黛青 + 月晕 + 极淡云雷纹 ---- */
-.desk{position:fixed;inset:0;overflow:hidden;
+.desk{position:fixed;top:0;left:0;right:0;height:100vh;min-height:100vh;overflow:hidden;background-position:center;
   background:
     radial-gradient(ellipse at 50% 34%, rgba(56,96,82,.42), transparent 58%),
     radial-gradient(ellipse at 78% 80%, rgba(120,74,52,.12), transparent 45%),
@@ -330,10 +330,6 @@ body{
 }
 </style>
 <script src="pwa.js" defer></script>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/webp" sizes="192x192" href="icons/icon-192.webp?v=icon1">
-<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.webp?v=icon1">
-<meta name="theme-color" content="#0d001a">
 <style>input,textarea{user-select:text;-webkit-user-select:text}button{touch-action:manipulation}img{-webkit-user-drag:none}@media(max-width:760px){.detail{right:8px;left:8px;width:auto}.altar{bottom:calc(95px + env(safe-area-inset-bottom))}.traces-prop{bottom:calc(16px + env(safe-area-inset-bottom))}}</style>
 <style>.east-nav{position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;bottom:auto;left:auto;flex-wrap:nowrap;z-index:2800}.east-nav-link{padding:6px 10px;font-size:11px;letter-spacing:1px}</style></head>
 <body data-world="east">

@@ -6,11 +6,13 @@ const vm = require('node:vm');
 const root = path.join(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'reading_ios.html'), 'utf8');
 const context = vm.createContext({});
-for (const name of ['decks.js', 'lenormand_meanings.js']) {
+for (const name of ['decks.js', 'reading_catalog.js']) {
   vm.runInContext(fs.readFileSync(path.join(root, name), 'utf8'), context);
 }
 vm.runInContext('let deckList = [];', context);
 vm.runInContext(html.slice(html.indexOf('function loadDecksFromConfig()'), html.indexOf('function renderDecks()')), context);
+context.meaningData = Object.assign({}, ...['waite','lenormand','theme'].map(pack => JSON.parse(fs.readFileSync(path.join(root, 'reading-data', pack + '.json'), 'utf8'))));
+vm.runInContext('deckList.forEach(deck => deck._cards.forEach(card => { if (meaningData[card.id]) card.meaning = meaningData[card.id]; }))', context);
 vm.runInContext(html.slice(html.indexOf('function themeTarotMeaningMarkup('), html.indexOf('function initThemeTarotMeaningTabs(')), context);
 const cards = vm.runInContext('deckList.find(d => d.name === "小小奇遇雷诺曼")._cards', context);
 

@@ -1,5 +1,15 @@
 // Browse the library using separate card copies, leaving the reading untouched.
 (() => {
+  const drawer = document.getElementById('drawerDeck');
+  function loadCovers() {
+    if (!drawer.classList.contains('open')) return;
+    drawer.querySelectorAll('img[data-deck-cover]').forEach(img => {
+      img.src = img.dataset.deckCover;
+      img.removeAttribute('data-deck-cover');
+    });
+  }
+  new MutationObserver(loadCovers).observe(drawer, { attributes: true, attributeFilter: ['class'] });
+  loadCovers();
   const panel = document.createElement('section');
   panel.id = 'deckBrowser';
   panel.hidden = true;
@@ -69,7 +79,7 @@
     nav.querySelector('[data-step="-1"]').disabled = index === 0;
     nav.querySelector('[data-step="1"]').disabled = index === cards.length - 1;
     const reverse = nav.querySelector('#dbReverse');
-    reverse.hidden = !!deck.noReverse || !card.meaning;
+    reverse.hidden = !!deck.noReverse || !readingMeaningPack(card);
     reverse.textContent = '查看逆位';
     nav.querySelector('.db-detail-hint').textContent = card.meaning || card._hasInterpretation !== false ? '' : '这套牌暂无独立解读，可放大阅读牌面。';
     zoomClose.focus();
@@ -86,11 +96,7 @@
   });
   nav.querySelector('#dbReverse').addEventListener('click', () => {
     if (!_zoomThemeCard) return;
-    _zoomThemeCard.isReversed = !_zoomThemeCard.isReversed;
-    _zoomShowingInterp = true;
-    renderThemeTarotZoom();
-    zoomCard.scrollTop = 0;
-    nav.querySelector('#dbReverse').textContent = _zoomThemeCard.isReversed ? '查看正位' : '查看逆位';
+    void showReadingMeaning({ reverse: true });
   });
   // Reset library controls for every exit path, including the existing Escape handler.
   new MutationObserver(() => {
