@@ -4,8 +4,6 @@ window.buildDiceFlying=function(values,record=false){
  const z=ASTRO_ZODIACS.findIndex(v=>v.icon===zodiac.icon||v.name===zodiac.name),h=Number(house.symbol);
  if(z<0||h<1||h>12)return document.createElement('div');
  const asc=(z-h+13)%12,rulers=['mars','venus','mercury','moon','sun','mercury','venus','mars','jupiter','saturn','saturn','jupiter'];
- const ruled=Array.from({length:12},(_,i)=>i+1).filter(n=>rulers[(asc+n-1)%12]===planet.icon);
- const text=ruled.length?`${ruled.join('、')}宫主${planet.name} → ${h}宫`:`${planet.name}落${h}宫 · 传统体系不设其守护宫`;
  const modern=rulers.map(r=>[r]);modern[7].push('pluto');modern[10].push('uranus');modern[11].push('neptune');
  const modernRuled=Array.from({length:12},(_,i)=>i+1).filter(n=>modern[(asc+n-1)%12].includes(planet.icon));
  const modernText=modernRuled.length?`${modernRuled.join('、')}宫主${planet.name} → ${h}宫`:`${planet.name}落${h}宫 · 无守护宫`;

@@ -62,7 +62,7 @@ html[data-wish-theme] .tree-bg{top:48%;transform:translate(-50%,-50%);width:min(
 .ritual-fire>span{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);font-size:86px;color:#d5a762;opacity:.8;}
 .fire-bowl{position:absolute;bottom:12%;left:15%;width:70%;height:110px;border:2px solid #b68a4f;border-radius:8px 8px 45% 45%;background:linear-gradient(#5c241b,#34170f);}
 .fire-bowl::before{content:'';position:absolute;left:-2px;right:-2px;top:-13px;height:25px;border:2px solid #c49b61;border-radius:50%;background:#28120d;}
-.guard-disc{position:absolute;left:50%;top:15%;transform:translateX(-50%);width:180px;height:180px;border:1px solid #bca77b;border-radius:50%;background:#f7f1de;color:#7e6841;display:grid;place-items:center;font-size:60px;outline:1px solid #d7c79e;outline-offset:-12px;}
+
 .guard-base{position:absolute;left:20%;right:20%;bottom:20%;height:42px;background:#e4d8b9;border:1px solid #b7a582;border-radius:50% 50% 5px 5px;}
 .garden-ring{position:absolute;left:8%;right:8%;bottom:5%;height:120px;border:1px solid #83916a;border-radius:50%;background:#bac8a34d;}
 .garden-sprout{position:absolute;left:50%;top:15%;transform:translateX(-50%);font-size:180px;color:#426b47;}
@@ -74,11 +74,11 @@ html[data-wish-theme] .wish-obj{animation:none;}
 .burning-sheet{opacity:0;position:absolute;left:50%;top:0;width:48px;height:70px;background:#e3cfa8;color:#6b3024;font-style:normal;text-align:center;line-height:70px;}
 .ritual-play .burning-sheet{animation:burnLetter 2.2s ease-in forwards;}
 @keyframes burnLetter{0%{opacity:1;transform:translate(-50%,-30px)}55%{opacity:1;transform:translate(-50%,170px);background:#c4793a}100%{opacity:0;transform:translate(-50%,120px) scale(.2)}}
-.ritual-play .guard-disc{animation:vowSeal 1.5s ease-out;}
+
 @keyframes vowSeal{50%{outline-offset:0;outline-color:#9e763f}100%{outline-offset:-12px}}
 .ritual-play .garden-sprout{animation:seedGrow 1.8s ease-out;}
 @keyframes seedGrow{0%{transform:translateX(-50%) scale(.3)}100%{transform:translateX(-50%) scale(1)}}
-@media(max-width:700px){html[data-wish-theme] .tree-bg{width:94vw;height:50vh;top:51%;}.ritual-caption{top:110px}.ritual-caption h1{font-size:20px;letter-spacing:3px}.ritual-caption p{font-size:12px;letter-spacing:1px}.ritual-scene{width:90vw;height:270px;top:53%}.guard-disc{width:140px;height:140px;font-size:45px}.garden-sprout{font-size:145px}}
+@media(max-width:700px){html[data-wish-theme] .tree-bg{width:94vw;height:50vh;top:51%;}.ritual-caption{top:110px}.ritual-caption h1{font-size:20px;letter-spacing:3px}.ritual-caption p{font-size:12px;letter-spacing:1px}.ritual-scene{width:90vw;height:270px;top:53%}.garden-sprout{font-size:145px}}
 @media(prefers-reduced-motion:reduce){.ritual-play *{animation:none!important;}}
 
 /* M292 焚笺过程、守约台与分散种植。 */
@@ -102,7 +102,7 @@ html[data-wish-theme] .wish-obj{animation:none;}
 @keyframes fireRise{0%{opacity:.2;transform:scaleY(.4)}25%,65%{opacity:1;transform:scaleY(1)}100%{opacity:.18;transform:scaleY(.45)}}
 @keyframes flameDance{to{transform:rotate(8deg) scaleX(.8) scaleY(.85)}}
 @keyframes ashRise{0%{opacity:0;transform:translateY(0)}20%{opacity:1}100%{opacity:0;transform:translateY(-160px) translateX(30px)}}
-.ritual-guard .guard-disc{left:25%;top:5%;width:150px;height:240px;border:0;outline:0;border-radius:0;background: url('图片/玄鸟/baihu_records_whitejade_web_v03.svg') center/contain no-repeat;}
+
 .vow-scroll{position:absolute;left:43%;top:5%;width:43%;height:230px;border-top:5px solid #baa57a;border-bottom:5px solid #baa57a;background:#f7f0de;color:#443a2d;padding:24px 20px;box-sizing:border-box;text-align:center;}
 .vow-scroll small{font-size:11px;letter-spacing:4px;color:#7d6540;}.vow-scroll h2{font-size:18px;letter-spacing:2px;font-weight:400;margin:20px 0 16px}.vow-scroll p{font-size:12px;line-height:2;color:#675d4c;}.vow-seal{position:absolute;right:16px;bottom:14px;width:28px;height:28px;display:grid;place-items:center;border:1px solid #a99a74;color:#87734e;font-size:16px;}
 .ritual-guard .guard-base{bottom:20%;left:12%;right:12%;height:25px;border-radius:3px;background:#e1d5b7;}
@@ -114,7 +114,7 @@ html[data-wish-theme=paper] .tree-bg{top:76%;height:160px;}
 [data-wish-theme=apricot] .wish-name{max-width:125px;font-size:12px;background:#f7faf0d9;}
 [data-wish-theme=apricot] .desk:has(.wish) .garden-sprout{display:none;}
 [data-wish-theme=apricot] .garden-ring{left:0;right:0;height:70%;bottom:-25%;background:#bac8a324;border-color:#a2ac85;}
-@media(max-width:700px){.ritual-guard .guard-disc{left:23%;width:90px;height:180px;top:0}.vow-scroll{left:40%;width:56%;height:190px;padding:18px 10px;top:0}.vow-scroll h2{font-size:14px;letter-spacing:0;margin:18px 0 12px}.vow-scroll p{font-size:11px}.vow-steps{font-size:11px;letter-spacing:1px;top:85%}html[data-wish-theme=paper] .tree-bg{top:76%;height:125px;}[data-wish-theme=apricot] .wish{width:95px;}[data-wish-theme=apricot] .wish .wish-obj{width:90px;height:120px;}[data-wish-theme=apricot] .wish-name{max-width:95px;font-size:10px;}.fire-flames{left:25%;right:25%;height:105px;}.fire-status{font-size:11px;letter-spacing:1px;}}
+@media(max-width:700px){.vow-scroll{left:40%;width:56%;height:190px;padding:18px 10px;top:0}.vow-scroll h2{font-size:14px;letter-spacing:0;margin:18px 0 12px}.vow-scroll p{font-size:11px}.vow-steps{font-size:11px;letter-spacing:1px;top:85%}html[data-wish-theme=paper] .tree-bg{top:76%;height:125px;}[data-wish-theme=apricot] .wish{width:95px;}[data-wish-theme=apricot] .wish .wish-obj{width:90px;height:120px;}[data-wish-theme=apricot] .wish-name{max-width:95px;font-size:10px;}.fire-flames{left:25%;right:25%;height:105px;}.fire-status{font-size:11px;letter-spacing:1px;}}
 @media(prefers-reduced-motion:reduce){.ritual-play .fire-flames{opacity:1}.ritual-play .burning-sheet{opacity:1;transform:translate(-50%,55px)}}
 html[data-wish-theme="rouge"] .traces-prop,html[data-wish-theme="rouge"] .traces-drawer,html[data-wish-theme="rouge"] #hangers{display:none!important;}
 html[data-wish-theme=paper] .ritual-guard .vow-scroll{left:50%;transform:translateX(-50%);}

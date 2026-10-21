@@ -348,13 +348,8 @@
     }
     .fan-arrow:hover { background: #2a1050; border-color: #b080ff; color: #e0ccff; }
 
-    .fan-counter {
-      font-size: 12px; color: #a080d0; letter-spacing: 2px;
-      pointer-events: auto;
-    }
-    .fan-clear {
-      display: none;   /* 已被 #clearBtn 秘仪圆环取代 */
-    }
+    
+    
 
     /* ===== 清空桌面按钮（秘仪圆环，仿 web 版） ===== */
     #clearBtn {
@@ -990,23 +985,18 @@
       background-image: var(--tarot-front-image);
       background-size: contain; background-position: center; background-repeat: no-repeat;
     }
-    .theme-tarot-back .tt-orbit {
-      width: 62%; aspect-ratio: 1; border: 1px solid var(--tarot-accent); border-radius: 50%;
-      display: grid; place-items: center; position: relative;
-      box-shadow: 0 0 16px var(--tarot-shadow), inset 0 0 14px var(--tarot-shadow);
-    }
-    .theme-tarot-back .tt-orbit::before,
-    .theme-tarot-back .tt-orbit::after { content: ''; position: absolute; border: 1px solid var(--tarot-soft); border-radius: 50%; }
-    .theme-tarot-back .tt-orbit::before { inset: 13%; }
-    .theme-tarot-back .tt-orbit::after { inset: -18% 18%; transform: rotate(45deg); }
-    .theme-tarot-back .tt-moon { font-size: clamp(22px,3.2vw,40px); line-height: 1; color: var(--tarot-accent); text-shadow: 0 0 10px var(--tarot-shadow); }
-    .theme-tarot-back .tt-stars { position: absolute; inset: 10%; font-size: 9px; letter-spacing: 6px; display: flex; justify-content: space-between; color: var(--tarot-ink); opacity: .78; }
+    
+    
+    
+    
+    
+    
     .theme-tarot-front { display: flex; flex-direction: column; align-items: center; padding: 8% 8% 6%; }
-    .theme-tarot-front .tt-number { font: 600 clamp(8px,1vw,12px) Georgia,serif; letter-spacing: 2px; color: var(--tarot-accent); }
+    
     .theme-tarot-front svg { width: 82%; flex: 1; min-height: 0; margin: 3% 0; overflow: visible; filter: drop-shadow(0 0 5px var(--tarot-shadow)); }
     .theme-tarot-front svg * { vector-effect: non-scaling-stroke; }
-    .theme-tarot-front .tt-title { font: 600 clamp(9px,1.15vw,14px) Georgia,'Songti SC',serif; letter-spacing: .28em; color: var(--tarot-ink); }
-    .theme-tarot-front .tt-en { margin-top: 2px; font: 500 clamp(5px,.62vw,8px) Georgia,serif; letter-spacing: .2em; color: var(--tarot-accent); }
+    
+    
     .card-front.is-reversed .theme-tarot-card { transform: rotate(180deg); }
     .fan-card .card-number {
       font-size: 13px; color: rgba(255,255,255,0.7);
@@ -1219,10 +1209,10 @@
       display: inline-block; margin-left: .25em; color: var(--tarot-reading-accent);
       font-size: clamp(15px,.58em,18px); font-weight: 650; letter-spacing: .08em; vertical-align: .08em;
     }
-    .tt-meaning-en { margin-top: 3px; font: 600 11px Georgia,serif; letter-spacing: .18em; color: var(--tarot-reading-accent); }
+    
     .tt-meaning-meta { display: flex; flex-wrap: wrap; gap: 7px 8px; padding: 11px 0; border-bottom: 1px solid var(--tarot-reading-line); }
     .tt-meaning-meta span { padding: 5px 9px; border: 1px solid var(--tarot-reading-line); border-radius: 14px; font-size: clamp(15px,3.2vw,17px); }
-    .tt-meaning-theme { margin: 10px 0 0; font-size: clamp(15px,3.4vw,17px); line-height: 1.65; }
+    
     .tt-meaning-section { padding: 10px 0 9px; border-bottom: 1px solid var(--tarot-reading-line); }
     .tt-meaning-section.tt-meaning-caution { border-bottom: none; }
     .tt-meaning-section b { display: block; margin-bottom: 5px; font-size: clamp(15px,3.2vw,17px); letter-spacing: .12em; color: var(--tarot-reading-accent); }
@@ -1289,9 +1279,9 @@
       .tt-symbol-item { grid-row: span 2; grid-template-rows: subgrid; }
       .tt-symbol-item > strong { min-height: 0; }
     }
-    .tt-meaning-advice { margin-top: auto; padding: 10px 11px; border: 1px solid var(--tarot-reading-line); border-radius: 5px; background: var(--tarot-reading-panel); }
-    .tt-meaning-advice b { display: block; margin-bottom: 4px; font-size: 12px; letter-spacing: .14em; color: var(--tarot-reading-accent); }
-    .tt-meaning-advice p { margin: 0; font-size: clamp(12px,3vw,14px); line-height: 1.62; }
+    
+    
+    
     /* 关闭按钮（右上） */
     #cardZoom .zoom-close {
       position: fixed; top: calc(20px + env(safe-area-inset-top)); right: 20px;
@@ -1933,7 +1923,7 @@
     body[data-theme="noir"] #fanArea.shuffling .fan-card { filter: brightness(1.05) drop-shadow(0 0 9px rgba(0,0,0,.28)); }
     body[data-theme="noir"] .placed-card { border-color: #17171a; box-shadow: 0 7px 18px rgba(0,0,0,.18); }
     body[data-theme="noir"] .placed-card:hover { border-color: #17171a; box-shadow: 0 9px 26px rgba(0,0,0,.28); }
-    body[data-theme="noir"] .fan-counter { color: #17171a; text-shadow: none; }
+    
     body[data-theme="noir"] .astro-die {
       --die-face-center: rgba(255,253,249,.9);
       --die-face-1: rgba(255,253,249,.74);
@@ -2098,7 +2088,7 @@
     body[data-theme="parchment"] .placed-card,
     body[data-theme="parchment"] #cardZoom .zoom-card { border-color: #9e7840; box-shadow: 0 8px 24px rgba(0,0,0,.38); }
     body[data-theme="parchment"] .placed-card:hover { border-color: #d1aa5c; box-shadow: 0 10px 28px rgba(0,0,0,.42), 0 0 13px rgba(203,167,92,.15); }
-    body[data-theme="parchment"] .fan-counter { color: #dfc174; text-shadow: none; }
+    
     body[data-theme="parchment"] .astro-die {
       --die-face-center: #3b1520;
       --die-face-1: #57202d;
@@ -2254,7 +2244,7 @@
     body[data-theme="dopamine"] .placed-card,
     body[data-theme="dopamine"] #cardZoom .zoom-card { border-color: #a9cfe3; box-shadow: 0 8px 22px rgba(112,129,151,.15); }
     body[data-theme="dopamine"] .placed-card:hover { border-color: #e598b8; box-shadow: 0 10px 26px rgba(223,114,165,.18); }
-    body[data-theme="dopamine"] .fan-counter { color: #68758a; text-shadow: none; }
+    
     body[data-theme="dopamine"] .astro-die {
       --candy-rgb: 242,168,197;
       --die-face-center: rgba(var(--candy-rgb),.78);

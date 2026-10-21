@@ -76,7 +76,7 @@
 }
 .world-switch--west::before,.world-switch--west::after{content:none}
 .world-switch--west svg{width:100%;height:100%;filter:none}
-.ws-bird-paper{fill:none}
+
 .ws-seal-orbit{stroke:var(--ws-accent)}
 .ws-seal-stars{fill:var(--ws-accent)}
 .world-switch--west:focus-visible{outline:2px solid var(--ws-accent);outline-offset:5px}

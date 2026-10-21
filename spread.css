@@ -104,7 +104,7 @@ body #drawerSpread .drawer-title { color: var(--spread-text); border-color: rgba
 .spread-options button { display: grid; grid-template-columns: 54px minmax(0, 1fr); align-items: center; gap: 10px; text-align: left; border: 1px solid rgba(var(--spread-rgb),.35); border-radius: 12px; background: rgba(var(--spread-rgb),.035); color: inherit; padding: 12px 10px; font: inherit; cursor: pointer; transition: background .2s, border-color .2s; }
 .spread-mini { position: relative; display: block; height: 65px; color: var(--spread-gold); }
 .spread-mini i { position: absolute; width: 12px; height: 18px; transform: translate(-50%, -50%); border: 1px solid currentColor; border-radius: 2px; background: rgba(var(--spread-rgb),.1); }
-.spread-mini-venus i { width: 8px; height: 10px; }
+
 .spread-record-board[data-spread="venus"] .spread-record-slot { width: 12%; height: 15%; }
 .spread-option-copy { display: grid; gap: 5px; }
 .spread-option-name { font-size: 14px; line-height: 1.3; letter-spacing: 1px; }

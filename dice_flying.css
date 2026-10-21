@@ -7,7 +7,7 @@
 .dice-flying-wheel .flying-center{font-size:11px;}
 .dice-flying-wheel .flying-sector{fill:currentColor;fill-opacity:.12;stroke:none;}
 .dice-flying-wheel .flying-planet{stroke-width:2.5;}
-.dice-flying-copy{font-size:13px;line-height:1.9;min-width:0;}.dice-flying-copy p{margin:8px 0;}.dice-flying-copy .flying-note{font-size:11px;opacity:.75;}
+.dice-flying-copy{font-size:13px;line-height:1.9;min-width:0;}.dice-flying-copy p{margin:8px 0;}
 body[data-theme=noir] .dice-flying{--flying-ink:#343237;--flying-bg:#faf8f2f5;--flying-line:#34323755;}
 body[data-theme=parchment] .dice-flying{--flying-ink:#eed09c;--flying-bg:#40291ded;--flying-line:#c8945070;}
 body[data-theme=dopamine] .dice-flying{--flying-ink:#6d5882;--flying-bg:#fff9f5f5;--flying-line:#91cbe699;}
@@ -19,7 +19,7 @@ body[data-theme=dopamine] .dice-flying{--flying-ink:#6d5882;--flying-bg:#fff9f5f
 #astroDicePanel .dice-flying>summary{display:none;}
 #astroDicePanel .dice-flying-content{padding-top:0;}
 #astroDicePanel:has(.dice-flying[open]){top:46%;max-height:78vh;overflow-y:auto;padding:4px 0;}
-@media(max-width:700px){#astroDicePanel .dice-flying{margin-bottom:18px;}#astroDicePanel .dice-flying-wheel{max-width:230px;}#astroDicePanel .dice-flying-copy .flying-note{font-size:10px;}#astroDicePanel:has(.dice-flying[open]){top:47%;max-height:74vh;}}
+@media(max-width:700px){#astroDicePanel .dice-flying{margin-bottom:18px;}#astroDicePanel .dice-flying-wheel{max-width:230px;}#astroDicePanel:has(.dice-flying[open]){top:47%;max-height:74vh;}}
 
 
 /* M369：飞宫圆盘直接置于桌面。 */

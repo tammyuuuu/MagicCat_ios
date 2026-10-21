@@ -29,6 +29,7 @@ if(await page.locator('.db-card').count()!==n)throw Error(id+' count');
 await page.locator('.db-card').first().click();
 if(id==='theme-tarot-prototype'||id==='config-deck-1'){
 await page.locator('#zoomInterpret').click({timeout:3000}).catch(async e=>{console.log(await page.evaluate(()=>({selected:document.querySelector('#dbDeck').value,card:_zoomThemeCard?.name,active:cardZoom.className,display:zoomInterpret.style.display,nav:document.querySelector('.db-detail-title').textContent})));await page.screenshot({path:'output/deck-browser-failure.png'});throw e;});
+await page.locator('.theme-tarot-meaning').waitFor();
 if(await page.locator('.theme-tarot-meaning').count()!==1)throw Error(id+' meaning');
 }else if(await page.locator('#zoomInterpret').isVisible())throw Error('unexpected meaning');
 await page.locator('#zoomClose').click();
