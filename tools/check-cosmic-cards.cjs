@@ -1,0 +1,60 @@
+const fs = require('fs');
+const path = require('path');
+const assert = require('assert/strict');
+const {chromium} = require(require.resolve('playwright', {paths: ['C:/Users/tammy/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules']}));
+const root = path.resolve(__dirname, '..');
+const data = JSON.parse(fs.readFileSync(path.join(root, 'reading-data/cosmic.json'), 'utf8'));
+const base = 'http://127.0.0.1:8878';
+const out = path.join(root, 'output/cosmic-redesign');
+async function main() {
+  const browser = await chromium.launch({headless: true, channel: 'msedge'});
+  const page = await browser.newPage({viewport: {width: 393, height: 852}, isMobile: true, hasTouch: true});
+  const errors = [];
+  page.on('pageerror', e => errors.push(e.message));
+  await page.goto(base + '/reading_ios.html');
+  await page.waitForSelector('.db-browse', {state: 'attached'});
+  const decoded = await page.evaluate(async () => {
+    const deck = deckList.find(d => d.name === '宇宙力量卡');
+    const dimensions = await Promise.all([...deck._cards.map(c => c._imgUrl), deck._backImg].map(async src => {
+      const img = new Image(); img.src = src; await img.decode();
+      return [img.naturalWidth, img.naturalHeight];
+    }));
+    return {count: deck._cards.length, layout: deck.layout, ratio: deck.aspectRatio, dimensions};
+  });
+  assert.equal(decoded.count, 140);
+  assert.equal(decoded.layout, 'portrait');
+  assert.equal(decoded.ratio, 2 / 3);
+  assert(decoded.dimensions.every(([w,h]) => w === 1024 && h === 1536));
+  await page.evaluate(() => document.getElementById('drawerDeck').classList.add('open'));
+  await page.locator('.db-browse').first().click();
+  await page.selectOption('#dbDeck', 'config-deck-2');
+  assert.equal(await page.locator('.db-card').count(), 140);
+  await page.locator('.db-card').first().click();
+  await page.locator('#zoomCard img').evaluate(img => img.decode());
+  await page.locator('#cardZoom .zoom-wrap').evaluate(async element => {
+    await Promise.all(element.getAnimations().map(animation => animation.finished));
+  });
+  await page.screenshot({path: path.join(out, 'phone-393.png')});
+  const bounds = await page.locator('#zoomCard img').boundingBox();
+  assert(bounds.x >= 0 && bounds.x + bounds.width <= 393);
+  assert(Math.abs(bounds.width / bounds.height - 2 / 3) < .01);
+  await page.setViewportSize({width: 320, height: 667});
+  await page.screenshot({path: path.join(out, 'phone-320.png')});
+  const small = await page.locator('#zoomCard img').boundingBox();
+  assert(small.x >= 0 && small.x + small.width <= 320);
+  await page.locator('#zoomFlip').click();
+  await page.locator('#zoomCard img').evaluate(img => img.decode());
+  assert((await page.locator('#zoomCard img').getAttribute('src')).endsWith('back.webp'));
+  assert.equal(await page.locator('#zoomInterpret').isVisible(), false);
+  assert.deepEqual(errors, []);
+  const samples = [0,20,39,60,83,101,118,82,100,139];
+  const html = `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>宇宙力量卡 · 竖版全套</title><style>body{margin:0;padding:24px;background:#f1ece8;color:#42203e;font:15px system-ui}h1{font:28px SimSun,serif}p{line-height:1.8}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}figure{margin:0}img{width:100%;display:block;border-radius:12px}figcaption{padding:10px 0 20px}a{color:inherit}</style><h1>宇宙力量卡 · 浅色竖版</h1><p>地 · 水 · 火 · 风 · 音 · 光 · 虹，共 140 张。中文居中，元素独立插画。</p><div class="grid">${data.map(c => `<figure id="card-${c.id}"><img loading="lazy" src="../../图片/宇宙力量卡/cards/${c.id}.webp" alt="${c.zh}"><figcaption>${c.elementZh} · ${c.number} / ${c.count} · ${c.zh}</figcaption></figure>`).join('')}</div></html>`;
+  fs.writeFileSync(path.join(out, 'preview.html'), html);
+  await page.setViewportSize({width: 1400, height: 840});
+  await page.setContent(`<style>body{margin:0;padding:16px;background:#f1ece8}.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}img{width:100%;display:block;border-radius:8px}</style><div class="grid">${samples.map(id => `<img src="${base}/图片/宇宙力量卡/cards/${id}.webp">`).join('')}</div>`);
+  await page.locator('img').evaluateAll(imgs => Promise.all(imgs.map(i => i.decode())));
+  await page.screenshot({path: path.join(out, 'overview.jpg'), fullPage: true, quality: 90});
+  await browser.close();
+  console.log(JSON.stringify({decoded: decoded.dimensions.length, widths: [393,320], flip: true, errors}));
+}
+main().catch(e => {console.error(e); process.exit(1)});
