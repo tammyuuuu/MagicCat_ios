@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+<script src="phone_layout.js" defer></script>
   <meta charset="UTF-8">
 <script>
 (() => {
@@ -1541,9 +1542,10 @@
     #recordPage .rp-field textarea:focus { border-color: #87c5e5; }
     #recordPage .rp-actions {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      justify-content: center;
       align-items: center;
-      gap: 12px;
+      gap: 80px;
       margin-top: 18px;
     }
     #recordPage .rp-btn {

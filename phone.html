@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#dedbe8">
+  <title>魔法猫</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #dedbe8; }
+    iframe { display: block; width: min(100%, 430px); height: 100%; height: 100dvh; margin: 0 auto; border: 0; background: #0d001a; box-shadow: 0 0 48px #51406318; }
+  </style>
+</head>
+<body>
+  <iframe id="phone" title="魔法猫手机页面" allow="clipboard-write; fullscreen" allowfullscreen></iframe>
+  <script>
+    const pages = new Set(['reading_ios.html', 'manifest_ios.html', 'bird_ios.html', 'wish_ios.html']);
+    const requested = new URL(new URLSearchParams(location.search).get('page') || 'reading_ios.html', location.href);
+    const frame = document.getElementById('phone');
+    const valid = requested.origin === location.origin && requested.pathname.slice(0, requested.pathname.lastIndexOf('/') + 1) === location.pathname.slice(0, location.pathname.lastIndexOf('/') + 1) && pages.has(requested.pathname.split('/').pop());
+    frame.src = valid ? requested.href : './reading_ios.html';
+    frame.addEventListener('load', () => {
+      try {
+        document.title = frame.contentDocument.title || '魔法猫';
+        const current = new URL(frame.contentWindow.location.href);
+        if (pages.has(current.pathname.split('/').pop())) {
+          const next = new URL(location.href);
+          next.searchParams.set('page', current.pathname.split('/').pop() + current.search + current.hash);
+          history.replaceState(null, '', next);
+        }
+      } catch (_) {}
+    });
+  </script>
+</body>
+</html>
