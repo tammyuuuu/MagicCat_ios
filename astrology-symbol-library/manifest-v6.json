@@ -1,0 +1,142 @@
+{
+  "version": 6,
+  "viewBox": "0 0 32 32",
+  "strokeWidth": {
+    "default": 1.65,
+    "referenceSymbols": 1.9
+  },
+  "symbols": [
+    {
+      "id": "aries",
+      "name": "白羊座",
+      "file": "aries.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "taurus",
+      "name": "金牛座",
+      "file": "taurus.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "gemini",
+      "name": "双子座",
+      "file": "gemini.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "cancer",
+      "name": "巨蟹座",
+      "file": "cancer.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "leo",
+      "name": "狮子座",
+      "file": "leo.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "virgo",
+      "name": "处女座",
+      "file": "virgo.svg",
+      "strokeWidth": 1.9
+    },
+    {
+      "id": "libra",
+      "name": "天秤座",
+      "file": "libra.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "scorpio",
+      "name": "天蝎座",
+      "file": "scorpio.svg",
+      "strokeWidth": 1.9
+    },
+    {
+      "id": "sagittarius",
+      "name": "射手座",
+      "file": "sagittarius.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "capricorn",
+      "name": "摩羯座",
+      "file": "capricorn.svg",
+      "strokeWidth": 1.9
+    },
+    {
+      "id": "aquarius",
+      "name": "水瓶座",
+      "file": "aquarius.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "pisces",
+      "name": "双鱼座",
+      "file": "pisces.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "sun",
+      "name": "太阳",
+      "file": "sun.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "moon",
+      "name": "月亮",
+      "file": "moon.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "mercury",
+      "name": "水星",
+      "file": "mercury.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "venus",
+      "name": "金星",
+      "file": "venus.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "mars",
+      "name": "火星",
+      "file": "mars.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "jupiter",
+      "name": "木星",
+      "file": "jupiter.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "saturn",
+      "name": "土星",
+      "file": "saturn.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "uranus",
+      "name": "天王星",
+      "file": "uranus.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "neptune",
+      "name": "海王星",
+      "file": "neptune.svg",
+      "strokeWidth": 1.65
+    },
+    {
+      "id": "pluto",
+      "name": "冥王星",
+      "file": "pluto.svg",
+      "strokeWidth": 1.65
+    }
+  ]
+}

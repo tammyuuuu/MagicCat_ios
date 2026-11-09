@@ -1,0 +1,134 @@
+[
+  {
+    "symbol": "aquarius",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "aries",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "cancer",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "capricorn",
+    "geometry_preserved": true,
+    "reference_unchanged": true,
+    "stroke_width": "1.9"
+  },
+  {
+    "symbol": "gemini",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "jupiter",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "leo",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "libra",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "mars",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "mercury",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "moon",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "neptune",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "pisces",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "pluto",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "sagittarius",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "saturn",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "scorpio",
+    "geometry_preserved": true,
+    "reference_unchanged": true,
+    "stroke_width": "1.9"
+  },
+  {
+    "symbol": "sun",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "taurus",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "uranus",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "venus",
+    "geometry_preserved": true,
+    "reference_unchanged": false,
+    "stroke_width": "1.65"
+  },
+  {
+    "symbol": "virgo",
+    "geometry_preserved": true,
+    "reference_unchanged": true,
+    "stroke_width": "1.9"
+  }
+]

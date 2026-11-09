@@ -1,0 +1,290 @@
+[
+  {
+    "symbol": "libra",
+    "version": "V6",
+    "size": 16,
+    "bounds": [
+      1,
+      3,
+      15,
+      14
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "libra",
+    "version": "V6",
+    "size": 24,
+    "bounds": [
+      2,
+      4,
+      22,
+      21
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "libra",
+    "version": "V6",
+    "size": 32,
+    "bounds": [
+      3,
+      6,
+      29,
+      28
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "libra",
+    "version": "V7",
+    "size": 16,
+    "bounds": [
+      3,
+      2,
+      13,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "libra",
+    "version": "V7",
+    "size": 24,
+    "bounds": [
+      5,
+      3,
+      19,
+      22
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "libra",
+    "version": "V7",
+    "size": 32,
+    "bounds": [
+      6,
+      4,
+      26,
+      29
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "taurus",
+    "version": "V6",
+    "size": 16,
+    "bounds": [
+      1,
+      1,
+      15,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "taurus",
+    "version": "V6",
+    "size": 24,
+    "bounds": [
+      3,
+      2,
+      21,
+      22
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "taurus",
+    "version": "V6",
+    "size": 32,
+    "bounds": [
+      4,
+      3,
+      28,
+      29
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "taurus",
+    "version": "V7",
+    "size": 16,
+    "bounds": [
+      3,
+      1,
+      13,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "taurus",
+    "version": "V7",
+    "size": 24,
+    "bounds": [
+      5,
+      2,
+      19,
+      22
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "taurus",
+    "version": "V7",
+    "size": 32,
+    "bounds": [
+      7,
+      3,
+      25,
+      29
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "aquarius",
+    "version": "V6",
+    "size": 16,
+    "bounds": [
+      1,
+      4,
+      15,
+      13
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "aquarius",
+    "version": "V6",
+    "size": 24,
+    "bounds": [
+      2,
+      6,
+      22,
+      18
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "aquarius",
+    "version": "V6",
+    "size": 32,
+    "bounds": [
+      3,
+      8,
+      29,
+      24
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "aquarius",
+    "version": "V7",
+    "size": 16,
+    "bounds": [
+      2,
+      2,
+      14,
+      14
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "aquarius",
+    "version": "V7",
+    "size": 24,
+    "bounds": [
+      4,
+      4,
+      20,
+      20
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "aquarius",
+    "version": "V7",
+    "size": 32,
+    "bounds": [
+      6,
+      6,
+      26,
+      27
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "pisces",
+    "version": "V6",
+    "size": 16,
+    "bounds": [
+      2,
+      1,
+      14,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "pisces",
+    "version": "V6",
+    "size": 24,
+    "bounds": [
+      3,
+      2,
+      21,
+      22
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "pisces",
+    "version": "V6",
+    "size": 32,
+    "bounds": [
+      4,
+      3,
+      28,
+      29
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "pisces",
+    "version": "V7",
+    "size": 16,
+    "bounds": [
+      3,
+      1,
+      13,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "pisces",
+    "version": "V7",
+    "size": 24,
+    "bounds": [
+      5,
+      2,
+      19,
+      22
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "pisces",
+    "version": "V7",
+    "size": 32,
+    "bounds": [
+      7,
+      2,
+      25,
+      30
+    ],
+    "edge_clear": true
+  }
+]

@@ -1,0 +1,728 @@
+[
+  {
+    "symbol": "aries",
+    "size": 16,
+    "alpha_bbox": [
+      1,
+      1,
+      15,
+      14
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "aries",
+    "size": 24,
+    "alpha_bbox": [
+      2,
+      3,
+      22,
+      21
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "aries",
+    "size": 32,
+    "alpha_bbox": [
+      3,
+      4,
+      29,
+      28
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "taurus",
+    "size": 16,
+    "alpha_bbox": [
+      1,
+      1,
+      15,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "taurus",
+    "size": 24,
+    "alpha_bbox": [
+      3,
+      2,
+      21,
+      22
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "taurus",
+    "size": 32,
+    "alpha_bbox": [
+      4,
+      3,
+      28,
+      29
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "gemini",
+    "size": 16,
+    "alpha_bbox": [
+      2,
+      1,
+      14,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "gemini",
+    "size": 24,
+    "alpha_bbox": [
+      3,
+      2,
+      21,
+      22
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "gemini",
+    "size": 32,
+    "alpha_bbox": [
+      5,
+      3,
+      27,
+      29
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "cancer",
+    "size": 16,
+    "alpha_bbox": [
+      2,
+      2,
+      14,
+      14
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "cancer",
+    "size": 24,
+    "alpha_bbox": [
+      3,
+      4,
+      21,
+      20
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "cancer",
+    "size": 32,
+    "alpha_bbox": [
+      4,
+      5,
+      28,
+      27
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "leo",
+    "size": 16,
+    "alpha_bbox": [
+      1,
+      1,
+      15,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "leo",
+    "size": 24,
+    "alpha_bbox": [
+      1,
+      2,
+      21,
+      22
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "leo",
+    "size": 32,
+    "alpha_bbox": [
+      2,
+      3,
+      28,
+      29
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "virgo",
+    "size": 16,
+    "alpha_bbox": [
+      1,
+      2,
+      13,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "virgo",
+    "size": 24,
+    "alpha_bbox": [
+      2,
+      3,
+      19,
+      23
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "virgo",
+    "size": 32,
+    "alpha_bbox": [
+      3,
+      5,
+      26,
+      30
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "libra",
+    "size": 16,
+    "alpha_bbox": [
+      1,
+      3,
+      15,
+      14
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "libra",
+    "size": 24,
+    "alpha_bbox": [
+      2,
+      4,
+      22,
+      21
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "libra",
+    "size": 32,
+    "alpha_bbox": [
+      3,
+      6,
+      29,
+      28
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "scorpio",
+    "size": 16,
+    "alpha_bbox": [
+      1,
+      2,
+      14,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "scorpio",
+    "size": 24,
+    "alpha_bbox": [
+      2,
+      3,
+      21,
+      23
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "scorpio",
+    "size": 32,
+    "alpha_bbox": [
+      3,
+      5,
+      28,
+      30
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "sagittarius",
+    "size": 16,
+    "alpha_bbox": [
+      2,
+      2,
+      14,
+      14
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "sagittarius",
+    "size": 24,
+    "alpha_bbox": [
+      3,
+      3,
+      21,
+      21
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "sagittarius",
+    "size": 32,
+    "alpha_bbox": [
+      5,
+      5,
+      27,
+      27
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "capricorn",
+    "size": 16,
+    "alpha_bbox": [
+      1,
+      2,
+      15,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "capricorn",
+    "size": 24,
+    "alpha_bbox": [
+      2,
+      3,
+      22,
+      23
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "capricorn",
+    "size": 32,
+    "alpha_bbox": [
+      3,
+      4,
+      29,
+      30
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "aquarius",
+    "size": 16,
+    "alpha_bbox": [
+      1,
+      4,
+      15,
+      13
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "aquarius",
+    "size": 24,
+    "alpha_bbox": [
+      2,
+      6,
+      22,
+      18
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "aquarius",
+    "size": 32,
+    "alpha_bbox": [
+      3,
+      8,
+      29,
+      24
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "pisces",
+    "size": 16,
+    "alpha_bbox": [
+      2,
+      1,
+      14,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "pisces",
+    "size": 24,
+    "alpha_bbox": [
+      3,
+      2,
+      21,
+      22
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "pisces",
+    "size": 32,
+    "alpha_bbox": [
+      4,
+      3,
+      28,
+      29
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "sun",
+    "size": 16,
+    "alpha_bbox": [
+      2,
+      2,
+      14,
+      14
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "sun",
+    "size": 24,
+    "alpha_bbox": [
+      3,
+      3,
+      21,
+      21
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "sun",
+    "size": 32,
+    "alpha_bbox": [
+      4,
+      4,
+      28,
+      28
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "moon",
+    "size": 16,
+    "alpha_bbox": [
+      3,
+      1,
+      12,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "moon",
+    "size": 24,
+    "alpha_bbox": [
+      5,
+      2,
+      18,
+      22
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "moon",
+    "size": 32,
+    "alpha_bbox": [
+      6,
+      3,
+      24,
+      29
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "mercury",
+    "size": 16,
+    "alpha_bbox": [
+      3,
+      1,
+      13,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "mercury",
+    "size": 24,
+    "alpha_bbox": [
+      5,
+      2,
+      19,
+      23
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "mercury",
+    "size": 32,
+    "alpha_bbox": [
+      7,
+      3,
+      25,
+      30
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "venus",
+    "size": 16,
+    "alpha_bbox": [
+      3,
+      1,
+      13,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "venus",
+    "size": 24,
+    "alpha_bbox": [
+      5,
+      2,
+      19,
+      23
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "venus",
+    "size": 32,
+    "alpha_bbox": [
+      7,
+      3,
+      25,
+      30
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "mars",
+    "size": 16,
+    "alpha_bbox": [
+      1,
+      2,
+      14,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "mars",
+    "size": 24,
+    "alpha_bbox": [
+      2,
+      3,
+      21,
+      22
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "mars",
+    "size": 32,
+    "alpha_bbox": [
+      3,
+      4,
+      28,
+      29
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "jupiter",
+    "size": 16,
+    "alpha_bbox": [
+      1,
+      2,
+      14,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "jupiter",
+    "size": 24,
+    "alpha_bbox": [
+      3,
+      3,
+      21,
+      23
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "jupiter",
+    "size": 32,
+    "alpha_bbox": [
+      4,
+      4,
+      28,
+      30
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "saturn",
+    "size": 16,
+    "alpha_bbox": [
+      2,
+      1,
+      12,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "saturn",
+    "size": 24,
+    "alpha_bbox": [
+      3,
+      2,
+      18,
+      23
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "saturn",
+    "size": 32,
+    "alpha_bbox": [
+      5,
+      3,
+      24,
+      30
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "uranus",
+    "size": 16,
+    "alpha_bbox": [
+      2,
+      2,
+      14,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "uranus",
+    "size": 24,
+    "alpha_bbox": [
+      3,
+      3,
+      21,
+      23
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "uranus",
+    "size": 32,
+    "alpha_bbox": [
+      5,
+      4,
+      27,
+      30
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "neptune",
+    "size": 16,
+    "alpha_bbox": [
+      1,
+      1,
+      15,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "neptune",
+    "size": 24,
+    "alpha_bbox": [
+      1,
+      2,
+      23,
+      23
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "neptune",
+    "size": 32,
+    "alpha_bbox": [
+      2,
+      3,
+      30,
+      30
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "pluto",
+    "size": 16,
+    "alpha_bbox": [
+      1,
+      1,
+      15,
+      15
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "pluto",
+    "size": 24,
+    "alpha_bbox": [
+      3,
+      3,
+      21,
+      23
+    ],
+    "edge_clear": true
+  },
+  {
+    "symbol": "pluto",
+    "size": 32,
+    "alpha_bbox": [
+      4,
+      4,
+      28,
+      30
+    ],
+    "edge_clear": true
+  }
+]

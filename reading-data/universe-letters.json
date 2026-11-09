@@ -1,0 +1,962 @@
+[
+  {
+    "number": 1,
+    "zh": "你的存在本身就值得珍惜。",
+    "en": "Your very existence is precious.",
+    "planet": "sun",
+    "zodiac": "taurus",
+    "element": "earth"
+  },
+  {
+    "number": 2,
+    "zh": "安稳与舒适正在融入你的生活。",
+    "en": "Peace and comfort are becoming part of your life.",
+    "planet": "moon",
+    "zodiac": "taurus",
+    "element": "earth"
+  },
+  {
+    "number": 3,
+    "zh": "相信自己从实践中积累的智慧。",
+    "en": "Trust the wisdom you have gained through experience.",
+    "planet": "mercury",
+    "zodiac": "taurus",
+    "element": "earth"
+  },
+  {
+    "number": 4,
+    "zh": "生活的丰盛与喜悦值得尽情享受。",
+    "en": "Embrace the abundance and joy life has to offer.",
+    "planet": "venus",
+    "zodiac": "taurus",
+    "element": "earth"
+  },
+  {
+    "number": 5,
+    "zh": "坚定的行动将带来实实在在的成果。",
+    "en": "Steady determination will bring tangible results.",
+    "planet": "mars",
+    "zodiac": "taurus",
+    "element": "earth"
+  },
+  {
+    "number": 6,
+    "zh": "更多财富与机遇正在向你靠近。",
+    "en": "Greater prosperity and opportunities are coming your way.",
+    "planet": "jupiter",
+    "zodiac": "taurus",
+    "element": "earth"
+  },
+  {
+    "number": 7,
+    "zh": "你正在建立长久而可靠的生活基础。",
+    "en": "You are building a strong and lasting foundation for your life.",
+    "planet": "saturn",
+    "zodiac": "taurus",
+    "element": "earth"
+  },
+  {
+    "number": 8,
+    "zh": "你的每一份认真付出，都在为未来积累值得期待的回报。",
+    "en": "Every sincere effort is building toward rewarding results.",
+    "planet": "sun",
+    "zodiac": "virgo",
+    "element": "earth"
+  },
+  {
+    "number": 9,
+    "zh": "规律的生活正在为你带来安定与活力。",
+    "en": "A balanced routine is bringing stability and vitality into your life.",
+    "planet": "moon",
+    "zodiac": "virgo",
+    "element": "earth"
+  },
+  {
+    "number": 10,
+    "zh": "清晰的思路将帮助你找到解决问题的方法。",
+    "en": "Clear thinking will guide you toward practical solutions.",
+    "planet": "mercury",
+    "zodiac": "virgo",
+    "element": "earth"
+  },
+  {
+    "number": 11,
+    "zh": "你的用心与体贴，会让重要的人感受到被爱与珍惜。",
+    "en": "Your thoughtful care will make those dear to you feel loved and cherished.",
+    "planet": "venus",
+    "zodiac": "virgo",
+    "element": "earth"
+  },
+  {
+    "number": 12,
+    "zh": "每一个落实的细节，都在推动目标实现。",
+    "en": "Every detail you put into action brings your goal closer.",
+    "planet": "mars",
+    "zodiac": "virgo",
+    "element": "earth"
+  },
+  {
+    "number": 13,
+    "zh": "持续精进的能力将为你打开更多机会。",
+    "en": "Your growing skills will open doors to new opportunities.",
+    "planet": "jupiter",
+    "zodiac": "virgo",
+    "element": "earth"
+  },
+  {
+    "number": 14,
+    "zh": "井然有序的生活将带来持久的从容。",
+    "en": "An orderly life will bring lasting peace of mind.",
+    "planet": "saturn",
+    "zodiac": "virgo",
+    "element": "earth"
+  },
+  {
+    "number": 15,
+    "zh": "坚定的目标感，将引领你走向属于自己的成功。",
+    "en": "A clear sense of purpose will lead you toward your own success.",
+    "planet": "sun",
+    "zodiac": "capricorn",
+    "element": "earth"
+  },
+  {
+    "number": 16,
+    "zh": "你会拥有可靠的支持与依靠。",
+    "en": "You will have dependable support to lean on.",
+    "planet": "moon",
+    "zodiac": "capricorn",
+    "element": "earth"
+  },
+  {
+    "number": 17,
+    "zh": "清晰的规划与长远的眼光，将为未来创造更多机会。",
+    "en": "Clear plans and long-term vision will create more opportunities for your future.",
+    "planet": "mercury",
+    "zodiac": "capricorn",
+    "element": "earth"
+  },
+  {
+    "number": 18,
+    "zh": "真诚而稳定的关系，会在时间的沉淀中愈加深厚。",
+    "en": "Sincere and steady relationships will deepen with time.",
+    "planet": "venus",
+    "zodiac": "capricorn",
+    "element": "earth"
+  },
+  {
+    "number": 19,
+    "zh": "持续的行动正在积累成果，让目标一步步成为现实。",
+    "en": "Consistent action is bringing your goals steadily into reality.",
+    "planet": "mars",
+    "zodiac": "capricorn",
+    "element": "earth"
+  },
+  {
+    "number": 20,
+    "zh": "更广阔的发展机会，正在向踏实前行的你敞开。",
+    "en": "Greater opportunities for growth are opening as you move steadily forward.",
+    "planet": "jupiter",
+    "zodiac": "capricorn",
+    "element": "earth"
+  },
+  {
+    "number": 21,
+    "zh": "时间会见证每一份耕耘，也会带来值得期待的收获。",
+    "en": "Time will honor your dedication with rewarding results.",
+    "planet": "saturn",
+    "zodiac": "capricorn",
+    "element": "earth"
+  },
+  {
+    "number": 22,
+    "zh": "真实的你值得被爱，也值得拥有温暖的归属。",
+    "en": "Your authentic self deserves love and a place to belong.",
+    "planet": "sun",
+    "zodiac": "cancer",
+    "element": "water"
+  },
+  {
+    "number": 23,
+    "zh": "你会拥有安心停靠的港湾，爱与关怀始终陪伴着你。",
+    "en": "You will find a safe haven, surrounded by love and care.",
+    "planet": "moon",
+    "zodiac": "cancer",
+    "element": "water"
+  },
+  {
+    "number": 24,
+    "zh": "真诚地表达内心的感受，会让彼此更加靠近。",
+    "en": "Expressing your feelings sincerely will bring hearts closer.",
+    "planet": "mercury",
+    "zodiac": "cancer",
+    "element": "water"
+  },
+  {
+    "number": 25,
+    "zh": "生活中的点滴关怀，正在汇聚成围绕你的爱。",
+    "en": "Little acts of care are gathering into love all around you.",
+    "planet": "venus",
+    "zodiac": "cancer",
+    "element": "water"
+  },
+  {
+    "number": 26,
+    "zh": "你有足够的力量，守护自己珍视的一切。",
+    "en": "You have the strength to protect everything you cherish.",
+    "planet": "mars",
+    "zodiac": "cancer",
+    "element": "water"
+  },
+  {
+    "number": 27,
+    "zh": "你给予的爱与善意，会以美好的方式回到生命中。",
+    "en": "The love and kindness you give will return to you in beautiful ways.",
+    "planet": "jupiter",
+    "zodiac": "cancer",
+    "element": "water"
+  },
+  {
+    "number": 28,
+    "zh": "稳定而真诚的关系，将为你带来长久的安全感。",
+    "en": "Steady and sincere relationships will bring lasting security.",
+    "planet": "saturn",
+    "zodiac": "cancer",
+    "element": "water"
+  },
+  {
+    "number": 29,
+    "zh": "你的真实与深情，是值得被珍惜的独特力量。",
+    "en": "Your authenticity and depth of feeling are precious strengths.",
+    "planet": "sun",
+    "zodiac": "scorpio",
+    "element": "water"
+  },
+  {
+    "number": 30,
+    "zh": "每一种感受都值得被理解，你可以安心拥抱完整的自己。",
+    "en": "Every feeling deserves understanding, and you can embrace every part of yourself.",
+    "planet": "moon",
+    "zodiac": "scorpio",
+    "element": "water"
+  },
+  {
+    "number": 31,
+    "zh": "敏锐的洞察力，将帮助你理解内心深处的答案。",
+    "en": "Keen insight will help you discover the answers within.",
+    "planet": "mercury",
+    "zodiac": "scorpio",
+    "element": "water"
+  },
+  {
+    "number": 32,
+    "zh": "你会体验到真诚而深刻的联结，让两颗心彼此靠近。",
+    "en": "You will experience a sincere and profound connection that brings two hearts closer.",
+    "planet": "venus",
+    "zodiac": "scorpio",
+    "element": "water"
+  },
+  {
+    "number": 33,
+    "zh": "你拥有面对真实情感的勇气与力量。",
+    "en": "You have the courage and strength to face your true feelings.",
+    "planet": "mars",
+    "zodiac": "scorpio",
+    "element": "water"
+  },
+  {
+    "number": 34,
+    "zh": "每一次真诚地面对内心，都在带领你走向更深的理解与成长。",
+    "en": "Every honest encounter with your inner self leads to deeper understanding and growth.",
+    "planet": "jupiter",
+    "zodiac": "scorpio",
+    "element": "water"
+  },
+  {
+    "number": 35,
+    "zh": "时间会帮助你沉淀感受，让内心逐渐恢复安宁与信任。",
+    "en": "Time will help your feelings settle and restore peace and trust within.",
+    "planet": "saturn",
+    "zodiac": "scorpio",
+    "element": "water"
+  },
+  {
+    "number": 36,
+    "zh": "生命正以美好的方式回应你的真诚与善意。",
+    "en": "Life is responding to your sincerity and kindness in beautiful ways.",
+    "planet": "sun",
+    "zodiac": "pisces",
+    "element": "water"
+  },
+  {
+    "number": 37,
+    "zh": "你的每一种情绪都值得被接纳，内心会逐渐回到柔和与平静。",
+    "en": "Every emotion deserves acceptance, and your heart will gradually find peace.",
+    "planet": "moon",
+    "zodiac": "pisces",
+    "element": "water"
+  },
+  {
+    "number": 38,
+    "zh": "相信内心细微的感受，你会逐渐理解它想传递的讯息。",
+    "en": "Trust your subtle feelings, and their messages will gradually become clear.",
+    "planet": "mercury",
+    "zodiac": "pisces",
+    "element": "water"
+  },
+  {
+    "number": 39,
+    "zh": "爱正在你的生命中自由流动。",
+    "en": "Love is flowing freely through your life.",
+    "planet": "venus",
+    "zodiac": "pisces",
+    "element": "water"
+  },
+  {
+    "number": 40,
+    "zh": "心中的善意将化为实现愿望的力量。",
+    "en": "The kindness in your heart will become the strength to fulfill your wishes.",
+    "planet": "mars",
+    "zodiac": "pisces",
+    "element": "water"
+  },
+  {
+    "number": 41,
+    "zh": "你会感受到更多温暖与丰盛。",
+    "en": "You will experience greater warmth and abundance.",
+    "planet": "jupiter",
+    "zodiac": "pisces",
+    "element": "water"
+  },
+  {
+    "number": 42,
+    "zh": "你的内心会拥有一片安宁而自在的空间。",
+    "en": "Your heart will find a peaceful space where it can be free.",
+    "planet": "saturn",
+    "zodiac": "pisces",
+    "element": "water"
+  },
+  {
+    "number": 43,
+    "zh": "全新的篇章正由你亲手开启。",
+    "en": "You are opening a brand-new chapter of your life.",
+    "planet": "sun",
+    "zodiac": "aries",
+    "element": "fire"
+  },
+  {
+    "number": 44,
+    "zh": "相信心中最初的热忱，它正为你点亮前进的方向。",
+    "en": "Trust your original passion; it is lighting the way forward.",
+    "planet": "moon",
+    "zodiac": "aries",
+    "element": "fire"
+  },
+  {
+    "number": 45,
+    "zh": "清晰地表达想法，将为你带来新的契机。",
+    "en": "Expressing your ideas clearly will bring new opportunities.",
+    "planet": "mercury",
+    "zodiac": "aries",
+    "element": "fire"
+  },
+  {
+    "number": 46,
+    "zh": "大胆表达心中的喜欢，美好的联结正在发生。",
+    "en": "Express your affection boldly; beautiful connections are forming.",
+    "planet": "venus",
+    "zodiac": "aries",
+    "element": "fire"
+  },
+  {
+    "number": 47,
+    "zh": "行动的力量就在你手中。",
+    "en": "The power to act is in your hands.",
+    "planet": "mars",
+    "zodiac": "aries",
+    "element": "fire"
+  },
+  {
+    "number": 48,
+    "zh": "新的机会正在展开，你有能力迎接更广阔的天地。",
+    "en": "New opportunities are unfolding, and you are ready to embrace a wider world.",
+    "planet": "jupiter",
+    "zodiac": "aries",
+    "element": "fire"
+  },
+  {
+    "number": 49,
+    "zh": "耐心与坚持，会让你的脚步更加坚定。",
+    "en": "Patience and perseverance will make every step more assured.",
+    "planet": "saturn",
+    "zodiac": "aries",
+    "element": "fire"
+  },
+  {
+    "number": 50,
+    "zh": "尽情绽放属于自己的光芒。",
+    "en": "Let your unique light shine freely.",
+    "planet": "sun",
+    "zodiac": "leo",
+    "element": "fire"
+  },
+  {
+    "number": 51,
+    "zh": "每一份努力都值得喝彩。",
+    "en": "Every effort deserves applause.",
+    "planet": "moon",
+    "zodiac": "leo",
+    "element": "fire"
+  },
+  {
+    "number": 52,
+    "zh": "真诚而自信的表达，将为你赢得更多欣赏。",
+    "en": "Sincere and confident expression will earn you greater appreciation.",
+    "planet": "mercury",
+    "zodiac": "leo",
+    "element": "fire"
+  },
+  {
+    "number": 53,
+    "zh": "爱与喜悦正随着你的魅力一同绽放。",
+    "en": "Love and joy are blossoming alongside your charm.",
+    "planet": "venus",
+    "zodiac": "leo",
+    "element": "fire"
+  },
+  {
+    "number": 54,
+    "zh": "将热爱化为创造，让美好的事物因你而发生。",
+    "en": "Turn your passion into creation and bring beautiful things to life.",
+    "planet": "mars",
+    "zodiac": "leo",
+    "element": "fire"
+  },
+  {
+    "number": 55,
+    "zh": "更广阔的舞台正在向你敞开。",
+    "en": "A greater stage is opening up for you.",
+    "planet": "jupiter",
+    "zodiac": "leo",
+    "element": "fire"
+  },
+  {
+    "number": 56,
+    "zh": "实力与担当，将为你赢得长久的信任。",
+    "en": "Your ability and sense of responsibility will earn lasting trust.",
+    "planet": "saturn",
+    "zodiac": "leo",
+    "element": "fire"
+  },
+  {
+    "number": 57,
+    "zh": "心中的理想将引领你走向更广阔的天地。",
+    "en": "Your ideals will guide you toward a wider world.",
+    "planet": "sun",
+    "zodiac": "sagittarius",
+    "element": "fire"
+  },
+  {
+    "number": 58,
+    "zh": "追随内心的喜悦，去探索生命的无限精彩。",
+    "en": "Follow your joy and explore life's endless wonders.",
+    "planet": "moon",
+    "zodiac": "sagittarius",
+    "element": "fire"
+  },
+  {
+    "number": 59,
+    "zh": "每一次新的发现，都在拓展你对世界的理解。",
+    "en": "Every new discovery expands your understanding of the world.",
+    "planet": "mercury",
+    "zodiac": "sagittarius",
+    "element": "fire"
+  },
+  {
+    "number": 60,
+    "zh": "真诚的爱会让彼此拥有更广阔的成长空间。",
+    "en": "Sincere love gives both hearts room to grow.",
+    "planet": "venus",
+    "zodiac": "sagittarius",
+    "element": "fire"
+  },
+  {
+    "number": 61,
+    "zh": "每一段新的经历都将丰富你的生命。",
+    "en": "Every new experience will enrich your life.",
+    "planet": "mars",
+    "zodiac": "sagittarius",
+    "element": "fire"
+  },
+  {
+    "number": 62,
+    "zh": "幸运与机遇正在向你汇聚。",
+    "en": "Luck and opportunity are gathering around you.",
+    "planet": "jupiter",
+    "zodiac": "sagittarius",
+    "element": "fire"
+  },
+  {
+    "number": 63,
+    "zh": "你的理想值得长久耕耘，每一步都在缩短梦想与现实的距离。",
+    "en": "Your dreams are worth lasting dedication, and every step brings them closer to reality.",
+    "planet": "saturn",
+    "zodiac": "sagittarius",
+    "element": "fire"
+  },
+  {
+    "number": 64,
+    "zh": "你的好奇心将带领你发现更多精彩的可能。",
+    "en": "Your curiosity will lead you to wonderful new possibilities.",
+    "planet": "sun",
+    "zodiac": "gemini",
+    "element": "air"
+  },
+  {
+    "number": 65,
+    "zh": "让思绪自由舒展，内心的答案会逐渐变得清晰。",
+    "en": "Let your thoughts flow freely, and the answers within will become clearer.",
+    "planet": "moon",
+    "zodiac": "gemini",
+    "element": "air"
+  },
+  {
+    "number": 66,
+    "zh": "你拥有敏锐的理解力，重要的讯息正在逐渐显现。",
+    "en": "Your keen understanding will help important messages become clear.",
+    "planet": "mercury",
+    "zodiac": "gemini",
+    "element": "air"
+  },
+  {
+    "number": 67,
+    "zh": "真诚的交流让心灵更加靠近。",
+    "en": "Sincere communication brings hearts closer.",
+    "planet": "venus",
+    "zodiac": "gemini",
+    "element": "air"
+  },
+  {
+    "number": 68,
+    "zh": "清晰的表达能够推动积极的改变。",
+    "en": "Clear expression can inspire positive change.",
+    "planet": "mars",
+    "zodiac": "gemini",
+    "element": "air"
+  },
+  {
+    "number": 69,
+    "zh": "每一次学习都在拓展你的视野。",
+    "en": "Every learning experience broadens your horizons.",
+    "planet": "jupiter",
+    "zodiac": "gemini",
+    "element": "air"
+  },
+  {
+    "number": 70,
+    "zh": "当你专注于真正重要的事，思路会更加清晰而坚定。",
+    "en": "Focusing on what truly matters will bring clarity and conviction.",
+    "planet": "saturn",
+    "zodiac": "gemini",
+    "element": "air"
+  },
+  {
+    "number": 71,
+    "zh": "你会找到忠于自己又与他人和谐相处的方式。",
+    "en": "You will find a way to stay true to yourself while living in harmony with others.",
+    "planet": "sun",
+    "zodiac": "libra",
+    "element": "air"
+  },
+  {
+    "number": 72,
+    "zh": "内心的平静将带给你更多安宁与自在。",
+    "en": "Inner peace will bring you greater ease and serenity.",
+    "planet": "moon",
+    "zodiac": "libra",
+    "element": "air"
+  },
+  {
+    "number": 73,
+    "zh": "真诚的沟通将帮助彼此达成理解与共识。",
+    "en": "Sincere communication will lead to mutual understanding and agreement.",
+    "planet": "mercury",
+    "zodiac": "libra",
+    "element": "air"
+  },
+  {
+    "number": 74,
+    "zh": "欣赏与尊重，让美好的关系更加亲密。",
+    "en": "Appreciation and respect deepen beautiful relationships.",
+    "planet": "venus",
+    "zodiac": "libra",
+    "element": "air"
+  },
+  {
+    "number": 75,
+    "zh": "坚定而清晰的表达，将帮助你赢得理解与支持。",
+    "en": "Speaking clearly and confidently will help you gain understanding and support.",
+    "planet": "mars",
+    "zodiac": "libra",
+    "element": "air"
+  },
+  {
+    "number": 76,
+    "zh": "良好的合作将为你带来更多发展机会。",
+    "en": "Meaningful cooperation will bring new opportunities for growth.",
+    "planet": "jupiter",
+    "zodiac": "libra",
+    "element": "air"
+  },
+  {
+    "number": 77,
+    "zh": "清晰而公平的规则，将让彼此的关系更加稳固。",
+    "en": "Clear and fair boundaries will strengthen your relationships.",
+    "planet": "saturn",
+    "zodiac": "libra",
+    "element": "air"
+  },
+  {
+    "number": 78,
+    "zh": "独特的你，正绽放属于自己的光彩。",
+    "en": "Your unique light is beginning to shine.",
+    "planet": "sun",
+    "zodiac": "aquarius",
+    "element": "air"
+  },
+  {
+    "number": 79,
+    "zh": "理解与接纳你的人，正在向你靠近。",
+    "en": "People who understand and accept you are coming into your life.",
+    "planet": "moon",
+    "zodiac": "aquarius",
+    "element": "air"
+  },
+  {
+    "number": 80,
+    "zh": "崭新的想法将为你打开更广阔的视野。",
+    "en": "Fresh ideas will open your mind to wider horizons.",
+    "planet": "mercury",
+    "zodiac": "aquarius",
+    "element": "air"
+  },
+  {
+    "number": 81,
+    "zh": "给爱自由的空间，让美好的联结自然发生。",
+    "en": "Give love the freedom to grow, and beautiful connections will unfold naturally.",
+    "planet": "venus",
+    "zodiac": "aquarius",
+    "element": "air"
+  },
+  {
+    "number": 82,
+    "zh": "创新的力量将为现实带来积极的改变。",
+    "en": "The power of innovation will bring positive change to the world around you.",
+    "planet": "mars",
+    "zodiac": "aquarius",
+    "element": "air"
+  },
+  {
+    "number": 83,
+    "zh": "共同的理想将汇聚更多志同道合的力量。",
+    "en": "Shared ideals will bring more like-minded people together.",
+    "planet": "jupiter",
+    "zodiac": "aquarius",
+    "element": "air"
+  },
+  {
+    "number": 84,
+    "zh": "稳固的生活秩序，将给予你更多自由。",
+    "en": "A stable structure in life will give you greater freedom.",
+    "planet": "saturn",
+    "zodiac": "aquarius",
+    "element": "air"
+  },
+  {
+    "number": 85,
+    "zh": "崭新的机会将为你开启不同的道路。",
+    "en": "A new opportunity will open an unexpected path for you.",
+    "planet": "uranus",
+    "zodiac": "aries",
+    "element": "spirit"
+  },
+  {
+    "number": 86,
+    "zh": "新的机遇将为你打开丰盛之门。",
+    "en": "New opportunities will open the door to abundance.",
+    "planet": "uranus",
+    "zodiac": "taurus",
+    "element": "spirit"
+  },
+  {
+    "number": 87,
+    "zh": "意想不到的灵感将带来全新的启示。",
+    "en": "Unexpected inspiration will bring fresh revelations.",
+    "planet": "uranus",
+    "zodiac": "gemini",
+    "element": "spirit"
+  },
+  {
+    "number": 88,
+    "zh": "你会找到更加自由自在的归属。",
+    "en": "You will find a sense of belonging that lets you be free.",
+    "planet": "uranus",
+    "zodiac": "cancer",
+    "element": "spirit"
+  },
+  {
+    "number": 89,
+    "zh": "独特的才华将迎来绽放的舞台。",
+    "en": "Your unique talents will find a stage on which to shine.",
+    "planet": "uranus",
+    "zodiac": "leo",
+    "element": "spirit"
+  },
+  {
+    "number": 90,
+    "zh": "崭新的方法将带来意想不到的突破。",
+    "en": "A fresh approach will bring an unexpected breakthrough.",
+    "planet": "uranus",
+    "zodiac": "virgo",
+    "element": "spirit"
+  },
+  {
+    "number": 91,
+    "zh": "自由而真诚的联结，将为关系带来新的可能。",
+    "en": "Free and sincere connections will bring new possibilities to your relationships.",
+    "planet": "uranus",
+    "zodiac": "libra",
+    "element": "spirit"
+  },
+  {
+    "number": 92,
+    "zh": "一次深刻的领悟，将唤醒你内在的力量。",
+    "en": "A profound realization will awaken your inner strength.",
+    "planet": "uranus",
+    "zodiac": "scorpio",
+    "element": "spirit"
+  },
+  {
+    "number": 93,
+    "zh": "新的发现将带你走向更广阔的世界。",
+    "en": "New discoveries will lead you into a wider world.",
+    "planet": "uranus",
+    "zodiac": "sagittarius",
+    "element": "spirit"
+  },
+  {
+    "number": 94,
+    "zh": "你将开创属于自己的成功之路。",
+    "en": "You will forge your own path to success.",
+    "planet": "uranus",
+    "zodiac": "capricorn",
+    "element": "spirit"
+  },
+  {
+    "number": 95,
+    "zh": "独特的思想将为未来带来崭新的改变。",
+    "en": "Your unique ideas will bring fresh changes to the future.",
+    "planet": "uranus",
+    "zodiac": "aquarius",
+    "element": "spirit"
+  },
+  {
+    "number": 96,
+    "zh": "灵感的到来，将为你打开全新的精神世界。",
+    "en": "Inspiration will open a whole new world of the spirit to you.",
+    "planet": "uranus",
+    "zodiac": "pisces",
+    "element": "spirit"
+  },
+  {
+    "number": 97,
+    "zh": "心中的灵感将引领你勇敢追寻梦想。",
+    "en": "The inspiration within will guide you to pursue your dreams with courage.",
+    "planet": "neptune",
+    "zodiac": "aries",
+    "element": "spirit"
+  },
+  {
+    "number": 98,
+    "zh": "丰盛与喜悦正在你的生命中汇聚。",
+    "en": "Abundance and joy are gathering in your life.",
+    "planet": "neptune",
+    "zodiac": "taurus",
+    "element": "spirit"
+  },
+  {
+    "number": 99,
+    "zh": "留意细微的讯息，灵感正悄然向你靠近。",
+    "en": "Notice the subtle messages; inspiration is quietly approaching you.",
+    "planet": "neptune",
+    "zodiac": "gemini",
+    "element": "spirit"
+  },
+  {
+    "number": 100,
+    "zh": "爱始终环绕着你，带来内心的安宁。",
+    "en": "Love surrounds you, bringing peace to your heart.",
+    "planet": "neptune",
+    "zodiac": "cancer",
+    "element": "spirit"
+  },
+  {
+    "number": 101,
+    "zh": "无限的想象力将孕育出美好的创造。",
+    "en": "Boundless imagination will give birth to beautiful creations.",
+    "planet": "neptune",
+    "zodiac": "leo",
+    "element": "spirit"
+  },
+  {
+    "number": 102,
+    "zh": "生命的每个细节，都蕴藏着美好的启示。",
+    "en": "Every detail of life holds a beautiful revelation.",
+    "planet": "neptune",
+    "zodiac": "virgo",
+    "element": "spirit"
+  },
+  {
+    "number": 103,
+    "zh": "真诚的心灵共鸣正在向你靠近。",
+    "en": "A sincere connection of souls is drawing closer to you.",
+    "planet": "neptune",
+    "zodiac": "libra",
+    "element": "spirit"
+  },
+  {
+    "number": 104,
+    "zh": "内心深处的直觉，将为你带来重要的启示。",
+    "en": "Your deepest intuition will bring you meaningful revelations.",
+    "planet": "neptune",
+    "zodiac": "scorpio",
+    "element": "spirit"
+  },
+  {
+    "number": 105,
+    "zh": "坚定的信念将为你照亮通往梦想的道路。",
+    "en": "Steadfast faith will illuminate the path toward your dreams.",
+    "planet": "neptune",
+    "zodiac": "sagittarius",
+    "element": "spirit"
+  },
+  {
+    "number": 106,
+    "zh": "美好的梦想正在逐渐成为现实。",
+    "en": "Beautiful dreams are gradually becoming reality.",
+    "planet": "neptune",
+    "zodiac": "capricorn",
+    "element": "spirit"
+  },
+  {
+    "number": 107,
+    "zh": "共同的理想将让更多心灵产生共鸣。",
+    "en": "Shared ideals will bring more hearts into harmony.",
+    "planet": "neptune",
+    "zodiac": "aquarius",
+    "element": "spirit"
+  },
+  {
+    "number": 108,
+    "zh": "爱与灵感正在你的生命中自由流动。",
+    "en": "Love and inspiration are flowing freely through your life.",
+    "planet": "neptune",
+    "zodiac": "pisces",
+    "element": "spirit"
+  },
+  {
+    "number": 109,
+    "zh": "强大的生命力正在唤醒全新的自己。",
+    "en": "Powerful life energy is awakening a new version of you.",
+    "planet": "pluto",
+    "zodiac": "aries",
+    "element": "spirit"
+  },
+  {
+    "number": 110,
+    "zh": "你的内在价值正在不断增长，带来更加丰盈的人生。",
+    "en": "Your inner worth is growing, bringing greater richness to your life.",
+    "planet": "pluto",
+    "zodiac": "taurus",
+    "element": "spirit"
+  },
+  {
+    "number": 111,
+    "zh": "深刻的领悟将为你的思想注入新的力量。",
+    "en": "Profound insights will bring renewed strength to your mind.",
+    "planet": "pluto",
+    "zodiac": "gemini",
+    "element": "spirit"
+  },
+  {
+    "number": 112,
+    "zh": "爱与理解正在为你的内心带来深层的疗愈。",
+    "en": "Love and understanding are bringing deep healing to your heart.",
+    "planet": "pluto",
+    "zodiac": "cancer",
+    "element": "spirit"
+  },
+  {
+    "number": 113,
+    "zh": "真正的自信正在从内心深处绽放。",
+    "en": "True confidence is blossoming from deep within you.",
+    "planet": "pluto",
+    "zodiac": "leo",
+    "element": "spirit"
+  },
+  {
+    "number": 114,
+    "zh": "每一次积极的改变，都在让生活变得更加美好。",
+    "en": "Every positive change is making your life more beautiful.",
+    "planet": "pluto",
+    "zodiac": "virgo",
+    "element": "spirit"
+  },
+  {
+    "number": 115,
+    "zh": "真诚与平等将为关系带来崭新的成长。",
+    "en": "Sincerity and equality will bring new growth to your relationships.",
+    "planet": "pluto",
+    "zodiac": "libra",
+    "element": "spirit"
+  },
+  {
+    "number": 116,
+    "zh": "每一次深刻的蜕变，都让生命焕发新的力量。",
+    "en": "Every profound transformation brings renewed strength to your life.",
+    "planet": "pluto",
+    "zodiac": "scorpio",
+    "element": "spirit"
+  },
+  {
+    "number": 117,
+    "zh": "不断成长的信念，将引领你发现更深刻的智慧。",
+    "en": "Your evolving beliefs will guide you toward deeper wisdom.",
+    "planet": "pluto",
+    "zodiac": "sagittarius",
+    "element": "spirit"
+  },
+  {
+    "number": 118,
+    "zh": "你拥有重新塑造人生的强大力量。",
+    "en": "You have the power to reshape your life.",
+    "planet": "pluto",
+    "zodiac": "capricorn",
+    "element": "spirit"
+  },
+  {
+    "number": 119,
+    "zh": "汇聚众人的力量，将共同创造美好的改变。",
+    "en": "United strength will create positive change together.",
+    "planet": "pluto",
+    "zodiac": "aquarius",
+    "element": "spirit"
+  },
+  {
+    "number": 120,
+    "zh": "爱与希望正在为你的生命注入崭新的力量。",
+    "en": "Love and hope are filling your life with renewed strength.",
+    "planet": "pluto",
+    "zodiac": "pisces",
+    "element": "spirit"
+  }
+]
