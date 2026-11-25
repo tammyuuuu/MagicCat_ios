@@ -90,6 +90,29 @@ body #drawerSpread { background: var(--spread-surface); border-color: var(--spre
 body #drawerSpread .drawer-title { color: var(--spread-text); border-color: rgba(var(--spread-rgb),.42); text-shadow: none; }
 #tabDeck.drawer-bookmark { top: calc(50% + 94px); }
 #spreadLayer { position: fixed; inset: 0; pointer-events: none; z-index: 2; }
+.spread-options button[hidden] { display: none; }
+#fanArea:not(.active) + #fanControls.stock-controls :is(#fanArrowLeft, #fanArrowRight, #shuffleBtn) { display: none; }
+.stock-draw-status {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 80px);
+  text-align: center;
+  color: var(--spread-text);
+  font-size: 13px;
+}
+.stock-match-field select {
+  border: 1px solid var(--spread-gold);
+  border-radius: 8px;
+  background: var(--spread-surface);
+  color: var(--spread-text);
+  font: inherit;
+  padding: 8px 14px;
+  min-height: 44px;
+}
+.placed-card.stock-placement { cursor: pointer; }
+.stock-match-field { margin-top: 10px; }
 .spread-swap { position: absolute; transform: translate(-50%, -50%); pointer-events: auto; cursor: pointer; display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 1px solid rgba(var(--spread-rgb),.5); border-radius: 50%; background: var(--spread-surface); color: var(--spread-text); font-family: inherit; font-size: 12px; line-height: 1; box-shadow: 0 2px 8px rgba(var(--spread-rgb),.1); }
 .spread-swap:hover { border-color: var(--spread-gold); }
 .spread-swap:focus-visible { outline: 2px solid var(--spread-gold); outline-offset: 3px; }

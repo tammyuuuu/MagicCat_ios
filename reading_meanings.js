@@ -1,6 +1,19 @@
 // One request per interpretation pack, shared by all card readers.
 const readingMeaningRequests = new Map();
 const readingMeaningBusy = new WeakSet();
+let localReadingRequest;
+function loadLocalReadingPacks() {
+  if (!localReadingRequest) {
+    localReadingRequest = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'reading-data/local-packs.js';
+      script.onload = () => window.localReadingPacks ? resolve(window.localReadingPacks) : reject(new Error('本地解读文件不完整'));
+      script.onerror = () => reject(new Error('无法打开本地解读文件 reading-data/local-packs.js'));
+      document.head.append(script);
+    }).catch(error => { localReadingRequest = null; throw error; });
+  }
+  return localReadingRequest;
+}
 function readingMeaningPack(card) {
   return card._waite ? 'waite' : card._lenormand ? 'lenormand' : card._themeTarot ? 'theme' : null;
 }
@@ -11,10 +24,12 @@ async function ensureReadingMeaning(card) {
   if (!pack) throw new Error('这张牌暂无文字解读');
   if (!readingMeaningRequests.has(pack)) {
     const request = (async () => {
+      if (location.protocol === 'file:') return (await loadLocalReadingPacks())[pack];
       const abort = new AbortController();
       const timer = setTimeout(() => abort.abort(), 20000);
       try {
-        const response = await fetch(`reading-data/${pack}.json`, { signal: abort.signal });
+        const response = await fetch(`reading-data/${pack}.json`, { cache: 'no-cache', signal: abort.signal });
+        if (response.status === 503) throw new Error('解读暂不可用，请联网更新页面后重试');
         if (!response.ok) throw new Error('解读尚未下载，请联网后重试');
         const data = await response.json();
         if (!data || !Object.values(data).every(value => value && typeof value === 'object')) throw new Error('解读数据不完整，请重试');
@@ -24,7 +39,10 @@ async function ensureReadingMeaning(card) {
     readingMeaningRequests.set(pack, request);
   }
   const data = await readingMeaningRequests.get(pack);
-  if (!data[card.id]) throw new Error('未找到这张牌的解读');
+  if (!data[card.id]) {
+    readingMeaningRequests.delete(pack);
+    throw new Error('当前解读包缺少这张牌，请联网更新页面后重试');
+  }
   card.meaning = data[card.id];
   return card.meaning;
 }
@@ -51,7 +69,9 @@ async function showReadingMeaning({ reverse = false } = {}) {
   } catch (error) {
     if (_zoomThemeCard === card && cardZoom.classList.contains('active')) {
       zoomInterpret.textContent = '加载失败，点此重试';
-      zoomInterpret.title = error.name === 'AbortError' ? '解读加载超时，请重试' : error.message;
+      const reason = error.name === 'AbortError' ? '解读加载超时，请重试' : error.message;
+      zoomInterpret.title = reason;
+      if (typeof showSpreadNotice === 'function') showSpreadNotice(reason);
     }
   } finally { readingMeaningBusy.delete(card); }
 }

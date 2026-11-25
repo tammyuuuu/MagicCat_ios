@@ -10,11 +10,36 @@ for (const name of ['decks.js', 'reading_catalog.js']) {
   vm.runInContext(fs.readFileSync(path.join(root, name), 'utf8'), context);
 }
 vm.runInContext('let deckList = [];', context);
-vm.runInContext(html.slice(html.indexOf('function loadDecksFromConfig()'), html.indexOf('function renderDecks()')), context);
+vm.runInContext(html.slice(html.indexOf('function loadDecksFromConfig()'), html.indexOf('const LENORMAND_MODE_KEY')), context);
 context.meaningData = Object.assign({}, ...['waite','lenormand','theme'].map(pack => JSON.parse(fs.readFileSync(path.join(root, 'reading-data', pack + '.json'), 'utf8'))));
 vm.runInContext('deckList.forEach(deck => deck._cards.forEach(card => { if (meaningData[card.id]) card.meaning = meaningData[card.id]; }))', context);
 vm.runInContext(html.slice(html.indexOf('function themeTarotMeaningMarkup('), html.indexOf('function initThemeTarotMeaningTabs(')), context);
-const cards = vm.runInContext('deckList.find(d => d.name === "小小奇遇雷诺曼")._cards', context);
+const allCards = vm.runInContext('deckList.find(d => d.name === "小小奇遇雷诺曼")._cards', context);
+
+const cards = allCards.slice(0, vm.runInContext('deckList.find(d => d.classicCardCount).classicCardCount', context));
+
+test('Rana adds four numbered cards with artwork, topic tabs and complete contextual meanings', () => {
+  assert.equal(allCards.length, 40);
+  const names = new Set(allCards.map(card => card.englishName.toLowerCase()));
+  assert.deepEqual(Array.from(allCards.slice(36), card => card.name), ['灵体', '香炉', '床', '市场']);
+  allCards.slice(36).forEach((card, i) => {
+    assert.equal(card.number, String(i + 37));
+    assert(fs.existsSync(path.join(root, card._imgUrl)));
+    assert.equal(card.meaning.topics.length, 4);
+    assert.equal(card.meaning.symbols.length, 4);
+    assert.equal(card.meaning.combination.examples.length, 3);
+    assert(card.meaning.uprightText.length >= 3);
+    for (const [pair] of card.meaning.combination.examples) {
+      const [first, second] = pair.toLowerCase().split(' + ');
+      assert.equal(first, card.englishName.toLowerCase());
+      assert(names.has(second));
+    }
+    context.cardUnderTest = card;
+    const output = vm.runInContext('themeTarotMeaningMarkup(cardUnderTest)', context);
+    for (const label of ['正面表现', '负面表现', '人物', '时间与事件', '组合逻辑']) assert(output.includes(label));
+    assert(!output.includes('undefined'));
+  });
+});
 
 test('all 36 cards map to their numbered artwork and complete interpretations', () => {
   assert.equal(cards.length, 36);

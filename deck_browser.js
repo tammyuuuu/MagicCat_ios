@@ -40,8 +40,9 @@
 
   function render() {
     const query = search.value.trim().toLowerCase();
-    cards = (deck._cards || []).filter(c => !query || [c.name, c.englishName || '', c.number].some(v => String(v).toLowerCase().includes(query)));
-    count.textContent = `${deck.name} · 共 ${(deck._cards || []).length} 张${query ? ` · 找到 ${cards.length} 张` : ''}`;
+    const available = cardsForDeck(deck);
+    cards = available.filter(c => !query || [c.name, c.englishName || '', c.number].some(v => String(v).toLowerCase().includes(query)));
+    count.textContent = `${deck.name} · 共 ${available.length} 张${query ? ` · 找到 ${cards.length} 张` : ''}`;
     grid.innerHTML = cards.length ? cards.map((c, i) => `<button type="button" class="db-card" data-index="${i}" aria-label="查看 ${escape(c.name)}">
       <span class="db-art" style="--db-ratio:${deck.aspectRatio || 2 / 3}">${c._themeTarot ? themeTarotFrontMarkup(c) : `<img src="${escape(c._imgUrl)}" alt="${escape(c.name)}" loading="lazy" decoding="async" draggable="false">`}</span>
       <span class="db-card-name">${escape(c.name)}</span><span class="db-card-number">${escape(c.number)}</span></button>`).join('') : '<p class="db-empty">没有找到这张牌，试试其他名称或编号。</p>';
@@ -81,7 +82,9 @@
     const reverse = nav.querySelector('#dbReverse');
     reverse.hidden = !!deck.noReverse || !readingMeaningPack(card);
     reverse.textContent = '查看逆位';
-    nav.querySelector('.db-detail-hint').textContent = card.meaning || card._hasInterpretation !== false ? '' : '这套牌暂无独立解读，可放大阅读牌面。';
+    nav.querySelector('.db-detail-hint').textContent = card.stockRole === 'trend'
+      ? `振幅 ${card.amplitude} · 收盘 ${card.closingReturn}`
+      : card.meaning || card._hasInterpretation !== false ? '' : '这套牌暂无独立解读，可放大阅读牌面。';
     zoomClose.focus();
   }
   grid.addEventListener('click', event => {

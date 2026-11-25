@@ -7,6 +7,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 def build():
+    # Local file pages can load a sibling classic script, but cannot fetch JSON.
+    local_packs = {pack: json.loads((ROOT / 'reading-data' / f'{pack}.json').read_text('utf-8'))
+                   for pack in ('waite', 'lenormand', 'theme')}
+    (ROOT / 'reading-data/local-packs.js').write_text(
+        'window.localReadingPacks = ' + json.dumps(local_packs, ensure_ascii=False, separators=(',', ':')) + ';\n',
+        'utf-8')
     groups = []
     for line in (ROOT / 'decks.js').read_text('utf-8').splitlines():
         if 'cardCount:' not in line:

@@ -10,7 +10,7 @@ for (const file of ['decks.js', 'reading_catalog.js']) {
   vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context);
 }
 vm.runInContext('let deckList = [];', context);
-vm.runInContext(html.slice(html.indexOf('function loadDecksFromConfig()'), html.indexOf('function renderDecks()')), context);
+vm.runInContext(html.slice(html.indexOf('function loadDecksFromConfig()'), html.indexOf('const LENORMAND_MODE_KEY')), context);
 context.meaningData = Object.assign({}, ...['waite','lenormand','theme'].map(pack => JSON.parse(fs.readFileSync(path.join(root, 'reading-data', pack + '.json'), 'utf8'))));
 vm.runInContext('deckList.forEach(deck => deck._cards.forEach(card => { if (meaningData[card.id]) card.meaning = meaningData[card.id]; }))', context);
 vm.runInContext(html.slice(html.indexOf('function themeTarotMeaningMarkup('), html.indexOf('function initThemeTarotMeaningTabs(')), context);

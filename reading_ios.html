@@ -2670,14 +2670,16 @@ function loadDecksFromConfig() {
           number: String(startAt + i), _waite: true } : {}),
         ...(meaning ? { name: meaning.name, englishName: meaning.englishName,
           number: String(startAt + i).padStart(2, '0'), _lenormand: true } : {}),
+        ...cfg.cardMeta?.[i],
       });
     }
     deckList.push({
-      id: deckId, name: cfg.name, count, icon: '🃏',
+      id: deckId, name: cfg.name, count, classicCardCount: cfg.classicCardCount, icon: '🃏',
       _backImg: backPath, _cards: cards,
       noReverse: cfg.noReverse || false,
       layout: cfg.layout || 'portrait',
       aspectRatio: cfg.aspectRatio || 2 / 3,
+      exclusiveSpread: cfg.exclusiveSpread,
     });
   });
 
@@ -2741,6 +2743,14 @@ if (themeTarotDeckIndex >= 0) {
 }
 deckList.filter(deck => deck.id === 'theme-tarot-prototype').forEach(deck => applyThemeTarotMinorAstrology(deck._cards || []));
 
+const LENORMAND_MODE_KEY = 'magiccat_lenormand_mode';
+let lenormandMode = 'classic';
+try { if (localStorage.getItem(LENORMAND_MODE_KEY) === 'rana') lenormandMode = 'rana'; } catch (_) {}
+function cardsForDeck(deck) {
+  const cards = deck._cards || [];
+  return deck.classicCardCount && lenormandMode === 'classic' ? cards.slice(0, deck.classicCardCount) : cards;
+}
+
 function renderDecks() {
   const grid = document.getElementById('deckGrid');
   if (!deckList.length) {
@@ -2758,30 +2768,56 @@ function renderDecks() {
         : '<span style="font-size:24px;">🃏</span>'
       }</span>
       <span class="gem-label">${d.name}</span>
-      <span style="font-size:8px;color:#5a3a7a;">${d.count}张</span>
+      ${d.classicCardCount ? `<div class="lenormand-mode" role="group" aria-label="小小奇遇雷诺曼模式">
+        <button type="button" data-lenormand-mode="classic" aria-pressed="${lenormandMode === 'classic'}">${d.classicCardCount}张</button>
+        <button type="button" data-lenormand-mode="rana" aria-pressed="${lenormandMode === 'rana'}">${d.count}张</button>
+      </div>` : `<span style="font-size:8px;color:#5a3a7a;">${d.count}张</span>`}
     </div>`;
   }).join('');
 
   grid.querySelectorAll('.drawer-item').forEach(item => {
+    const deck = deckList.find(d => d.id === item.dataset.deckId);
+    const modeButtons = item.querySelectorAll('[data-lenormand-mode]');
+    modeButtons.forEach(button => button.addEventListener('click', event => {
+      event.stopPropagation();
+      const mode = button.dataset.lenormandMode;
+      if (currentDeck._lenormandMode !== mode) selectDeckAndOpen(deck, mode);
+      modeButtons.forEach(option => option.setAttribute('aria-pressed', String(option.dataset.lenormandMode === lenormandMode)));
+    }));
     item.addEventListener('click', () => {
-      const did = item.dataset.deckId;
-      const deck = deckList.find(d => d.id === did);
-      if (deck) selectDeckAndOpen(deck);
+      selectDeckAndOpen(deck);
       drawerDeck.classList.remove('open');
     });
   });
 }
 renderDecks();
 
-function selectDeckAndOpen(deck) {
+function selectDeckAndOpen(deck, requestedMode = lenormandMode) {
+  const nextSpread = deck.exclusiveSpread;
+  if (nextSpread && currentDeck._exclusiveSpread === nextSpread) return;
   if (typeof activeSpread !== 'undefined' && activeSpread === 'seasons' &&
+      !nextSpread &&
       !SEASON_GROUPS.every(group => (deck._cards || []).some(c => tarotGroup(c) === group))) {
     alert('四季牌阵需要完整塔罗牌组，请选择维特塔罗或主题塔罗。');
     return;
   }
   closeFan();
+  const nextMode = deck.classicCardCount ? requestedMode : null;
+  if (nextMode && nextMode !== lenormandMode) {
+    lenormandMode = nextMode;
+    try { localStorage.setItem(LENORMAND_MODE_KEY, lenormandMode); } catch (_) {}
+  }
+  if ((currentDeck._lenormandMode || null) !== nextMode || currentDeck._exclusiveSpread || nextSpread) {
+    clearDesktop(false);
+    drawnIds.clear();
+    closeCardZoom();
+  }
+  if (nextSpread || currentDeck._exclusiveSpread) {
+    activeSpread = nextSpread || null;
+    seasonSource = null;
+  }
   if (deck._cards) {
-    currentDeck = [...deck._cards];
+    currentDeck = [...cardsForDeck(deck)];
   } else {
     currentDeck = Array.from({length: deck.count}, (_, i) => ({
       id: `${deck.id}-${i}`, number: String(i + 1),
@@ -2793,8 +2829,13 @@ function selectDeckAndOpen(deck) {
   }
   currentDeck._aspectRatio = deck.aspectRatio || 2 / 3;
   currentDeck._themeTarot = !!deck._themeTarot;
+  currentDeck._lenormandMode = nextMode;
+  currentDeck._exclusiveSpread = nextSpread;
+  fanControls.classList.toggle('stock-controls', !!nextSpread);
   if (typeof activeSpread !== 'undefined' && activeSpread === 'seasons') seasonDeckChosen();
-  openFan();
+  if (nextSpread) openStockFan('decision');
+  else openFan();
+  if (typeof renderSpread === 'function') renderSpread();
 }
 
 function themeTarotBackMarkup(extraClass) {
@@ -2843,6 +2884,9 @@ function themeTarotMeaningMarkup(card) {
       <h3 class="tt-simple-title">简单来说</h3>
       <blockquote><span>${simple || ''}</span></blockquote>
     </section>
+    ${isLenormand && meaning.ranaDetails ? `<section class="tt-meaning-section">
+      ${meaning.ranaDetails.map(([label, text]) => `<h3>${label}</h3><p>${text}</p>`).join('')}
+    </section>` : ''}
     <section class="tt-topic-section">
       <div class="tt-topic-tabs" role="tablist" aria-label="解读领域">
         ${topicList.map((topic, index) => `<button type="button" role="tab" aria-selected="${index === 0}" data-topic="${topic.key}" class="${index === 0 ? 'active' : ''}">${topic.label}</button>`).join('')}
@@ -2924,6 +2968,9 @@ function shuffleDeck(deck) {
   const result = arr.map(card => ({ ...card, isReversed: noRev ? false : Math.random() < 0.5 }));
   result._images = images;
   result._themeTarot = isThemeTarot;
+  result._aspectRatio = deck._aspectRatio;
+  result._lenormandMode = deck._lenormandMode;
+  result._exclusiveSpread = deck._exclusiveSpread;
   return result;
 }
 
@@ -3235,6 +3282,14 @@ function startFanCardDrag(e, globalIdx) {
 
 // --- 放置牌到桌面 ---
 function placeCardAt(card, globalIdx, posX, posY, sizeW, sizeH) {
+  if (currentDeck[globalIdx] !== card || drawnIds.has(card.id)) return;
+  let stockSlot;
+  if (currentDeck._exclusiveSpread) {
+    stockSlot = placedCards.length;
+    if (stockSlot === 0 ? card.stockRole !== 'decision'
+      : stockSlot >= SPREADS['stock-monthly'].slots.length || card.stockRole !== 'trend' ||
+        !placedCards[0].classList.contains('revealed')) return;
+  }
   if (typeof activeSpread !== 'undefined' && activeSpread === 'seasons' &&
       placedCards.some(p => p.isConnected && p.dataset.spreadSlot === String(SEASON_GROUPS.indexOf(tarotGroup(card))))) {
     showSpreadNotice('这个牌位已有卡牌，点击其他空的虚线框，切换分组后继续抽牌。');
@@ -3245,12 +3300,16 @@ function placeCardAt(card, globalIdx, posX, posY, sizeW, sizeH) {
   if (fanEl) { fanEl.remove(); fanCardEls = fanCardEls.filter(el => el !== fanEl); }
   drawnIds.add(card.id);
 
-  placeCardWithFlip(card, globalIdx, posX, posY, isRev, sizeW, sizeH);
+  placeCardWithFlip(card, globalIdx, posX, posY, isRev, sizeW, sizeH, stockSlot);
+  if (stockSlot === 0 || (stockSlot !== undefined && placedCards.length === SPREADS['stock-monthly'].slots.length)) {
+    closeFan();
+    fanControls.classList.add('active');
+  }
   if (présSelectedIdx === globalIdx) présSelectedIdx = -1;
 }
 
 // --- 创建桌面放置牌（3D 翻牌） ---
-function placeCardWithFlip(card, globalIdx, posX, posY, isReversed, sizeW, sizeH) {
+function placeCardWithFlip(card, globalIdx, posX, posY, isReversed, sizeW, sizeH, spreadSlot) {
   // 布局尺寸：优先用拖拽源的实测尺寸（含图片真实比例），否则按横/竖版自适应
   const isLandscape = currentDeck._images?.layout === 'landscape';
   const cardAspectRatio = currentDeck._aspectRatio || currentDeck._images?.aspectRatio || (isLandscape ? 3 / 2 : 2 / 3);
@@ -3307,7 +3366,7 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed, sizeW, sizeH
         }
       </div>
     </div>
-    ${IS_MOBILE ? '' : '<span class="card-remove-hint">右键移除</span>'}
+    ${IS_MOBILE || card.stockRole ? '' : '<span class="card-remove-hint">右键移除</span>'}
   `;
 
   // 从桌面移除一张牌（右键/长按），并放回扇形
@@ -3318,7 +3377,37 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed, sizeW, sizeH
     placedCards = placedCards.filter(p => p !== el);
   };
 
-  if (IS_MOBILE) {
+  if (card.stockRole) {
+    placed.classList.add('stock-placement');
+    const flipOrZoom = () => {
+      if (placed.classList.contains('revealed')) {
+        openCardZoom(placed, card.name);
+      } else {
+        placed.classList.add('revealed');
+        placed.setAttribute('aria-label', stockCardLabel(card));
+        if (card.stockRole === 'decision') openStockFan('trend');
+        renderSpread();
+      }
+    };
+    placed.setAttribute('role', 'button');
+    placed.setAttribute('aria-label', `翻开${SPREADS['stock-monthly'].slots[spreadSlot][0]}`);
+    placed.tabIndex = 0;
+    if (IS_MOBILE) {
+      let press;
+      placed.onpointerdown = event => {
+        if (event.button === 0) press = { id: event.pointerId, x: event.clientX, y: event.clientY };
+      };
+      placed.onpointerup = event => {
+        if (press?.id === event.pointerId &&
+            Math.hypot(event.clientX - press.x, event.clientY - press.y) <= 8) flipOrZoom();
+        press = null;
+      };
+      placed.onpointercancel = () => { press = null; };
+    } else placed.onclick = flipOrZoom;
+    placed.onkeydown = event => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); flipOrZoom(); }
+    };
+  } else if (IS_MOBILE) {
     // ===== 手机端：轻点翻牌 / 拖动移动 / 长按移除（Pointer Events 兼容鼠标+触摸） =====
     let tOffX = 0, tOffY = 0, lastX = 0, lastY = 0, tDragging = false, tDist = 0, lpTimer = null;
 
@@ -3435,7 +3524,7 @@ function placeCardWithFlip(card, globalIdx, posX, posY, isReversed, sizeW, sizeH
   // 挂到 body 顶层：避免被 #desktop(z-index:1) 层叠上下文困住，盖在扇形区之下
   document.body.appendChild(placed);
   placedCards.push(placed);
-  if (typeof snapToSpread === "function") { renderSpread(); snapToSpread(placed, true); }
+  if (typeof snapToSpread === "function") { renderSpread(); snapToSpread(placed, true, spreadSlot); }
 }
 
 // --- 箭头翻页 ---
@@ -3479,10 +3568,10 @@ function returnCardToFan(placed) {
   }
 }
 
-function clearDesktop() {
+function clearDesktop(resetStockFan = true) {
   // 桌面上的牌 → 放回扇形区
   placedCards.forEach(placed => {
-    returnCardToFan(placed);
+    if (!currentDeck._exclusiveSpread) returnCardToFan(placed);
     placed._dispose?.();
     placed.remove();
   });
@@ -3491,6 +3580,12 @@ function clearDesktop() {
   // 清空扇形选中状态
   présSelectedIdx = -1;
   fanCardEls.forEach(el => el.classList.remove('preselected'));
+  if (currentDeck._exclusiveSpread) {
+    drawnIds.clear();
+    closeCardZoom();
+    if (resetStockFan) openStockFan('decision');
+    renderSpread();
+  }
 }
 
 clearBtn.addEventListener('click', () => {
@@ -3571,7 +3666,7 @@ function openCardZoom(placed, name) {
   zoomInterpret.textContent = '解读';
   // 先隐藏解读按钮，确认解读图真实存在后再显示（避免 404 破图）
   zoomInterpret.style.display = 'none';
-  zoomFlip.style.visibility = '';
+  zoomFlip.style.visibility = card?.stockRole ? 'hidden' : '';
   if (_zoomThemeCard) {
     zoomInterpret.style.display = 'flex';
   } else if (_zoomInterpSrc) {
@@ -3849,7 +3944,7 @@ if (IS_MOBILE) {
 
   document.addEventListener('pointerdown', (e) => {
     if (e.button !== 0) return;
-    if (isInteractiveTarget(e.target)) { _docZoom = null; return; }
+    if (currentDeck._exclusiveSpread || isInteractiveTarget(e.target)) { _docZoom = null; return; }
     _docZoom = { sx: e.clientX, sy: e.clientY, start: fanScale, mode: null };
   });
   document.addEventListener('pointermove', (e) => {
@@ -3918,6 +4013,10 @@ function beginTarotRecord() {
   pendingDice = null;
   pendingSpread = null;
   _captureDataUrl = null;
+  if (activeSpread === 'stock-monthly' && !stockReadingComplete()) {
+    showSpreadNotice('请先翻开决策牌和三张趋势牌。');
+    return;
+  }
   if (!placedCards.some(c => c.isConnected)) { alert('请先放入卡牌'); return; }
   pendingSpread = captureSpread();
   openRecordPage(null);
@@ -4043,15 +4142,18 @@ rpSave.addEventListener('click', () => {
   const question = rpQuestion.value.trim();
   const interp = rpInterp.value.trim();
   const records = loadRecords();
+  const stockMatch = rpPhoto.querySelector('#rpStockMatch')?.value || undefined;
   if (_viewingRecordId) {
     const idx = records.findIndex(r => r.id === _viewingRecordId);
     if (idx >= 0) {
       records[idx].question = question;
       records[idx].interp = interp;
+      if (records[idx].spread?.type === 'stock-monthly') records[idx].spread.stockMatch = stockMatch;
       records[idx].ts = Date.now();
     }
   } else {
     if (!_captureDataUrl && !pendingSpread && !pendingDice) { alert('请先截图或放入卡牌再保存'); return; }
+    if (pendingSpread?.type === 'stock-monthly') pendingSpread.stockMatch = stockMatch;
     records.unshift({
       id: 'rec_' + Date.now(),
       img: _captureDataUrl,

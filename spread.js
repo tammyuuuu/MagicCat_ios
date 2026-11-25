@@ -1,9 +1,13 @@
 // Layout coordinates also serve as the portable format for saved spreads.
 const SPREADS = {
+  tableau: { name: '全景大牌阵', slots: Array.from({ length: 36 }, (_, i) => [
+    String(i + 1), (i % 9 + .5) / 9, (Math.floor(i / 9) + .5) / 4
+  ]) },
   three: { name: '三张牌', slots: [['过去', .18, .48], ['现在', .5, .48], ['未来', .82, .48]] },
   choice: { name: '二选一', slots: [['当前处境', .5, .79], ['A 的发展', .25, .47], ['A 的结果', .25, .15], ['B 的发展', .75, .47], ['B 的结果', .75, .15]] },
   inspiration: { name: '灵感对应', slots: [['我对对方的看法', .18, .28], ['我眼中的关系现状', .5, .28], ['我期待的未来', .82, .28], ['对方对我的看法', .18, .7], ['对方眼中的关系现状', .5, .7], ['对方期待的未来', .82, .7]] },
   seasons: { name: '四季牌阵', slots: [['本季主题 大牌', .5, .47], ['行动 权杖', .5, .12], ['情感 圣杯', .82, .47], ['思考 宝剑', .5, .82], ['物质 星币', .18, .47]] },
+  'stock-monthly': { name: '股市月度趋势', slots: [['交易决策', .5, .20], ['上月', .17, .66], ['当月', .5, .66], ['下月', .83, .66]] },
   pyramid: { name: '恋爱金字塔', slots: [['你', .18, .7], ['对方', .82, .7], ['感情现状', .5, .7], ['未来发展', .5, .25]] },
   hexagram: { name: '六芒星', slots: [['过去', .5, .12], ['现在', .18, .69], ['未来', .82, .69], ['对策建议', .5, .88], ['外部影响', .18, .31], ['态度与愿望', .82, .31], ['综合结果', .5, .5]] },
   venus: { name: '维纳斯', slots: [['我的心态', .18, .28], ['对方的心态', .82, .28], ['我对对方的影响', .5, .1], ['对方对我的影响', .5, .46], ['关系障碍', .5, .64], ['发展结果', .5, .84], ['我之后的感受', .18, .84], ['对方之后的感受', .82, .84]] }
@@ -56,6 +60,29 @@ let pendingSpread = null;
 let pendingDice = null;
 let lastDiceResult = null;
 let recordCategory = 'tarot';
+const STOCK_MATCH_OPTIONS = ['大体吻合', '部分吻合', '不吻合'];
+
+function stockCardLabel(card) {
+  return card.stockRole === 'trend'
+    ? `${card.name}，振幅 ${card.amplitude}，收盘 ${card.closingReturn}`
+    : card.name;
+}
+
+function stockReadingComplete() {
+  return placedCards.length === SPREADS['stock-monthly'].slots.length &&
+    placedCards.every(card => card.classList.contains('revealed'));
+}
+
+function openStockFan(role) {
+  const deck = deckList.find(deck => deck.exclusiveSpread === currentDeck._exclusiveSpread);
+  const cards = deck._cards.filter(card => card.stockRole === role);
+  currentDeck = Object.assign(cards, {
+    _images: currentDeck._images,
+    _aspectRatio: currentDeck._aspectRatio,
+    _exclusiveSpread: currentDeck._exclusiveSpread,
+  });
+  openFan();
+}
 const recordTabs = document.createElement('div');
 recordTabs.className = 'record-category-tabs';
 recordTabs.setAttribute('role', 'tablist');
@@ -125,8 +152,8 @@ spreadDrawer.id = 'drawerSpread';
 spreadDrawer.className = 'drawer drawer-left';
 spreadDrawer.innerHTML = '<div class="drawer-title">✦ 牌 阵 ✦</div><div class="spread-options"></div><p class="spread-help">选择牌阵后，将卡牌拖入虚线框。<br>点击底部「记录」保存本次解读。</p>';
 document.body.append(spreadDrawer);
-// Retain the Venus definition only for previously saved records.
-for (const [key, name] of [['', '自由摆牌'], ...Object.entries(SPREADS).filter(([key]) => key !== 'venus').sort(([, a], [, b]) => a.slots.length - b.slots.length).map(([key, spread]) => [key, spread.name])]) {
+// Retain the Venus and tableau definitions only for previously saved records.
+for (const [key, name] of [['', '自由摆牌'], ...Object.entries(SPREADS).filter(([key]) => key !== 'venus' && key !== 'tableau').sort(([, a], [, b]) => a.slots.length - b.slots.length).map(([key, spread]) => [key, spread.name])]) {
   const button = document.createElement('button');
   const description = {
     '': '自由拖动、排列卡牌，适合随心探索。',
@@ -134,6 +161,7 @@ for (const [key, name] of [['', '自由摆牌'], ...Object.entries(SPREADS).filt
     choice: '从当前处境出发，观察两个选择的发展与结果。',
     inspiration: '对照双方的看法、关系现状与未来期待。',
     seasons: '在季节更替时，观察接下来一个季度的整体主题，以及行动、情感、思考和物质生活的状态。',
+    'stock-monthly': '从扇形牌堆拖出决策牌，翻开后依次抽取上月、当月、下月的趋势。',
     pyramid: '了解双方的状态、目前的感情关系与未来发展趋势。',
     hexagram: '梳理事情的过去、现在与未来，结合外部影响、自身态度和建议，探索整体走向。',
     venus: '深入了解双方的心态与彼此影响，探索关系障碍、发展走向及之后的感受。'
@@ -157,6 +185,8 @@ for (const [key, name] of [['', '自由摆牌'], ...Object.entries(SPREADS).filt
   button.append(preview, text);
   button.dataset.spread = key;
   button.onclick = () => {
+    if ((currentDeck._exclusiveSpread && currentDeck._exclusiveSpread !== key) ||
+        (key === 'stock-monthly' && currentDeck._exclusiveSpread !== key)) return;
     if (key === 'seasons' && !SEASON_GROUPS.every(group => (seasonSource || currentDeck).some(c => tarotGroup(c) === group))) {
       alert('四季牌阵需要完整塔罗牌组，请先在牌盒选择维特塔罗或主题塔罗。');
       return;
@@ -190,8 +220,16 @@ function spreadGeometry() {
   const width = Math.max(220, innerWidth - 90);
   const availableHeight = Math.max(200, bottom - safeTop);
   let height = Math.min(availableHeight, width * 1.35);
-  const cardWidth = Math.min(112, width * .22, height / (activeSpread === 'venus' ? 10 : ['inspiration', 'pyramid'].includes(activeSpread) ? 3.8 : SPREADS[activeSpread]?.slots.length > 3 ? 5.6 : 2.1));
   const ratio = currentDeck._aspectRatio || currentDeck._images?.aspectRatio || (currentDeck._themeTarot ? .618034 : 2 / 3);
+  if (activeSpread === 'stock-monthly') {
+    const width = Math.min(560, innerWidth - 32);
+    const fanReserve = innerWidth <= 768 ? Math.min(innerHeight * .38, 340) : 390;
+    const height = Math.min(470, Math.max(154, innerHeight - safeTop - fanReserve - 26));
+    const cardWidth = Math.min(126, width * .27, height * .245);
+    return { left: (innerWidth - width) / 2, top: safeTop,
+      width, height, cardWidth, cardHeight: cardWidth / ratio };
+  }
+  const cardWidth = Math.min(112, width * .22, height / (activeSpread === 'venus' ? 10 : ['inspiration', 'pyramid'].includes(activeSpread) ? 3.8 : SPREADS[activeSpread]?.slots.length > 3 ? 5.6 : 2.1));
   const cardHeight = cardWidth / ratio;
   const slots = SPREADS[activeSpread]?.slots || [];
   slots.forEach(([, x, y], i) => slots.slice(i + 1).forEach(([, otherX, otherY]) => {
@@ -208,12 +246,18 @@ function spreadGeometry() {
 }
 function renderSpread() {
   spreadLayer.replaceChildren();
-  spreadDrawer.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.spread || null) === activeSpread)));
+  const exclusive = currentDeck._exclusiveSpread;
+  spreadDrawer.querySelectorAll('button').forEach(b => {
+    b.hidden = exclusive ? b.dataset.spread !== exclusive : b.dataset.spread === 'stock-monthly';
+    b.setAttribute('aria-pressed', String((b.dataset.spread || null) === activeSpread));
+  });
+  spreadDrawer.querySelector('.spread-help').hidden = !!exclusive;
   if (!activeSpread) return;
   const g = spreadGeometry();
   spreadSlots().forEach(([label, x, y], index) => {
     const slot = document.createElement('div');
-    slot.className = 'spread-slot'; slot.dataset.slot = index;
+    slot.className = 'spread-slot';
+    slot.dataset.slot = index;
     Object.assign(slot.style, { left: `${g.left + x * g.width - g.cardWidth / 2}px`, top: `${g.top + y * g.height - g.cardHeight / 2}px`, width: `${g.cardWidth}px`, height: `${g.cardHeight}px` });
     const caption = document.createElement('span'); caption.textContent = label; slot.append(caption);
     if (activeSpread === 'seasons') {
@@ -228,6 +272,19 @@ function renderSpread() {
     if (placedCards.some(c => c.isConnected && c.dataset.spreadSlot === String(index))) slot.classList.add('occupied');
     spreadLayer.append(slot);
   });
+  if (activeSpread === 'stock-monthly') {
+    const controls = document.createElement('div');
+    controls.className = 'stock-draw-status';
+    controls.style.top = `${g.top + g.height * .66 + g.cardHeight / 2 + 29}px`;
+    const decision = placedCards[0];
+    controls.setAttribute('role', 'status');
+    controls.textContent = !decision ? '从扇形牌堆拖出决策牌'
+      : !decision.classList.contains('revealed') ? '点击翻开决策牌'
+      : placedCards.length < SPREADS['stock-monthly'].slots.length
+        ? `从扇形牌堆拖出${SPREADS['stock-monthly'].slots[placedCards.length][0]}趋势牌`
+        : stockReadingComplete() ? '点击「记录」保存本次牌阵' : '点击翻开趋势牌';
+    spreadLayer.append(controls);
+  }
   if (activeSpread === 'inspiration') {
     const swap = document.createElement('button');
     swap.className = 'spread-swap'; swap.type = 'button';
@@ -248,6 +305,7 @@ function renderSpread() {
 }
 function snapToSpread(card, force = false, desiredSlot) {
   if (!activeSpread || !card?.isConnected) return;
+  if (activeSpread === 'stock-monthly' && (!force || desiredSlot === undefined || !card._cardData?.stockRole)) return;
   const rect = card.getBoundingClientRect();
   const slots = [...spreadLayer.querySelectorAll('.spread-slot')].map(el => ({ el, r: el.getBoundingClientRect() }))
     .filter(({ el }) => activeSpread !== 'seasons' || SEASON_GROUPS[Number(el.dataset.slot)] === tarotGroup(card._cardData))
@@ -277,7 +335,7 @@ window.addEventListener('resize', () => {
 function captureSpread() {
   const g = spreadGeometry();
   const slots = activeSpread ? spreadSlots() : [];
-  return { type: activeSpread, slots, slotWidth: g.cardWidth / g.width, slotHeight: g.cardHeight / g.height, swapped: activeSpread === 'inspiration' && inspirationSwapped, aspect: g.width / g.height, cards: placedCards.filter(c => c.isConnected).map(c => {
+  return { type: activeSpread, lenormandMode: currentDeck._lenormandMode || undefined, slots, slotWidth: g.cardWidth / g.width, slotHeight: g.cardHeight / g.height, swapped: activeSpread === 'inspiration' && inspirationSwapped, aspect: g.width / g.height, cards: placedCards.filter(c => c.isConnected).map(c => {
     const r = c.getBoundingClientRect();
     const ratio = Number(c.style.getPropertyValue('--card-image-ratio')) || 2 / 3;
     const slot = c.dataset.spreadSlot === undefined ? null : slots[Number(c.dataset.spreadSlot)];
@@ -285,13 +343,16 @@ function captureSpread() {
     const height = width / ratio;
     const centerX = slot ? g.left + slot[1] * g.width : r.x + r.width / 2;
     const centerY = slot ? g.top + slot[2] * g.height : r.y + r.height / 2;
-    return { data: c._cardData, reversed: c.dataset.reversed === 'true', revealed: c.classList.contains('revealed'), slot: c.dataset.spreadSlot, html: c.innerHTML, className: c.className, ratio: c.style.getPropertyValue('--card-image-ratio'), x: (centerX - width / 2 - g.left) / g.width, y: (centerY - height / 2 - g.top) / g.height, w: width / g.width };
+    const copy = c.cloneNode(true);
+    copy.querySelectorAll('.card-image-status').forEach(status => status.remove());
+    return { data: c._cardData, reversed: c.dataset.reversed === 'true', revealed: c.classList.contains('revealed'), slot: c.dataset.spreadSlot, html: copy.innerHTML, className: c.className, ratio: c.style.getPropertyValue('--card-image-ratio'), x: (centerX - width / 2 - g.left) / g.width, y: (centerY - height / 2 - g.top) / g.height, w: width / g.width };
   }) };
 }
 function showSpreadRecord(spread) {
   rpPhoto.replaceChildren();
   const tip = document.createElement('div'); tip.className = 'spread-record-tip';
-  tip.textContent = `${SPREADS[spread.type]?.name || '自由抽牌'} · 点击卡牌放大查看`;
+  const modeLabel = { classic: '经典36张', rana: 'Rana40张' }[spread.lenormandMode];
+  tip.textContent = [SPREADS[spread.type]?.name || '自由抽牌', modeLabel, '点击卡牌放大查看'].filter(Boolean).join(' · ');
   const board = document.createElement('div'); board.className = 'spread-record-board';
   board.dataset.spread = spread.type;
   const aspect = spread.aspect || 1;
@@ -328,6 +389,20 @@ function showSpreadRecord(spread) {
     board.append(card);
   });
   rpPhoto.append(tip, board);
+  if (spread.type === 'stock-monthly') {
+    const field = document.createElement('div');
+    field.className = 'rp-field stock-match-field';
+    const label = document.createElement('label');
+    label.htmlFor = 'rpStockMatch';
+    label.textContent = '上月行情吻合度（选填）';
+    const select = document.createElement('select');
+    select.id = label.htmlFor;
+    select.add(new Option('请选择', ''));
+    STOCK_MATCH_OPTIONS.forEach(value => select.add(new Option(value, value)));
+    select.value = STOCK_MATCH_OPTIONS.includes(spread.stockMatch) ? spread.stockMatch : '';
+    field.append(label, select);
+    rpPhoto.append(field);
+  }
 }
 renderSpread();
 new MutationObserver(() => {
